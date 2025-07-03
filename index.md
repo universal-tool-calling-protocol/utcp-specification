@@ -1,35 +1,41 @@
 ---
 title: Home
 layout: home
+nav_order: 1
 ---
 
-This is a *bare-minimum* template to create a Jekyll site that uses the [Just the Docs] theme. You can easily set the created site to be published on [GitHub Pages] – the [README] file explains how to do that, along with other details.
+# Universal Tool Calling Protocol (UTCP)
 
-If [Jekyll] is installed on your computer, you can also build and preview the created site *locally*. This lets you test changes before committing them, and avoids waiting for GitHub Pages.[^1] And you will be able to deploy your local build to a different platform than GitHub Pages.
+## Overview
 
-More specifically, the created site:
+The Universal Tool Calling Protocol (UTCP) is a modern, flexible, and scalable standard for defining and interacting with tools across a wide variety of communication protocols. It is designed to be easy to use, interoperable, and extensible, making it a powerful choice for building and consuming tool-based services.
 
-- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem
-- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages
+## Key Features
 
-Other than that, you're free to customize sites that you create with this template, however you like. You can easily change the versions of `just-the-docs` and Jekyll it uses, as well as adding further plugins.
+UTCP focuses on three core principles:
 
-[Browse our documentation][Just the Docs] to learn more about how to use this theme.
+- **Scalability**: UTCP is designed to handle a large number of tools and providers without compromising performance.
 
-To get started with creating a site, simply:
+- **Interoperability**: With support for a wide range of provider types (including HTTP, WebSockets, gRPC, and even CLI tools), UTCP can integrate with almost any existing service or infrastructure.
 
-1. click "[use this template]" to create a GitHub repository
-2. go to Settings > Pages > Build and deployment > Source, and select GitHub Actions
+- **Ease of Use**: The protocol is built on simple, well-defined data models, making it easy for developers to implement and use.
 
-If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md#hosting-your-docs-from-an-existing-project-repo) in the template README.
+## Philosophy
 
-----
+UTCP is designed with a simple philosophy: a tool-calling protocol should be a descriptive manual, not a prescriptive middleman. A UTCP definition simply tells an agent: "Here is a tool. Here is its **native endpoint** (HTTP, gRPC, CLI, etc.), and here is **how to call it directly**." 
 
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
+The protocol gets out of the way after discovery, allowing the agent to communicate directly with the tool, which eliminates many common problems:
 
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+- **No Wrapper Tax**: Just write a simple JSON definition pointing to your existing REST API, gRPC service, or CLI command. No new server needed.
+
+- **Leverage Existing Infrastructure**: Authentication, permissions, and billing are handled by the tool's native endpoint, as they should be. No re-implementation required.
+
+- **Efficient & Direct**: The agent calls the tool directly. This means lower latency, less overhead, and access to the tool's native, structured data.
+
+## Quick Start
+
+To get started with UTCP:
+
+1. [Introduction](docs/introduction) - Learn about the basic concepts and components
+2. [Provider Types](docs/providers) - Explore the various provider types supported by UTCP
+3. [Implementation Guide](docs/implementation) - Start implementing UTCP in your applications

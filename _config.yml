@@ -1,8 +1,51 @@
-title: Just the Docs Template
-description: A starter template for a Jeykll site using the Just the Docs theme!
+title: Universal Tool Calling Protocol
+description: A modern, flexible, and scalable standard for defining and interacting with tools across various communication protocols.
 theme: just-the-docs
 
-url: https://just-the-docs.github.io
+# Version information
+version: 0.1
+versions:
+  - name: "0.1"
+    url: "/v0.1/"
+    branch: "v0.1"
+    latest: false
+  - name: "latest"
+    url: "/"
+    branch: "main"
+    latest: true
+
+url: https://utcp.io
+
+# Set a path/url to a logo that will be displayed instead of the title
+# logo: "/assets/images/utcp-logo.png"
+
+# Color scheme supports "light" (default) and "dark"
+color_scheme: dark
+
+# Enable callouts
+callouts:
+  note:
+    title: Note
+    color: blue
+  warning:
+    title: Warning
+    color: yellow
+  important:
+    title: Important
+    color: red
+
+# Enable search
+search_enabled: true
+
+# Enable copy code button for code blocks
+enable_copy_code_button: true
+
+# Display the table of contents in the sidebar
+toc:
+  enabled: true
 
 aux_links:
-  Template Repository: https://github.com/just-the-docs/just-the-docs-template
+  "UTCP Specification GitHub Repository": "https://github.com/universal-tool-calling-protocol/utcp-specification"
+
+# Footer content
+footer_content: "Copyright &copy; 2025 UTCP Contributors. Distributed under the MPL 2.0 License."
