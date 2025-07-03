@@ -1,174 +1,117 @@
-# just-the-docs-template
+# Universal Tool Calling Protocol (UTCP) Specification
 
-This is a *bare-minimum* template to create a [Jekyll] site that:
+This repository contains the official specification documentation for the Universal Tool Calling Protocol (UTCP). UTCP is a modern, flexible, and scalable standard for defining and interacting with tools across various communication protocols.
 
-- uses the [Just the Docs] theme;
-- can be built and published on [GitHub Pages];
-- can be built and previewed locally, and published on other platforms.
+## What is UTCP?
 
-More specifically, the created site:
+UTCP provides a standardized way for AI systems and other clients to discover and call tools from different providers, regardless of the underlying protocol used (HTTP, WebSocket, CLI, etc.). This specification defines:
 
-- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem;
-- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages.
+- Tool discovery mechanisms
+- Tool call formats
+- Provider configuration
+- Authentication methods
+- Response handling
 
-To get started with creating a site, simply:
+## Contributing to the Specification
 
-1. click "[use this template]" to create a GitHub repository
-2. go to Settings > Pages > Build and deployment > Source, and select GitHub Actions
+We welcome contributions to the UTCP specification! Here's how you can contribute:
 
-If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](#hosting-your-docs-from-an-existing-project-repo).
+1. **Fork the repository**: Create your own fork of the specification repository
+2. **Make your changes**: Update or add documentation as needed
+3. **Submit a pull request**: Open a PR with your changes for review
+4. **Participate in discussions**: Join the conversation about proposed changes
 
-After completing the creation of your new site on GitHub, update it as needed:
+When contributing, please follow these guidelines:
 
-## Replace the content of the template pages
+- Ensure your changes align with the overall vision and goals of UTCP
+- Follow the established documentation structure and formatting
+- Include examples when adding new features or concepts
+- Update relevant sections to maintain consistency across the documentation
 
-Update the following files to your own content:
+## Building the Documentation Locally
 
-- `index.md` (your new home page)
-- `README.md` (information for those who access your site repo on GitHub)
+### Prerequisites
 
-## Changing the version of the theme and/or Jekyll
+To build and preview the documentation site locally, you'll need:
 
-Simply edit the relevant line(s) in the `Gemfile`.
+- Ruby version 2.5.0 or higher
+- RubyGems
+- Bundler
 
-## Adding a plugin
+### Setup
 
-The Just the Docs theme automatically includes the [`jekyll-seo-tag`] plugin.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/universal-tool-calling-protocol/utcp-specification.git
+   cd utcp-specification
+   ```
 
-To add an extra plugin, you need to add it in the `Gemfile` *and* in `_config.yml`. For example, to add [`jekyll-default-layout`]:
+2. Install dependencies:
+   ```bash
+   bundle install
+   ```
 
-- Add the following to your site's `Gemfile`:
+### Running the Documentation Site
 
-  ```ruby
-  gem "jekyll-default-layout"
-  ```
+To build and serve the site locally:
 
-- And add the following to your site's `_config.yml`:
+```bash
+bundle exec jekyll serve
+```
 
-  ```yaml
-  plugins:
-    - jekyll-default-layout
-  ```
+This will start a local web server at `http://localhost:4000` where you can preview the documentation.
 
-Note: If you are using a Jekyll version less than 3.5.0, use the `gems` key instead of `plugins`.
+## Documentation Structure
 
-## Publishing your site on GitHub Pages
+The UTCP documentation is organized as follows:
 
-1.  If your created site is `YOUR-USERNAME/YOUR-SITE-NAME`, update `_config.yml` to:
+- `index.md`: Homepage and introduction to UTCP
+- `docs/`
+  - `introduction.md`: Detailed introduction and core concepts
+  - `for-tool-providers.md`: Guide for implementing tool providers
+  - `for-tool-callers.md`: Guide for implementing tool callers
+  - `providers/`: Documentation for each provider type
+    - `http.md`: HTTP provider
+    - `websocket.md`: WebSocket provider
+    - `cli.md`: CLI provider
+    - `sse.md`: Server-Sent Events provider
+    - etc.
+  - `implementation.md`: Implementation guidelines and best practices
 
-    ```yaml
-    title: YOUR TITLE
-    description: YOUR DESCRIPTION
-    theme: just-the-docs
+## Working with the Specification
 
-    url: https://YOUR-USERNAME.github.io/YOUR-SITE-NAME
+### Modifying the Documentation
 
-    aux_links: # remove if you don't want this link to appear on your pages
-      Template Repository: https://github.com/YOUR-USERNAME/YOUR-SITE-NAME
-    ```
+The documentation is written in Markdown format with Jekyll front matter. When making changes:
 
-2.  Push your updated `_config.yml` to your site on GitHub.
+1. Ensure your Markdown follows the established style
+2. Preview changes locally before submitting PRs
+3. Keep examples up-to-date with the latest specification
+4. Update navigation items in `_config.yml` if adding new pages
 
-3.  In your newly created repo on GitHub:
-    - go to the `Settings` tab -> `Pages` -> `Build and deployment`, then select `Source`: `GitHub Actions`.
-    - if there were any failed Actions, go to the `Actions` tab and click on `Re-run jobs`.
+### File Organization
 
-## Building and previewing your site locally
+When adding new documentation:
 
-Assuming [Jekyll] and [Bundler] are installed on your computer:
+- Place provider-specific documentation in `docs/providers/`
+- Use consistent front matter with appropriate navigation ordering
+- Include tags for improved searchability on GitHub Pages
 
-1.  Change your working directory to the root directory of your site.
+## Version Control
 
-2.  Run `bundle install`.
+The UTCP specification follows semantic versioning:
 
-3.  Run `bundle exec jekyll serve` to build your site and preview it at `localhost:4000`.
+- Major versions (1.0, 2.0): Breaking changes to the protocol
+- Minor versions (1.1, 1.2): New features added in a backward-compatible manner
+- Patch versions (1.0.1, 1.0.2): Backward-compatible bug fixes and clarifications
 
-    The built site is stored in the directory `_site`.
+## License
 
-## Publishing your built site on a different platform
+This specification is distributed under the Mozilla Public License 2.0 (MPL-2.0).
 
-Just upload all the files in the directory `_site`.
+## Additional Resources
 
-## Customization
-
-You're free to customize sites that you create with this template, however you like!
-
-[Browse our documentation][Just the Docs] to learn more about how to use this theme.
-
-## Hosting your docs from an existing project repo
-
-You might want to maintain your docs in an existing project repo. Instead of creating a new repo using the [just-the-docs template](https://github.com/just-the-docs/just-the-docs-template), you can copy the template files into your existing repo and configure the template's Github Actions workflow to build from a `docs` directory. You can clone the template to your local machine or download the `.zip` file to access the files.
-
-### Copy the template files
-
-1.  Create a `.github/workflows` directory at your project root if your repo doesn't already have one. Copy the `pages.yml` file into this directory. GitHub Actions searches this directory for workflow files.
-
-2.  Create a `docs` directory at your project root and copy all remaining template files into this directory.
-
-### Modify the GitHub Actions workflow
-
-The GitHub Actions workflow that builds and deploys your site to Github Pages is defined by the `pages.yml` file. You'll need to edit this file to that so that your build and deploy steps look to your `docs` directory, rather than the project root.
-
-1.  Set the default `working-directory` param for the build job.
-
-    ```yaml
-    build:
-      runs-on: ubuntu-latest
-      defaults:
-        run:
-          working-directory: docs
-    ```
-
-2.  Set the `working-directory` param for the Setup Ruby step.
-
-    ```yaml
-    - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          bundler-cache: true
-          cache-version: 0
-          working-directory: '${{ github.workspace }}/docs'
-    ```
-
-3.  Set the path param for the Upload artifact step:
-
-    ```yaml
-    - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs/_site/
-    ```
-
-4.  Modify the trigger so that only changes within the `docs` directory start the workflow. Otherwise, every change to your project (even those that don't affect the docs) would trigger a new site build and deploy.
-
-    ```yaml
-    on:
-      push:
-        branches:
-          - "main"
-        paths:
-          - "docs/**"
-    ```
-
-## Licensing and Attribution
-
-This repository is licensed under the [MIT License]. You are generally free to reuse or extend upon this code as you see fit; just include the original copy of the license (which is preserved when you "make a template"). While it's not necessary, we'd love to hear from you if you do use this template, and how we can improve it for future use!
-
-The deployment GitHub Actions workflow is heavily based on GitHub's mixed-party [starter workflows]. A copy of their MIT License is available in [actions/starter-workflows].
-
-----
-
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
-
-[Jekyll]: https://jekyllrb.com
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[Bundler]: https://bundler.io
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
-[`jekyll-default-layout`]: https://github.com/benbalter/jekyll-default-layout
-[`jekyll-seo-tag`]: https://jekyll.github.io/jekyll-seo-tag
-[MIT License]: https://en.wikipedia.org/wiki/MIT_License
-[starter workflows]: https://github.com/actions/starter-workflows/blob/main/pages/jekyll.yml
-[actions/starter-workflows]: https://github.com/actions/starter-workflows/blob/main/LICENSE
+- [UTCP GitHub Organization](https://github.com/universal-tool-calling-protocol)
+- [UTCP Website](https://utcp.io)
+- [Reference Implementations](https://github.com/universal-tool-calling-protocol/python-utcp)
+- [Community Discussions](https://github.com/universal-tool-calling-protocol/utcp-specification/discussions)
