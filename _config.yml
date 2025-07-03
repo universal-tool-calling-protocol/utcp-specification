@@ -8,11 +8,11 @@ versions:
   - name: "0.1"
     url: "/v0.1/"
     branch: "v0.1"
-    latest: true
-  - name: "main"
+    latest: false
+  - name: "latest"
     url: "/"
     branch: "main"
-    latest: false
+    latest: true
 
 url: https://utcp.io
 
