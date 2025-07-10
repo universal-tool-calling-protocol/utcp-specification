@@ -22,19 +22,25 @@ MCP providers are configured using the following JSON structure:
   "provider_type": "mcp",
   "config": {
     "mcpServers": {
-      "primary": {
+      "stdio_server": {
+        "transport": "stdio",
         "command": "mcp-server",
         "args": ["--port", "8080"],
         "env": {
           "MCP_API_KEY": "$YOUR_API_KEY"
         }
+      },
+      "http_server": {
+        "transport": "http",
+        "url": "https://mcp.example.com/stream"
       }
     }
   },
   "auth": {
-    "auth_type": "api_key",
-    "api_key": "$YOUR_API_KEY",
-    "var_name": "Authorization"
+    "auth_type": "oauth2",
+    "client_id": "$YOUR_CLIENT_ID",
+    "client_secret": "$YOUR_CLIENT_SECRET",
+    "token_url": "https://auth.example.com/token"
   }
 }
 ```
@@ -47,17 +53,31 @@ MCP providers are configured using the following JSON structure:
 | `provider_type` | Yes | Must be set to `"mcp"` |
 | `config` | Yes | MCP configuration object containing server definitions |
 | `config.mcpServers` | Yes | Dictionary of MCP server configurations |
-| `auth` | No | Authentication configuration (if required) |
+| `auth` | No | Authentication configuration. Must be of type `OAuth2Auth`. |
 
 ### MCP Server Configuration
 
-Each MCP server entry in the `mcpServers` dictionary has these fields:
+Each MCP server entry in the `mcpServers` dictionary defines a connection to an MCP server and must specify its `transport` type, which can be `stdio` or `http`.
+
+#### Stdio Transport
+
+For servers connected via standard input/output.
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `command` | Yes | The command to launch the MCP server |
-| `args` | No | Command line arguments for the MCP server |
-| `env` | No | Environment variables for the MCP server |
+| `transport` | Yes | Must be `"stdio"`. |
+| `command` | Yes | The command to launch the MCP server. |
+| `args` | No | Command line arguments for the MCP server. |
+| `env` | No | Environment variables for the MCP server. |
+
+#### HTTP Transport
+
+For servers connected via streamable HTTP.
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `transport` | Yes | Must be `"http"`. |
+| `url` | Yes | The URL of the MCP server's streaming endpoint. |
 
 ## Tool Discovery
 

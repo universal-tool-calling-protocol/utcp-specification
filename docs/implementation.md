@@ -62,8 +62,7 @@ tools = [
             "description": "Weather information"
         },
         "tags": ["weather", "api"],
-        "provider": {
-            "name": "weather_service",
+        "tool_provider": {
             "provider_type": "http",
             "url": "https://api.example.com/weather",
             "http_method": "GET"
@@ -114,23 +113,35 @@ def get_weather(location: str, unit: str = "celsius"):
 Here's how you might use a UTCP client:
 
 ```python
+import asyncio
+from utcp.client import UtcpClient
+from utcp.shared.provider import HttpProvider
+
 async def main():
     # Create a client
-    client = UtcpClient()
-    
-    # Register a provider
-    await client.register_tool_provider({
-        "name": "weather_api",
-        "provider_type": "http",
-        "url": "https://api.example.com/utcp"
-    })
-    
+    client = await UtcpClient.create()
+
+    # Define the manual provider for the discovery endpoint
+    manual_provider = HttpProvider(
+        name="weather_api",
+        provider_type="http",
+        url="https://api.example.com/utcp",
+        http_method="GET"
+    )
+
+    # Register tools from the manual provider
+    await client.register_manual_provider(manual_provider)
+
     # Call a tool
-    result = await client.call_tool("weather_api.get_weather", location="San Francisco")
+    result = await client.call_tool(
+        "weather_api.get_weather", 
+        arguments={"location": "San Francisco"}
+    )
     print(f"The temperature is {result['temperature']}°C and it's {result['conditions']}")
 
 # Run the example
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 ## Best Practices

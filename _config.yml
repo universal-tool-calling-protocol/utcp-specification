@@ -19,8 +19,11 @@ url: https://utcp.io
 # Set a path/url to a logo that will be displayed instead of the title
 # logo: "/assets/images/utcp-logo.png"
 
+# Set the path to the favicon
+favicon_ico: "assets/images/black-logo-square.png"
+
 # Color scheme supports "light" (default) and "dark"
-color_scheme: dark
+color_scheme: black
 
 # Enable callouts
 callouts:

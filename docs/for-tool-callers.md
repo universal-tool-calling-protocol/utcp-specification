@@ -92,7 +92,7 @@ Here's what a typical tool definition looks like:
       "conditions": {"type": "string"}
     }
   },
-  "provider": {
+  "tool_provider": {
     "name": "weather_api",
     "provider_type": "http",
     "url": "https://api.example.com/api/weather",
@@ -136,7 +136,17 @@ UTCP supports multiple [provider types](providers), and the client handles the p
 - **SSE providers**: Server-sent events for streaming responses
 - **Other provider types**: Other provider types in the [Providers](providers) section
 
-The `UTCPClient` automatically uses the appropriate protocol based on the provider's configuration.
+The `UTCPClient` automatically uses the appropriate protocol based on its `tool_provider` configuration.
+
+## Provider Types: Manual vs. Tool
+
+It's important to understand the distinction between two types of providers in UTCP:
+
+1.  **Manual Provider**: This is the provider that a `UtcpClient` connects to for **tool discovery**. Its responsibility is to return a `UTCPManual` object (or an OpenAPI specification that can be converted into one). It defines an endpoint for discovery but doesn't execute the tools themselves. You register these with the client.
+
+2.  **Tool Provider**: This provider is defined *inside* each `Tool` object within the `UTCPManual`. Its purpose is to provide the specific connection and configuration details needed to **execute that one tool**. The `tool_provider` field contains all the information a client needs to make a call, such as the URL, HTTP method, or command-line arguments.
+
+When you register a provider with the `UtcpClient`, you are registering a **manual provider**. The client will then use the **tool providers** it discovers in the manual to execute the individual tools.
 
 ## Advanced Usage
 
@@ -146,7 +156,7 @@ The UTCP client supports various authentication methods through provider configu
 
 ```python
 from utcp import UtcpClient
-from utcp.models import Provider
+from utcp.shared.provider import HttpProvider
 
 client = UtcpClient()
 
@@ -182,6 +192,65 @@ await client.register_tool_provider(provider_with_api_key)
 await client.register_tool_provider(provider_with_oauth)
 ```
 
+### Client Configuration
+
+For more complex applications, you can configure the `UtcpClient` using a configuration object. This allows you to externalize provider definitions and manage variables more effectively.
+
+You can initialize the client by passing configuration parameters directly:
+
+```python
+from utcp import UtcpClient
+
+# Initialize client with configuration parameters
+client = await UtcpClient.create(
+    providers_file_path="providers.json",
+    load_variables_from=[
+        {"type": "dotenv", "env_file_path": ".env"}
+    ]
+)
+
+# Tools are loaded automatically from the providers file
+await client.load_tools_from_providers()
+```
+
+#### Provider Configuration File (`providers.json`)
+
+The `providers_file_path` points to a JSON file containing a list of manual provider configurations. This allows you to manage your providers without hardcoding them in your application.
+
+Example `providers.json`:
+
+```json
+[
+  {
+    "name": "weather_api",
+    "provider_type": "http",
+    "url": "https://api.example.com/utcp",
+    "http_method": "GET",
+    "auth": {
+      "auth_type": "api_key",
+      "api_key": "$WEATHER_API_KEY",
+      "var_name": "X-API-Key"
+    }
+  }
+]
+```
+
+#### Variable Management and Substitution
+
+The `load_variables_from` option allows you to load variables from external sources, such as a `.env` file. The client will automatically substitute variables in your provider configurations.
+
+- Values prefixed with `$` (like `$API_KEY`) or enclosed as `${VAR_NAME}` will be replaced.
+- The client looks for matching variables in the configuration and then in environment variables.
+- If a variable isn't found, the client raises an error.
+
+Example `.env` file:
+
+```
+WEATHER_API_KEY="your-secret-api-key"
+```
+
+This approach helps keep your secrets and other configuration values secure and separate from your codebase.
+
 ### Working with Multiple Providers
 
 You can register and use multiple providers in the same client:
@@ -212,107 +281,10 @@ You can deregister providers when they're no longer needed:
 await client.deregister_tool_provider("weather_api")
 ```
 
-## Client Configuration
+### Advanced Customization
 
-The `UtcpClient` can be initialized with a configuration file that provides variables for substitution and auto-loading of providers:
+The `UtcpClient` is designed to be extensible. For advanced use cases, you can replace its core components with your own custom implementations.
 
-```python
-from utcp import UtcpClient
+-   **Custom Tool Repositories**: By default, the client stores tools in memory. If you need to persist discovered tools in a database or a file-based cache, you can implement a custom `ToolRepository`. Learn more in the [Tool Repositories](./client/tool-repository.md) guide.
 
-# Initialize with a configuration file path
-client = UtcpClient(config_path="/path/to/utcp_config.json")
-
-# Or with a dictionary of configuration options
-client = UtcpClient(config={
-    "variables": {
-        "API_KEY": "your-secret-key",
-        "DOMAIN": "api.example.com"
-    },
-    "providers_file": "/path/to/providers.json"
-})
-```
-
-### Configuration File Format
-
-A UTCP configuration file includes these sections:
-
-```json
-{
-    "variables": {
-        "API_KEY": "your-secret-key",
-        "DOMAIN": "api.example.com"
-    },
-    "providers_file": "/path/to/providers.json",
-    "log_level": "info"
-}
-```
-
-### Variable Substitution
-
-The client automatically substitutes variables in provider configurations:
-
-1. Values prefixed with `$` (like `$API_KEY`) or enclosed as `${VAR_NAME}` will be replaced
-2. The client looks for matching variables in this order:
-   - Client configuration variables
-   - Environment variables
-3. If a variable isn't found, the client raises an error with the missing variable name
-
-```python
-# This provider config uses variables that will be replaced
-provider = HttpProvider(
-    name="weather_api",
-    provider_type="http",
-    url="https://${DOMAIN}/api/weather",
-    http_method="GET",
-    auth={
-        "auth_type": "api_key",
-        "api_key": "$API_KEY",  # Will be replaced with actual API key
-        "var_name": "X-API-Key"
-    }
-)
-```
-
-### Auto-loading Providers
-
-You can define providers in a separate JSON file and auto-load them:
-
-```json
-[
-    {
-        "name": "weather_api",
-        "provider_type": "http",
-        "url": "https://${DOMAIN}/utcp",
-        "http_method": "GET",
-        "auth": {
-            "auth_type": "api_key",
-            "api_key": "$WEATHER_API_KEY",
-            "var_name": "X-API-Key"
-        }
-    },
-    {
-        "name": "translate_api",
-        "provider_type": "http",
-        "url": "https://translate.example.com/utcp",
-        "http_method": "GET"
-    }
-]
-```
-
-Load these providers automatically:
-
-```python
-from utcp import UtcpClient
-
-# The client will load all providers from the file specified in config
-client = UtcpClient(config={
-    "variables": {
-        "API_KEY": "your-secret-key",
-        "DOMAIN": "api.example.com"
-    },
-    "providers_file": "/path/to/providers.json"
-})
-# Use the tools right away
-result = await client.call_tool("weather_api.get_weather", arguments={"location": "San Francisco"})
-```
-
-For more detailed implementation examples, see the [Implementation](implementation) page.
+-   **Custom Tool Search Strategies**: The default search strategy uses tag and description matching. If you need more sophisticated search capabilities, such as semantic search or integration with a vector database, you can implement a custom `ToolSearchStrategy`. Learn more in the [Tool Search Strategies](./client/tool-search-strategy.md) guide.

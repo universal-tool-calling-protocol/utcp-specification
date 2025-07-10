@@ -45,7 +45,7 @@ HTTP Stream providers are configured using the following JSON structure:
 | `name` | Yes | Unique identifier for the provider |
 | `provider_type` | Yes | Must be set to `"http_stream"` |
 | `url` | Yes | Full URL to the streaming endpoint |
-| `http_method` | No | HTTP method to use (default: `"GET"`) |
+| `http_method` | No | HTTP method to use (default: `"GET"`). Can be `GET` or `POST`. |
 | `content_type` | No | Content type header (default: `"application/octet-stream"`) |
 | `chunk_size` | No | Size of chunks in bytes (default: `4096`) |
 | `timeout` | No | Timeout in milliseconds (default: `60000`) |

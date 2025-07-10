@@ -64,8 +64,7 @@ def utcp_discovery():
                         "conditions": {"type": "string"}
                     }
                 },
-                "provider": {
-                    "name": "weather_api",
+                "tool_provider": {
                     "provider_type": "http",
                     "url": "https://example.com/api/weather",
                     "http_method": "GET"
@@ -92,27 +91,30 @@ uvicorn app:app --reload
 ```python
 # client.py
 import asyncio
-from utcp import UtcpClient
-from utcp.models import HttpProvider
+from utcp.client import UtcpClient
+from utcp.shared.provider import HttpProvider
 
 async def main():
     # Create a UTCP client
-    client = UtcpClient()
-    
-    # Define the provider
-    provider = HttpProvider(
-        name="weather_api",
+    client = await UtcpClient.create()
+
+    # Define the manual provider (points to the discovery endpoint)
+    manual_provider = HttpProvider(
+        name="weather_service",
         provider_type="http",
         http_method="GET",
         url="http://localhost:8000/utcp"
     )
-    
-    # Register tools from the provider
-    tools = await client.register_tool_provider(provider)
-    print(f"Registered {len(tools)} tools from {provider.name}")
-    
-    # Call a tool
-    result = await client.call_tool("weather_api.get_weather", arguments={"location": "San Francisco"})
+
+    # Register tools from the manual provider
+    tools = await client.register_manual_provider(manual_provider)
+    print(f"Registered {len(tools)} tools from {manual_provider.name}")
+
+    # Call a tool by its namespaced name: {provider_name}.{tool_name}
+    result = await client.call_tool(
+        "weather_service.get_weather", 
+        arguments={"location": "San Francisco"}
+    )
     print(f"Weather: {result['temperature']}°C, {result['conditions']}")
 
 if __name__ == "__main__":

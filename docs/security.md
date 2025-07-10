@@ -19,10 +19,13 @@ UTCP supports several authentication methods across different provider types:
   "auth": {
     "auth_type": "api_key",
     "api_key": "YOUR_API_KEY",
-    "var_name": "X-API-Key"
+    "var_name": "X-API-Key",
+    "location": "header"
   }
 }
 ```
+
+The `location` field specifies where the API key is placed, and can be `header`, `query`, or `cookie`.
 
 - **Best Practice**: Store API keys securely and rotate them regularly
 - **Risk**: API keys in configuration files can be exposed if access controls are insufficient
@@ -52,10 +55,13 @@ UTCP supports several authentication methods across different provider types:
     "auth_type": "oauth2",
     "client_id": "YOUR_CLIENT_ID",
     "client_secret": "YOUR_CLIENT_SECRET",
-    "token_url": "https://auth.example.com/token"
+    "token_url": "https://auth.example.com/token",
+    "scope": "read:tools"
   }
 }
 ```
+
+The `scope` field is optional and specifies the level of access that the client is requesting.
 
 - **Best Practice**: Implement proper token refresh and validation
 - **Risk**: Client secrets can be exposed in client-side applications

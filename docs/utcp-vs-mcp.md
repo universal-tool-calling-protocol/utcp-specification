@@ -10,8 +10,6 @@ This page compares the Universal Tool Calling Protocol (UTCP) with the Model Con
 
 ## Architectural Differences
 
-![Architecture Comparison](/assets/images/utcp-vs-mcp-architecture.png)
-
 | Aspect | MCP | UTCP |
 |--------|-----|------|
 | **Core Model** | Middleman | Manual |

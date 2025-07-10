@@ -29,7 +29,7 @@ Your discovery endpoint should return a `UTCPManual` object with the following s
       "inputs": { ... },
       "outputs": { ... },
       "tags": ["tag"],
-      "provider": { ... }
+      "tool_provider": { ... }
     }
   ]
 }
@@ -77,7 +77,7 @@ Each tool in your manual should be defined by a `Tool` object:
 | `outputs` | A schema defining the output format (follows simplified JSON Schema) |
 | `tags` | Optional list of tags for categorization and search |
 | `average_response_size` | Optional integer indicating the estimated average number of tokens returned by this tool |
-| `provider` | A `Provider` object that describes how to connect to and use the tool |
+| `tool_provider` | A `Provider` object that describes how to connect to and use the tool |
 
 ### Input and Output Schemas
 
@@ -111,7 +111,58 @@ Both `inputs` and `outputs` use a simplified JSON Schema format:
 5. **Meaningful Names**: Use descriptive, action-oriented names for tools (e.g., `get_weather`, `translate_text`)
 6. **Logical Tags**: Use tags to group related tools and aid in discovery
 
-## Provider Configuration
+## Generating Tools from an OpenAPI Specification
+
+If you already have an OpenAPI (formerly Swagger) specification for your API, you can automatically generate a `UTCPManual` using the `OpenApiConverter` utility. This saves you from having to manually define each tool.
+
+### Using the Converter
+
+The converter takes an OpenAPI specification in JSON format and produces a `UTCPManual` object. Here's how you can use it in your discovery endpoint:
+
+```python
+import json
+from fastapi import FastAPI
+from utcp.client.openapi_converter import OpenApiConverter
+
+app = FastAPI()
+
+# Load your OpenAPI specification from a file
+with open("openapi.json", "r") as f:
+    openapi_spec = json.load(f)
+
+@app.get("/utcp")
+def utcp_discovery():
+    # Convert the OpenAPI spec to a UTCP manual
+    converter = OpenApiConverter(openapi_spec)
+    utcp_manual = converter.convert()
+    return utcp_manual
+```
+
+### How it Works
+
+The `OpenApiConverter` maps OpenAPI concepts to UTCP tool definitions:
+
+- **Paths and Methods**: Each combination of a path (e.g., `/users/{id}`) and an HTTP method (`GET`, `POST`, etc.) becomes a separate tool.
+- **Operation ID**: The `operationId` from the OpenAPI operation is used as the tool's name.
+- **Summary and Description**: The `summary` and `description` fields are used for the tool's description.
+- **Parameters**: Request parameters (path, query, header, cookie) are mapped to the tool's `inputs` schema.
+- **Request Body**: The `requestBody` is also mapped to the tool's `inputs` schema.
+- **Responses**: The successful response (typically `200` or `201`) is mapped to the tool's `outputs` schema.
+- **Security Schemes**: The converter automatically detects security schemes (API Key, Basic Auth, OAuth2) and includes the appropriate `auth` configuration in the provider definition. It will even generate placeholder variables for secrets (e.g., `$PROVIDER_API_KEY`).
+
+By using the converter, you can quickly expose your existing API as a set of UTCP tools with minimal effort.
+
+## Provider Types: Manual vs. Tool
+
+It's important to understand the distinction between two types of providers in UTCP:
+
+1.  **Manual Provider**: This is the provider that a `UtcpClient` connects to for **tool discovery**. Its responsibility is to return a `UTCPManual` object (or an OpenAPI specification that can be converted into one). It defines an endpoint for discovery but doesn't execute the tools themselves.
+
+2.  **Tool Provider**: This provider is defined *inside* each `Tool` object within the `UTCPManual`. Its purpose is to provide the specific connection and configuration details needed to **execute that one tool**. The `tool_provider` field contains all the information a client needs to make a call, such as the URL, HTTP method, or command-line arguments.
+
+In simple cases, a single service might act as both a manual provider (at its discovery endpoint) and a tool provider (for the tools it offers). In more complex scenarios, a manual provider could return a manual listing tools from many different tool providers.
+
+## Tool Provider Configuration
 
 The provider object tells clients how to call your tool:
 
@@ -148,12 +199,20 @@ You can also use the `${VAR}` syntax for more complex strings:
 {: .important }
 When providing tool definitions, make sure to document which variables users need to set in their environment or configuration.
 
-For details on provider-specific configuration, see:
-- [HTTP Provider](providers/http)
-- [WebSocket Provider](providers/websocket)
-- [CLI Provider](providers/cli)
-- [SSE Provider](providers/sse)
-- Other provider types in the [Providers](providers) section
+For details on provider-specific configuration, see the dedicated pages for each type:
+
+- [HTTP Provider](providers/http.md)
+- [HTTP Stream Provider](providers/http-stream.md)
+- [Server-Sent Events (SSE) Provider](providers/sse.md)
+- [WebSocket Provider](providers/websocket.md)
+- [gRPC Provider](providers/grpc.md)
+- [GraphQL Provider](providers/graphql.md)
+- [Command-Line (CLI) Provider](providers/cli.md)
+- [Model Context Protocol (MCP) Provider](providers/mcp.md)
+- [Text File Provider](providers/text.md)
+- [TCP Provider](providers/tcp.md)
+- [UDP Provider](providers/udp.md)
+- [WebRTC Provider](providers/webrtc.md)
 
 ## Implementing a Discovery Endpoint
 

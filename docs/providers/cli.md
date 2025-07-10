@@ -21,10 +21,9 @@ CLI providers are configured using the following JSON structure:
   "name": "my_cli_tool",
   "provider_type": "cli",
   "command_name": "my-command",
-  "auth": {
-    "auth_type": "api_key",
-    "api_key": "$YOUR_API_KEY",
-    "var_name": "X-API-Key"
+  "working_dir": "/path/to/data",
+  "env_vars": {
+    "MY_VAR": "some_value"
   }
 }
 ```
@@ -35,8 +34,9 @@ CLI providers are configured using the following JSON structure:
 |-------|----------|--------------|
 | `name` | Yes | Unique identifier for the provider |
 | `provider_type` | Yes | Must be set to `"cli"` |
-| `command_name` | No | Name of the CLI command to execute (defaults to tool name if not specified) |
-| `auth` | No | Authentication configuration (only supports API key or basic auth) |
+| `command_name` | Yes | Name of the CLI command to execute. |
+| `working_dir` | No | The working directory from which to run the command. |
+| `env_vars` | No | A dictionary of environment variables to set for the command's execution context. |
 
 ## Tool Discovery
 

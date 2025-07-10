@@ -24,7 +24,12 @@ HTTP providers are configured using the following JSON structure:
     "auth_type": "api_key",
     "api_key": "YOUR_API_KEY",
     "var_name": "X-API-Key"
-  }
+  },
+  "headers": {
+    "X-Custom-Header": "custom_value"
+  },
+  "body_field": "request_body",
+  "header_fields": ["user_id"]
 }
 ```
 
@@ -35,9 +40,12 @@ HTTP providers are configured using the following JSON structure:
 | `name` | Yes | Unique identifier for the provider |
 | `provider_type` | Yes | Must be set to `"http"` |
 | `url` | Yes | Full URL to the API endpoint |
-| `http_method` | No | HTTP method to use (default: `"POST"`) |
+| `http_method` | No | HTTP method to use (default: `"GET"`). Can be `GET`, `POST`, `PUT`, `DELETE`, or `PATCH`. |
 | `content_type` | No | Content type header (default: `"application/json"`) |
 | `auth` | No | Authentication configuration (if required) |
+| `headers` | No | A dictionary of static headers to include in every request. |
+| `body_field`| No | The name of a single input field to be sent as the raw request body. If not provided, all inputs are sent as a JSON object. |
+| `header_fields`| No | A list of input fields to be sent as request headers instead of in the body or query string. |
 
 ## Tool Discovery
 
@@ -147,6 +155,31 @@ When calling a tool with this provider, parameters would be sent in the request 
 POST https://api.translation.com/translate
 Header: X-API-Key: abcd1234
 Body: {"text": "Hello world", "target_language": "es"}
+```
+
+### Advanced Usage: `body_field` and `header_fields`
+
+You can use `body_field` to send a single parameter as the raw request body, and `header_fields` to map tool inputs to HTTP headers.
+
+```json
+{
+  "name": "file_upload_api",
+  "provider_type": "http",
+  "url": "https://api.example.com/upload",
+  "http_method": "POST",
+  "content_type": "text/plain",
+  "body_field": "file_content",
+  "header_fields": ["X-File-Name", "X-User-ID"]
+}
+```
+
+If a tool with this provider is called with inputs `{"file_content": "...", "X-File-Name": "report.txt", "X-User-ID": "user123"}` the request would be:
+
+```
+POST https://api.example.com/upload
+Header: X-File-Name: report.txt
+Header: X-User-ID: user123
+Body: ... (raw content of file_content)
 ```
 
 ## Best Practices
