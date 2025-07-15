@@ -20,7 +20,7 @@ url: https://utcp.io
 # logo: "/assets/images/utcp-logo.png"
 
 # Set the path to the favicon
-favicon_ico: "assets/images/black-logo-square.png"
+favicon_ico: "./assets/images/black-logo-square.ico"
 
 # Color scheme supports "light" (default) and "dark"
 color_scheme: black
