@@ -285,6 +285,6 @@ await client.deregister_tool_provider("weather_api")
 
 The `UtcpClient` is designed to be extensible. For advanced use cases, you can replace its core components with your own custom implementations.
 
--   **Custom Tool Repositories**: By default, the client stores tools in memory. If you need to persist discovered tools in a database or a file-based cache, you can implement a custom `ToolRepository`. Learn more in the [Tool Repositories](./client/tool-repository.md) guide.
+-   **Custom Tool Repositories**: By default, the client stores tools in memory. If you need to persist discovered tools in a database or a file-based cache, you can implement a custom `ToolRepository`. Learn more in the [Tool Repositories](./client/tool-repository) guide.
 
--   **Custom Tool Search Strategies**: The default search strategy uses tag and description matching. If you need more sophisticated search capabilities, such as semantic search or integration with a vector database, you can implement a custom `ToolSearchStrategy`. Learn more in the [Tool Search Strategies](./client/tool-search-strategy.md) guide.
+-   **Custom Tool Search Strategies**: The default search strategy uses tag and description matching. If you need more sophisticated search capabilities, such as semantic search or integration with a vector database, you can implement a custom `ToolSearchStrategy`. Learn more in the [Tool Search Strategies](./client/tool-search-strategy) guide.

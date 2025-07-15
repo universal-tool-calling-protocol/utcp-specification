@@ -201,18 +201,18 @@ When providing tool definitions, make sure to document which variables users nee
 
 For details on provider-specific configuration, see the dedicated pages for each type:
 
-- [HTTP Provider](providers/http.md)
-- [HTTP Stream Provider](providers/http-stream.md)
-- [Server-Sent Events (SSE) Provider](providers/sse.md)
-- [WebSocket Provider](providers/websocket.md)
-- [gRPC Provider](providers/grpc.md)
-- [GraphQL Provider](providers/graphql.md)
-- [Command-Line (CLI) Provider](providers/cli.md)
-- [Model Context Protocol (MCP) Provider](providers/mcp.md)
-- [Text File Provider](providers/text.md)
-- [TCP Provider](providers/tcp.md)
-- [UDP Provider](providers/udp.md)
-- [WebRTC Provider](providers/webrtc.md)
+- [HTTP Provider](providers/http)
+- [HTTP Stream Provider](providers/http-stream)
+- [Server-Sent Events (SSE) Provider](providers/sse)
+- [WebSocket Provider](providers/websocket)
+- [gRPC Provider](providers/grpc)
+- [GraphQL Provider](providers/graphql)
+- [Command-Line (CLI) Provider](providers/cli)
+- [Model Context Protocol (MCP) Provider](providers/mcp)
+- [Text File Provider](providers/text)
+- [TCP Provider](providers/tcp)
+- [UDP Provider](providers/udp)
+- [WebRTC Provider](providers/webrtc)
 
 ## Implementing a Discovery Endpoint
 
