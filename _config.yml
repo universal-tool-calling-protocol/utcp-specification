@@ -15,7 +15,6 @@ versions:
     latest: true
 
 url: https://utcp.io
-baseurl: "/v0.1"
 
 # For version-specific builds, set the appropriate baseurl
 # For example, when building the v0.1 version: baseurl: "/v0.1"
