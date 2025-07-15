@@ -19,6 +19,9 @@ url: https://utcp.io
 # Set a path/url to a logo that will be displayed instead of the title
 # logo: "/assets/images/utcp-logo.png"
 
+# Set the path to the favicon
+favicon_ico: "site.favicon_ico"
+
 # Color scheme supports "light" (default) and "dark"
 color_scheme: black
 
