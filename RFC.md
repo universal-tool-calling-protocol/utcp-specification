@@ -7,11 +7,11 @@ permalink: /RFC
 
 # UTCP 1.0.0
 
-| | |
 | --- | --- |
 | **Status** | Draft |
 | **Author** | Razvan-Ion Radulescu |
 | **License** | MPL-2.0 |
+| **Feedback** | [GitHub](https://github.com/universal-tool-calling-protocol/utcp-specification/issues/18) |
 
 ## Summary
 
