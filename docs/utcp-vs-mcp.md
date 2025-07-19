@@ -83,6 +83,10 @@ Consider an organization with an existing REST API that they want to expose to A
 2. Expose this definition via a discovery endpoint (typically `/utcp`)
 3. The AI agent can now call the REST API directly
 
+## Code comparison
+
+You can find a full typescript example detailing the MCP and UTCP approach [here](https://github.com/universal-tool-calling-protocol/typescript-utcp/tree/main/examples/src/concrete_example).
+
 ## Conclusion
 
 Both MCP and UTCP aim to solve the problem of standardizing tool calling for AI agents, but they take fundamentally different approaches.

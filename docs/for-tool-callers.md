@@ -50,6 +50,14 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
+## Integrating with Large Language Models (LLMs)
+
+The `UtcpClient` is designed to be easily integrated into applications that use Large Language Models (LLMs) for function calling. For a complete example of how to use `UtcpClient` with an LLM like OpenAI's GPT, see the example file below:
+
+- [Full LLM Example with OpenAI](https://github.com/universal-tool-calling-protocol/python-utcp/blob/main/example/src/full_llm_example/openai_utcp_example.py)
+
+This example demonstrates how to wrap the `UtcpClient` to make its tools available to an LLM, handle tool calls from the model, and return the results.
+
 ## Tool Namespacing
 
 UTCP uses a simple namespacing convention to avoid name conflicts:
