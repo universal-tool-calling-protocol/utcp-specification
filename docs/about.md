@@ -19,7 +19,7 @@ We believe in the power of open source collaboration. This project thrives on co
 
 ## Contributors
 
-### Main Contributors
+### UTCP Admin
 - Razvan-Ion Radulescu ([Bevel Software](https://www.bevel.software), razvan.radulescu@bevel.software)
 - Andrei-Stefan Ghiurtu ([LinkedIn](https://www.linkedin.com/in/andrei-stefan-ghiurtu/))
 - Ulugbek Isroilov ([LinkedIn](https://www.linkedin.com/in/ulugbekisroilov/))
@@ -27,6 +27,9 @@ We believe in the power of open source collaboration. This project thrives on co
 ### Distribution Team
 - Juan Viera Garcia ([Bevel Software](https://www.bevel.software), juan@bevel.software)
 - Ali Raza ([Bevel Software](https://www.bevel.software), ali.raza@bevel.software)
+
+### Go Port Maintainer
+- Kamil Mościszko ([LinkedIn](https://www.linkedin.com/in/kamilm97/), kmosc@protonmail.com)
 
 ## Join Us
 
