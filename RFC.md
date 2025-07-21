@@ -17,7 +17,7 @@ permalink: /RFC
 
 This document proposes the Universal Tool Calling Protocol (UTCP), a specification that enables applications, including but not limited to AI agents, to discover and use external tools by interacting with them directly via their native protocols. 
 
-The idea behind it is to decouple a tool call (name of tool and parameters) from the infrastructure required to call it and to do so in a way that levarages existing infrastructure and security.
+The idea behind it is to decouple a tool call (name of tool and parameters) from the infrastructure required to call it and to do so in a way that leverages existing infrastructure and security.
 
 UTCP does this by specifying a "manual", where a tool provider publishes a standardized description of its "tools" together with the necessary information to call them (named in the following "transport", previously known as "provider"). 
 

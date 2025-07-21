@@ -31,6 +31,10 @@ We believe in the power of open source collaboration. This project thrives on co
 ### Go Port Maintainer
 - Kamil Mościszko ([LinkedIn](https://www.linkedin.com/in/kamilm97/), kmosc@protonmail.com)
 
+### Contributors
+- Luca Perrozzi ([LinkedIn](https://www.linkedin.com/in/luca-perrozzi/))
+- Roberto Catalano ([LinkedIn](https://www.linkedin.com/in/roberto-catalano-5b7793123/), [GitHub](https://github.com/Robobc))
+
 ## Join Us
 
 We welcome new contributors! Whether you're interested in improving documentation, developing new features, or providing feedback, there are many ways to get involved.
