@@ -91,7 +91,7 @@ uvicorn app:app --reload
 ```python
 # client.py
 import asyncio
-from utcp.client import UtcpClient
+from utcp.client.utcp_client import UtcpClient
 from utcp.shared.provider import HttpProvider
 
 async def main():
