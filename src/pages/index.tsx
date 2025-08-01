@@ -25,8 +25,7 @@ function HomepageHeader() {
           </Link>
           <Link
             className="button button--outline button--lg"
-            to="https://github.com/universal-tool-calling-protocol"
-            style={{marginLeft: '10px'}}>
+            to="https://github.com/universal-tool-calling-protocol">
             💻 View on GitHub
           </Link>
         </div>
