@@ -1,0 +1,216 @@
+.registryContainer {
+  min-height: 70vh;
+  padding: 2rem 0;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #cccccc;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 500px;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border: 2px solid #333333;
+  border-radius: 10px;
+  background-color: #111111;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.searchInput:focus {
+  border-color: #ffffff;
+}
+
+.searchInput::placeholder {
+  color: #888888;
+}
+
+.providersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.providerCard {
+  background-color: #111111;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.providerCard:hover {
+  transform: translateY(-4px);
+  border-color: #666666;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #333333;
+}
+
+.cardHeaderLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.cardFooter {
+  border-top: 1px solid #333333;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.copyButton {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #666666;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.copyButton:hover {
+  background-color: #444444;
+  border-color: #888888;
+}
+
+.copyButton:active {
+  transform: translateY(1px);
+}
+
+.downloadButton {
+  background-color: #2d5a27;
+  color: #ffffff;
+  border: 1px solid #4a8c3a;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: 150px;
+}
+
+.downloadButton:hover:not(:disabled) {
+  background-color: #3a6b33;
+  border-color: #5ba048;
+}
+
+.downloadButton:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.downloadButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.providerName {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+}
+
+.providerType {
+  background-color: #333333;
+  color: #ffffff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  width: fit-content;
+  display: inline-block;
+}
+
+.cardContent {
+  color: #cccccc;
+}
+
+.cardContent p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.cardContent strong {
+  color: #ffffff;
+}
+
+.cardContent a {
+  color: #ffffff;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.cardContent a:hover {
+  color: #cccccc;
+}
+
+.loading {
+  text-align: center;
+  padding: 4rem 0;
+  font-size: 1.2rem;
+  color: #cccccc;
+}
+
+.noResults {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 0;
+  font-size: 1.2rem;
+  color: #cccccc;
+}
+
+@media (max-width: 768px) {
+  .providersGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .searchInput {
+    margin: 0 1rem;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+}

@@ -88,6 +88,10 @@ const config: Config = {
             to: '/about/contributing',
             from: '/CONTRIBUTING',
           },
+          {
+            to: '/about/about-us',
+            from: '/about',
+          },
         ],
       },
     ],
@@ -122,6 +126,11 @@ const config: Config = {
           position: 'left',
           label: 'RFC',
           docsPluginId: 'about',
+        },
+        {
+          to: '/registry',
+          position: 'left',
+          label: 'Registry',
         },
         {
           type: 'docsVersionDropdown',
