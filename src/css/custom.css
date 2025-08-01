@@ -1,0 +1,135 @@
+/**
+ * Black theme for UTCP documentation
+ * Complete dark mode with black backgrounds
+ */
+
+/* Force dark theme variables globally */
+:root {
+  --ifm-color-primary: #ffffff;
+  --ifm-color-primary-dark: #e6e6e6;
+  --ifm-color-primary-darker: #d9d9d9;
+  --ifm-color-primary-darkest: #b3b3b3;
+  --ifm-color-primary-light: #ffffff;
+  --ifm-color-primary-lighter: #ffffff;
+  --ifm-color-primary-lightest: #ffffff;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+  
+  /* Black theme colors */
+  --ifm-background-color: #000000;
+  --ifm-background-surface-color: #111111;
+  --ifm-color-content: #ffffff;
+  --ifm-color-content-secondary: #cccccc;
+  --ifm-footer-background-color: #000000;
+  --ifm-navbar-background-color: #000000;
+  --ifm-navbar-link-color: #ffffff;
+  --ifm-menu-color: #ffffff;
+  --ifm-menu-color-background-active: #222222;
+  --ifm-menu-color-background-hover: #1a1a1a;
+  --ifm-toc-link-color: #cccccc;
+  --ifm-color-emphasis-100: #1a1a1a;
+  --ifm-color-emphasis-200: #2d2d2d;
+  --ifm-color-emphasis-300: #404040;
+  --ifm-color-emphasis-400: #666666;
+  --ifm-color-emphasis-500: #999999;
+  --ifm-color-emphasis-600: #cccccc;
+  --ifm-color-emphasis-700: #e6e6e6;
+  --ifm-color-emphasis-800: #f2f2f2;
+  --ifm-color-emphasis-900: #ffffff;
+}
+
+/* Ensure everything is black */
+html[data-theme='dark'] {
+  --ifm-color-primary: #ffffff;
+  --ifm-color-primary-dark: #e6e6e6;
+  --ifm-color-primary-darker: #d9d9d9;
+  --ifm-color-primary-darkest: #b3b3b3;
+  --ifm-color-primary-light: #ffffff;
+  --ifm-color-primary-lighter: #ffffff;
+  --ifm-color-primary-lightest: #ffffff;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* Global black background */
+html, body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Force all containers to be black */
+.main-wrapper,
+.navbar,
+.footer,
+.table-of-contents,
+.menu,
+.sidebar {
+  background-color: #000000 !important;
+}
+
+/* Tables styling */
+.table {
+  --ifm-table-background: #000000;
+  --ifm-table-stripe-background: #1a1a1a;
+  --ifm-table-border-color: #333333;
+  color: #ffffff;
+}
+
+.table th,
+.table td {
+  border-color: #333333;
+  color: #ffffff;
+}
+
+/* Card and content styling */
+/* .card,
+.markdown {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+} */
+
+/* Links styling */
+a {
+  color: #ffffff !important;
+}
+
+a:hover {
+  color: #cccccc !important;
+}
+
+/* Button styling */
+.button--outline {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.button--outline:hover {
+  background-color: #ffffff;
+  color: #000000;
+} 
+
+/* Code blocks */
+.prism-code {
+  background-color: #111111 !important;
+}
+
+/* Sidebar */
+.theme-doc-sidebar-container {
+  background-color: #000000 !important;
+  border-right: 1px solid #333333 !important;
+}
+
+/* Additional comprehensive black background overrides */
+* {
+  --ifm-background-color: #000000 !important;
+  --ifm-background-surface-color: #000000 !important;
+}
+
+/* Override any remaining grey backgrounds */
+[data-theme='dark'] {
+  --ifm-background-color: #000000 !important;
+  --ifm-background-surface-color: #000000 !important;
+  --ifm-color-secondary-contrast-background: #000000 !important;
+  --ifm-color-secondary-contrast-foreground: #ffffff !important;
+  --ifm-breadcrumb-color-active: #ffffff !important;
+  --ifm-breadcrumb-item-background-active: #000000 !important;
+}

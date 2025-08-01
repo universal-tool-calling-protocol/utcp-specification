@@ -1,0 +1,25 @@
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.featureSvg {
+  height: 200px;
+  width: 200px;
+}
+
+/* Ensure all content in features sections is properly styled */
+.features * {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.features .container,
+.features .row,
+.features .col {
+  background-color: transparent !important;
+}
