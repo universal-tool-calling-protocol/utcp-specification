@@ -20,7 +20,7 @@
           },
           "sources": {
             "type": "string",
-            "description": "A comma-seperated string of identifiers (maximum 20) for the news sources or blogs you want headlines from."
+          "description": "A comma-separated string of identifiers (maximum 20) for the news sources or blogs you want headlines from."
           },
           "domains": {
             "type": "string",
