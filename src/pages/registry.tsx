@@ -187,7 +187,7 @@ export default function Registry(): ReactNode {
             <div className={styles.providersGrid}>
               {filteredProviders.length > 0 ? (
                 filteredProviders.map((provider, index) => (
-                  <ProviderCard key={index} provider={provider} />
+                  <ProviderCard key={provider.name} provider={provider} />
                 ))
               ) : (
                 <div className={styles.noResults}>
