@@ -6,6 +6,10 @@ sidebar_position: 12
 
 # Text Provider (WIP)
 
+:::warning
+
+> This provider type is currently a Work In Progress (WIP) and may be subject to changes.
+
 The Text provider enables UTCP to interact with tools defined in local text files, which is useful for file-based tools or for creating aggregated collections of tools from different providers.
 
 ## Configuration
