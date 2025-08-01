@@ -96,6 +96,29 @@ a:hover {
   color: #cccccc !important;
 }
 
+/* Content links with underlines (exclude navbar and sidebar) */
+.markdown a,
+article a,
+.theme-doc-markdown a,
+[class*="features"] a {
+  text-decoration: underline;
+}
+
+.markdown a:hover,
+article a:hover,
+.theme-doc-markdown a:hover,
+[class*="features"] a:hover {
+  text-decoration: underline;
+}
+
+/* Ensure navbar and sidebar links don't have underlines */
+.navbar a,
+.menu a,
+.sidebar a,
+.theme-doc-sidebar-container a {
+  text-decoration: none !important;
+}
+
 /* Button styling */
 .button--outline {
   border-color: #ffffff;
