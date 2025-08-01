@@ -108,7 +108,7 @@ async def main():
     )
 
     # Register tools from the manual provider
-    tools = await client.register_manual_provider(manual_provider)
+    tools = await client.register_tool_provider(manual_provider)
     print(f"Registered {len(tools)} tools from {manual_provider.name}")
 
     # Call a tool by its namespaced name: {provider_name}.{tool_name}

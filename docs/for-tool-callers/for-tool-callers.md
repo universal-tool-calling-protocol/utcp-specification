@@ -23,8 +23,8 @@ The `utcp` package provides a ready-to-use client for discovering and calling to
 
 ```python
 import asyncio
-from utcp import UtcpClient
-from utcp.models import Provider
+from utcp.client.utcp_client import UtcpClient
+from utcp.shared.provider import HttpProvider
 
 async def main():
     # Create a UTCP client
@@ -163,7 +163,7 @@ When you register a provider with the `UtcpClient`, you are registering a **manu
 The UTCP client supports various authentication methods through provider configuration:
 
 ```python
-from utcp import UtcpClient
+from utcp.client.utcp_client import UtcpClient
 from utcp.shared.provider import HttpProvider
 
 client = UtcpClient()
@@ -207,7 +207,7 @@ For more complex applications, you can configure the `UtcpClient` using a config
 You can initialize the client by passing configuration parameters directly:
 
 ```python
-from utcp import UtcpClient
+from utcp.client.utcp_client import UtcpClient
 
 # Initialize client with configuration parameters
 client = await UtcpClient.create(

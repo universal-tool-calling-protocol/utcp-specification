@@ -73,7 +73,7 @@ class JsonFileToolRepository(ToolRepository):
 You can then instruct the `UtcpClient` to use your custom repository during instantiation:
 
 ```python
-from utcp.client import UtcpClient
+from utcp.client.utcp_client import UtcpClient
 
 # Instantiate your custom repository
 json_repo = JsonFileToolRepository("my_tools.json")
