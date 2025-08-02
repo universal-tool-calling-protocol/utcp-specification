@@ -4,18 +4,39 @@
         "provider_type": "http",
         "http_method": "GET",
         "url": "https://openlibrary.org/static/openapi.json",
-        "content_type": "application/json"
+        "content_type": "application/json",
+        "metadata": {
+            "description": "Open Library API for accessing book information and catalog data",
+            "category": "Books & Literature",
+            "last_updated": "2024-01-15",
+            "maintainer": "Internet Archive",
+            "documentation_url": "https://openlibrary.org/developers/api"
+        }
     },
     {
         "name": "newsapi",
         "provider_type": "text",
-        "file_path": "./newsapi_manual.json"
+        "file_path": "./newsapi_manual.json",
+        "metadata": {
+            "description": "News API for accessing current and historic news articles",
+            "category": "News & Media",
+            "last_updated": "2024-01-10",
+            "maintainer": "NewsAPI.org",
+            "documentation_url": "https://newsapi.org/docs"
+        }
     },
     {
         "name": "openai",
         "provider_type": "http",
         "http_method": "GET",
         "url": "https://raw.githubusercontent.com/openai/openai-openapi/refs/heads/manual_spec/openapi.yaml",
-        "content_type": "application/x-yaml"
+        "content_type": "application/x-yaml",
+        "metadata": {
+            "description": "OpenAI API for accessing GPT models and AI capabilities",
+            "category": "AI & Machine Learning",
+            "last_updated": "2024-01-20",
+            "maintainer": "OpenAI",
+            "documentation_url": "https://platform.openai.com/docs"
+        }
     }
 ]

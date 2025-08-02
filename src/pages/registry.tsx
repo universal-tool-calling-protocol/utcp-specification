@@ -6,16 +6,25 @@ import styles from './registry.module.css';
 interface Provider {
   name: string;
   provider_type: string;
+  metadata?: {
+    description?: string;
+    category?: string;
+    last_updated?: string;
+    maintainer?: string;
+    documentation_url?: string;
+    [key: string]: any;
+  };
   [key: string]: any;
 }
 
 function ProviderCard({ provider }: { provider: Provider }) {
   const [copySuccess, setCopySuccess] = useState(false);
-  const [downloadLoading, setDownloadLoading] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(JSON.stringify(provider, null, 2));
+      const { metadata, ...providerWithoutMetadata } = provider;
+      await navigator.clipboard.writeText(JSON.stringify(providerWithoutMetadata, null, 2));
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2000);
     } catch (err) {
@@ -23,34 +32,35 @@ function ProviderCard({ provider }: { provider: Provider }) {
     }
   };
 
-  const downloadManual = async () => {
-    if (provider.provider_type !== 'text' || !provider.file_path) return;
-    
-    setDownloadLoading(true);
-    try {
-      // Extract filename from file_path properly handling any path format
-      const filename = provider.file_path.split(/[\\\/]/).pop() || provider.file_path;
-      const response = await fetch(`/manuals/${filename}`);
-      
-      if (!response.ok) {
-        throw new Error(`Failed to download: ${response.statusText}`);
-      }
-      
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    } catch (err) {
-      console.error('Failed to download manual:', err);
-      alert('Failed to download manual file');
-    } finally {
-      setDownloadLoading(false);
-    }
+
+
+  const getProviderIcon = (type: string) => {
+    const iconMap = {
+      'http': '🌐',
+      'websocket': '🔌',
+      'grpc': '⚡',
+      'tcp': '🔗',
+      'udp': '📡',
+      'text': '📄',
+      'cli': '💻',
+      'graphql': '🎯',
+      'sse': '📈',
+      'webrtc': '📹'
+    };
+    return iconMap[type.toLowerCase()] || '🔧';
+  };
+
+  const getCategoryColor = (category: string) => {
+    const colorMap = {
+      'Books & Literature': '#8B5CF6',
+      'News & Media': '#EF4444',
+      'AI & ML': '#06B6D4',
+      'Finance': '#10B981',
+      'Social': '#F59E0B',
+      'Entertainment': '#EC4899',
+      'Development': '#3B82F6'
+    };
+    return colorMap[category] || '#6B7280';
   };
 
   const formatPropertyName = (key: string): string => {
@@ -81,8 +91,8 @@ function ProviderCard({ provider }: { provider: Provider }) {
     return <span>{value.toString()}</span>;
   };
 
-  const renderProviderDetails = () => {
-    const excludedKeys = ['name', 'provider_type'];
+  const renderTechnicalDetails = () => {
+    const excludedKeys = ['name', 'provider_type', 'metadata'];
     
     return Object.entries(provider)
       .filter(([key]) => !excludedKeys.includes(key))
@@ -90,42 +100,108 @@ function ProviderCard({ provider }: { provider: Provider }) {
         if (value === null || value === undefined) return null;
         
         return (
-          <p key={key}>
-            <strong>{formatPropertyName(key)}:</strong> {renderPropertyValue(key, value)}
-          </p>
+          <div key={key} className={styles.techDetail}>
+            <span className={styles.techLabel}>{formatPropertyName(key)}:</span>
+            <span className={styles.techValue}>{renderPropertyValue(key, value)}</span>
+          </div>
         );
       })
       .filter(Boolean);
   };
 
+  const description = provider.metadata?.description || 'No description available';
+  const category = provider.metadata?.category || 'Other';
+  const maintainer = provider.metadata?.maintainer;
+  const documentationUrl = provider.metadata?.documentation_url;
+
   return (
     <div className={styles.providerCard}>
+      {/* Header */}
       <div className={styles.cardHeader}>
-        <div className={styles.cardHeaderLeft}>
-          <h3 className={styles.providerName}>{provider.name}</h3>
-          <span className={styles.providerType}>{provider.provider_type}</span>
+        <div className={styles.providerIcon}>
+          {getProviderIcon(provider.provider_type)}
         </div>
+        <div className={styles.headerContent}>
+          <h3 className={styles.providerName}>{provider.name}</h3>
+          <div className={styles.badges}>
+            <span 
+              className={styles.categoryBadge}
+              style={{ backgroundColor: getCategoryColor(category) }}
+            >
+              {category}
+            </span>
+            <span className={styles.typeBadge}>
+              {provider.provider_type.toUpperCase()}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Description */}
+      <p className={styles.description}>{description}</p>
+
+      {/* Maintainer (if available) */}
+      {maintainer && (
+        <div className={styles.maintainerInfo}>
+          <span className={styles.maintainerLabel}>by</span>
+          <span className={styles.maintainerName}>{maintainer}</span>
+        </div>
+      )}
+
+      {/* Action Buttons */}
+      <div className={styles.actionButtons}>
         <button 
           className={styles.copyButton}
           onClick={copyToClipboard}
           title="Copy JSON to clipboard"
         >
-          {copySuccess ? '✓ Copied!' : '📋 Copy'}
+          {copySuccess ? '✓ Copied' : '📋 Copy'}
+        </button>
+        
+        {documentationUrl && (
+          <a 
+            href={documentationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.docsButton}
+            title="View documentation"
+          >
+            📖 Docs
+          </a>
+        )}
+        
+        <button 
+          className={styles.expandButton}
+          onClick={() => setExpanded(!expanded)}
+          title={expanded ? 'Hide details' : 'Show technical details'}
+        >
+          {expanded ? '🔼 Less' : '🔽 More'}
         </button>
       </div>
-      <div className={styles.cardContent}>
-        {renderProviderDetails()}
-      </div>
-      {provider.provider_type === 'text' && provider.file_path && (
-        <div className={styles.cardFooter}>
-          <button 
-            className={styles.downloadButton}
-            onClick={downloadManual}
-            disabled={downloadLoading}
-            title="Download manual JSON file"
-          >
-            {downloadLoading ? '⏳ Loading...' : '📄 Download Manual'}
-          </button>
+
+      {/* Expanded Technical Details */}
+      {expanded && (
+        <div className={styles.expandedContent}>
+          <h4 className={styles.techTitle}>Technical Details</h4>
+          <div className={styles.techGrid}>
+            {renderTechnicalDetails()}
+          </div>
+          {provider.metadata && (
+            <>
+              <h4 className={styles.techTitle}>Metadata</h4>
+              <div className={styles.techGrid}>
+                {Object.entries(provider.metadata)
+                  .filter(([key]) => !['description', 'category'].includes(key))
+                  .map(([key, value]) => (
+                    <div key={key} className={styles.techDetail}>
+                      <span className={styles.techLabel}>{formatPropertyName(key)}:</span>
+                      <span className={styles.techValue}>{renderPropertyValue(key, value)}</span>
+                    </div>
+                  ))
+                }
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>
@@ -155,7 +231,10 @@ export default function Registry(): ReactNode {
   useEffect(() => {
     const filtered = providers.filter(provider =>
       provider.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      provider.provider_type.toLowerCase().includes(searchTerm.toLowerCase())
+      provider.provider_type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (provider.metadata?.description?.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (provider.metadata?.category?.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (provider.metadata?.maintainer?.toLowerCase().includes(searchTerm.toLowerCase()))
     );
     setFilteredProviders(filtered);
   }, [searchTerm, providers]);

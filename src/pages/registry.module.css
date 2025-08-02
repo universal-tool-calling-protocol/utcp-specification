@@ -52,137 +52,208 @@
 
 .providersGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
 .providerCard {
   background-color: #111111;
   border: 1px solid #333333;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 1.5rem;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .providerCard:hover {
-  transform: translateY(-4px);
-  border-color: #666666;
+  transform: translateY(-2px);
+  border-color: #555555;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .cardHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #333333;
-}
-
-.cardHeaderLeft {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
   align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.cardFooter {
-  border-top: 1px solid #333333;
-  padding-top: 1rem;
-  margin-top: 1rem;
+.providerIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.headerContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.badges {
   display: flex;
-  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
 }
 
-.copyButton {
-  background-color: #333333;
+.categoryBadge {
+  background-color: #8B5CF6;
   color: #ffffff;
-  border: 1px solid #666666;
-  border-radius: 6px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.typeBadge {
+  background-color: #333333;
+  color: #cccccc;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.description {
+  color: #cccccc;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+}
+
+.maintainerInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.maintainerLabel {
+  color: #888888;
+}
+
+.maintainerName {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.copyButton, .docsButton, .expandButton {
+  background-color: #222222;
+  color: #ffffff;
+  border: 1px solid #444444;
+  border-radius: 8px;
   padding: 0.5rem 1rem;
   font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.copyButton:hover {
-  background-color: #444444;
-  border-color: #888888;
-}
-
-.copyButton:active {
-  transform: translateY(1px);
-}
-
-.downloadButton {
-  background-color: #2d5a27;
-  color: #ffffff;
-  border: 1px solid #4a8c3a;
-  border-radius: 6px;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  white-space: nowrap;
-  min-width: 150px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-.downloadButton:hover:not(:disabled) {
-  background-color: #3a6b33;
-  border-color: #5ba048;
+.copyButton:hover, .docsButton:hover, .expandButton:hover {
+  background-color: #333333;
+  border-color: #666666;
+  transform: translateY(-1px);
 }
 
-.downloadButton:active:not(:disabled) {
-  transform: translateY(1px);
+.copyButton:active, .docsButton:active, .expandButton:active {
+  transform: translateY(0);
 }
 
-.downloadButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.expandButton {
+  background-color: #1a1a1a;
+  border-color: #333333;
 }
 
 .providerName {
-  font-size: 1.3rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 700;
   margin: 0;
   color: #ffffff;
+  line-height: 1.2;
 }
 
-.providerType {
-  background-color: #333333;
+.expandedContent {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #333333;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.techTitle {
   color: #ffffff;
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #333333;
+}
+
+.techGrid {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.techDetail {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+  padding: 0.75rem;
+  background-color: #0a0a0a;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.techLabel {
+  color: #aaaaaa;
   font-size: 0.85rem;
   font-weight: 500;
-  text-transform: uppercase;
-  width: fit-content;
-  display: inline-block;
+  text-transform: capitalize;
 }
 
-.cardContent {
-  color: #cccccc;
-}
-
-.cardContent p {
-  margin: 0.5rem 0;
-  font-size: 0.95rem;
-}
-
-.cardContent strong {
+.techValue {
   color: #ffffff;
-}
-
-.cardContent a {
-  color: #ffffff;
-  text-decoration: underline;
+  font-size: 0.9rem;
   word-break: break-all;
 }
 
-.cardContent a:hover {
-  color: #cccccc;
+.techValue a {
+  color: #66b3ff;
+  text-decoration: none;
+}
+
+.techValue a:hover {
+  text-decoration: underline;
 }
 
 .loading {
@@ -203,7 +274,7 @@
 @media (max-width: 768px) {
   .providersGrid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
   }
   
   .searchInput {
@@ -212,5 +283,30 @@
   
   .header h1 {
     font-size: 2rem;
+  }
+  
+  .providerCard {
+    padding: 1rem;
+  }
+  
+  .providerIcon {
+    font-size: 2rem;
+  }
+  
+  .providerName {
+    font-size: 1.2rem;
+  }
+  
+  .actionButtons {
+    gap: 0.5rem;
+  }
+  
+  .techDetail {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .cardHeader {
+    gap: 0.75rem;
   }
 }
