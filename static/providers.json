@@ -1,42 +1,1842 @@
 [
-    {
-        "name": "openlibrary",
-        "provider_type": "http",
-        "http_method": "GET",
-        "url": "https://openlibrary.org/static/openapi.json",
-        "content_type": "application/json",
-        "metadata": {
-            "description": "Open Library API for accessing book information and catalog data",
-            "category": "Books & Literature",
-            "last_updated": "2024-01-15",
-            "maintainer": "Internet Archive",
-            "documentation_url": "https://openlibrary.org/developers/api"
-        }
-    },
-    {
-        "name": "newsapi",
-        "provider_type": "text",
-        "file_path": "./newsapi_manual.json",
-        "metadata": {
-            "description": "News API for accessing current and historic news articles",
-            "category": "News & Media",
-            "last_updated": "2024-01-10",
-            "maintainer": "NewsAPI.org",
-            "documentation_url": "https://newsapi.org/docs"
-        }
-    },
-    {
-        "name": "openai",
-        "provider_type": "http",
-        "http_method": "GET",
-        "url": "https://raw.githubusercontent.com/openai/openai-openapi/refs/heads/manual_spec/openapi.yaml",
-        "content_type": "application/x-yaml",
-        "metadata": {
-            "description": "OpenAI API for accessing GPT models and AI capabilities",
-            "category": "AI & Machine Learning",
-            "last_updated": "2024-01-20",
-            "maintainer": "OpenAI",
-            "documentation_url": "https://platform.openai.com/docs"
-        }
+  {
+    "name": "openlibrary",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://openlibrary.org/static/openapi.json",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Open Library API for accessing book information and catalog data",
+      "category": "Books & Literature",
+      "last_updated": "2024-01-15",
+      "maintainer": "Internet Archive",
+      "documentation_url": "https://openlibrary.org/developers/api"
     }
+  },
+  {
+    "name": "newsapi",
+    "provider_type": "text",
+    "file_path": "./newsapi_manual.json",
+    "metadata": {
+      "description": "News API for accessing current and historic news articles",
+      "category": "News & Media",
+      "last_updated": "2024-01-10",
+      "maintainer": "NewsAPI.org",
+      "documentation_url": "https://newsapi.org/docs"
+    }
+  },
+  {
+    "name": "openai",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/openai/openai-openapi/refs/heads/manual_spec/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "OpenAI API for accessing GPT models and AI capabilities",
+      "category": "AI & Machine Learning",
+      "last_updated": "2024-01-20",
+      "maintainer": "OpenAI",
+      "documentation_url": "https://platform.openai.com/docs"
+    }
+  },
+  {
+    "name": "adoptapet",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.adoptapet.com/public/apis/pet_list.html",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Resource to help get pets adopted",
+      "category": "Animals",
+      "last_updated": "2025-08-02",
+      "maintainer": "AdoptAPet",
+      "documentation_url": "https://www.adoptapet.com/public/apis/pet_list.html",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "axolotl",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://theaxolotlapi.netlify.app/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Collection of axolotl pictures and facts",
+      "category": "Animals",
+      "last_updated": "2025-08-02",
+      "maintainer": "Axolotl",
+      "documentation_url": "https://theaxolotlapi.netlify.app/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "No"
+    }
+  },
+  {
+    "name": "cat_facts",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://alexwohlbruck.github.io/cat-facts/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Daily cat facts",
+      "category": "Animals",
+      "last_updated": "2025-08-02",
+      "maintainer": "Cat Facts",
+      "documentation_url": "https://alexwohlbruck.github.io/cat-facts/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "No"
+    }
+  },
+  {
+    "name": "aniapi",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://aniapi.com/docs/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Anime discovery, streaming & syncing with trackers",
+      "category": "Anime",
+      "last_updated": "2025-08-02",
+      "maintainer": "AniAPI",
+      "documentation_url": "https://aniapi.com/docs/",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "anidb",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://wiki.anidb.net/HTTP_API_Definition",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Anime Database",
+      "category": "Anime",
+      "last_updated": "2025-08-02",
+      "maintainer": "AniDB",
+      "documentation_url": "https://wiki.anidb.net/HTTP_API_Definition",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": false,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "anilist",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://github.com/AniList/ApiV2-GraphQL-Docs",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Anime discovery & tracking",
+      "category": "Anime",
+      "last_updated": "2025-08-02",
+      "maintainer": "AniList",
+      "documentation_url": "https://github.com/AniList/ApiV2-GraphQL-Docs",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "abuseipdb",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://docs.abuseipdb.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "IP/domain/URL reputation",
+      "category": "Anti-Malware",
+      "last_updated": "2025-08-02",
+      "maintainer": "AbuseIPDB",
+      "documentation_url": "https://docs.abuseipdb.com/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "alienvault_open_threat_exchange_otx",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://otx.alienvault.com/api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "IP/domain/URL reputation",
+      "category": "Anti-Malware",
+      "last_updated": "2025-08-02",
+      "maintainer": "AlienVault Open Threat Exchange (OTX)",
+      "documentation_url": "https://otx.alienvault.com/api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "capesandbox",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://capev2.readthedocs.io/en/latest/usage/api.html",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Malware execution and analysis",
+      "category": "Anti-Malware",
+      "last_updated": "2025-08-02",
+      "maintainer": "CAPEsandbox",
+      "documentation_url": "https://capev2.readthedocs.io/en/latest/usage/api.html",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "am_thyste",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://api.amethyste.moe/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Generate images for Discord users",
+      "category": "Art & Design",
+      "last_updated": "2025-08-02",
+      "maintainer": "Améthyste",
+      "documentation_url": "https://api.amethyste.moe/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "art_institute_of_chicago",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://api.artic.edu/docs/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Art",
+      "category": "Art & Design",
+      "last_updated": "2025-08-02",
+      "maintainer": "Art Institute of Chicago",
+      "documentation_url": "https://api.artic.edu/docs/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "colormind",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "http://colormind.io/api-access/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Color scheme generator",
+      "category": "Art & Design",
+      "last_updated": "2025-08-02",
+      "maintainer": "Colormind",
+      "documentation_url": "http://colormind.io/api-access/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": false,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "auth0",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://auth0.com",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Easy to implement, adaptable authentication and authorization platform",
+      "category": "Authentication & Authorization",
+      "last_updated": "2025-08-02",
+      "maintainer": "Auth0",
+      "documentation_url": "https://auth0.com",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "getotp",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://otp.dev/en/docs/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Implement OTP flow quickly",
+      "category": "Authentication & Authorization",
+      "last_updated": "2025-08-02",
+      "maintainer": "GetOTP",
+      "documentation_url": "https://otp.dev/en/docs/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "No"
+    }
+  },
+  {
+    "name": "micro_user_service",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://m3o.com/user",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "User management and authentication",
+      "category": "Authentication & Authorization",
+      "last_updated": "2025-08-02",
+      "maintainer": "Micro User Service",
+      "documentation_url": "https://m3o.com/user",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "No"
+    }
+  },
+  {
+    "name": "a_b_blia_digital",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.abibliadigital.com.br/en",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Do not worry about managing the multiple versions of the Bible",
+      "category": "Books",
+      "last_updated": "2025-08-02",
+      "maintainer": "A Bíblia Digital",
+      "documentation_url": "https://www.abibliadigital.com.br/en",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "No"
+    }
+  },
+  {
+    "name": "bhagavad_gita",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://docs.bhagavadgitaapi.in",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Open Source Shrimad Bhagavad Gita API including 21+ authors translation in Sanskrit/English/Hindi",
+      "category": "Books",
+      "last_updated": "2025-08-02",
+      "maintainer": "Bhagavad Gita",
+      "documentation_url": "https://docs.bhagavadgitaapi.in",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "bhagavad_gita_2",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://bhagavadgita.io/api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Bhagavad Gita text",
+      "category": "Books",
+      "last_updated": "2025-08-02",
+      "maintainer": "Bhagavad Gita",
+      "documentation_url": "https://bhagavadgita.io/api",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "public_holidays",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.abstractapi.com/holidays-api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Data on national, regional, and religious holidays via API",
+      "category": "Calendar",
+      "last_updated": "2025-08-02",
+      "maintainer": "Public Holidays",
+      "documentation_url": "https://www.abstractapi.com/holidays-api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "calendarific",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://calendarific.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Worldwide Holidays",
+      "category": "Calendar",
+      "last_updated": "2025-08-02",
+      "maintainer": "Calendarific",
+      "documentation_url": "https://calendarific.com/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "checkiday_national_holiday_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://apilayer.com/marketplace/checkiday-api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Industry-leading Holiday API. Over 5,000 holidays and thousands of descriptions. Trusted by the World’s leading companies",
+      "category": "Calendar",
+      "last_updated": "2025-08-02",
+      "maintainer": "Checkiday - National Holiday API",
+      "documentation_url": "https://apilayer.com/marketplace/checkiday-api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "azure_devops_health",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://docs.microsoft.com/en-us/rest/api/resourcehealth",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Resource health helps you diagnose and get support when an Azure issue impacts your resources",
+      "category": "Continuous Integration",
+      "last_updated": "2025-08-02",
+      "maintainer": "Azure DevOps Health",
+      "documentation_url": "https://docs.microsoft.com/en-us/rest/api/resourcehealth",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": false,
+      "cors_support": "No"
+    }
+  },
+  {
+    "name": "bitrise",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://api-docs.bitrise.io/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Build tool and processes integrations to create efficient development pipelines",
+      "category": "Continuous Integration",
+      "last_updated": "2025-08-02",
+      "maintainer": "Bitrise",
+      "documentation_url": "https://api-docs.bitrise.io/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "buddy",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://buddy.works/docs/api/getting-started/overview",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "The fastest continuous integration and continuous delivery platform",
+      "category": "Continuous Integration",
+      "last_updated": "2025-08-02",
+      "maintainer": "Buddy",
+      "documentation_url": "https://buddy.works/docs/api/getting-started/overview",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "0x",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://0x.org/api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "API for querying token and pool stats across various liquidity pools",
+      "category": "Cryptocurrency",
+      "last_updated": "2025-08-02",
+      "maintainer": "0x",
+      "documentation_url": "https://0x.org/api",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "1inch",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://1inch.io/api/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "API for querying decentralize exchange",
+      "category": "Cryptocurrency",
+      "last_updated": "2025-08-02",
+      "maintainer": "1inch",
+      "documentation_url": "https://1inch.io/api/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "alchemy_ethereum",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://docs.alchemy.com/alchemy/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Ethereum Node-as-a-Service Provider",
+      "category": "Cryptocurrency",
+      "last_updated": "2025-08-02",
+      "maintainer": "Alchemy Ethereum",
+      "documentation_url": "https://docs.alchemy.com/alchemy/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "1forge",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://1forge.com/forex-data-api/api-documentation",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Forex currency market data",
+      "category": "Currency Exchange",
+      "last_updated": "2025-08-02",
+      "maintainer": "1Forge",
+      "documentation_url": "https://1forge.com/forex-data-api/api-documentation",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "amdoren",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.amdoren.com/currency-api/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Free currency API with over 150 currencies",
+      "category": "Currency Exchange",
+      "last_updated": "2025-08-02",
+      "maintainer": "Amdoren",
+      "documentation_url": "https://www.amdoren.com/currency-api/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "apilayer_fixer_io",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://fixer.io",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Exchange rates and currency conversion",
+      "category": "Currency Exchange",
+      "last_updated": "2025-08-02",
+      "maintainer": "apilayer fixer.io",
+      "documentation_url": "https://fixer.io",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": false,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "24_pull_requests",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://24pullrequests.com/api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Project to promote open source collaboration during December",
+      "category": "Development",
+      "last_updated": "2025-08-02",
+      "maintainer": "24 Pull Requests",
+      "documentation_url": "https://24pullrequests.com/api",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "screenshot",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.abstractapi.com/website-screenshot-api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Take programmatic screenshots of web pages from any website",
+      "category": "Development",
+      "last_updated": "2025-08-02",
+      "maintainer": "Screenshot",
+      "documentation_url": "https://www.abstractapi.com/website-screenshot-api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "agify_io",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://agify.io",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Estimates the age from a first name",
+      "category": "Development",
+      "last_updated": "2025-08-02",
+      "maintainer": "Agify.io",
+      "documentation_url": "https://agify.io",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "chinese_character_web",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "http://ccdb.hemiola.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Chinese character definitions and pronunciations",
+      "category": "Dictionaries",
+      "last_updated": "2025-08-02",
+      "maintainer": "Chinese Character Web",
+      "documentation_url": "http://ccdb.hemiola.com/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": false,
+      "cors_support": "No"
+    }
+  },
+  {
+    "name": "chinese_text_project",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://ctext.org/tools/api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Online open-access digital library for pre-modern Chinese texts",
+      "category": "Dictionaries",
+      "last_updated": "2025-08-02",
+      "maintainer": "Chinese Text Project",
+      "documentation_url": "https://ctext.org/tools/api",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "collins",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://api.collinsdictionary.com/api/v1/documentation/html/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Bilingual Dictionary and Thesaurus Data",
+      "category": "Dictionaries",
+      "last_updated": "2025-08-02",
+      "maintainer": "Collins",
+      "documentation_url": "https://api.collinsdictionary.com/api/v1/documentation/html/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "airtable",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://airtable.com/api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Integrate with Airtable",
+      "category": "Documents & Productivity",
+      "last_updated": "2025-08-02",
+      "maintainer": "Airtable",
+      "documentation_url": "https://airtable.com/api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "api2convert",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.api2convert.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Online File Conversion API",
+      "category": "Documents & Productivity",
+      "last_updated": "2025-08-02",
+      "maintainer": "Api2Convert",
+      "documentation_url": "https://www.api2convert.com/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "apilayer_pdflayer",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://pdflayer.com",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "HTML/URL to PDF",
+      "category": "Documents & Productivity",
+      "last_updated": "2025-08-02",
+      "maintainer": "apilayer pdflayer",
+      "documentation_url": "https://pdflayer.com",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "apilayer_mailboxlayer",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://mailboxlayer.com",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Email address validation",
+      "category": "Email",
+      "last_updated": "2025-08-02",
+      "maintainer": "apilayer mailboxlayer",
+      "documentation_url": "https://mailboxlayer.com",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "email_validation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.abstractapi.com/email-verification-validation-api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Validate email addresses for deliverability and spam",
+      "category": "Email",
+      "last_updated": "2025-08-02",
+      "maintainer": "Email Validation",
+      "documentation_url": "https://www.abstractapi.com/email-verification-validation-api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "cloudmersive_validate",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://cloudmersive.com/validate-api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Validate email addresses, phone numbers, VAT numbers and domain names",
+      "category": "Email",
+      "last_updated": "2025-08-02",
+      "maintainer": "Cloudmersive Validate",
+      "documentation_url": "https://cloudmersive.com/validate-api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "breezometer_pollen",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://docs.breezometer.com/api-documentation/pollen-api/v2/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Daily Forecast pollen conditions data for a specific location",
+      "category": "Environment",
+      "last_updated": "2025-08-02",
+      "maintainer": "BreezoMeter Pollen",
+      "documentation_url": "https://docs.breezometer.com/api-documentation/pollen-api/v2/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "carbon_interface",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://docs.carboninterface.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "API to calculate carbon (C02) emissions estimates for common C02 emitting activities",
+      "category": "Environment",
+      "last_updated": "2025-08-02",
+      "maintainer": "Carbon Interface",
+      "documentation_url": "https://docs.carboninterface.com/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "climatiq",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://docs.climatiq.io",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Calculate the environmental footprint created by a broad range of emission-generating activities",
+      "category": "Environment",
+      "last_updated": "2025-08-02",
+      "maintainer": "Climatiq",
+      "documentation_url": "https://docs.climatiq.io",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "eventbrite",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.eventbrite.com/platform/api/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Find events",
+      "category": "Events",
+      "last_updated": "2025-08-02",
+      "maintainer": "Eventbrite",
+      "documentation_url": "https://www.eventbrite.com/platform/api/",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "seatgeek",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://platform.seatgeek.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Search events, venues and performers",
+      "category": "Events",
+      "last_updated": "2025-08-02",
+      "maintainer": "SeatGeek",
+      "documentation_url": "https://platform.seatgeek.com/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "ticketmaster",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "http://developer.ticketmaster.com/products-and-docs/apis/getting-started/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Search events, attractions, or venues",
+      "category": "Events",
+      "last_updated": "2025-08-02",
+      "maintainer": "Ticketmaster",
+      "documentation_url": "http://developer.ticketmaster.com/products-and-docs/apis/getting-started/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "baconmockup",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://baconmockup.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Resizable bacon placeholder images",
+      "category": "Food & Drink",
+      "last_updated": "2025-08-02",
+      "maintainer": "BaconMockup",
+      "documentation_url": "https://baconmockup.com/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "chomp",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://chompthis.com/api/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Data about various grocery products and foods",
+      "category": "Food & Drink",
+      "last_updated": "2025-08-02",
+      "maintainer": "Chomp",
+      "documentation_url": "https://chompthis.com/api/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "coffee",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://coffee.alexflipnote.dev/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Random pictures of coffee",
+      "category": "Food & Drink",
+      "last_updated": "2025-08-02",
+      "maintainer": "Coffee",
+      "documentation_url": "https://coffee.alexflipnote.dev/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "age_of_empires_ii",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://age-of-empires-2-api.herokuapp.com",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Get information about Age of Empires II resources",
+      "category": "Games & Comics",
+      "last_updated": "2025-08-02",
+      "maintainer": "Age of Empires II",
+      "documentation_url": "https://age-of-empires-2-api.herokuapp.com",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "No"
+    }
+  },
+  {
+    "name": "amiiboapi",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://amiiboapi.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Nintendo Amiibo Information",
+      "category": "Games & Comics",
+      "last_updated": "2025-08-02",
+      "maintainer": "AmiiboAPI",
+      "documentation_url": "https://amiiboapi.com/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "animal_crossing_new_horizons",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "http://acnhapi.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "API for critters, fossils, art, music, furniture and villagers",
+      "category": "Games & Comics",
+      "last_updated": "2025-08-02",
+      "maintainer": "Animal Crossing: New Horizons",
+      "documentation_url": "http://acnhapi.com/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "ip_geolocation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.abstractapi.com/ip-geolocation-api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Geolocate website visitors from their IPs",
+      "category": "Geocoding",
+      "last_updated": "2025-08-02",
+      "maintainer": "IP Geolocation",
+      "documentation_url": "https://www.abstractapi.com/ip-geolocation-api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "actinia_grass_gis",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://actinia.mundialis.de/api_docs/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Actinia is an open source REST API for geographical data that uses GRASS GIS",
+      "category": "Geocoding",
+      "last_updated": "2025-08-02",
+      "maintainer": "Actinia Grass GIS",
+      "documentation_url": "https://actinia.mundialis.de/api_docs/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "administrative_divisons_db",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://github.com/kamikazechaser/administrative-divisions-db",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Get all administrative divisions of a country",
+      "category": "Geocoding",
+      "last_updated": "2025-08-02",
+      "maintainer": "administrative-divisons-db",
+      "documentation_url": "https://github.com/kamikazechaser/administrative-divisions-db",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "bank_negara_malaysia_open_data",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://apikijangportal.bnm.gov.my/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Malaysia Central Bank Open Data",
+      "category": "Government",
+      "last_updated": "2025-08-02",
+      "maintainer": "Bank Negara Malaysia Open Data",
+      "documentation_url": "https://apikijangportal.bnm.gov.my/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "bclaws",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.bclaws.gov.bc.ca/civix/template/complete/api/index.html",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Access to the laws of British Columbia",
+      "category": "Government",
+      "last_updated": "2025-08-02",
+      "maintainer": "BCLaws",
+      "documentation_url": "https://www.bclaws.gov.bc.ca/civix/template/complete/api/index.html",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": false,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "brazil",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://brasilapi.com.br/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Community driven API for Brazil Public Data",
+      "category": "Government",
+      "last_updated": "2025-08-02",
+      "maintainer": "Brazil",
+      "documentation_url": "https://brasilapi.com.br/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "cms_gov",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://data.cms.gov/provider-data/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Access to the data from the CMS - medicare.gov",
+      "category": "Health",
+      "last_updated": "2025-08-02",
+      "maintainer": "CMS.gov",
+      "documentation_url": "https://data.cms.gov/provider-data/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "coronavirus",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://pipedream.com/@pravin/http-api-for-latest-wuhan-coronavirus-data-2019-ncov-p_G6CLVM/readme",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "HTTP API for Latest Covid-19 Data",
+      "category": "Health",
+      "last_updated": "2025-08-02",
+      "maintainer": "Coronavirus",
+      "documentation_url": "https://pipedream.com/@pravin/http-api-for-latest-wuhan-coronavirus-data-2019-ncov-p_G6CLVM/readme",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "coronavirus_in_the_uk",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://coronavirus.data.gov.uk/details/developers-guide",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "UK Government coronavirus data, including deaths and cases by region",
+      "category": "Health",
+      "last_updated": "2025-08-02",
+      "maintainer": "Coronavirus in the UK",
+      "documentation_url": "https://coronavirus.data.gov.uk/details/developers-guide",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "adzuna",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://developer.adzuna.com/overview",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Job board aggregator",
+      "category": "Jobs",
+      "last_updated": "2025-08-02",
+      "maintainer": "Adzuna",
+      "documentation_url": "https://developer.adzuna.com/overview",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "arbeitnow",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://documenter.getpostman.com/view/18545278/UVJbJdKh",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "API for Job board aggregator in Europe / Remote",
+      "category": "Jobs",
+      "last_updated": "2025-08-02",
+      "maintainer": "Arbeitnow",
+      "documentation_url": "https://documenter.getpostman.com/view/18545278/UVJbJdKh",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "arbeitsamt",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://jobsuche.api.bund.dev/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "API for the \"Arbeitsamt\", which is a german Job board aggregator",
+      "category": "Jobs",
+      "last_updated": "2025-08-02",
+      "maintainer": "Arbeitsamt",
+      "documentation_url": "https://jobsuche.api.bund.dev/",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "ai_for_thai",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://aiforthai.in.th/index.php",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Free Various Thai AI API",
+      "category": "Machine Learning",
+      "last_updated": "2025-08-02",
+      "maintainer": "AI For Thai",
+      "documentation_url": "https://aiforthai.in.th/index.php",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "clarifai",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://docs.clarifai.com/api-guide/api-overview",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Computer Vision",
+      "category": "Machine Learning",
+      "last_updated": "2025-08-02",
+      "maintainer": "Clarifai",
+      "documentation_url": "https://docs.clarifai.com/api-guide/api-overview",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "cloudmersive",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.cloudmersive.com/image-recognition-and-processing-api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Image captioning, face recognition, NSFW classification",
+      "category": "Machine Learning",
+      "last_updated": "2025-08-02",
+      "maintainer": "Cloudmersive",
+      "documentation_url": "https://www.cloudmersive.com/image-recognition-and-processing-api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "7digital",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://docs.7digital.com/reference",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Api of Music store 7digital",
+      "category": "Music",
+      "last_updated": "2025-08-02",
+      "maintainer": "7digital",
+      "documentation_url": "https://docs.7digital.com/reference",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "ai_mastering",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://aimastering.com/api_docs/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Automated Music Mastering",
+      "category": "Music",
+      "last_updated": "2025-08-02",
+      "maintainer": "AI Mastering",
+      "documentation_url": "https://aimastering.com/api_docs/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "audiomack",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.audiomack.com/data-api/docs",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Api of the streaming music hub Audiomack",
+      "category": "Music",
+      "last_updated": "2025-08-02",
+      "maintainer": "Audiomack",
+      "documentation_url": "https://www.audiomack.com/data-api/docs",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "apilayer_mediastack",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://mediastack.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Free, Simple REST API for Live News & Blog Articles",
+      "category": "News",
+      "last_updated": "2025-08-02",
+      "maintainer": "apilayer mediastack",
+      "documentation_url": "https://mediastack.com/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "associated_press",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://developer.ap.org/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Search for news and metadata from Associated Press",
+      "category": "News",
+      "last_updated": "2025-08-02",
+      "maintainer": "Associated Press",
+      "documentation_url": "https://developer.ap.org/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "chronicling_america",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "http://chroniclingamerica.loc.gov/about/api/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Provides access to millions of pages of historic US newspapers from the Library of Congress",
+      "category": "News",
+      "last_updated": "2025-08-02",
+      "maintainer": "Chronicling America",
+      "documentation_url": "http://chroniclingamerica.loc.gov/about/api/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": false,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "18f",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "http://18f.github.io/API-All-the-X/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Unofficial US Federal Government API Development",
+      "category": "Open Data",
+      "last_updated": "2025-08-02",
+      "maintainer": "18F",
+      "documentation_url": "http://18f.github.io/API-All-the-X/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": false,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "api_setu",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.apisetu.gov.in/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "An Indian Government platform that provides a lot of APIS for KYC, business, education & employment",
+      "category": "Open Data",
+      "last_updated": "2025-08-02",
+      "maintainer": "API Setu",
+      "documentation_url": "https://www.apisetu.gov.in/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "archive_org",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://archive.readme.io/docs",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "The Internet Archive",
+      "category": "Open Data",
+      "last_updated": "2025-08-02",
+      "maintainer": "Archive.org",
+      "documentation_url": "https://archive.readme.io/docs",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "No"
+    }
+  },
+  {
+    "name": "countly",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://api.count.ly/reference",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Countly web analytics",
+      "category": "Open Source Projects",
+      "last_updated": "2025-08-02",
+      "maintainer": "Countly",
+      "documentation_url": "https://api.count.ly/reference",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": false,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "creative_commons_catalog",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://api.creativecommons.engineering/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Search among openly licensed and public domain works",
+      "category": "Open Source Projects",
+      "last_updated": "2025-08-02",
+      "maintainer": "Creative Commons Catalog",
+      "documentation_url": "https://api.creativecommons.engineering/",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "datamuse",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.datamuse.com/api/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Word-finding query engine",
+      "category": "Open Source Projects",
+      "last_updated": "2025-08-02",
+      "maintainer": "Datamuse",
+      "documentation_url": "https://www.datamuse.com/api/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "epo",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://developers.epo.org/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "European patent search system api",
+      "category": "Patent",
+      "last_updated": "2025-08-02",
+      "maintainer": "EPO",
+      "documentation_url": "https://developers.epo.org/",
+      "auth_required": true,
+      "auth_type": "`OAuth`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "patentsview",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://patentsview.org/apis/purpose",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "API is intended to explore and visualize trends/patterns across the US innovation landscape",
+      "category": "Patent",
+      "last_updated": "2025-08-02",
+      "maintainer": "PatentsView ",
+      "documentation_url": "https://patentsview.org/apis/purpose",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "tipo",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://tiponet.tipo.gov.tw/Gazette/OpenData/OD/OD05.aspx?QryDS=API00",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Taiwan patent search system api",
+      "category": "Patent",
+      "last_updated": "2025-08-02",
+      "maintainer": "TIPO",
+      "documentation_url": "https://tiponet.tipo.gov.tw/Gazette/OpenData/OD/OD05.aspx?QryDS=API00",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "advice_slip",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "http://api.adviceslip.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Generate random advice slips",
+      "category": "Personality",
+      "last_updated": "2025-08-02",
+      "maintainer": "Advice Slip",
+      "documentation_url": "http://api.adviceslip.com/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "biriyani_as_a_service",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://biriyani.anoram.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Biriyani images placeholder",
+      "category": "Personality",
+      "last_updated": "2025-08-02",
+      "maintainer": "Biriyani As A Service",
+      "documentation_url": "https://biriyani.anoram.com/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "No"
+    }
+  },
+  {
+    "name": "dev_to",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://developers.forem.com/api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Access Forem articles, users and other resources via API",
+      "category": "Personality",
+      "last_updated": "2025-08-02",
+      "maintainer": "Dev.to",
+      "documentation_url": "https://developers.forem.com/api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "phone_validation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.abstractapi.com/phone-validation-api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Validate phone numbers globally",
+      "category": "Phone",
+      "last_updated": "2025-08-02",
+      "maintainer": "Phone Validation",
+      "documentation_url": "https://www.abstractapi.com/phone-validation-api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "apilayer_numverify",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://numverify.com",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Phone number validation",
+      "category": "Phone",
+      "last_updated": "2025-08-02",
+      "maintainer": "apilayer numverify",
+      "documentation_url": "https://numverify.com",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "cloudmersive_validate",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://cloudmersive.com/phone-number-validation-API",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Validate international phone numbers",
+      "category": "Phone",
+      "last_updated": "2025-08-02",
+      "maintainer": "Cloudmersive Validate",
+      "documentation_url": "https://cloudmersive.com/phone-number-validation-API",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "apilayer_screenshotlayer",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://screenshotlayer.com",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "URL 2 Image",
+      "category": "Photography",
+      "last_updated": "2025-08-02",
+      "maintainer": "apilayer screenshotlayer",
+      "documentation_url": "https://screenshotlayer.com",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "apitemplate_io",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://apitemplate.io",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Dynamically generate images and PDFs from templates with a simple API",
+      "category": "Photography",
+      "last_updated": "2025-08-02",
+      "maintainer": "APITemplate.io",
+      "documentation_url": "https://apitemplate.io",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "bruzu",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://docs.bruzu.com",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Image generation with query string",
+      "category": "Photography",
+      "last_updated": "2025-08-02",
+      "maintainer": "Bruzu",
+      "documentation_url": "https://docs.bruzu.com",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  },
+  {
+    "name": "codeforces",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://codeforces.com/apiHelp",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Get access to Codeforces data",
+      "category": "Programming",
+      "last_updated": "2025-08-02",
+      "maintainer": "Codeforces",
+      "documentation_url": "https://codeforces.com/apiHelp",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "hackerearth",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://www.hackerearth.com/docs/wiki/developers/v4/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "For compiling and running code in several languages",
+      "category": "Programming",
+      "last_updated": "2025-08-02",
+      "maintainer": "Hackerearth",
+      "documentation_url": "https://www.hackerearth.com/docs/wiki/developers/v4/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "judge0_ce",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://ce.judge0.com/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Online code execution system",
+      "category": "Programming",
+      "last_updated": "2025-08-02",
+      "maintainer": "Judge0 CE",
+      "documentation_url": "https://ce.judge0.com/",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "arcsecond_io",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://api.arcsecond.io/",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Multiple astronomy data sources",
+      "category": "Science & Math",
+      "last_updated": "2025-08-02",
+      "maintainer": "arcsecond.io",
+      "documentation_url": "https://api.arcsecond.io/",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "arxiv",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://arxiv.org/help/api/user-manual",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Curated research-sharing platform: physics, mathematics, quantitative finance, and economics",
+      "category": "Science & Math",
+      "last_updated": "2025-08-02",
+      "maintainer": "arXiv",
+      "documentation_url": "https://arxiv.org/help/api/user-manual",
+      "auth_required": false,
+      "auth_type": null,
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "core",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://core.ac.uk/services#api",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Access the world's Open Access research papers",
+      "category": "Science & Math",
+      "last_updated": "2025-08-02",
+      "maintainer": "CORE",
+      "documentation_url": "https://core.ac.uk/services#api",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Unknown"
+    }
+  },
+  {
+    "name": "application_environment_verification",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://github.com/fingerprintjs/aev",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Android library and API to verify the safety of user devices, detect rooted devices and other risks",
+      "category": "Security",
+      "last_updated": "2025-08-02",
+      "maintainer": "Application Environment Verification",
+      "documentation_url": "https://github.com/fingerprintjs/aev",
+      "auth_required": true,
+      "auth_type": "`apiKey`",
+      "https_support": true,
+      "cors_support": "Yes"
+    }
+  }
 ]
