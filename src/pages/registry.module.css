@@ -156,6 +156,8 @@
 .searchContainer {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
   margin-bottom: 2rem;
 }
 
@@ -178,6 +180,84 @@
 
 .searchInput::placeholder {
   color: #888888;
+}
+
+.addProviderButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: #8b5cf6;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.addProviderButton:hover {
+  background-color: #a855f7;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.addProviderButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(139, 92, 246, 0.2);
+}
+
+.addProviderTooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  white-space: nowrap;
+  z-index: 1000;
+  border: 1px solid #333333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.addProviderTooltip::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #333333;
+}
+
+.addProviderTooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1a1a1a;
+  margin-top: -1px;
+}
+
+.addProviderButton:hover .addProviderTooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
 }
 
 .sidebar {
@@ -592,9 +672,12 @@
     align-items: center;
   }
   
+  .searchContainer {
+    margin: 0 1rem;
+  }
+  
   .searchInput {
     max-width: 100%;
-    margin: 0 1rem;
   }
   
   .sidebar {

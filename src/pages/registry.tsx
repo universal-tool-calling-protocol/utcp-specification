@@ -362,6 +362,18 @@ export default function Registry(): ReactNode {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className={styles.searchInput}
               />
+              <a
+                href="https://github.com/universal-tool-calling-protocol/utcp-specification/blob/main/static/providers.json"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.addProviderButton}
+                title="Add new providers via GitHub Pull Request"
+              >
+                +
+                <div className={styles.addProviderTooltip}>
+                  Add a new provider via GitHub Pull Request
+                </div>
+              </a>
             </div>
           </div>
         </div>
