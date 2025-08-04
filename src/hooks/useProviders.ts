@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { Provider, CategoryCount } from '../types/provider';
-import { UI_CONSTANTS } from '../constants/ui';
+import { UI_CONSTANTS, DISCOVER_PROVIDERS } from '../constants/ui';
 
 interface UseProvidersReturn {
   providers: Provider[];
@@ -52,9 +52,21 @@ export const useProviders = (): UseProvidersReturn => {
     
     // Filter by categories if selected
     if (selectedCategories.length > 0) {
-      filtered = filtered.filter(provider => 
-        selectedCategories.includes(provider.metadata?.category || UI_CONSTANTS.DEFAULT_CATEGORY)
-      );
+      filtered = filtered.filter(provider => {
+        const providerCategory = provider.metadata?.category || UI_CONSTANTS.DEFAULT_CATEGORY;
+        
+        // Handle Discover category specially
+        if (selectedCategories.includes(UI_CONSTANTS.DISCOVER_CATEGORY)) {
+          const isDiscoverProvider = DISCOVER_PROVIDERS.includes(provider.name as any);
+          const isOtherSelectedCategory = selectedCategories.some(cat => 
+            cat !== UI_CONSTANTS.DISCOVER_CATEGORY && cat === providerCategory
+          );
+          return isDiscoverProvider || isOtherSelectedCategory;
+        }
+        
+        // Regular category filtering
+        return selectedCategories.includes(providerCategory);
+      });
     }
     
     // Filter by search term
@@ -80,9 +92,20 @@ export const useProviders = (): UseProvidersReturn => {
       categoryMap.set(category, (categoryMap.get(category) || 0) + 1);
     });
     
-    return Array.from(categoryMap.entries())
+    // Add Discover category with count of curated providers
+    const discoverCount = providers.filter(provider => 
+      DISCOVER_PROVIDERS.includes(provider.name as any)
+    ).length;
+    
+    const categories = Array.from(categoryMap.entries())
       .sort(([,a], [,b]) => b - a) // Sort by count descending
       .map(([category, count]) => ({ category, count }));
+    
+    // Add Discover at the top
+    return [
+      { category: UI_CONSTANTS.DISCOVER_CATEGORY, count: discoverCount },
+      ...categories
+    ];
   };
 
   // Toggle category selection

@@ -1,0 +1,134 @@
+/* View Toggle Styles */
+
+.viewToggle {
+  display: flex;
+  justify-content: center;
+  padding: 0 2rem 2rem;
+  background-color: #000000;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.toggleContainer {
+  position: relative;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 16px;
+  padding: 4px;
+  display: flex;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.toggleButton {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.toggleButton:hover {
+  color: #ffffff;
+}
+
+.toggleButton.active {
+  color: #ffffff;
+}
+
+.icon {
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.toggleButton:hover .icon,
+.toggleButton.active .icon {
+  transform: scale(1.1);
+}
+
+.label {
+  font-size: 0.9rem;
+  letter-spacing: 0.025em;
+}
+
+.slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  height: calc(100% - 8px);
+  width: calc(50% - 4px);
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  border-radius: 12px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3);
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .viewToggle {
+    padding: 0.5rem 1rem;
+  }
+  
+  .toggleContainer {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .toggleButton {
+    min-width: auto;
+    flex: 1;
+    padding: 0.75rem 1rem;
+  }
+  
+  .label {
+    font-size: 0.85rem;
+  }
+  
+  .icon {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .toggleButton {
+    padding: 0.6rem 0.8rem;
+    gap: 0.25rem;
+  }
+  
+  .label {
+    font-size: 0.8rem;
+  }
+  
+  .icon {
+    font-size: 0.85rem;
+  }
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.viewToggle {
+  animation: slideIn 0.4s ease-out;
+}
