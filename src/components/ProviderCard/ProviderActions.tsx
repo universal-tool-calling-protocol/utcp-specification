@@ -28,7 +28,7 @@ export const ProviderActions: React.FC<ProviderActionsProps> = ({
       <button 
         className={styles.copyButton}
         onClick={onCopy}
-        title="Copy provider configuration to clipboard"
+        title="Copy provider configuration (JSON) to clipboard for use in your UTCP tool list"
       >
         {copySuccess ? '✓' : 'Copy'}
       </button>

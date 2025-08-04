@@ -18,7 +18,9 @@ export const ProviderDescription: React.FC<ProviderDescriptionProps> = ({
   const isLongDescription = cleanedDescription.length > UI_CONSTANTS.DESCRIPTION_LIMIT;
   
   const displayedDescription = showFullDescription || !isLongDescription
-    ? cleanedDescription
+    ? cleanedDescription.length > UI_CONSTANTS.DESCRIPTION_MAX_LIMIT 
+      ? cleanedDescription.substring(0, UI_CONSTANTS.DESCRIPTION_MAX_LIMIT) + '...'
+      : cleanedDescription
     : cleanedDescription.substring(0, UI_CONSTANTS.DESCRIPTION_LIMIT) + '...';
 
   return (
