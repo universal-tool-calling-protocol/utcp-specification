@@ -24,10 +24,10 @@
 }
 
 .mobileFilterButton {
-  background-color: #1a1a1a;
+  background: linear-gradient(145deg, #1a1a1a 0%, #111111 100%);
   color: #ffffff;
   border: 1px solid #8b5cf6;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 0.75rem 1rem;
   font-size: 0.9rem;
   font-weight: 500;
@@ -38,11 +38,14 @@
   gap: 0.5rem;
   width: 100%;
   justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .mobileFilterButton:hover {
-  background-color: #8b5cf6;
+  background: linear-gradient(145deg, #8b5cf6 0%, #7c3aed 100%);
   color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
 .filterCount {
@@ -262,22 +265,63 @@
 
 .sidebar {
   width: 300px;
-  background-color: #111111;
-  border-right: 1px solid #333333;
-  padding: 2rem 0;
+  background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
+  border-radius: 12px;
+  margin: 1rem 0 1rem 1rem;
+  padding: 0;
   overflow-y: auto;
   position: sticky;
-  top: 0;
-  height: calc(100vh - 280px);
+  top: 1rem;
+  height: calc(100vh - 300px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(139, 92, 246, 0.1);
+  border: 1px solid #222222;
+  transition: all 0.3s ease;
+}
+
+.sidebar:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(139, 92, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Custom Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #a855f7 0%, #8b5cf6 100%);
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 .sidebarHeader {
-  padding: 0 1.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 1.5rem 1.5rem 1rem;
   border-bottom: 1px solid #333333;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
+  border-radius: 12px 12px 0 0;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .sidebarHeader h2 {
@@ -291,26 +335,49 @@
   background-color: transparent;
   color: #8b5cf6;
   border: 1px solid #8b5cf6;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 0.4rem 0.8rem;
   font-size: 0.75rem;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(139, 92, 246, 0.1);
 }
 
 .clearButton:hover {
-  background-color: #8b5cf6;
+  background: linear-gradient(145deg, #8b5cf6 0%, #7c3aed 100%);
   color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(139, 92, 246, 0.3);
 }
 
 .categoryList {
-  padding: 0 1rem;
+  padding: 1rem 1rem 1.5rem;
+  max-height: calc(100vh - 400px);
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for category list too */
+.categoryList::-webkit-scrollbar {
+  width: 4px;
+}
+
+.categoryList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.categoryList::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 2px;
+}
+
+.categoryList::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
 }
 
 .mainContent {
   flex: 1;
-  padding: 2rem;
+  padding: 2rem 2rem 2rem 1rem;
   overflow-x: hidden;
 }
 
@@ -321,12 +388,15 @@
   cursor: pointer;
   padding: 0.75rem;
   border-radius: 8px;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   margin-bottom: 0.5rem;
+  border: 1px solid transparent;
 }
 
 .categoryCheckbox:hover {
-  background-color: #1a1a1a;
+  background-color: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.2);
+  transform: translateX(2px);
 }
 
 .categoryCheckbox input[type="checkbox"] {
@@ -442,11 +512,33 @@
   margin: 0 0 0.5rem 0;
 }
 
+.descriptionContainer {
+  margin: 0 0 0.75rem 0;
+}
+
 .description {
   color: #cccccc;
   font-size: 0.9rem;
   line-height: 1.4;
-  margin: 0 0 0.75rem 0;
+  margin: 0;
+}
+
+.showMoreButton {
+  background: transparent;
+  color: #8b5cf6;
+  border: none;
+  padding: 0.25rem 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.showMoreButton:hover {
+  color: #a78bfa;
+  text-decoration: underline;
 }
 
 .cardFooter {
@@ -628,27 +720,31 @@
   
   .sidebar {
     position: fixed;
-    top: 0;
+    top: 1rem;
     left: -100%;
     width: 80%;
     max-width: 300px;
-    height: 100vh;
+    height: calc(100vh - 2rem);
     z-index: 1000;
-    transition: left 0.3s ease;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(139, 92, 246, 0.2);
+    margin: 0;
+    border-radius: 0 12px 12px 0;
   }
   
   .sidebar.sidebarVisible {
     left: 0;
+    transform: translateX(0);
   }
   
   .sidebarHeader {
-    padding: 1rem 1.5rem;
+    padding: 1.5rem 1.5rem 1rem;
     border-bottom: 1px solid #333333;
+    border-radius: 0 12px 0 0;
   }
   
   .categoryList {
-    padding: 0 1rem;
+    padding: 1rem 1rem 1.5rem;
   }
   
   .mainContent {
@@ -681,8 +777,11 @@
   }
   
   .sidebar {
-    width: 85%;
+    width: 90%;
     max-width: none;
+    top: 0.5rem;
+    height: calc(100vh - 1rem);
+    border-radius: 0 8px 8px 0;
   }
   
   .providersGrid {
