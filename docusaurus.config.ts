@@ -142,6 +142,12 @@ const config: Config = {
           label: 'GitHub',
           position: 'right',
         },
+        {
+          href: 'https://discord.gg/ZpMbQ8jRbD',
+          label: 'Discord',
+          position: 'right',
+          className: 'navbar-discord-link',
+        },
       ],
     },
     footer: {
@@ -172,6 +178,10 @@ const config: Config = {
           title: 'Community',
           items: [
             {
+              label: 'Discord',
+              href: 'https://discord.gg/ZpMbQ8jRbD',
+            },
+            {
               label: 'GitHub',
               href: 'https://github.com/universal-tool-calling-protocol',
             },
@@ -195,6 +205,15 @@ const config: Config = {
             {
               label: 'Releases',
               href: 'https://github.com/universal-tool-calling-protocol/utcp-specification/releases',
+            },
+          ],
+        },
+        {
+          title: 'Legal',
+          items: [
+            {
+              label: 'Impressum',
+              to: '/about/impressum',
             },
           ],
         },
