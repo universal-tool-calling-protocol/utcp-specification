@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const yaml = require('js-yaml');
+const https = require('https');
 
 // Configuration
 const APIS_GURU_REPO = 'https://github.com/APIs-guru/openapi-directory.git';
@@ -19,6 +20,13 @@ const POPULAR_PROVIDERS = [
   'paypal.com', 'shopify.com', 'salesforce.com', 'hubspot.com', 'zoom.us',
   'pokeapi.co', 'jsonplaceholder.typicode.com', 'weatherapi.com'
 ];
+
+// Description length limits (matching UI constants)
+const DESCRIPTION_LIMITS = {
+  COMPACT: 150,  // When "Show more" button appears
+  FULL: 300,     // Maximum length even when expanded
+  MIN_FOR_SUMMARY: 200  // Minimum length before we consider summarizing
+};
 
 // Category mapping and detection
 const CATEGORY_KEYWORDS = {
@@ -137,6 +145,33 @@ function calculateQualityScore(spec, metadata) {
   return Math.min(score, 100); // Cap at 100
 }
 
+// Clean markdown syntax from text, converting it to plain text
+function cleanMarkdown(text) {
+  if (!text || typeof text !== 'string') return '';
+  
+  return text
+    // Remove markdown headers
+    .replace(/^#+\s*/gm, '')
+    // Remove bold/italic formatting
+    .replace(/\*\*\*(.*?)\*\*\*/g, '$1')
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/\*(.*?)\*/g, '$1')
+    // Remove markdown links but keep text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Remove HTML tags
+    .replace(/<[^>]*>/g, '')
+    // Remove code blocks
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/`([^`]+)`/g, '$1')
+    // Remove special markdown characters at start of lines
+    .replace(/^>\s*/gm, '')
+    // Clean up multiple newlines and spaces
+    .replace(/\n\s*\n/g, ' ')
+    .replace(/\s+/g, ' ')
+    .replace(/\r/g, '')
+    .trim();
+}
+
 // Normalize provider name
 function normalizeProviderName(host, apiName) {
   let name = apiName || host.split('.')[0];
@@ -144,6 +179,111 @@ function normalizeProviderName(host, apiName) {
     .replace(/[^a-z0-9]/g, '_')
     .replace(/_+/g, '_')
     .replace(/^_|_$/g, '');
+}
+
+// LLM summarization using OpenAI API
+async function summarizeDescription(description, targetLength = DESCRIPTION_LIMITS.COMPACT, apiKey = null) {
+  // Skip if description is already short enough
+  if (!description || description.length <= targetLength) {
+    return description;
+  }
+
+  // Skip if no API key provided
+  if (!apiKey) {
+    console.warn('No OpenAI API key provided, skipping summarization for long description');
+    return cleanMarkdown(description).substring(0, targetLength) + '...';
+  }
+
+  // Clean markdown from input description
+  const cleanedDescription = cleanMarkdown(description);
+  
+  // If cleaning markdown made it short enough, use it directly
+  if (cleanedDescription.length <= targetLength) {
+    return cleanedDescription;
+  }
+
+  const prompt = `Create a concise API description under ${targetLength} characters that explains what this API actually does and what functionality it provides.
+
+REQUIREMENTS:
+- Explain the specific functionality and capabilities, not who it's for
+- Start with action verbs (e.g., "Manages", "Provides", "Enables", "Retrieves")
+- Avoid generic phrases like "for users of this service" or "allows users to"
+- Focus on concrete features and data types
+- Use plain text only - no markdown, bold, italics, or special formatting
+- Be specific about what developers can accomplish with this API
+
+Original description:
+"${cleanedDescription}"
+
+Functional API description:`;
+
+  const payload = JSON.stringify({
+    model: 'gpt-4o-mini',
+    messages: [{ role: 'user', content: prompt }],
+    max_tokens: Math.ceil(targetLength / 1.5), // More generous token limit for better descriptions
+    temperature: 0.2 // Lower temperature for more consistent, factual descriptions
+  });
+
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'api.openai.com',
+      port: 443,
+      path: '/v1/chat/completions',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Length': Buffer.byteLength(payload)
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+      
+      res.on('end', () => {
+        try {
+          const response = JSON.parse(data);
+          
+          if (response.error) {
+            console.warn(`OpenAI API error: ${response.error.message}`);
+            resolve(cleanMarkdown(description).substring(0, targetLength) + '...');
+            return;
+          }
+
+          let summary = response.choices?.[0]?.message?.content?.trim();
+          
+          if (summary) {
+            // Clean any markdown that might have slipped through
+            summary = cleanMarkdown(summary);
+            
+            if (summary.length <= targetLength) {
+              resolve(summary);
+            } else {
+              // If summary is still too long, truncate it
+              resolve(summary.substring(0, targetLength) + '...');
+            }
+          } else {
+            resolve(cleanMarkdown(description).substring(0, targetLength) + '...');
+          }
+        } catch (error) {
+          console.warn(`Failed to parse OpenAI response: ${error.message}`);
+          resolve(cleanMarkdown(description).substring(0, targetLength) + '...');
+        }
+      });
+    });
+
+    req.on('error', (error) => {
+      console.warn(`OpenAI API request failed: ${error.message}`);
+      resolve(cleanMarkdown(description).substring(0, targetLength) + '...');
+    });
+
+    req.write(payload);
+    req.end();
+  });
 }
 
 // Scan repository for API specifications
@@ -209,8 +349,9 @@ function scanAPIs() {
 }
 
 // Convert API to provider format
-function convertToProvider(apiData, existingNames = new Set()) {
+async function convertToProvider(apiData, existingNames = new Set(), options = {}) {
   const { provider, version, spec, quality, isPopular, specFile } = apiData;
+  const { openaiApiKey, summarizeDescriptions = false, targetLength = DESCRIPTION_LIMITS.COMPACT } = options;
   
   const baseName = normalizeProviderName(provider, spec.info.title);
   
@@ -233,6 +374,28 @@ function convertToProvider(apiData, existingNames = new Set()) {
   
   const category = determineCategory(spec, provider);
   
+  // Handle description with optional LLM summarization
+  let description = spec.info.description || `${spec.info.title || name} API`;
+  const originalDescription = description;
+  
+  if (summarizeDescriptions && description.length > DESCRIPTION_LIMITS.MIN_FOR_SUMMARY) {
+    console.log(`Summarizing description for ${name} (${description.length} chars)`);
+    try {
+      description = await summarizeDescription(description, targetLength, openaiApiKey);
+      console.log(`Summarized to ${description.length} chars`);
+    } catch (error) {
+      console.warn(`Failed to summarize description for ${name}: ${error.message}`);
+      // Fallback to cleaned markdown version
+      description = cleanMarkdown(description);
+      if (description.length > targetLength) {
+        description = description.substring(0, targetLength) + '...';
+      }
+    }
+  } else {
+    // Always clean markdown even if not summarizing
+    description = cleanMarkdown(description);
+  }
+  
   return {
     name,
     provider_type: 'http',
@@ -240,18 +403,13 @@ function convertToProvider(apiData, existingNames = new Set()) {
     url: specUrl,
     content_type: contentType,
     metadata: {
-      description: spec.info.description || `${spec.info.title || name} API`,
+      description,
       category,
       last_updated: new Date().toISOString().split('T')[0],
       maintainer: spec.info.contact?.name || provider,
       documentation_url: spec.externalDocs?.url || spec.info.contact?.url || `https://${provider}`,
       version: version,
-      openapi_version: spec.openapi || spec.swagger,
-      quality_score: quality,
-      is_popular: isPopular,
-      title: spec.info.title,
-      paths_count: Object.keys(spec.paths || {}).length,
-      schemas_count: Object.keys(spec.components?.schemas || spec.definitions || {}).length
+      openapi_version: spec.openapi || spec.swagger
     }
   };
 }
@@ -306,6 +464,15 @@ async function main() {
       case '--skip-clone':
         options.skipClone = true;
         break;
+      case '--summarize-descriptions':
+        options.summarizeDescriptions = true;
+        break;
+      case '--openai-api-key':
+        options.openaiApiKey = args[++i];
+        break;
+      case '--target-length':
+        options.targetLength = parseInt(args[++i]) || DESCRIPTION_LIMITS.COMPACT;
+        break;
       case '--help':
         console.log(`
 Usage: node add-providers-from-repo.js [options]
@@ -317,18 +484,42 @@ Options:
   --max-results <num>       Maximum number of providers to add (default: 50)
   --dry-run                Show what would be added without modifying files
   --skip-clone             Skip cloning/updating repository (use existing)
+  --summarize-descriptions  Enable LLM summarization for long descriptions
+  --openai-api-key <key>    OpenAI API key for description summarization
+  --target-length <chars>   Target length for summarized descriptions (default: 150)
   --help                   Show this help message
+
+Description Processing:
+  All descriptions are automatically cleaned of markdown formatting for consistency.
+  
+  When --summarize-descriptions is enabled, descriptions longer than 200 characters
+  will be summarized using OpenAI's GPT-4o-mini to fit within the UI constraints:
+  - Compact view: 150 characters (default target)
+  - Full view: 300 characters maximum
+  
+  The LLM is optimized to explain specific API functionality using action verbs,
+  avoiding generic phrases and focusing on concrete capabilities developers can use.
 
 Examples:
   node add-providers-from-repo.js --popular-only --min-quality 70
   node add-providers-from-repo.js --categories "Finance & Payments,AI & Machine Learning" --max-results 20
   node add-providers-from-repo.js --dry-run --min-quality 80
+  node add-providers-from-repo.js --summarize-descriptions --openai-api-key sk-... --target-length 150
         `);
         return;
     }
   }
   
   try {
+    // Handle API key from environment variable if not provided via CLI
+    if (options.summarizeDescriptions && !options.openaiApiKey) {
+      options.openaiApiKey = process.env.OPENAI_API_KEY;
+      if (!options.openaiApiKey) {
+        console.warn('⚠️  LLM summarization enabled but no API key provided. Use --openai-api-key or set OPENAI_API_KEY environment variable.');
+        console.warn('   Falling back to simple truncation for long descriptions.');
+      }
+    }
+
     // Setup repository
     if (!options.skipClone) {
       setupRepository();
@@ -347,14 +538,19 @@ Examples:
       return;
     }
     
-    // Convert to providers
+    // Convert to providers (now async)
     const existingNames = new Set();
-    const providers = filteredAPIs.map(api => convertToProvider(api, existingNames));
+    const providers = [];
+    
+    for (const api of filteredAPIs) {
+      const provider = await convertToProvider(api, existingNames, options);
+      providers.push(provider);
+    }
     
     if (options.dryRun) {
       console.log('\n=== DRY RUN - Would add these providers ===');
       providers.forEach((provider, index) => {
-        console.log(`${index + 1}. ${provider.name} (${provider.metadata.category}) - Quality: ${provider.metadata.quality_score}, Paths: ${provider.metadata.paths_count}`);
+        console.log(`${index + 1}. ${provider.name} (${provider.metadata.category}) - Version: ${provider.metadata.version}`);
       });
       return;
     }
@@ -382,8 +578,9 @@ Examples:
     
     // Show summary
     console.log('\n=== Added Providers ===');
+    
     newProviders.forEach((provider, index) => {
-      console.log(`${index + 1}. ${provider.name} (${provider.metadata.category}) - Quality: ${provider.metadata.quality_score}`);
+      console.log(`${index + 1}. ${provider.name} (${provider.metadata.category}) - Version: ${provider.metadata.version}`);
     });
     
     // Show category breakdown
@@ -415,4 +612,10 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { scanAPIs, convertToProvider, calculateQualityScore };
+module.exports = { 
+  scanAPIs, 
+  convertToProvider, 
+  calculateQualityScore, // Keep for internal filtering
+  cleanMarkdown, 
+  summarizeDescription 
+};

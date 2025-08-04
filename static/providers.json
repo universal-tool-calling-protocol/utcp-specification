@@ -4,18 +4,3837 @@
         "provider_type": "http",
         "http_method": "GET",
         "url": "https://openlibrary.org/static/openapi.json",
-        "content_type": "application/json"
-    },
-    {
-        "name": "newsapi",
-        "provider_type": "text",
-        "file_path": "./newsapi_manual.json"
-    },
-    {
-        "name": "openai",
-        "provider_type": "http",
-        "http_method": "GET",
-        "url": "https://raw.githubusercontent.com/openai/openai-openapi/refs/heads/manual_spec/openapi.yaml",
-        "content_type": "application/x-yaml"
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Provides access to millions of books, author information, and reading data from the Open Library project",
+      "category": "Education",
+      "last_updated": "2024-01-15",
+      "maintainer": "Internet Archive",
+      "documentation_url": "https://openlibrary.org/developers/api",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
     }
+  },
+  {
+    "name": "newsapi",
+    "provider_type": "text",
+    "file_path": "./newsapi_manual.json",
+    "metadata": {
+      "description": "Retrieves breaking news headlines and articles from thousands of news sources and blogs worldwide",
+      "category": "News & Media",
+      "last_updated": "2024-01-15",
+      "maintainer": "NewsAPI.org",
+      "documentation_url": "https://newsapi.org/docs",
+      "version": "2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "openai",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/openai/openai-openapi/refs/heads/manual_spec/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enables text generation, image creation, embeddings, and fine-tuning using OpenAI's advanced AI models",
+      "category": "AI & Machine Learning",
+      "last_updated": "2024-01-15",
+      "maintainer": "OpenAI",
+      "documentation_url": "https://platform.openai.com/docs/api-reference",
+      "version": "1.2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "alerter_system_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/alertersystem.com/1.7.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enables testing and interaction with the Alerter System API, providing access to authorization options and API functionalities.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "alertersystem.com",
+      "documentation_url": "https://alertersystem.com",
+      "version": "1.7.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "anchore_engine_api_server",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/anchore.io/0.1.20/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "This is the Anchore Engine API. Provides the primary external API for users of the service.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "anchore.io",
+      "documentation_url": "https://anchore.io",
+      "version": "0.1.20",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "apacta",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/apacta.com/0.0.42/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Registers working hours, tracks material usage, manages quality assurance, retrieves project files, and supports pagination and filtering.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "apacta.com",
+      "documentation_url": "https://apacta.com",
+      "version": "0.0.42",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "api_video",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/api.video/1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Encodes and streams live or on-demand videos instantly, enabling seamless playback across devices and platforms.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "api.video",
+      "documentation_url": "https://api.video",
+      "version": "1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "swagger_api2cart",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/api2cart.com/1.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "API2Cart",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "api2cart.com",
+      "documentation_url": "http://docs.api2cart.com",
+      "version": "1.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "api2pdf_pdf_generation_powered_by_aws_lambda",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/api2pdf.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Generates PDFs from URLs, merges documents, converts files using wkhtmltopdf, Headless Chrome, and LibreOffice, and creates barcodes.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Support",
+      "documentation_url": "https://www.api2pdf.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "app_center_client",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/appcenter.ms/v0.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Microsoft Visual Studio App Center API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "appcenter.ms",
+      "documentation_url": "https://appcenter.ms",
+      "version": "v0.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "powertools_developer",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/apptigent.com/2021.1.01/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Provides endpoints to manipulate text, format dates, convert currency, perform calculations, shorten URLs, encode strings, and process images.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Customer Support",
+      "documentation_url": "https://www.apptigent.com/help/",
+      "version": "2021.1.01",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "appveyor_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/appveyor.com/1.0.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages projects, builds, and deployments; retrieves build statuses and logs; configures team settings within the AppVeyor service.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "AppVeyor Team",
+      "documentation_url": "https://www.appveyor.com/docs/api/",
+      "version": "1.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "art19_content_api_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/art19.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, manages, and paginates content data, supports sorting, and handles authentication and rate limiting for efficient API usage.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "ART19 Engineering Team",
+      "documentation_url": "https://art19.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "asana",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/asana.com/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves tasks, projects, and teams; manages task assignments, due dates, and project statuses within the Asana platform.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Asana Support",
+      "documentation_url": "https://asana.com/support",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "business_registries",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/ato.gov.au/0.0.6/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves business registry data, manages classifications, and provides metadata for individuals and entities using RESTful JSON requests.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "ato.gov.au",
+      "documentation_url": "https://ato.gov.au",
+      "version": "0.0.6",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "authentiq_connect_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/authentiq.io/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Authentiq Connect OAuth 2.0 and OpenID Connect API reference. Learn about Authentiq ID or check out the Authentiq Connect developer documentation.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Team Authentiq",
+      "documentation_url": "https://developers.authentiq.com/",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "cis_automotive_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/autodealerdata.com/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Authenticates users, retrieves automotive data, and supports HTTP GET/POST requests for various data endpoints.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "autodealerdata.com",
+      "documentation_url": "https://autodealerdata.com",
+      "version": "1.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "avaza_api_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/avaza.com/v1/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages authentication via OAuth2 and Personal Access Tokens, enabling secure API access and data retrieval from Avaza's services.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "avaza.com",
+      "documentation_url": "https://avaza.com",
+      "version": "v1",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "bbc_nitro_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/bbc.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Open Nitro Project",
+      "documentation_url": "https://developer.bbc.co.uk/nitro",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "bbc_iplayer_business_layer",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/bbci.co.uk/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "The definitive iPlayer API.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Open iBL Project",
+      "documentation_url": "http://smethur.st/posts/176135860",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "beezup_merchant_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/beezup.com/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages accounts, stores, product catalogs, and orders; enables data import, channel configuration, performance analysis, and optimization automation.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "beezup.com",
+      "documentation_url": "https://api-docs.beezup.com/",
+      "version": "2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "betfair_exchange_streaming_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/betfair.com/1.0.1423/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "API to receive streamed updates. This is an ssl socket connection of CRLF delimited json messages (see RequestMessage & ResponseMessage)",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "BDP Support",
+      "documentation_url": "https://developer.betfair.com/support/",
+      "version": "1.0.1423",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "budgea_api_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/biapi.pro/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves financial data, manages user connections, and executes bank transfers via secure RESTful API calls.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "biapi.pro",
+      "documentation_url": "https://biapi.pro",
+      "version": "2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "1_000_000_recipe_and_grocery_list_api_v2",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/bigoven.com/partner/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves recipes and grocery lists, manages user authentication, and generates client libraries for various programming languages.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "bigoven.com",
+      "documentation_url": "http://api2.bigoven.com/web/documentation",
+      "version": "partner",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "big_red_cloud_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/bigredcloud.com/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and manages Big Red Cloud data, enabling CRUD operations on financial records and user accounts via secure API access.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "bigredcloud.com",
+      "documentation_url": "https://bigredcloud.com",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "billbee_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/billbee.io/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, manages, and updates order, product, and customer data from Billbee accounts via secure RESTful requests.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Billbee GmbH",
+      "documentation_url": "https://www.billbee.io",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "billingo_api_v3",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/billingo.hu/3.0.7/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages billing data, processes payments, retrieves transaction history, and generates invoices using JSON requests and responses.",
+      "category": "Finance & Payments",
+      "last_updated": "2025-08-04",
+      "maintainer": "Billingo Support",
+      "documentation_url": "https://support.billingo.hu/content/446136358",
+      "version": "3.0.7",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "bitbucket_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/bitbucket.org/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Automates tasks, retrieves Bitbucket data, integrates with applications, and enables custom UI add-ons using the Connect framework.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Bitbucket Support",
+      "documentation_url": "https://bitbucket.org/api",
+      "version": "2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "box_platform_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/box.com/2.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages files and folders, handles user accounts, and implements legal holds and retention policies within Box content storage.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Box, Inc",
+      "documentation_url": "https://developer.box.com",
+      "version": "2.0.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "rocket_services",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/britbox.co.uk/3.730.300-ref-1-39-0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages ISL services, packages them for front-end use, simplifies client integration, and enables customization of back-end services.",
+      "category": "General",
+      "last_updated": "2025-08-04",
+      "maintainer": "britbox.co.uk",
+      "documentation_url": "https://britbox.co.uk",
+      "version": "3.730.300-ref-1-39-0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "bungie_net_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/bungie.net/2.18.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "These endpoints constitute the functionality exposed by Bungie.net, both for more traditional website functionality and for connectivity to Bungie video games and their related functionality.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Bungie.net API Support",
+      "documentation_url": "https://github.com/Bungie-net/api/wiki/OAuth-Documentation",
+      "version": "2.18.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "bunq_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/bunq.com/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enables account management, payment initiation, and transaction retrieval through secure RESTful API calls with OAuth authentication.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "bunq Developer Support",
+      "documentation_url": "http://bunq.com/developer",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "automata_market_intelligence_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/byautomata.io/1.0.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves market data, analyzes trends, and provides content similarity insights through dedicated endpoints for targeted queries.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "byautomata.io",
+      "documentation_url": "http://byautomata.io",
+      "version": "1.0.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "callfire_api_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/callfire.com/V2/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "CallFire",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "CallFire",
+      "documentation_url": "https://www.callfire.com",
+      "version": "V2",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "chain49_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/chain49.com/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves blockchain data from 10+ supported blockchains and enables access to 50+ additional blockchains via WebSocket connection.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "chain49.com",
+      "documentation_url": "https://chain49.com/",
+      "version": "2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "chaingateway_io_v2",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/chaingateway.io/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enables interaction with Ethereum, Binance Smart Chain, Polygon, and Tron blockchains for token management, payments, and data retrieval.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "chaingateway.io",
+      "documentation_url": "https://chaingateway.io",
+      "version": "1.0.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "channel_4_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/channel4.com/1.0.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "This is the place to come for all the technical details you need to power your applications with Channel 4's deep programmes data.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Open C4 Project",
+      "documentation_url": "http://developer.channel4.com/docs/read/ProgrammesAPIGuide",
+      "version": "1.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "circleci_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/circleci.com/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves build data, triggers jobs, manages workflows, and accesses project settings in CircleCI, excluding billing functions.",
+      "category": "Finance & Payments",
+      "last_updated": "2025-08-04",
+      "maintainer": "circleci.com",
+      "documentation_url": "https://circleci.com",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "rest_api_version_2",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/circuitsandbox.net/2.9.235/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Circuit REST API to interact with the Circuit system. Learn more about the Circuit Development Community",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "circuitsandbox.net",
+      "documentation_url": "https://circuitsandbox.net",
+      "version": "2.9.235",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "clearblade_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/clearblade.com/3.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "A friendly little API to help you interact with the ClearBlade platform.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "clearblade.com",
+      "documentation_url": "https://clearblade.com",
+      "version": "3.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "clever_cloud_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/clever-cloud.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Public API for managing Clever-Cloud data and products",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "clever-cloud.com",
+      "documentation_url": "https://clever-cloud.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "clickmeter_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/clickmeter.com/v2/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Api dashboard for ClickMeter API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Api Support",
+      "documentation_url": "http://www.clickmeter.com/api",
+      "version": "v2",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "clicksend_rest_api_v3",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/clicksend.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Sends, retrieves, and manages SMS, MMS, and voice messages; supports authentication, pagination, searching, and sorting.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "clicksend.com",
+      "documentation_url": "https://clicksend.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "climate_fieldview_platform_apis",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/climate.com/4.0.11/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, uploads, and manages agronomic data with support for pagination, chunked transfers, and custom rate limits.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Climate FieldView Support",
+      "documentation_url": "https://climate.com",
+      "version": "4.0.11",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "cloud_rf_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/cloudrf.com/2.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Use this JSON API to build and test radio links for any radio, anywhere. Authenticate with your API2.0 key in the request header as key",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "cloudrf.com",
+      "documentation_url": "https://cloudrf.com",
+      "version": "2.0.0",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "college_football_data_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/collegefootballdata.com/4.4.12/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves college football statistics, schedules, and team information, enabling data analysis and integration into applications.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "collegefootballdata.com",
+      "documentation_url": "https://collegefootballdata.com",
+      "version": "4.4.12",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "public_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/combell.com/v2/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages resources via HTTP requests, enabling creation, retrieval, updating, and deletion of accounts and assets with JSON responses.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "combell.com",
+      "documentation_url": "https://combell.com",
+      "version": "v2",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "configcat_public_management_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/configcat.com/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages feature flags, configurations, environments, and products via CRUD operations using RESTful endpoints and JSON formats.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "ConfigCat",
+      "documentation_url": "https://configcat.com",
+      "version": "v1",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "conjur",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/conjur.local/5.3.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "This is an API definition for CyberArk Conjur Open Source. You can find out more at Conjur.org.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "conjur.local",
+      "documentation_url": "https://conjur.org",
+      "version": "5.3.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "contract_fit_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/contract-p.fit/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages document uploads, processing, and reprocessing with synchronous and asynchronous options; supports role-based access control.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "contract-p.fit",
+      "documentation_url": "https://contract-p.fit",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "corrently_io",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/corrently.io/2.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves green energy data, manages consumption metrics, and enables consensus-driven management for energy services and integrations.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "corrently.io",
+      "documentation_url": "https://stromdao.de/kontakt",
+      "version": "2.0.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "daniweb_connect_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/daniweb.com/4/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "User Recommendation Engine and Chat Network",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Dani Wolkowicki",
+      "documentation_url": "https://www.daniweb.com/connect/developers",
+      "version": "4",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "data2crm_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/data2crm.com/1/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, updates, and manages CRM data, enabling seamless integration and synchronization between various CRM systems.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "data2crm.com",
+      "documentation_url": "http://www.data2crm.com/api/",
+      "version": "1",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "digitalocean_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/digitalocean.com/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages Droplets and resources, enabling creation, retrieval, updating, and deletion via HTTP requests with JSON responses.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "DigitalOcean API Team",
+      "documentation_url": "https://digitalocean.com",
+      "version": "2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "discourse_api_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/discourse.local/latest/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, manages, and updates forum data, including categories, topics, and posts, using JSON or other content types via authenticated API calls.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "discourse.local",
+      "documentation_url": "https://discourse.local",
+      "version": "latest",
+      "openapi_version": "3.1.0"
+    }
+  },
+  {
+    "name": "d_d_5e_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/dnd5eapi.co/0.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves Dungeons & Dragons 5th Edition data, including spells, monsters, classes, and abilities via RESTful and GraphQL endpoints.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "5eBits",
+      "documentation_url": "https://github.com/5e-bits",
+      "version": "0.1",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "docusign_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/docusign.net/v2.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "The DocuSign REST API provides you with a powerful, convenient, and simple Web services API for interacting with DocuSign.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "DocuSign Developer Center",
+      "documentation_url": "https://docs.docusign.com/esign",
+      "version": "v2.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "nookipedia",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/dodo.ac/1.6.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves comprehensive Animal Crossing data, including characters, items, and events, from the Nookipedia wiki in real-time.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "dodo.ac",
+      "documentation_url": "https://dodo.ac",
+      "version": "1.6.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "dracoon_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/dracoon.team/4.42.3/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages file storage, retrieval, and sharing; enables user authentication and access control; supports metadata handling and versioning.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "dracoon.team",
+      "documentation_url": "https://dracoon.team",
+      "version": "4.42.3",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "visma_e_conomic_openapi",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/e-conomic.com/v20.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, manages, and filters project, employee, and time entry data with support for pagination and custom error handling.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "e-conomic.com",
+      "documentation_url": "https://www.e-conomic.com/",
+      "version": "v20.0.0",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "elmah_io_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/elmah.io/v3/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves error logs, manages log entries, and configures API key permissions for seamless integration with elmah.io services.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "elmah.io",
+      "documentation_url": "https://elmah.io",
+      "version": "v3",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "api_v1_0_0",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/envoice.in/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves invoice data, manages webhook subscriptions, and sends real-time updates on invoice activities via HTTP POST payloads.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "envoice.in",
+      "documentation_url": "https://envoice.in",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "etherpad_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/etherpad.local/1.2.15/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Etherpad is a real-time collaborative editor scalable to thousands of simultaneous real time users. It provides full data export capabilities, and runs on your server, under your control.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "The Etherpad Foundation",
+      "documentation_url": "https://etherpad.org/",
+      "version": "1.2.15",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "exavault",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/exavault.com/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages file transfers and user accounts, supporting GET and POST requests for efficient data handling with API key authentication.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "ExaVault Support",
+      "documentation_url": "https://www.exavault.com/developer/",
+      "version": "2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "openfec",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/fec.gov/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves campaign finance data, enabling searches for candidates, committees, and contributors with detailed report access and bulk downloads.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "fec.gov",
+      "documentation_url": "https://fec.gov",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "flat_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/flat.io/2.13.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Creates and imports music scores in various formats, manages user scores, and handles educational resources like accounts and assignments.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Flat",
+      "documentation_url": "https://flat.io/developers/docs/api/",
+      "version": "2.13.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "flickr_api_schema",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/flickr.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "A subset of Flickr's API defined in Swagger format.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "flickr.com",
+      "documentation_url": "https://flickr.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "frankie_financial_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/frankiefinancial.io/1.5.3/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Validates identities, checks documents, performs fraud and compliance checks, and compares utility providers in Australia and NZ.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "frankiefinancial.io",
+      "documentation_url": "https://frankiefinancial.io",
+      "version": "1.5.3",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "gerermesaffaires_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/gerermesaffaires.com/1.0.6/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Sécurisez vos données en interfaçant votre logiciel métier avec le service en ligne GererMesAffaires",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "gerermesaffaires.com",
+      "documentation_url": "https://api.gerermesaffaires.com/",
+      "version": "1.0.6",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "gitea_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/gitea.io/1.20.0+dev-539-g5e389228f/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "This documentation describes the Gitea API.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "gitea.io",
+      "documentation_url": "https://gitea.io",
+      "version": "1.20.0+dev-539-g5e389228f",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "eqivo_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/github.com/v0.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Eqivo OpenApi Specification",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "github.com",
+      "documentation_url": "https://github.com",
+      "version": "v0.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "travel_partner_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/google.com/v3/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and updates hotel data from the Google Hotel Center, facilitating management of complex accounts through a RESTful interface.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Google",
+      "documentation_url": "https://developers.google.com/hotels/hotel-prices/api-reference",
+      "version": "v3",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "google_home",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/google.home/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves device information, manages local authorization tokens, and enables communication with Google Home devices via HTTPS requests.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "google.home",
+      "documentation_url": "https://google.home",
+      "version": "2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "graphhopper_directions_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/graphhopper.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves routes, optimizes paths, calculates isochrones, matches maps, and geocodes locations using various vehicle profiles.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "API Support",
+      "documentation_url": "https://www.graphhopper.com/",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "greenwire_public_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/greenpeace.org/1.0.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Greenpeace Greenwire allows you connect with other volunteers, activists and groups working on environmental campaigns all across the world!",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Greenpeace International contact",
+      "documentation_url": "http://www.greenpeace.org/international/en/about/contactus/",
+      "version": "1.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "gsmtasks_project_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/gsmtasks.com/2.4.13/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "The GSMtasks API is a RESTful web service for developers to programmatically interact with GSMtasks data, real-time delivery and task management and route optimization functionality.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "gsmtasks.com",
+      "documentation_url": "https://gsmtasks.com",
+      "version": "2.4.13",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "handwrytten_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/handwrytten.com/1.0.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Sends customizable handwritten cards, manages card templates, and integrates logos for personalized messaging.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "handwrytten.com",
+      "documentation_url": "https://handwrytten.com",
+      "version": "1.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "hhs_media_services_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/hhs.gov/2/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enables multi-column sorting with customizable order and retrieves date-formatted data based on RFC 3339 standards.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "hhs.gov",
+      "documentation_url": "https://hhs.gov",
+      "version": "2",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "httpbin_org",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/httpbin.org/0.9.2/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "A simple HTTP Request & Response Service. Run locally: $ docker run -p 80:80 kennethreitz/httpbin",
+      "category": "General",
+      "last_updated": "2025-08-04",
+      "maintainer": "httpbin.org",
+      "documentation_url": "https://kennethreitz.org",
+      "version": "0.9.2",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "id4i_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/id4i.de/1.0.2/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "ID4i HTTP API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "BlueRain Software GmbH & Co. KG",
+      "documentation_url": "http://bluerain.de",
+      "version": "1.0.2",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "api_reference_ideal_postcodes",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/ideal-postcodes.co.uk/3.7.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, manages, and tags data with metadata; supports JSONP, rate limits, and provides detailed error handling and response codes.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Support",
+      "documentation_url": "https://docs.ideal-postcodes.co.uk",
+      "version": "3.7.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "instagram_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/instagram.com/1.0.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves user profiles, media, comments, and likes; manages media uploads, deletions, and interactions within specified app scopes.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Instagram",
+      "documentation_url": "https://instagram.com/developer",
+      "version": "1.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "brain_web_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/intellifi.nl/2.23.4+0.gb463b49.dirty/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enables localization of items/assets using RFID and Bluetooth, and provides authentication via API key or session cookie.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Support",
+      "documentation_url": "https://intellifi.zendesk.com",
+      "version": "2.23.4+0.gb463b49.dirty",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "iqualify_management_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/iqualify.com/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves current offerings, manages learning experiences, and provides access to iQualify instance data via secure HTTPS endpoints.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "iqualify.com",
+      "documentation_url": "https://iqualify.com",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "api_isendpro",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/isendpro.com/1.1.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Sends SMS to multiple recipients, retrieves campaign summaries, manages directories, performs HLR lookups, and counts SMS characters.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "iSendPro Support Team",
+      "documentation_url": "https://www.isendpro.com/",
+      "version": "1.1.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "ix_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/ix-api.net/2.1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages Internet Exchange services by enabling configuration, modification, and deletion, with validated query parameters for filtering.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "ix-api.net",
+      "documentation_url": "https://ix-api.net",
+      "version": "2.1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "firebase_cloud_messaging_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/javatpoint.com/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "FCM send API that provides a cross-platform messaging solution to reliably deliver messages at no cost.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Google",
+      "documentation_url": "https://firebase.google.com/docs/cloud-messaging",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "developer_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/journy.io/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, manages, and tracks user and account data, events, and metadata via frontend and backend APIs for analytics integration.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Support",
+      "documentation_url": "https://help.journy.io",
+      "version": "1.0.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "jumpseller_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/jumpseller.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, creates, updates, and deletes products using JSON data; supports token-based authentication and paginated responses.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "jumpseller.com",
+      "documentation_url": "https://jumpseller.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "just_eat_uk",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/just-eat.co.uk/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves order details, manages payment processing, and provides real-time updates via webhooks for delivery tracking and status changes.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "just-eat.co.uk",
+      "documentation_url": "https://just-eat.co.uk",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "keycloak_admin_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/keycloak.local/1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "This is a REST API reference for the Keycloak Admin",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "keycloak.local",
+      "documentation_url": "https://github.com/keycloak/keycloak/tree/6.0.1/core/src/main/java/org/keycloak/representations",
+      "version": "1",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "kumpeapps_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/kumpeapps.com/5.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Authenticates requests, retrieves user data, and manages access to KumpeApps resources securely.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "kumpeapps.com",
+      "documentation_url": "https://kumpeapps.com",
+      "version": "5.0.0",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "launchdarkly_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/launchdarkly.com/5.3.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Build custom integrations with the LaunchDarkly REST API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "LaunchDarkly Support",
+      "documentation_url": "https://support.launchdarkly.com",
+      "version": "5.3.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "lgtm_api_specification",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/lgtm.com/v1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves project statuses, triggers analyses, manages code reviews, uploads snapshots, and submits queries for evaluation results.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "lgtm.com",
+      "documentation_url": "https://lgtm.com",
+      "version": "v1.0",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "linode_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/linode.com/4.151.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages Linode resources, enabling creation, retrieval, updating, and deletion of accounts, databases, domains, and more via JSON requests.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Linode",
+      "documentation_url": "https://linode.com",
+      "version": "4.151.1",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "linqr",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/linqr.app/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Generates custom QR codes, supports high-volume requests, and ensures reliable cloud-based scalability for image creation.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "LinQR",
+      "documentation_url": "https://linqr.app",
+      "version": "2.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "listen_api_podcast_search_directory_and_insights_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/listennotes.com/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Simple & no-nonsense podcast search & directory API. Search all podcasts and episodes by people, places, or topics.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Listen Notes",
+      "documentation_url": "https://www.listennotes.com/api/",
+      "version": "2.0",
+      "openapi_version": "3.1.0"
+    }
+  },
+  {
+    "name": "api_docs_logoraisr_com",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/logoraisr.com/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves log data, validates against OpenAPI 2.0 specifications, and facilitates integration with external systems via JSON downloads.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "logoraisr.com",
+      "documentation_url": "https://logoraisr.com",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "mandrill",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/mandrillapp.com/1.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Sends transactional emails, manages templates, tracks delivery status, and retrieves analytics for e-commerce and personalized messaging.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "mandrillapp.com",
+      "documentation_url": "https://mandrillapp.com/api/docs/",
+      "version": "1.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "rat_genome_database_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/mcw.edu/1.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "The RGD REST API provides programmatic access to information and annotation stored in the Rat Genome Database",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Rat Genome Database",
+      "documentation_url": "http://rgd.mcw.edu",
+      "version": "1.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "medium_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/medium.com/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves data on users, publications, articles, and trending topics from Medium, including textual content and latest posts.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Nishu Jain",
+      "documentation_url": "https://github.com/Medium/medium-api-docs",
+      "version": "1.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "meraki_dashboard_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/meraki.com/1.32.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves network data, manages device configurations, and monitors performance metrics for Cisco Meraki networks.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Meraki Developer Community",
+      "documentation_url": "https://meraki.io/community",
+      "version": "1.32.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "meshery_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/meshery.local/0.4.27/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Defines and generates a Swagger 2.0 specification from Go code using comment annotations for API documentation.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "meshery.local",
+      "documentation_url": "https://meshery.local",
+      "version": "0.4.27",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "microcks_api_v1_7",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/microcks.local/1.7.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "API offered by Microcks, the Kubernetes native tools for API and microservices mocking and testing (microcks.io)",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Laurent Broudoux",
+      "documentation_url": "https://github.com/microcks",
+      "version": "1.7.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "mist_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/mist.com/0.37.7/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and manages data on network devices, configurations, and performance metrics for efficient network monitoring and optimization.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Thomas Munzer",
+      "documentation_url": "https://mist.com",
+      "version": "0.37.7",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "biolink_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/monarchinitiative.org/1.1.14/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "API integration layer for linked biological objects. __Source:__ https://github.com/biolink/biolink-api/",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "monarchinitiative.org",
+      "documentation_url": "https://monarchinitiative.org",
+      "version": "1.1.14",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "motaword_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/motaword.com/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Use MotaWord API to post and track your translation projects.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "motaword.com",
+      "documentation_url": "https://www.motaword.com/developer",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "musixmatch_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/musixmatch.com/1.1.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and displays licensed song lyrics, track metadata, artist details, and album information for music applications.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Musixmatch",
+      "documentation_url": "https://developer.musixmatch.com/",
+      "version": "1.1.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "mux_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/mux.com/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Mux DevEx",
+      "documentation_url": "https://docs.mux.com",
+      "version": "v1",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "namsor_api_v2",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/namsor.com/2.0.24/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Processes names to determine gender, cultural origin, and ethnicity across languages, supporting batch processing of up to 100 names.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Namsor SAS",
+      "documentation_url": "https://github.com/namsor",
+      "version": "2.0.24",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "account_and_transaction_api_specification_uk",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/nbg.gr/v3.1.5/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves account details, balances, transactions, beneficiaries, standing orders, and statements via Open Banking standards.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "NBG",
+      "documentation_url": "https://developer.nbg.gr/",
+      "version": "v3.1.5",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "neblio_rest_api_suite",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/nebl.io/1.3.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "APIs for Interacting with NTP1 Tokens & The Neblio Blockchain",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "nebl.io",
+      "documentation_url": "https://nebl.io",
+      "version": "1.3.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "netatmo",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/netatmo.net/1.1.5/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves weather data, manages smart home devices, and enables user authentication via OAuth2 for secure API access.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Netatmo",
+      "documentation_url": "https://dev.netatmo.com/dev/resources/technical/reference",
+      "version": "1.1.5",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "netbox_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/netbox.dev/3.4/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "API to access NetBox",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "netbox.dev",
+      "documentation_url": "https://netbox.dev",
+      "version": "3.4",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "netbox_api_1",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/netboxdemo.com/2.8/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "API to access NetBox",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "netboxdemo.com",
+      "documentation_url": "https://netboxdemo.com",
+      "version": "2.8",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "netlify_s_api_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/netlify.com/2.16.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages atomic website deployments, handles form submissions, and injects JavaScript snippets using a RESTful JSON API with OAuth 2 authentication.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "netlify.com",
+      "documentation_url": "https://www.netlify.com/docs/api/",
+      "version": "2.16.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "nfusion_solutions_market_data_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/nfusionsolutions.biz/1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves real-time and historical financial data for precious metals, currency pairs, and cryptocurrencies via secure REST API calls.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "nFusion Solutions",
+      "documentation_url": "https://nfusionsolutions.com/contact-us",
+      "version": "1",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "noosh_api_application",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/noosh.com/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Full description of Noosh API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "noosh.com",
+      "documentation_url": "https://noosh.com",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "obono_rksv_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/obono.at/1.4.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enables interaction with virtual cash registers, creating compliant receipts per RKSV, and supports multiple programming languages.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "CodeWerkstatt OG",
+      "documentation_url": "https://obono.at",
+      "version": "1.4.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "swiss_nextgen_banking_api_framework",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/openbankingproject.ch/1.3.8_2020-12-14 - Swiss edition 1.3.8.1-CH/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enables secure access to bank accounts and financial data, supporting multiple authentication methods for payment initiation.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Open Banking Project Switzerland",
+      "documentation_url": "https://github.com/openbankingproject-ch/obp-apis",
+      "version": "1.3.8_2020-12-14 - Swiss edition 1.3.8.1-CH",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "open_policy_agent_opa_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/openpolicy.local/0.28.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages policy enforcement in cloud environments, enabling policy creation, retrieval, and updates via RESTful endpoints.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "The OPA team",
+      "documentation_url": "https://www.openpolicyagent.org/docs/latest/",
+      "version": "0.28.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "open_targets_platform_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/opentargets.io/19.02.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, queries, and manages biological data related to diseases, targets, and drugs in JSON format via RESTful methods.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Open Targets Platform team",
+      "documentation_url": "https://opentargets.io",
+      "version": "19.02.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "pi_web_api_2018_sp1_swagger_spec",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/osisoft.com/1.11.1.5383/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Swagger Spec file that describes PI Web API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "OSIsoft, LLC.",
+      "documentation_url": "https://techsupport.osisoft.com/",
+      "version": "1.11.1.5383",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "pandascore_rest_api_for_all_videogames",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/pandascore.co/2.23.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves eSports event data, including leagues, series, tournaments, and matches, with filtering, sorting, and pagination capabilities.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "pandascore.co",
+      "documentation_url": "https://pandascore.co",
+      "version": "2.23.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "paylocity_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/paylocity.com/2/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, adds, updates, and deletes employee deductions; sends employee data for onboarding processes in Paylocity.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "paylocity.com",
+      "documentation_url": "https://paylocity.com",
+      "version": "2",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "payrun_io",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/payrun.io/23.24.2.136/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Open, scableable, transparent payroll API.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "payrun.io",
+      "documentation_url": "https://developer.test.payrun.io/docs",
+      "version": "23.24.2.136",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "pdf_blocks_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/pdfblocks.com/1.5.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Merges, encrypts, watermarks, extracts, reverses, and rotates PDF pages, enabling comprehensive document manipulation and security.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "PDF Blocks Support",
+      "documentation_url": "https://www.pdfblocks.com/docs/api/v1",
+      "version": "1.5.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "pims",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/pims.io/1.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves event data, ticket counts, and promotions; supports filtering, sorting, pagination, and internationalization in JSON format.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "pims.io",
+      "documentation_url": "https://pims.io",
+      "version": "1.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "pinecone_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/pinecone.io/20230406.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, stores, and manages high-dimensional vector data for efficient similarity search and machine learning applications.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Andy Boothe",
+      "documentation_url": "https://docs.pinecone.io/",
+      "version": "20230406.1",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "the_plaid_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/plaid.com/2020-09-14_1.345.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "The Plaid REST API. Please see https://plaid.com/docs/api for more details.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Plaid Developer Team",
+      "documentation_url": "https://plaid.com",
+      "version": "2020-09-14_1.345.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "portfolio_optimizer",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/portfoliooptimizer.io/1.0.9/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Analyzes and optimizes investment portfolios using modern portfolio theory algorithms, providing JSON data for financial assets.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Support",
+      "documentation_url": "https://docs.portfoliooptimizer.io/",
+      "version": "1.0.9",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "probely_developers",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/probely.com/1.2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages web vulnerability scans, retrieves scan results, updates findings, and provides detailed vulnerability insights and lifecycle management.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Probely Support",
+      "documentation_url": "https://probely.com",
+      "version": "1.2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "contentdepot",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/prss.org/2.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages metadata distribution, content uploads, and file storage; retrieves program information via RadioDNS for dynamic content discovery.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "prss.org",
+      "documentation_url": "https://prss.org",
+      "version": "2.0.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "ptv_timetable_api_version_3",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/ptv.vic.gov.au/v3/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves public transport timetable, route, stop, real-time, and disruption data for trains, trams, and buses in Victoria.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Public Transport Victoria",
+      "documentation_url": "http://ptv.vic.gov.au/digital",
+      "version": "v3",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "they_said_so_quotes_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/quotes.rest/5.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, manages, and searches a vast collection of quotes, providing metadata and categorization for enhanced integration.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "They Said So",
+      "documentation_url": "https://theysaidso.com/api",
+      "version": "5.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "rawg_video_games_database_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/rawg.io/v1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves detailed game data, including metadata, player statistics, and purchase links from a vast database of over 350,000 titles.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "rawg.io",
+      "documentation_url": "https://rawg.io",
+      "version": "v1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "rebilly_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/rebilly.com/2.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages payment processing, token creation, and resource filtering while enabling authentication and data retrieval through RESTful JSON requests.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Rebilly API Support",
+      "documentation_url": "https://www.rebilly.com/contact/",
+      "version": "2.1",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "reverb",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/reverb.com/3.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "reverb",
+      "category": "General",
+      "last_updated": "2025-08-04",
+      "maintainer": "Reverb API",
+      "documentation_url": "https://dev.reverb.com/",
+      "version": "3.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "rubrik_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/rubrikinc.github.io/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages Rubrik clusters by enabling configuration, querying, and controlling backup, recovery, and snapshot operations across various data sources.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "rubrikinc.github.io",
+      "documentation_url": "https://rubrikinc.github.io",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "rudder_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/rudder.example.local/17/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, creates, updates, and deletes resources using JSON over REST, managing nodes, directives, and system settings efficiently.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Rudder developers",
+      "documentation_url": "https://docs.rudder.io",
+      "version": "17",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "rumble_api_deprecated",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/rumble.run/2.15.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves network device data, manages asset inventories, and enables discovery of connected devices across networks.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "rumble.run",
+      "documentation_url": "https://rumble.run",
+      "version": "2.15.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "sakari",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/sakari.io/1.0.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enables bulk SMS messaging, retrieves contact lists, manages account settings, and supports pagination for efficient data access.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "sakari.io",
+      "documentation_url": "https://sakari.io",
+      "version": "1.0.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "salesloft_platform",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/salesloft.com/v2/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "SalesLoft helps transform sales teams into modern sales organizations - converting more target accounts into customer accounts",
+      "category": "General",
+      "last_updated": "2025-08-04",
+      "maintainer": "salesloft.com",
+      "documentation_url": "https://salesloft.com",
+      "version": "v2",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "semantria",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/semantria.com/4.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Semantria applies Text and Sentiment Analysis to tweets, facebook posts, surveys, reviews or enterprise content.",
+      "category": "Social Media",
+      "last_updated": "2025-08-04",
+      "maintainer": "semantria.com",
+      "documentation_url": "https://semantria.com/support/developer/",
+      "version": "4.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "email_activity_beta",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/sendgrid.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and filters email event data by type for 2 days; optionally stores and downloads 60 days of data as CSV.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "sendgrid.com",
+      "documentation_url": "https://sendgrid.com/docs/API_Reference/Web_API_v3/index.html",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "shipengine_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/shipengine.com/1.1.202304191404/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages shipping labels, tracks packages, compares carrier rates, and validates addresses globally for efficient shipping solutions.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "ShipEngine Sales & Support",
+      "documentation_url": "https://www.shipengine.com/docs/",
+      "version": "1.1.202304191404",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "shutterstock_api_explorer",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/shutterstock.com/1.1.32/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "shutterstock.com",
+      "documentation_url": "https://shutterstock.com",
+      "version": "1.1.32",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "signl4_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/signl4.com/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves alarms, manages on-call duties, triggers updates in third-party systems, and logs alert state changes via HTTP requests.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "signl4.com",
+      "documentation_url": "https://www.signl4.com/feedback-we-love-hear-from-you/",
+      "version": "v1",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "sinao_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/sinao.app/1.1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Sinao API for account management, apps administration and network exploration",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "sinao.app",
+      "documentation_url": "https://sinao.app",
+      "version": "1.1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "slack_web_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/slack.com/1.7.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "One way to interact with the Slack platform is its HTTP RPC-based Web API, a collection of methods requiring OAuth 2.0-based user, bot, or workspace tokens blessed with related OAuth scopes.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Slack developer relations",
+      "documentation_url": "https://api.slack.com/web",
+      "version": "1.7.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "smart_me",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/smart-me.com/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves device data from the smart-me Cloud, manages device connections, and enables integration of custom devices into the platform.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "smart-me.com",
+      "documentation_url": "https://smart-me.com",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "snyk_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/snyk.io/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves package vulnerability and license issue data, tests packages for security issues, and provides detailed test results.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "snyk.io",
+      "documentation_url": "https://snyk.io",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "spacetraders_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/spacetraders.io/2.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages fleets of ships, retrieves game server status, and enables exploration of a multiplayer universe through HTTP endpoints.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Joel Brubaker",
+      "documentation_url": "https://spacetraders.io",
+      "version": "2.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "spoonacular_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/spoonacular.com/1.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves recipes, ingredients, and food products; calculates nutrition; analyzes costs; visualizes ingredients; generates meal plans; supports dietar...",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "David Urbansky",
+      "documentation_url": "https://spoonacular.com/food-api/docs",
+      "version": "1.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "spotify_web_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/spotify.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves music and podcast data, manages library items, controls playback, and supports OAuth 2.0 for secure access.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "spotify.com",
+      "documentation_url": "https://spotify.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "square_connect_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/squareup.com/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Client library for accessing the Square Connect APIs",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Square Developer Platform",
+      "documentation_url": "https://docs.connect.squareup.com/",
+      "version": "2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "stackexchange",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/stackexchange.com/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Stack Exchange is a network of 130+ Q&A communities including Stack Overflow.",
+      "category": "General",
+      "last_updated": "2025-08-04",
+      "maintainer": "stackexchange.com",
+      "documentation_url": "https://api.stackexchange.com/",
+      "version": "2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "api_ecota_co_v2",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/staging-ecotaco.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages user accounts, credit cards, and ride orders; authenticates via application key and token; supports English and French languages.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "staging-ecotaco.com",
+      "documentation_url": "https://staging-ecotaco.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "stripe_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/stripe.com/2022-11-15/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "The Stripe REST API. Please see https://stripe.com/docs/api for more details.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Stripe Dev Platform Team",
+      "documentation_url": "https://stripe.com",
+      "version": "2022-11-15",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "the_surevoip_restful_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/surevoip.co.uk/9dcb0dc8/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages calls, customers, and numbers; sends SMS; provisions services; tracks invoices; retrieves SIP details; subscribes to events.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "SureVoIP API Support",
+      "documentation_url": "https://www.surevoip.co.uk/support/wiki/api_documentation",
+      "version": "9dcb0dc8",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "svix_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/svix.com/1.4/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages webhooks by sending messages to multiple endpoints, defining event types, and ensuring idempotent request handling.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "svix.com",
+      "documentation_url": "https://svix.com",
+      "version": "1.4",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "swaggerhub_registry_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/swaggerhub.com/1.0.66/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages APIs, domains, integrations, projects, and templates; retrieves organization data and member details via secure API calls.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "SwaggerHub Support",
+      "documentation_url": "https://support.smartbear.com/swaggerhub/message/",
+      "version": "1.0.66",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "taggun_receipt_ocr_scanning_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/taggun.io/1.15.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Expects only running software, real reactions, and beautifully crafted APIs to serve your every desire to transcribe a piece of paper to digital form.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "taggun.io",
+      "documentation_url": "https://taggun.io",
+      "version": "1.15.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "tcgdex_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/tcgdex.net/2.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves detailed Pokémon TCG card information, including images, attributes, and translations across multiple languages.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "TCGdex",
+      "documentation_url": "http://www.tcgdex.net/docs",
+      "version": "2.0.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "telnyx_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/telnyx.com/2.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "SIP trunking, SMS, MMS, Call Control and Telephony Data Services.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "telnyx.com",
+      "documentation_url": "https://telnyx.com",
+      "version": "2.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "transport_for_london_unified_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/tfl.gov.uk/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves real-time transport data and status updates across multiple modes in a unified RESTful format for seamless integration.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "tfl.gov.uk",
+      "documentation_url": "https://tfl.gov.uk",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "the_blue_alliance_api_v3",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/thebluealliance.com/3.8.2/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves statistics and details on FIRST Robotics Competition teams and events using authenticated requests with an API key.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "thebluealliance.com",
+      "documentation_url": "https://thebluealliance.com",
+      "version": "3.8.2",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "the_racing_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/theracingapi.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves horse racing results, daily racecards, and provides betting insights like win percentage and profit/loss calculations.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "theracingapi.com",
+      "documentation_url": "https://theracingapi.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "threatjammer_com_user_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/threatjammer.com/1.2.27/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages user authentication, retrieves data from databases, and processes reports via RESTful endpoints with quota limits and regional tokens.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "ThreatJammer Support",
+      "documentation_url": "https://threatjammer.com/docs/index",
+      "version": "1.2.27",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/tl-api.azurewebsites.net/2020-08-10_6-22/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Web API for TL mobile and web app",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Unicorn Solutions",
+      "documentation_url": "https://unicorn-solutions.com",
+      "version": "2020-08-10_6-22",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "traccar",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/traccar.org/5.6/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Open Source GPS Tracking Platform",
+      "category": "Analytics",
+      "last_updated": "2025-08-04",
+      "maintainer": "Traccar Support",
+      "documentation_url": "https://www.traccar.org/",
+      "version": "5.6",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "tradematic_cloud_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/tradematic.com/1.0.2/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages trading operations, retrieves market data, and integrates with brokers and exchanges for seamless investment service development.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "tradematic.com",
+      "documentation_url": "https://tradematic.com",
+      "version": "1.0.2",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "trakt_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/trakt.tv/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, manages, and updates movie and TV show data, including user collections, watchlists, and ratings via RESTful calls.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "trakt.tv",
+      "documentation_url": "https://trakt.tv",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "trash_nothing",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/trashnothing.com/1.3/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and manages listings of free items, posts, and user interactions with date-time values in ISO 8601 format.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "trashnothing.com",
+      "documentation_url": "https://trashnothing.com",
+      "version": "1.3",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "trello",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/trello.com/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves board details, manages cards and lists, updates member assignments, and tracks activity within Trello projects.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Trello",
+      "documentation_url": "https://developers.trello.com",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "hardware_sentry_truesight_presentation_server_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/truesight.local/11.1.00/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Hardware Sentry TrueSight Presentation Server REST API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Sentry on BMC Community",
+      "documentation_url": "https://community.bmc.com/s/group/0F93n000000PlUtCAK/sentry-software",
+      "version": "11.1.00",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "checks_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/truora.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and verifies background information on individuals, vehicles, and companies through multiple LATAM databases.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Truora API Team",
+      "documentation_url": "https://www.truora.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "turbine_labs_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/turbinelabs.io/1.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages core object types with CRUD operations via RESTful endpoints and supports authentication using access tokens in HTTP headers.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "turbinelabs.io",
+      "documentation_url": "https://turbinelabs.io",
+      "version": "1.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "tvmaze_user_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/tvmaze.com/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and manages individual user data using HTTP Basic authentication with TVmaze username and API key.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "tvmaze.com",
+      "documentation_url": "http://www.tvmaze.com",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "fitbit_plus_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/twinehealth.com/v7.78.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves patient data, manages OAuth 2.0 authentication, and supports data synchronization with EMR systems using JSON API format.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "twinehealth.com",
+      "documentation_url": "https://twinehealth.com",
+      "version": "v7.78.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "unicourt_enterprise_apis",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/unicourt.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Download UniCourt Enterprise APIs Specification",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "unicourt.com",
+      "documentation_url": "https://unicourt.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "up_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/up.com.au/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves account balances and transaction history, enables real-time webhook notifications for new transactions.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "API Specification and Support",
+      "documentation_url": "https://github.com/up-banking/api",
+      "version": "v1",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "vectara_rest_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/vectara.io/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Vectara is a neural search platform, built for developers to get the most out of their data. You can sign up for an account at https://vectara.com.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Vectara Support",
+      "documentation_url": "http://support.vectara.com/",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "velo_payments_apis",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/velopayments.com/2.35.57/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Authenticates payors, manages payee collections, queries balances, issues payments, and retrieves payment histories via a RESTful interface.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "velopayments.com",
+      "documentation_url": "https://velopayments.com",
+      "version": "2.35.57",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "vercel_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/vercel.com/0.0.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Vercel combines the best developer experience with an obsessive focus on end-user performance. Our platform enables frontend teams to do their best work.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Vercel Support",
+      "documentation_url": "https://vercel.com/support",
+      "version": "0.0.1",
+      "openapi_version": "3.1.0"
+    }
+  },
+  {
+    "name": "viator_api_documentation_amp_specification_merchant_partners",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/viator.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, manages, and processes bookings for tours and activities, including product details, availability, pricing, and cancellations.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Viator Partner Support Team",
+      "documentation_url": "https://docs.viator.com/partner-api/merchant/#support-procedures-merchant/",
+      "version": "1.0.0",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "victorops",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/victorops.com/0.0.3/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages incident alerts, retrieves on-call schedules, and updates team configurations within the VictorOps platform.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "victorops.com",
+      "documentation_url": "https://victorops.com",
+      "version": "0.0.3",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "severa_public_rest_api_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/visma.com/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves Bearer tokens via OAuth2, manages token refresh, and requires Client_Id for secure API access.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "visma.com",
+      "documentation_url": "https://visma.com",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "the_water_linked_underwater_gps_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/waterlinked.com/1.0.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves underwater GPS data, checks API version compatibility, and manages connection status for Water Linked devices.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "waterlinked.com",
+      "documentation_url": "https://waterlinked.com",
+      "version": "1.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "weatherbit_interactive_swagger_ui_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/weatherbit.io/2.0.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves current weather data, hourly forecasts, and historical weather information using geographic coordinates.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "weatherbit.io",
+      "documentation_url": "https://weatherbit.io",
+      "version": "2.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "wikimedia",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/wikimedia.org/1.0.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and caches Wikimedia content in machine-readable formats, enforcing rate limits and unique user-agent requirements.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "the Wikimedia Services team",
+      "documentation_url": "http://mediawiki.org/wiki/REST_API",
+      "version": "1.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "wowza_streaming_cloud_rest_api_reference_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/wowza.com/1/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages live streams, transcoders, sources, and targets via HTTP requests, enabling full programmatic control over streaming operations.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Contact Us",
+      "documentation_url": "https://www.wowza.com/docs/how-to-broadcast-a-live-stream-by-using-the-wowza-streaming-cloud-rest-api",
+      "version": "1",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "xtrf_home_portal_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/xtrf.eu/2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages projects, quotes, customers, and vendors; retrieves and updates data for efficient workflow automation and integration.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "xtrf.eu",
+      "documentation_url": "https://xtrf.eu",
+      "version": "2.0",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "yodlee_core_apis",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/yodlee.com/1.1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Generates client SDKs for Yodlee Platform APIs in multiple programming languages, enabling seamless integration and data access.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "yodlee.com",
+      "documentation_url": "https://yodlee.com",
+      "version": "1.1.0",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "ynab_api_endpoints",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/youneedabudget.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves financial data, manages transactions, and updates budgets using JSON over HTTPS with detailed error responses.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "youneedabudget.com",
+      "documentation_url": "https://youneedabudget.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "zoom_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/zoom.us/2.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves user data, manages meetings, and accesses recordings via secure endpoints at api.zoom.us/v2/.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Zoom Developers",
+      "documentation_url": "https://developer.zoom.us/",
+      "version": "2.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "api_reference_billing",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/zuora.com/2021-08-20/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages billing operations, processes subscriptions, generates invoices, and integrates storefronts with Zuora's billing object model.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "zuora.com",
+      "documentation_url": "https://zuora.com",
+      "version": "2021-08-20",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "apis_guru",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/apis.guru/2.2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and manages API definitions in OpenAPI format, enabling integration and documentation of web APIs.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "APIs.guru",
+      "documentation_url": "https://github.com/APIs-guru/openapi-directory/blob/master/API.md",
+      "version": "2.2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "braze_endpoints",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/braze.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Tracks users, sends messages, exports data, and manages user engagement through RESTful API endpoints.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "braze.com",
+      "documentation_url": "https://braze.com",
+      "version": "1.0.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "data_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/clever.com/1.2.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Serves the Clever Data API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "clever.com",
+      "documentation_url": "https://clever.com",
+      "version": "1.2.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "core_api_v2",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/core.ac.uk/2.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and manages articles, journals, and repositories using JSON, supporting complex search queries and batch requests.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "core.ac.uk",
+      "documentation_url": "https://core.ac.uk",
+      "version": "2.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "dataflow_kit_web_scraper",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/dataflowkit.com/1.3/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages Headless Chrome to render JavaScript pages, scrape SERPs, convert pages to PDF, and capture screenshots via a point-and-click toolkit.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "dataflowkit.com",
+      "documentation_url": "https://dataflowkit.com/open-api",
+      "version": "1.3",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "forem_api_v1",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/dev.to/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves Forem articles, user profiles, and resources; supports public and authenticated access with RFC 3339 date formatting.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "dev.to",
+      "documentation_url": "https://dev.to",
+      "version": "1.0.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "drchrono",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/drchrono.com/v4 (Hunt Valley)/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enables OAuth 2.0 authentication, retrieves access tokens, manages webhooks for events, and integrates iframe applications for patient data.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "drchrono.com",
+      "documentation_url": "https://drchrono.com",
+      "version": "v4 (Hunt Valley)",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "crossbar_data_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/ebi.ac.uk/1.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves and analyzes biomedical data, predicts relationships, and constructs interactive knowledge graphs from diverse sources.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "API support",
+      "documentation_url": "https://ebi.ac.uk",
+      "version": "1.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "elevenlabs_api_documentation",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/elevenlabs.io/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves text-to-speech audio, manages voice settings, and generates speech from text using customizable parameters and voice profiles.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "elevenlabs.io",
+      "documentation_url": "https://elevenlabs.io",
+      "version": "1.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "fire_financial_services_business_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/fire.com/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves account details, transactions, and payee accounts; initiates payments; provides service information and configuration settings.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "Fire API",
+      "documentation_url": "https://docs.fire.com",
+      "version": "1.0",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "postman_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/getpostman.com/1.20.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves, manages, and updates Postman account data using secure HTTPS requests and JSON responses, with API key authentication.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "getpostman.com",
+      "documentation_url": "https://getpostman.com",
+      "version": "1.20.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "greip_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/greip.io/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "This documentation shows how to use Greip API, by highlighting the API methods, options and some other features that allow you to get the most of this API.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Greip Support",
+      "documentation_url": "https://docs.greip.io",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "influx_oss_api_service",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/influxdata.com/2.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Authentication &lt;!-- ReDoc-Inject: &lt;security-definitions&gt; --&gt;",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "influxdata.com",
+      "documentation_url": "https://influxdata.com",
+      "version": "2.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "magento_b2b",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/magento.com/2.2.10/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Magento Commerce is the leading provider of open omnichannel innovation.",
+      "category": "E-commerce",
+      "last_updated": "2025-08-04",
+      "maintainer": "magento.com",
+      "documentation_url": "https://magento.com",
+      "version": "2.2.10",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "mineskin_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/mineskin.org/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Client implementations: Java: https://github.com/InventivetalentDev/MineskinClient NodeJS: https://github.com/InventivetalentDev/mineskin-client Examples: https://github.com/MineSkin/examples",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "inventivetalent",
+      "documentation_url": "https://discord.gg/nzAdvPc",
+      "version": "1.0.0",
+      "openapi_version": "3.0.3"
+    }
+  },
+  {
+    "name": "labs64_netlicensing_restful_api_test_center",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/netlicensing.io/2.x/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves licensing data, manages product keys, and processes transactions for software licensing and subscription management.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "netlicensing.io",
+      "documentation_url": "https://netlicensing.io",
+      "version": "2.x",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "neutrino_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/neutrinoapi.net/3.6.4/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "The general-purpose API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Neutrino API",
+      "documentation_url": "https://www.neutrinoapi.com/",
+      "version": "3.6.4",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "openfintech_io",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/openfintech.io/2017-08-24/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves standardized FinTech data, including currencies, banks, payment methods, and geolocation, with pagination and filtering options.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "openfintech.io",
+      "documentation_url": "https://openfintech.io",
+      "version": "2017-08-24",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "open_states_api_v3",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/openstates.org/2021.11.12/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves committee and event data, manages account registration, and provides endpoint access for experimental features.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "openstates.org",
+      "documentation_url": "https://openstates.org",
+      "version": "2021.11.12",
+      "openapi_version": "3.0.2"
+    }
+  },
+  {
+    "name": "orbit_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/orbit.love/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Please see the complete Orbit API documentation at https://api.orbit.love/.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "orbit.love",
+      "documentation_url": "https://orbit.love",
+      "version": "v1",
+      "openapi_version": "3.0.1"
+    }
+  },
+  {
+    "name": "schooldigger_api_v2_0",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/schooldigger.com/v2.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Get detailed data on over 120,000 schools and 18,500 districts in the U.S.Version 2.0 incorporates the ATTOM School Boundary Level add-on and spending per pupil metrics",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "SchoolDigger",
+      "documentation_url": "https://schooldigger.com",
+      "version": "v2.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "setlist_fm_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/setlist.fm/1.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves setlist data, including artists, venues, and locations, in XML or JSON formats for integration into applications.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "setlist.fm",
+      "documentation_url": "https://setlist.fm",
+      "version": "1.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "api_1",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/shop-pro.jp/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Manages application billing data, script tags, and installation/uninstallation events for apps in the Color Me Shop App Store.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "お問い合せ窓口",
+      "documentation_url": "https://shop-pro.jp/?mode=inq",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "slicebox_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/slicebox.local/2.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Slicebox - safe sharing of medical images",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "slicebox.local",
+      "documentation_url": "http://github.org/slicebox/slicebox",
+      "version": "2.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "seven_io_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/sms77.io/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "seven.io Swagger API. Get your API-Key now at seven.io.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Support",
+      "documentation_url": "https://seven.io/en/docs/gateway/http-api",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "statsocial_platform_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/statsocial.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves social media analytics, manages user data, and provides insights through JSON responses for seamless integration with applications.",
+      "category": "AI & Machine Learning",
+      "last_updated": "2025-08-04",
+      "maintainer": "statsocial.com",
+      "documentation_url": "http://docs.statsocial.com/home/",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "storecove_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/storecove.com/2.0.1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Storecove API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "storecove.com",
+      "documentation_url": "https://storecove.com",
+      "version": "2.0.1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "telegram_bot_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/telegram.org/5.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Auto-generated OpenAPI schema",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "telegram.org",
+      "documentation_url": "https://core.telegram.org/bots/api",
+      "version": "5.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "uebermaps_api_endpoints",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/uebermaps.com/2.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Enable people to store spots on public and private maps",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "uebermaps API Team",
+      "documentation_url": "https://uebermaps.com",
+      "version": "2.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "vestorly_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/vestorly.com/1.0.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Vestorly Developers API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Vestorly Team",
+      "documentation_url": "https://vestorly.com",
+      "version": "1.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "visagecloud",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/visagecloud.com/1.1/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Face search, recognition & classification API. Just make a call to our REST API each time your app needs to access face recognition and classification capabilities.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "VisageCloud",
+      "documentation_url": "https://visagecloud.com",
+      "version": "1.1",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "wealth_reader_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/wealthreader.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Retrieves real-time wealth data from global sources, enhancing financial insights beyond standard banking APIs.",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "wealthreader.com",
+      "documentation_url": "https://docs-es.wealthreader.com/",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "whatsapp_business_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/whatsapp.local/1.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "See https://developers.facebook.com/docs/whatsapp",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "whatsapp.local",
+      "documentation_url": "https://whatsapp.local",
+      "version": "1.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "agco_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/agco-ats.com/v1/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "AGCO API API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "agco-ats.com",
+      "documentation_url": "https://agco-ats.com",
+      "version": "v1",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "radio_music_services",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/bbc.co.uk/1.0.0/swagger.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "We encapsulate Radio & Music business logic for iPlayer Radio and BBC Music products on all platforms. We add value by reliably providing the right blend of metadata needed by clients.",
+      "category": "Music & Media",
+      "last_updated": "2025-08-04",
+      "maintainer": "bbc.co.uk",
+      "documentation_url": "https://bbc.co.uk",
+      "version": "1.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "botify_api",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/botify.com/1.0.0/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Botify Saas API",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "botify.com",
+      "documentation_url": "https://developers.botify.com/",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "spotify",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://developer.spotify.com/reference/web-api/open-api-schema.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Spotify Web API enables the creation of applications that can interact with Spotify's streaming service, such as retrieving content metadata, creating and managing playlists, or controlling playback",
+      "category": "Entertainment",
+      "last_updated": "2025-08-04",
+      "maintainer": "Spotify",
+      "documentation_url": "https://developer.spotify.com/documentation/web-api",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "bitbucket",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://bitbucket.org/api/swagger.json",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Bitbucket Cloud REST API allows you to build apps using any language you want. The API grants access to repositories, pull requests, commits, and more",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Atlassian",
+      "documentation_url": "https://developer.atlassian.com/cloud/bitbucket/",
+      "version": "2.0.0",
+      "openapi_version": "2.0"
+    }
+  },
+  {
+    "name": "jira",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://developer.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Jira Cloud platform REST API provides functionality for customizing, extending, and integrating with Jira. Access and update Jira entities like projects, issues, workflows, and more",
+      "category": "Project Management",
+      "last_updated": "2025-08-04",
+      "maintainer": "Atlassian",
+      "documentation_url": "https://developer.atlassian.com/cloud/jira/platform/",
+      "version": "3.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "canva_connect",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/canva-sdks/canva-connect-api-starter-kit/main/openapi/spec.yml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "The Canva Connect APIs let you integrate Canva's capabilities into your own web apps and platforms. Create and sync assets, designs, comments, and more",
+      "category": "Design Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Canva",
+      "documentation_url": "https://www.canva.dev/docs/connect/",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "github",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.json",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "GitHub's REST API allows you to create integrations, retrieve data, and automate your workflows. Access repositories, issues, pull requests, users, and more",
+      "category": "Development Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "GitHub",
+      "documentation_url": "https://docs.github.com/en/rest",
+      "version": "1.1.4",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "stripe",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Stripe provides APIs for accepting payments, managing subscriptions, sending payouts, and running online businesses. Accept payments and manage transactions globally",
+      "category": "Payments",
+      "last_updated": "2025-08-04",
+      "maintainer": "Stripe",
+      "documentation_url": "https://stripe.com/docs/api",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
+  },
+  {
+    "name": "figma",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://raw.githubusercontent.com/figma/rest-api-spec/main/openapi/openapi.yaml",
+    "content_type": "application/x-yaml",
+    "metadata": {
+      "description": "Figma's REST API allows you to interact with files, comments, users, and version history. Build integrations to sync design data or automate workflows",
+      "category": "Design Tools",
+      "last_updated": "2025-08-04",
+      "maintainer": "Figma",
+      "documentation_url": "https://www.figma.com/developers/api",
+      "version": "1.0.0",
+      "openapi_version": "3.1.0"
+    }
+  }
 ]
