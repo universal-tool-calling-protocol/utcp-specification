@@ -189,19 +189,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
   background-color: #8b5cf6;
   color: #ffffff;
   border: none;
   border-radius: 12px;
-  font-size: 1.5rem;
+  font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
   position: relative;
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .addProviderButton:hover {
@@ -213,6 +214,18 @@
 .addProviderButton:active {
   transform: translateY(0);
   box-shadow: 0 2px 6px rgba(139, 92, 246, 0.2);
+}
+
+.addIcon {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.addText {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .addProviderTooltip {

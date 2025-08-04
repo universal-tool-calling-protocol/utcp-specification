@@ -47,7 +47,8 @@ export const SearchHeader: React.FC<SearchHeaderProps> = ({
             className={styles.addProviderButton}
             title="Add new providers via GitHub Pull Request"
           >
-            +
+            <span className={styles.addIcon}>+</span>
+            <span className={styles.addText}>Add Provider</span>
             <div className={styles.addProviderTooltip}>
               Add a new provider via GitHub Pull Request
             </div>
