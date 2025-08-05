@@ -157,8 +157,7 @@ article a:hover,
   --ifm-breadcrumb-item-background-active: #000000 !important;
 }
 
-/* GitHub and Discord navbar links styling - icons only */
-.navbar__link[href*="github.com"],
+/* Discord navbar link styling - icon only */
 .navbar-discord-link {
   display: flex !important;
   align-items: center !important;
@@ -172,12 +171,44 @@ article a:hover,
   position: relative !important;
 }
 
-/* GitHub icon */
-.navbar__link[href*="github.com"]::before {
+/* Old GitHub button styling - now using custom component */
+/*
+.navbar-github-link {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+  border-radius: 8px !important;
+  background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 25%, #45b7d1 50%, #96ceb4 75%, #feca57 100%) !important;
+  background-size: 400% 400% !important;
+  animation: githubGradient 3s ease infinite !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3) !important;
+}
+
+@keyframes githubGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.navbar-github-link::before {
   content: '';
   width: 20px;
   height: 20px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000'%3E%3Cpath d='M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   display: inline-block;
@@ -185,7 +216,9 @@ article a:hover,
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1;
 }
+*/
 
 /* Discord icon */
 .navbar-discord-link::before {
@@ -203,24 +236,110 @@ article a:hover,
 }
 
 /* Hide text labels and external link arrows completely */
-.navbar__link[href*="github.com"] *,
 .navbar-discord-link * {
   display: none !important;
 }
 
-.navbar__link[href*="github.com"]::after,
 .navbar-discord-link::after {
   display: none !important;
 }
 
-/* Remove external link icon specifically */
-.navbar__link[href*="github.com"][target="_blank"]::after {
-  content: none !important;
+/* Hover effects */
+.navbar-discord-link:hover {
+  opacity: 0.8;
+}
+
+/* Blog page styling - make navbar and sidebars more faded */
+.blog-wrapper .navbar__items .navbar__item .navbar__link:not(.github-button-custom),
+.blog-list-page .navbar__items .navbar__item .navbar__link:not(.github-button-custom),
+.blog-post-page .navbar__items .navbar__item .navbar__link:not(.github-button-custom),
+body[class*="blog"] .navbar__items .navbar__item .navbar__link:not(.github-button-custom) {
+  opacity: 0.6 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+.blog-wrapper .navbar__brand,
+.blog-list-page .navbar__brand,
+.blog-post-page .navbar__brand,
+body[class*="blog"] .navbar__brand {
+  opacity: 0.6 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+.blog-wrapper .navbar__toggle,
+.blog-list-page .navbar__toggle,
+.blog-post-page .navbar__toggle,
+body[class*="blog"] .navbar__toggle {
+  opacity: 0.6 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+/* Hover effects for faded elements */
+.blog-wrapper .navbar__items .navbar__item .navbar__link:not(.github-button-custom):hover,
+.blog-list-page .navbar__items .navbar__item .navbar__link:not(.github-button-custom):hover,
+.blog-post-page .navbar__items .navbar__item .navbar__link:not(.github-button-custom):hover,
+body[class*="blog"] .navbar__items .navbar__item .navbar__link:not(.github-button-custom):hover {
+  opacity: 0.9 !important;
+}
+
+.blog-wrapper .navbar__brand:hover,
+.blog-list-page .navbar__brand:hover,
+.blog-post-page .navbar__brand:hover,
+body[class*="blog"] .navbar__brand:hover {
+  opacity: 0.9 !important;
+}
+
+/* Hide Discord button completely on blog pages */
+.blog-wrapper .navbar-discord-link,
+.blog-list-page .navbar-discord-link,
+.blog-post-page .navbar-discord-link,
+body[class*="blog"] .navbar-discord-link {
   display: none !important;
 }
 
-/* Hover effects */
-.navbar__link[href*="github.com"]:hover,
-.navbar-discord-link:hover {
-  opacity: 0.8;
+/* Version dropdown fading on blog pages */
+.blog-wrapper .navbar__items .dropdown,
+.blog-list-page .navbar__items .dropdown,
+.blog-post-page .navbar__items .dropdown,
+body[class*="blog"] .navbar__items .dropdown {
+  opacity: 0.6 !important;
+}
+
+.blog-wrapper .navbar__items .dropdown:hover,
+.blog-list-page .navbar__items .dropdown:hover,
+.blog-post-page .navbar__items .dropdown:hover,
+body[class*="blog"] .navbar__items .dropdown:hover {
+  opacity: 0.9 !important;
+}
+
+/* Blog sidebar fading */
+.blog-wrapper .blog-sidebar,
+.blog-list-page .blog-sidebar,
+.blog-post-page .blog-sidebar,
+body[class*="blog"] .blog-sidebar,
+.blog-wrapper .theme-blog-sidebar,
+.blog-list-page .theme-blog-sidebar,
+.blog-post-page .theme-blog-sidebar,
+body[class*="blog"] .theme-blog-sidebar,
+.blog-wrapper aside,
+.blog-list-page aside,
+.blog-post-page aside,
+body[class*="blog"] aside {
+  opacity: 0.7 !important;
+}
+
+.blog-wrapper .blog-sidebar:hover,
+.blog-list-page .blog-sidebar:hover,
+.blog-post-page .blog-sidebar:hover,
+body[class*="blog"] .blog-sidebar:hover,
+.blog-wrapper .theme-blog-sidebar:hover,
+.blog-list-page .theme-blog-sidebar:hover,
+.blog-post-page .theme-blog-sidebar:hover,
+body[class*="blog"] .theme-blog-sidebar:hover,
+.blog-wrapper aside:hover,
+.blog-list-page aside:hover,
+.blog-post-page aside:hover,
+body[class*="blog"] aside:hover {
+  opacity: 1 !important;
+  transition: opacity 0.3s ease !important;
 }

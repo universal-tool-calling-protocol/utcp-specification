@@ -7,6 +7,7 @@ import DocNavbarItem from '@theme/NavbarItem/DocNavbarItem';
 import DocSidebarNavbarItem from '@theme/NavbarItem/DocSidebarNavbarItem';
 import DocsVersionNavbarItem from '@theme/NavbarItem/DocsVersionNavbarItem';
 import DocsVersionDropdownNavbarItem from '@theme/NavbarItem/DocsVersionDropdownNavbarItem';
+import CustomGithubNavbarItem from './CustomGithubNavbarItem';
 
 import type {ComponentTypesObject} from '@theme/NavbarItem/ComponentTypes';
 
@@ -20,6 +21,7 @@ const ComponentTypes: ComponentTypesObject = {
   docSidebar: DocSidebarNavbarItem,
   docsVersion: DocsVersionNavbarItem,
   docsVersionDropdown: DocsVersionDropdownNavbarItem,
+  'custom-github': CustomGithubNavbarItem,
 };
 
 export default ComponentTypes;

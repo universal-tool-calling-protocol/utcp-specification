@@ -1,0 +1,11 @@
+utcp-team:
+  name: UTCP Team
+  title: Core Contributors
+  url: https://github.com/universal-tool-calling-protocol
+  image_url: /img/black-logo-square.png
+  
+utcp-maintainer:
+  name: UTCP Maintainer
+  title: Protocol Maintainer
+  url: https://github.com/universal-tool-calling-protocol
+  image_url: /img/black-logo-square.png

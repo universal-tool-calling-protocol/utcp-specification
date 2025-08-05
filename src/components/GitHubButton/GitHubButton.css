@@ -1,0 +1,112 @@
+.github-button-custom {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  height: 40px !important;
+  padding: 0 12px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(-45deg, 
+    rgba(139, 92, 246, 0.8), 
+    rgba(99, 102, 241, 0.8), 
+    rgba(168, 85, 247, 0.8), 
+    rgba(147, 51, 234, 0.8)
+  ) !important;
+  background-size: 400% 400% !important;
+  animation: githubGradient 4s ease infinite !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(10px) saturate(150%) !important;
+  text-decoration: none !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+  min-width: auto !important;
+  width: auto !important;
+}
+
+.github-button-custom:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 
+    0 4px 16px rgba(139, 92, 246, 0.5),
+    0 0 30px rgba(139, 92, 246, 0.3) !important;
+  animation-duration: 2s !important;
+  text-decoration: none !important;
+  color: #ffffff !important;
+  /* border-color: rgba(255, 255, 255, 0.4) !important; */
+}
+
+.github-icon {
+  width: 18px;
+  height: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+.github-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+
+.followers-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.followers-label {
+  font-size: 9px;
+  font-weight: 500;
+  color: #ffffff;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.loading-dots {
+  font-size: 12px;
+  color: #ffffff;
+  animation: loadingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes githubGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes loadingPulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .github-button-custom {
+    padding: 0 8px !important;
+  }
+  
+  .followers-count {
+    font-size: 11px;
+  }
+  
+  .followers-label {
+    font-size: 8px;
+  }
+}

@@ -50,6 +50,16 @@ const config: Config = {
           showLastUpdateTime: true,
           includeCurrentVersion: true,
         },
+        blog: {
+          showReadingTime: true,
+          feedOptions: {
+            type: ['rss', 'atom'],
+            xslt: true,
+          },
+          editUrl: 'https://github.com/universal-tool-calling-protocol/utcp-specification/tree/main/',
+          blogSidebarCount: 'ALL',
+          blogSidebarTitle: 'All posts',
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -113,13 +123,7 @@ const config: Config = {
           position: 'left',
           label: 'Docs',
         },
-        {
-          type: 'doc',
-          docId: 'about-us',
-          position: 'left',
-          label: 'About',
-          docsPluginId: 'about',
-        },
+
         {
           type: 'doc',
           docId: 'RFC',
@@ -130,7 +134,7 @@ const config: Config = {
         {
           to: '/registry',
           position: 'left',
-          label: 'Registry',
+          label: 'Tool Registry',
         },
         {
           type: 'docsVersionDropdown',
@@ -138,8 +142,7 @@ const config: Config = {
           docsPluginId: 'default',
         },
         {
-          href: 'https://github.com/universal-tool-calling-protocol',
-          label: 'GitHub',
+          type: 'custom-github',
           position: 'right',
         },
         {
@@ -209,8 +212,33 @@ const config: Config = {
           ],
         },
         {
-          title: 'Legal',
+          title: 'Resources',
           items: [
+            {
+              label: 'Blog',
+              to: '/blog',
+            },
+            {
+              label: 'Registry',
+              to: '/registry',
+            },
+          ],
+        },
+        {
+          title: 'About',
+          items: [
+            {
+              label: 'About Us',
+              to: '/about/about-us',
+            },
+            {
+              label: 'RFC',
+              to: '/about/RFC',
+            },
+            {
+              label: 'Contributing',
+              to: '/about/contributing',
+            },
             {
               label: 'Impressum',
               to: '/about/impressum',
