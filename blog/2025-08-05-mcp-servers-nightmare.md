@@ -65,6 +65,8 @@ The result is absurd overhead for simple tasks.
 
 Want to expose a simple weather API? With MCP, you can't just make a direct call. You first have to build and maintain a persistent server process just to wrap that stateless `GET` request. In contrast, agents should be able to call existing REST or gRPC endpoints *directly*, with no middlemen.
 
+MCP's new HTTP streaming transport solves some of the problems of requiring statefulness, and spinning up extra processes, but introduces its own nest of cobras on scalability. 
+
 ---
 
 ## 4. It Doesn't Scale for Tools or for Teams
