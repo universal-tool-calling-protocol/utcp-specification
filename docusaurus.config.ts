@@ -125,16 +125,32 @@ const config: Config = {
         },
 
         {
-          type: 'doc',
-          docId: 'RFC',
-          position: 'left',
-          label: 'RFC',
-          docsPluginId: 'about',
-        },
-        {
           to: '/registry',
           position: 'left',
           label: 'Tool Registry',
+        },
+        {
+          type: 'dropdown',
+          label: 'more',
+          position: 'left',
+          items: [
+            {
+              type: 'doc',
+              docId: 'RFC',
+              label: 'RFC',
+              docsPluginId: 'about',
+            },
+            {
+              type: 'doc',
+              docId: 'about-us',
+              label: 'About Us',
+              docsPluginId: 'about',
+            },
+            {
+              label: 'Blog',
+              to: '/blog',
+            },
+          ],
         },
         {
           type: 'docsVersionDropdown',
@@ -236,8 +252,8 @@ const config: Config = {
               to: '/about/RFC',
             },
             {
-              label: 'Contributing',
-              to: '/about/contributing',
+              label: 'Contact the Founders',
+              href: 'mailto:juan@bevel.software',
             },
             {
               label: 'Impressum',

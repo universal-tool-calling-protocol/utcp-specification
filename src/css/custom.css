@@ -249,44 +249,38 @@ article a:hover,
   opacity: 0.8;
 }
 
-/* Blog page styling - make navbar and sidebars more faded */
-.blog-wrapper .navbar__items .navbar__item .navbar__link:not(.github-button-custom),
-.blog-list-page .navbar__items .navbar__item .navbar__link:not(.github-button-custom),
-.blog-post-page .navbar__items .navbar__item .navbar__link:not(.github-button-custom),
-body[class*="blog"] .navbar__items .navbar__item .navbar__link:not(.github-button-custom) {
+/* Blog page styling - fade entire navbar */
+.blog-wrapper .navbar,
+.blog-list-page .navbar,
+.blog-post-page .navbar,
+body[class*="blog"] .navbar {
   opacity: 0.6 !important;
   transition: opacity 0.3s ease !important;
 }
 
-.blog-wrapper .navbar__brand,
-.blog-list-page .navbar__brand,
-.blog-post-page .navbar__brand,
-body[class*="blog"] .navbar__brand {
-  opacity: 0.6 !important;
-  transition: opacity 0.3s ease !important;
-}
-
-.blog-wrapper .navbar__toggle,
-.blog-list-page .navbar__toggle,
-.blog-post-page .navbar__toggle,
-body[class*="blog"] .navbar__toggle {
-  opacity: 0.6 !important;
-  transition: opacity 0.3s ease !important;
-}
-
-/* Hover effects for faded elements */
-.blog-wrapper .navbar__items .navbar__item .navbar__link:not(.github-button-custom):hover,
-.blog-list-page .navbar__items .navbar__item .navbar__link:not(.github-button-custom):hover,
-.blog-post-page .navbar__items .navbar__item .navbar__link:not(.github-button-custom):hover,
-body[class*="blog"] .navbar__items .navbar__item .navbar__link:not(.github-button-custom):hover {
+.blog-wrapper .navbar:hover,
+.blog-list-page .navbar:hover,
+.blog-post-page .navbar:hover,
+body[class*="blog"] .navbar:hover {
   opacity: 0.9 !important;
 }
 
-.blog-wrapper .navbar__brand:hover,
-.blog-list-page .navbar__brand:hover,
-.blog-post-page .navbar__brand:hover,
-body[class*="blog"] .navbar__brand:hover {
-  opacity: 0.9 !important;
+/* Floating GitHub button on blog pages */
+.blog-floating-github {
+  position: absolute !important;
+  top: 50% !important;
+  right: 60px !important; /* Position where GitHub button normally is */
+  transform: translateY(-50%) !important;
+  z-index: 1000 !important;
+  display: none !important; /* Hide by default */
+}
+
+/* Show floating GitHub button only on blog pages */
+.blog-wrapper .blog-floating-github,
+.blog-list-page .blog-floating-github,
+.blog-post-page .blog-floating-github,
+body[class*="blog"] .blog-floating-github {
+  display: flex !important;
 }
 
 /* Hide Discord button completely on blog pages */
@@ -295,21 +289,6 @@ body[class*="blog"] .navbar__brand:hover {
 .blog-post-page .navbar-discord-link,
 body[class*="blog"] .navbar-discord-link {
   display: none !important;
-}
-
-/* Version dropdown fading on blog pages */
-.blog-wrapper .navbar__items .dropdown,
-.blog-list-page .navbar__items .dropdown,
-.blog-post-page .navbar__items .dropdown,
-body[class*="blog"] .navbar__items .dropdown {
-  opacity: 0.6 !important;
-}
-
-.blog-wrapper .navbar__items .dropdown:hover,
-.blog-list-page .navbar__items .dropdown:hover,
-.blog-post-page .navbar__items .dropdown:hover,
-body[class*="blog"] .navbar__items .dropdown:hover {
-  opacity: 0.9 !important;
 }
 
 /* Blog sidebar fading */
