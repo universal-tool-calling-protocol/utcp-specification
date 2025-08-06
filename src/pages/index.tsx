@@ -1,5 +1,4 @@
 import type {ReactNode} from 'react';
-import {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -9,84 +8,53 @@ import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 
-function GitHubFollowersButton() {
-  const [followerCount, setFollowerCount] = useState<number>(450); // Default fallback based on current count
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchFollowerCount = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch('https://api.github.com/orgs/universal-tool-calling-protocol');
-        if (response.ok) {
-          const data = await response.json();
-          setFollowerCount(data.followers || 450);
-        }
-      } catch (error) {
-        console.log('Failed to fetch GitHub followers, using fallback');
-        // Keep the fallback value
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchFollowerCount();
-  }, []);
-
+function DocumentHeader() {
   return (
-    <Link
-      className={clsx(styles.githubStarButton)}
-      to="https://github.com/universal-tool-calling-protocol"
-      target="_blank"
-      rel="noopener noreferrer">
-      <span className={styles.githubIcon}></span>
-      <span className={styles.starText}>GitHub</span>
-      <span className={clsx(styles.starCount, isLoading && styles.loading)}>
-        {isLoading ? '...' : followerCount.toLocaleString()}
-      </span>
-    </Link>
-  );
-}
-
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={styles.documentHeader}>
       <div className="container">
-        <div className={styles.heroContent}>
-          <div className={styles.heroBadge}>
-            The secure, scalable tool-calling alternative to MCP 
-          </div>
-          <Heading as="h1" className={clsx('hero__title', styles.heroTitle)}>
-            Universal Tool Calling
-            <br />
-            <span className={styles.heroAccent}>Protocol</span>
+        <div className={styles.documentMeta}>
+          <div className={styles.documentType}>Internet Draft</div>
+          <div className={styles.documentDate}>January 2025</div>
+        </div>
+        
+        <div className={styles.documentTitle}>
+          <Heading as="h1" className={styles.specTitle}>
+            Universal Tool Calling Protocol (UTCP)
           </Heading>
-          <p className={clsx('hero__subtitle', styles.heroSubtitle)}>
-            Let AI agents call <strong>any tool</strong>, over <strong>any protocol</strong>—directly.
-            <br />
-            No wrappers. No middleman. No compromises.
-          </p>
-          
-          <div className={styles.buttons}>
-            <GitHubFollowersButton />
+          <div className={styles.specSubtitle}>
+            Specification for Direct API Integration with AI Agents
           </div>
+        </div>
 
-          <div className={styles.productHuntBadge}>
-            <a 
-              href="https://www.producthunt.com/products/utcp?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-utcp" 
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img 
-                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=992998&theme=dark&t=1754153843221" 
-                alt="UTCP - The open, direct alternative to MCP for tool calling | Product Hunt" 
-                style={{width: '250px', height: '54px'}} 
-                width="250" 
-                height="54" 
-              />
-            </a>
-          </div>
+        <div className={styles.documentInfo}>
+          <table className={styles.specTable}>
+            <tbody>
+              <tr>
+                <td><strong>Version:</strong></td>
+                <td>0.1.0 (Draft)</td>
+              </tr>
+              <tr>
+                <td><strong>License:</strong></td>
+                <td>Mozilla Public License 2.0</td>
+              </tr>
+              <tr>
+                <td><strong>Repository:</strong></td>
+                <td>
+                  <Link 
+                    to="https://github.com/universal-tool-calling-protocol" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.specLink}>
+                    github.com/universal-tool-calling-protocol
+                  </Link>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Status:</strong></td>
+                <td>Draft - Request for Comments</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </header>
@@ -97,10 +65,10 @@ export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title="Direct AI Tool Calls | UTCP"
-      description="Universal Tool Calling Protocol (UTCP) - Let AI agents call any tool directly, without wrappers. Open source alternative to MCP with zero latency overhead.">
-      <HomepageHeader />
-      <main>
+      title="Universal Tool Calling Protocol"
+      description="Universal Tool Calling Protocol (UTCP) - A specification for direct API integration with AI agents. Open source protocol definition.">
+      <DocumentHeader />
+      <main className={styles.documentMain}>
         <HomepageFeatures />
       </main>
     </Layout>

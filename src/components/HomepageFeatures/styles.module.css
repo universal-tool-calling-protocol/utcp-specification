@@ -1,418 +1,225 @@
+/* Specification document style */
+
 /* Shared Styles */
-.sectionTitle {
-  font-size: 2.5rem !important;
-  margin-bottom: 3rem !important;
-  color: #ffffff;
-  font-weight: 700;
+.specSection {
+  padding: 3rem 0;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eee;
 }
 
-.sectionSubtitle {
-  font-size: 1.2rem;
-  color: #cccccc;
-  margin-bottom: 3rem;
+.specSectionTitle {
+  font-size: 1.4rem !important;
+  margin-bottom: 1.5rem !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+  font-family: 'Times New Roman', Times, serif !important;
+  text-align: left;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #ddd;
 }
 
-/* Comparison Section */
-.comparisonSection {
-  padding: 5rem 0;
-  background-color: #000000;
-}
-
-.comparisonCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 2rem;
-  height: 100%;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  margin-bottom: 2rem;
-}
-
-.comparisonCard:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.comparisonHeader {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.comparisonIcon {
-  font-size: 2rem;
-}
-
-.comparisonHeader h3 {
-  color: #ffffff;
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.architectureDiagram {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.architectureStep {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  flex: 1;
-  min-width: 80px;
-}
-
-.stepNumber {
-  background: linear-gradient(135deg, #333333, #555555);
-  color: #ffffff;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.architectureStep span:last-child {
-  font-size: 0.9rem;
-  color: #cccccc;
-  text-align: center;
-  font-weight: 500;
-}
-
-.arrow {
-  color: #666666;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.comparisonList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.comparisonList li {
-  color: #cccccc;
-  padding: 0.5rem 0;
-  position: relative;
-  padding-left: 2rem;
-}
-
-.comparisonList li::before {
-  content: '•';
-  color: #666666;
-  position: absolute;
-  left: 0;
-  font-size: 1.2rem;
-}
-
-
-
-/* Providers Section */
-.providersSection {
-  padding: 5rem 0;
-  background-color: #000000;
-}
-
-.providersGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-.providerCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 2.5rem;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(15px);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 280px;
-}
-
-.providerCard:hover {
-  transform: translateY(-8px);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.05);
-}
-
-.providerHeader {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.providerIcon {
-  font-size: 3rem;
-  flex-shrink: 0;
-  margin-top: 0.25rem;
-}
-
-.providerTitleGroup {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.providerTitleGroup h3 {
-  color: #ffffff;
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.providerCategory {
-  background: linear-gradient(135deg, #333333, #555555);
-  color: #ffffff;
-  padding: 0.4rem 1rem;
-  border-radius: 15px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  align-self: flex-start;
-}
-
-.providerCard p {
-  color: #cccccc;
-  line-height: 1.6;
-  margin-bottom: auto;
+.specContent {
+  font-family: 'Times New Roman', Times, serif;
   font-size: 1rem;
-  flex-grow: 1;
-}
-
-.providerMeta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.providerType {
-  color: #999999;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.providerStatus {
-  color: #00ff88;
-  font-size: 0.95rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.ctaButton {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  display: inline-block;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-}
-
-.ctaButton:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-}
-
-/* Community Section */
-.communitySection {
-  padding: 5rem 0;
-  background-color: #000000;
-}
-
-.communityCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 2.5rem;
-  height: 100%;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.communityCard:hover {
-  transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.communityIcon {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  display: block;
-}
-
-.communityCard h3 {
-  color: #ffffff;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.communityCard p {
-  color: #cccccc;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  color: #333;
+  max-width: 800px;
 }
 
-.communityLinks {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+.specContent p {
+  margin-bottom: 1rem;
+  text-align: justify;
 }
 
-.communityLinks a {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+.specExample {
+  border: 1px solid #ccc;
+  margin: 1.5rem 0;
+  background: #f9f9f9;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.exampleTitle {
+  background: #f0f0f0;
   padding: 0.5rem 1rem;
-  border-radius: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.exampleCode {
+  padding: 1rem;
+  margin: 0;
+  color: #000;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre;
+  background: #fff;
+}
+
+.specList {
+  margin: 1.5rem 0;
+}
+
+.specListItem {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.specListItem:last-child {
+  border-bottom: none;
+}
+
+.specListDetail {
+  margin-top: 0.25rem;
+  color: #666;
+  font-size: 0.95rem;
+  padding-left: 1rem;
+}
+
+.implementationTable {
+  margin: 1.5rem 0;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  width: 100%;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.implementationTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.implementationTable th {
+  background: #f0f0f0;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.implementationTable td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+
+.inlineLink {
+  color: #0066cc;
   text-decoration: none;
+}
+
+.inlineLink:hover {
+  text-decoration: underline;
+}
+
+/* References */
+.referenceList {
+  margin: 1.5rem 0;
+}
+
+.referenceItem {
+  margin-bottom: 0.75rem;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding-left: 1rem;
+  text-indent: -1rem;
+  color: #333;
+}
+
+/* Appendix */
+.appendixLinks {
+  margin: 1.5rem 0;
+}
+
+.appendixLinkItem {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.appendixLinkItem:last-child {
+  border-bottom: none;
+}
+
+.appendixLink {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.appendixLink:hover {
+  text-decoration: underline;
+}
+
+.appendixLinkDesc {
+  margin-top: 0.25rem;
+  color: #666;
   font-size: 0.9rem;
-  font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
+  font-family: 'Times New Roman', Times, serif;
 }
 
-.communityLinks a:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-.communityStats {
-  display: flex;
-  gap: 2rem;
-}
-
-.communityStats .stat {
-  text-align: center;
-}
-
-.communityStats .statNumber {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.communityStats .statLabel {
-  display: block;
-  font-size: 0.9rem;
-  color: #cccccc;
-  font-weight: 500;
-}
+/* Legacy styles removed - specification document uses clean white background */
 
 /* Responsive Design */
 @media screen and (max-width: 996px) {
-  .sectionTitle {
-    font-size: 2rem !important;
+  .specSection {
+    padding: 2.5rem 0;
   }
   
-  .providersGrid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    padding: 0 1rem;
+  .specSectionTitle {
+    font-size: 1.3rem !important;
   }
   
-  .providerCard {
-    padding: 2rem;
-    min-height: 260px;
+  .exampleCode {
+    font-size: 0.8rem;
   }
   
-  .providerIcon {
-    font-size: 2.5rem;
-  }
-  
-  .providerTitleGroup h3 {
-    font-size: 1.3rem;
+  .specContent {
+    font-size: 0.95rem;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .comparisonSection,
-  .providersSection,
-  .communitySection {
-    padding: 3rem 0;
+  .specSection {
+    padding: 2rem 0;
   }
   
-  .sectionTitle {
-    font-size: 1.8rem !important;
-  }
-
-  .providersGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 0 0.5rem;
+  .specSectionTitle {
+    font-size: 1.2rem !important;
   }
   
-  .providerCard {
-    padding: 1.5rem;
-    min-height: 240px;
+  .exampleCode {
+    font-size: 0.75rem;
+    padding: 0.75rem;
   }
   
-  .providerHeader {
-    gap: 1rem;
+  .specContent {
+    font-size: 0.9rem;
   }
   
-  .providerIcon {
-    font-size: 2.2rem;
+  .implementationTable th,
+  .implementationTable td {
+    padding: 0.5rem;
+    font-size: 0.85rem;
   }
   
-  .providerTitleGroup h3 {
-    font-size: 1.2rem;
+  .referenceItem {
+    font-size: 0.9rem;
   }
   
-  .architectureDiagram {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .arrow {
-    transform: rotate(90deg);
-  }
-  
-  .communityStats {
-    justify-content: center;
+  .appendixLinkDesc {
+    font-size: 0.85rem;
   }
 }
+
+/* End of specification document styles */
