@@ -4,10 +4,10 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import HomepageFeatures from '@site/src/components/HomepageFeatures.backup';
 import Heading from '@theme/Heading';
 
-import styles from './index.module.css';
+import styles from './index.module.css.backup';
 
 function GitHubFollowersButton() {
   const [followerCount, setFollowerCount] = useState<number>(450); // Default fallback based on current count

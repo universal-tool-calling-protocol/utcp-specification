@@ -44,7 +44,7 @@ const config: Config = {
         docs: {
           id: 'default',
           path: 'docs',
-          routeBasePath: 'docs',
+          routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/universal-tool-calling-protocol/utcp-specification/tree/main/',
           showLastUpdateTime: true,
@@ -83,6 +83,10 @@ const config: Config = {
       {
         redirects: [
           {
+            to: '/',
+            from: '/docs',
+          },
+          {
             to: '/about/RFC',
             from: '/RFC',
           },
@@ -111,7 +115,6 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/black-logo-square.png',
     navbar: {
-      title: 'UTCP',
       logo: {
         alt: 'UTCP Logo',
         src: 'img/black-logo-square.svg',
@@ -130,27 +133,23 @@ const config: Config = {
           label: 'Tool Registry',
         },
         {
-          type: 'dropdown',
-          label: 'more',
+          type: 'doc',
+          docId: 'RFC',
+          label: 'RFC',
           position: 'left',
-          items: [
-            {
-              type: 'doc',
-              docId: 'RFC',
-              label: 'RFC',
-              docsPluginId: 'about',
-            },
-            {
-              type: 'doc',
-              docId: 'about-us',
-              label: 'About Us',
-              docsPluginId: 'about',
-            },
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-          ],
+          docsPluginId: 'about',
+        },
+        {
+          type: 'doc',
+          docId: 'about-us',
+          label: 'About Us',
+          position: 'left',
+          docsPluginId: 'about',
+        },
+        {
+          label: 'Blog',
+          to: '/blog',
+          position: 'left',
         },
         {
           type: 'docsVersionDropdown',
@@ -177,19 +176,19 @@ const config: Config = {
           items: [
             {
               label: 'Overview',
-              to: '/docs',
+              to: '/',
             },
             {
               label: 'Provider Types',
-              to: '/docs/providers/http',
+              to: '/providers/http',
             },
             {
               label: 'Implementation Guide',
-              to: '/docs/implementation',
+              to: '/implementation',
             },
             {
               label: 'UTCP vs MCP',
-              to: '/docs/utcp-vs-mcp',
+              to: '/utcp-vs-mcp',
             },
           ],
         },
