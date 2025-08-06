@@ -2,6 +2,7 @@
 slug: mcp-servers-nightmare
 title: Why MCP Servers Are a Nightmare for Engineers
 tags: [mcp, engineering, critique, comparison, utcp]
+image: /img/nightmare-meme.png
 ---
 
 # Why MCP Servers Are a Nightmare for Engineers
