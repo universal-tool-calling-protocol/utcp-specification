@@ -14,7 +14,7 @@ tags: [mcp, engineering, critique, comparison, utcp]
 
 ---
 
-## TL;DR: MCP is just 100x harder than you think
+## TL;DR: MCP in production is 100x harder than you think
 
 Model Context Protocol (MCP) was sold as the USB-C for AI tools: one simple, standard plug for everything. In practice, it feels more like trying to get a 1990s serial port working on a modern laptop. You end up lost in a jungle of ambiguous specs, wrapper processes, and brittle infrastructure that consumes engineering hours for breakfast.
 
