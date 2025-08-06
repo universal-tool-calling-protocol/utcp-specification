@@ -32,7 +32,7 @@ As Marc, another early adopter, recalls from his first attempt:
 
 > “I implement this class… and then I'm like, okay, let's connect to it. Connect, doesn't work. Why? How? And then I spend a bunch of time and then only realize this only works if the process calling this *is* the process which has this client on it. Which is like, what the fuck?”
 
-This single, poorly explained assumption—that the client *must spawn your server as a child process*—is the source of immense pain. But the confusion runs deeper.
+This single, poorly explained assumption, that the client *must spawn your server as a child process*, is the source of immense pain. But the confusion runs deeper.
 
 *   **Ambiguous Transports:** The spec says it connects via “STDIO.” But what does that mean? Is it a raw `stdin/stdout` pipe? Is it a custom framing protocol over that pipe? Is it a TCP socket? You only discover the truth through trial and error.
 *   **Contradictory Examples:** The official GitHub reference servers receive breaking changes weekly, often without a clear changelog, leaving developers to reverse-engineer why their once-working implementation suddenly fails.
@@ -51,7 +51,7 @@ This got worse in a real-world scenario:
 
 1.  **The Setup:** A user has two VS Code windows open. One project is configured to use OpenAI, the other to use Gemini.
 2.  **The MCP Problem:** MCP assumes one server process. When an AI client like Cursor connects to the single JavaScript "bridge," it has no idea which VS Code window (and which configuration) it's supposed to be talking to.
-3.  **The Nightmare Hack:** Simone's only solution was to have his extension write the network port into a temporary file so the bridge could find it. He was juggling PIDs and file I/O just to manage state between two windows—a problem created entirely by MCP's rigid process model.
+3.  **The Nightmare Hack:** Simone's only solution was to have his extension write the network port into a temporary file so the bridge could find it. She was juggling PIDs and file I/O just to manage state between two windows, a problem created entirely by MCP's rigid process model.
 
 ---
 

@@ -322,3 +322,31 @@ body[class*="blog"] aside:hover {
   opacity: 1 !important;
   transition: opacity 0.3s ease !important;
 }
+
+/* GitHub navbar icon styling */
+.github-navbar-icon {
+  display: inline-block;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+
+.github-navbar-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Dark mode color for GitHub icon */
+[data-theme='dark'] .github-navbar-icon {
+  color: var(--ifm-navbar-link-color);
+}
+
+/* Light mode color for GitHub icon */
+[data-theme='light'] .github-navbar-icon {
+  color: var(--ifm-navbar-link-color);
+}
+
+/* Navbar link hover effect for GitHub icon */
+.navbar__item.navbar__link:hover .github-navbar-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
