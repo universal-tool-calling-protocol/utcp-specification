@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from '@docusaurus/router';
 import GitHubButton from '../../components/GitHubButton';
 
 interface CustomGithubNavbarItemProps {
@@ -22,10 +21,7 @@ const GitHubIcon: React.FC<{ className?: string }> = ({ className = "" }) => (
 );
 
 const CustomGithubNavbarItem: React.FC<CustomGithubNavbarItemProps> = ({ mobile, ...props }) => {
-  const location = useLocation();
-  const isBlogPage = location.pathname.startsWith('/blog');
-
-  // For mobile view, always show simple version with icon
+  // For mobile view, show simple version with icon
   if (mobile) {
     return (
       <a
@@ -41,24 +37,8 @@ const CustomGithubNavbarItem: React.FC<CustomGithubNavbarItemProps> = ({ mobile,
     );
   }
 
-  // Show fancy button only on blog pages, normal link elsewhere
-  if (isBlogPage) {
-    return <GitHubButton />;
-  }
-
-  // Normal GitHub link for non-blog pages with icon
-  return (
-    <a
-      href="https://github.com/universal-tool-calling-protocol"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="navbar__item navbar__link"
-      title="GitHub"
-      {...props}
-    >
-      <GitHubIcon />
-    </a>
-  );
+  // Always show the fancy GitHub button for desktop
+  return <GitHubButton />;
 };
 
 export default CustomGithubNavbarItem;
