@@ -1,0 +1,364 @@
+{
+  "version": "1.0",
+  "tools": [
+    {
+      "name": "search_grants_and_tenders",
+      "description": "Search public data for calls for proposals and tenders using the corporate search API. Accepts a JSON query body (bool/terms/term...).",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "description": "API key query parameter. Default for grants/tenders is 'SEDIA'.",
+            "default": "SEDIA"
+          },
+          "language": {
+            "type": "string",
+            "description": "Optional language filter, e.g. 'en', to reduce multilingual result expansion."
+          },
+          "text": {
+            "type": "string",
+            "description": "Optional free-text query (e.g., an identifier or keywords)."
+          },
+          "query": {
+            "type": "object",
+            "description": "Structured query JSON (e.g., {\"bool\": {\"must\": [{\"terms\": {\"type\": [\"0\",\"1\",\"2\",\"8\"]}}, {\"terms\": {\"status\": [\"31094501\",\"31094502\",\"31094503\"]}}]}})"
+          }
+        },
+        "required": []
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "hits": {
+            "type": "object",
+            "description": "Search results containing matching grants and tenders"
+          }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey={api_key}&language={language}&text={text}",
+        "http_method": "POST",
+        "content_type": "application/x-www-form-urlencoded"
+      }
+    },
+    {
+      "name": "facet_reference_data",
+      "description": "Translate reference data codes (e.g., status, programme, destination) into human-readable values using the FACET API.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "description": "API key query parameter. Default is 'SEDIA'.",
+            "default": "SEDIA"
+          },
+          "language": {
+            "type": "string",
+            "description": "Optional language filter, e.g. 'en'."
+          },
+          "text": {
+            "type": "string",
+            "description": "Optional free-text to narrow facets."
+          },
+          "query": {
+            "type": "object",
+            "description": "Same JSON query structure used for the Search API."
+          }
+        },
+        "required": []
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "facets": {
+            "type": "object",
+            "description": "Reference data facets with human-readable translations"
+          }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "https://api.tech.ec.europa.eu/search-api/prod/rest/facet?apiKey={api_key}&language={language}&text={text}",
+        "http_method": "POST",
+        "content_type": "application/x-www-form-urlencoded"
+      }
+    },
+    {
+      "name": "get_topic_details_by_identifier",
+      "description": "Retrieve topic details by exact topic identifier (e.g., HORIZON-CL3-2022-BM-01-01) via the public Search API.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "topic_identifier": {
+            "type": "string",
+            "description": "Exact topic identifier, e.g. 'HORIZON-CL3-2022-BM-01-01'."
+          },
+          "api_key": {
+            "type": "string",
+            "description": "API key query parameter.",
+            "default": "SEDIA"
+          },
+          "language": {
+            "type": "string",
+            "description": "Optional language filter, e.g. 'en'."
+          }
+        },
+        "required": ["topic_identifier"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "type": "object",
+            "description": "Detailed topic information including funding details"
+          }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey={api_key}&language={language}&text={text}",
+        "http_method": "GET",
+        "content_type": "application/x-www-form-urlencoded"
+      }
+    },
+    {
+      "name": "search_grant_updates",
+      "description": "List updates to calls for proposals across programmes (type=6) via the Search API.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "description": "API key query parameter.",
+            "default": "SEDIA"
+          },
+          "language": {
+            "type": "string",
+            "description": "Optional language filter."
+          },
+          "query": {
+            "type": "object",
+            "description": "Structured query JSON; defaults typically include {\"terms\":{\"type\":[\"6\"]}}."
+          }
+        },
+        "required": []
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "updates": {
+            "type": "array",
+            "description": "List of grant program updates"
+          }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey={api_key}&language={language}&text={text}",
+        "http_method": "POST",
+        "content_type": "application/x-www-form-urlencoded"
+      }
+    },
+    {
+      "name": "faq_index_search",
+      "description": "List all FAQs (active and archived) using the FAQ index (SEDIA_FAQ) key. Does not include full answers.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "description": "API key query parameter for FAQ.",
+            "default": "SEDIA_FAQ"
+          },
+          "language": {
+            "type": "string",
+            "description": "Optional language filter."
+          },
+          "text": {
+            "type": "string",
+            "description": "Optional free-text query."
+          },
+          "query": {
+            "type": "object",
+            "description": "Structured query JSON; e.g., {\"bool\":{\"must\":[{\"terms\":{\"type\":[\"0\",\"1\"]}},{\"terms\":{\"status\":[\"0\",\"1\"]}}]}}"
+          }
+        },
+        "required": []
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "faqs": {
+            "type": "array",
+            "description": "List of FAQ items with metadata"
+          }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey={api_key}&language={language}&text={text}",
+        "http_method": "POST",
+        "content_type": "application/x-www-form-urlencoded"
+      }
+    },
+    {
+      "name": "faq_details_by_nid",
+      "description": "Retrieve full FAQ details by node ID(s) using the Search API with SEDIA_FAQ key.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "nid": {
+            "type": "array",
+            "description": "One or more FAQ node IDs as strings.",
+            "items": { "type": "string" }
+          },
+          "api_key": {
+            "type": "string",
+            "description": "API key query parameter for FAQ.",
+            "default": "SEDIA_FAQ"
+          },
+          "language": {
+            "type": "string",
+            "description": "Optional language filter."
+          },
+          "query": {
+            "type": "object",
+            "description": "Structured query JSON using nid array (e.g., {\"bool\": {\"must\": [{\"terms\": {\"nid\": [\"755\"]}}]}})"
+          }
+        },
+        "required": ["nid"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "faq_details": {
+            "type": "array",
+            "description": "Complete FAQ details including answers"
+          }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey={api_key}&language={language}&text={text}",
+        "http_method": "POST",
+        "content_type": "application/x-www-form-urlencoded"
+      }
+    },
+    {
+      "name": "get_organisation_public_data",
+      "description": "Fetch public organisation data (profile, projects, published partner searches) by PIC using the Document API.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "pic": {
+            "type": "string",
+            "description": "9-digit Participant Identification Code (PIC) of the organisation."
+          },
+          "api_key": {
+            "type": "string",
+            "description": "API key query parameter for organisation profile.",
+            "default": "SEDIA_PERSON"
+          }
+        },
+        "required": ["pic"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "organisation": {
+            "type": "object",
+            "description": "Organisation profile and project data"
+          }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "https://api.tech.ec.europa.eu/search-api/prod/rest/document/{pic}?apiKey={api_key}",
+        "http_method": "GET",
+        "content_type": "application/x-www-form-urlencoded"
+      }
+    },
+    {
+      "name": "search_partner_search_announcements",
+      "description": "List published partner searches (announcements) for a given topic using the Search API with query filters.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "description": "API key query parameter. Defaults to 'SEDIA_PERSON'.",
+            "default": "SEDIA_PERSON"
+          },
+          "language": {
+            "type": "string",
+            "description": "Optional language filter."
+          },
+          "topic_identifier": {
+            "type": "string",
+            "description": "Topic identifier to filter announcements, e.g. 'HORIZON-CL4-2022-RESILIENCE-01-08'."
+          },
+          "query": {
+            "type": "object",
+            "description": "Structured query JSON to filter by topics and type (e.g., {\"bool\": {\"must\": [{\"terms\": {\"topics\": [\"HORIZON-CL4-2022-RESILIENCE-01-08\"]}}, {\"terms\": {\"type\": [\"ORGANISATION\", \"PERSON\"]}}]}})"
+          }
+        },
+        "required": ["topic_identifier"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "announcements": {
+            "type": "array",
+            "description": "List of partner search announcements"
+          }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey={api_key}&language={language}&text={text}",
+        "http_method": "POST",
+        "content_type": "application/x-www-form-urlencoded"
+      }
+    },
+    {
+      "name": "search_projects_and_results",
+      "description": "Explore EU-funded projects and results via the Search API using programme, missions, priorities, or topic filters.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "description": "API key query parameter.",
+            "default": "SEDIA"
+          },
+          "language": {
+            "type": "string",
+            "description": "Optional language filter."
+          },
+          "query": {
+            "type": "object",
+            "description": "Structured query JSON; e.g., filter by programId, missionGroup, crossCuttingPriorities, topicAbbreviation."
+          }
+        },
+        "required": []
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "projects": {
+            "type": "array",
+            "description": "List of EU-funded projects and their results"
+          }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey={api_key}&language={language}&text={text}",
+        "http_method": "POST",
+        "content_type": "application/x-www-form-urlencoded"
+      }
+    }
+  ]
+}

@@ -30,6 +30,20 @@
     }
   },
   {
+    "name": "tender_manual",
+    "provider_type": "text",
+    "file_path": "./tender_manual.json",
+    "metadata": {
+      "description": "Provides access to EU Funding & Tenders Portal APIs for searching grants, tenders, organizations, FAQs, and project data",
+      "category": "Government",
+      "last_updated": "2024-12-19",
+      "maintainer": "European Commission",
+      "documentation_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/support/apis",
+      "version": "2.138",
+      "api_base_url": "https://api.tech.ec.europa.eu/search-api/prod/rest/"
+    }
+  },  
+  {
     "name": "openai",
     "provider_type": "http",
     "http_method": "GET",
