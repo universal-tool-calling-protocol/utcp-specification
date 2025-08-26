@@ -56,6 +56,10 @@ html, body {
   color: #ffffff !important;
 }
 
+details {
+  background-color: #000000 !important;
+}
+
 /* Force all containers to be black */
 .main-wrapper,
 .navbar,
