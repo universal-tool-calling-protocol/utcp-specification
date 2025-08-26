@@ -49,7 +49,7 @@ Recursively substitute variables in nested data structures.
 
 Performs deep substitution on dictionaries, lists, and strings.
 Non-string types are returned unchanged. String values are scanned
-for variable references using ${VAR} and $VAR syntax.
+for variable references using $\{VAR\} and $VAR syntax.
 
 
 **Args**
@@ -92,7 +92,7 @@ non-string values are preserved.
 
 Recursively discover all variable references in a data structure.
 
-Scans the object for variable references using ${VAR} and $VAR syntax,
+Scans the object for variable references using $\{VAR\} and $VAR syntax,
 returning fully-qualified variable names with variable namespacing.
 Useful for validation and dependency analysis.
 

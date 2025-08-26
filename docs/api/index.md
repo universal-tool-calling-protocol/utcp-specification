@@ -1,7 +1,6 @@
 ---
 title: UTCP API Reference
 sidebar_label: API Specification
-sidebar_position: 2
 ---
 
 # UTCP API Reference

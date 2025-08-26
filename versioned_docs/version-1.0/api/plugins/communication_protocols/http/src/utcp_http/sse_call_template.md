@@ -17,7 +17,7 @@ Provider configuration for Server-Sent Events (SSE) tools.
 Enables real-time streaming of events from server to client using the
 Server-Sent Events protocol. Supports automatic reconnection and
 event type filtering. All tool arguments not mapped to URL body, headers
-or query pattern parameters are passed as query parameters using '?arg_name={arg_value}'.
+or query pattern parameters are passed as query parameters using '?arg_name=\{arg_value\}'.
 
 
 **Attributes**
@@ -49,24 +49,20 @@ or query pattern parameters are passed as query parameters using '?arg_name={arg
 
 ### class SSECallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[SseCallTemplate]) {#ssecalltemplateserializer}
 
-<details>
-<summary>Documentation</summary>
-
-[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for SSECallTemplate.
-</details>
+*No class documentation available*
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: SseCallTemplate) -> dict</summary>
 
-Converts a SSECallTemplate to a dictionary.
+*No method documentation available*
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> SseCallTemplate</summary>
 
-Validates a dictionary and returns a SSECallTemplate.
+*No method documentation available*
 </details>
 
 ---

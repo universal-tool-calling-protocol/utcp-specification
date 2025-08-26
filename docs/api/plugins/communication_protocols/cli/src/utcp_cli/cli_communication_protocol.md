@@ -50,15 +50,13 @@ the same command with formatted arguments and return processed output.
 <details>
 <summary>async register_manual(self, caller, manual_call_template: [CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) -> [RegisterManualResult](./../../../../../core/utcp/data/register_manual_response.md#registermanualresult)</summary>
 
-Register a CLI manual and discover its tools.
-
-Executes the call template's command_name and looks for a UTCP manual JSON in the output.
+*No method documentation available*
 </details>
 
 <details>
 <summary>async deregister_manual(self, caller, manual_call_template: [CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) -> None</summary>
 
-Deregister a CLI manual (no-op).
+*No method documentation available*
 </details>
 
 <details>
@@ -91,7 +89,7 @@ Executes the command specified by provider.command_name with the provided argume
 <details>
 <summary>async call_tool_streaming(self, caller, tool_name: str, tool_args: Dict[str, Any], tool_call_template: [CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) -> AsyncGenerator[Any, None]</summary>
 
-Streaming calls are not supported for CLI protocol.
+*No method documentation available*
 </details>
 
 ---

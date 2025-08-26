@@ -17,7 +17,7 @@ Provider configuration for HTTP streaming tools.
 Uses HTTP Chunked Transfer Encoding to enable streaming of large responses
 or real-time data. Useful for tools that return large datasets or provide
 progressive results. All tool arguments not mapped to URL body, headers
-or query pattern parameters are passed as query parameters using '?arg_name={arg_value}'.
+or query pattern parameters are passed as query parameters using '?arg_name=\{arg_value\}'.
 
 
 **Attributes**
@@ -51,24 +51,20 @@ or query pattern parameters are passed as query parameters using '?arg_name={arg
 
 ### class StreamableHttpCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[StreamableHttpCallTemplate]) {#streamablehttpcalltemplateserializer}
 
-<details>
-<summary>Documentation</summary>
-
-[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for StreamableHttpCallTemplate.
-</details>
+*No class documentation available*
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: StreamableHttpCallTemplate) -> dict</summary>
 
-Converts a StreamableHttpCallTemplate to a dictionary.
+*No method documentation available*
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> StreamableHttpCallTemplate</summary>
 
-Validates a dictionary and returns a StreamableHttpCallTemplate.
+*No method documentation available*
 </details>
 
 ---

@@ -61,11 +61,7 @@ Variable value if found in the file, None otherwise.
 
 ### class DotEnvVariableLoaderSerializer ([Serializer](./../../interfaces/serializer.md#serializer)[DotEnvVariableLoader]) {#dotenvvariableloaderserializer}
 
-<details>
-<summary>Documentation</summary>
-
-[Serializer](./../../interfaces/serializer.md#serializer) for DotEnvVariableLoader model.
-</details>
+*No class documentation available*
 
 #### Methods:
 

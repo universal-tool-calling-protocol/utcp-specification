@@ -60,9 +60,7 @@ Register a manual and its tools.
 <details>
 <summary>async deregister_manual(self, caller, manual_call_template: [CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) -> None</summary>
 
-Deregister a manual and its tools.
-
-Deregistering a manual is a no-op for the stateless HTTP communication protocol.
+*No method documentation available*
 </details>
 
 <details>

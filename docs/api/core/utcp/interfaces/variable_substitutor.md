@@ -9,16 +9,7 @@ sidebar_label: variable_substitutor
 
 ### class VariableSubstitutor {#variablesubstitutor}
 
-<details>
-<summary>Documentation</summary>
-
-Abstract interface for variable substitution implementations.
-
-Defines the contract for variable substitution systems that can replace
-placeholders in configuration data with actual values from various sources.
-Implementations handle different variable resolution strategies and
-source hierarchies.
-</details>
+*No class documentation available*
 
 #### Methods:
 

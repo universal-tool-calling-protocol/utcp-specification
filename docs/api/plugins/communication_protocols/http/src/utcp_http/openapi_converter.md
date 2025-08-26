@@ -54,7 +54,7 @@ operation, and creating corresponding UTCP tools with HTTP call_templates.
 <details>
 <summary>convert(self) -> [UtcpManual](./../../../../../core/utcp/data/utcp_manual.md#utcpmanual)</summary>
 
-Parses the OpenAPI specification and returns a [UtcpManual](./../../../../../core/utcp/data/utcp_manual.md#utcpmanual).
+*No method documentation available*
 </details>
 
 ---

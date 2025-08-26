@@ -5,7 +5,7 @@ sidebar_label: API Specification
 
 # UTCP API Reference
 
-API specification of a UTCP-compliant client implementation. Any implementation of a UTCP Client needs to have all of the class, functions and fields described in this specification.
+API specification of a UTCP-compliant client implementation. Any implementation of a UTCP Client needs to have all of the classes, functions and fields described in this specification.
 
 This specification is organized by module of the reference python implementation to provide a comprehensive understanding of UTCP's architecture.
 

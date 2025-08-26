@@ -21,7 +21,7 @@ Supports placement in headers, query parameters, or cookies.
 **Attributes**
 
 - **`auth_type`**: The authentication type identifier, always "api_key".
-- **`api_key`**: The API key for authentication. Values starting with '$' or formatted as '${}' are
+- **`api_key`**: The API key for authentication. Values starting with '$' or formatted as '$\{\}' are
   treated as an injected variable from environment or configuration.
 - **`var_name`**: The name of the header, query parameter, or cookie that
   contains the API key.
@@ -39,11 +39,7 @@ Supports placement in headers, query parameters, or cookies.
 
 ### class ApiKeyAuthSerializer ([Serializer](./../../interfaces/serializer.md#serializer)[ApiKeyAuth]) {#apikeyauthserializer}
 
-<details>
-<summary>Documentation</summary>
-
-[Serializer](./../../interfaces/serializer.md#serializer) for ApiKeyAuth model.
-</details>
+*No class documentation available*
 
 #### Methods:
 

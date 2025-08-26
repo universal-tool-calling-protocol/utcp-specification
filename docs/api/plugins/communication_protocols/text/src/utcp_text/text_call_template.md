@@ -35,24 +35,20 @@ static tool configurations or environments where manuals are distributed as file
 
 ### class TextCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[TextCallTemplate]) {#textcalltemplateserializer}
 
-<details>
-<summary>Documentation</summary>
-
-[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for TextCallTemplate.
-</details>
+*No class documentation available*
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: TextCallTemplate) -> dict</summary>
 
-Convert a TextCallTemplate to a dictionary.
+*No method documentation available*
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> TextCallTemplate</summary>
 
-Validate and convert a dictionary to a TextCallTemplate.
+*No method documentation available*
 </details>
 
 ---

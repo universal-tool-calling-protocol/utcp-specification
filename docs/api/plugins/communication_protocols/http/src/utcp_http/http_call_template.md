@@ -16,8 +16,8 @@ Provider configuration for HTTP-based tools.
 
 Supports RESTful HTTP/HTTPS APIs with various HTTP methods, authentication,
 custom headers, and flexible request/response handling. Supports URL path
-parameters using {parameter_name} syntax. All tool arguments not mapped to
-URL body, headers or query pattern parameters are passed as query parameters using '?arg_name={arg_value}'.
+parameters using \{parameter_name\} syntax. All tool arguments not mapped to
+URL body, headers or query pattern parameters are passed as query parameters using '?arg_name=\{arg_value\}'.
 
 
 **Attributes**
@@ -48,24 +48,20 @@ URL body, headers or query pattern parameters are passed as query parameters usi
 
 ### class HttpCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[HttpCallTemplate]) {#httpcalltemplateserializer}
 
-<details>
-<summary>Documentation</summary>
-
-[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for HttpCallTemplate.
-</details>
+*No class documentation available*
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: HttpCallTemplate) -> dict</summary>
 
-Convert HttpCallTemplate to dictionary.
+*No method documentation available*
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> HttpCallTemplate</summary>
 
-Validate dictionary and convert to HttpCallTemplate.
+*No method documentation available*
 </details>
 
 ---

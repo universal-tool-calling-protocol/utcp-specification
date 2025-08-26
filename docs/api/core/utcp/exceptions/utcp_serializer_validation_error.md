@@ -9,10 +9,6 @@ sidebar_label: utcp_serializer_validation_error
 
 ### class UtcpSerializerValidationError {#utcpserializervalidationerror}
 
-<details>
-<summary>Documentation</summary>
-
-Exception raised when a serializer validation fails.
-</details>
+*No class documentation available*
 
 ---

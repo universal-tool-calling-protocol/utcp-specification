@@ -62,24 +62,20 @@ transport methods.
 
 ### class McpCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[McpCallTemplate]) {#mcpcalltemplateserializer}
 
-<details>
-<summary>Documentation</summary>
-
-[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for McpCallTemplate.
-</details>
+*No class documentation available*
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: McpCallTemplate) -> dict</summary>
 
-Convert McpCallTemplate to dictionary.
+*No method documentation available*
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> McpCallTemplate</summary>
 
-Validate and convert dictionary to McpCallTemplate.
+*No method documentation available*
 </details>
 
 ---

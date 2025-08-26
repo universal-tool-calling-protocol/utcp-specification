@@ -9,13 +9,7 @@ sidebar_label: tag_search
 
 ### class TagAndDescriptionWordMatchStrategy ([ToolSearchStrategy](./../interfaces/tool_search_strategy.md#toolsearchstrategy)) {#taganddescriptionwordmatchstrategy}
 
-<details>
-<summary>Documentation</summary>
-
-Tag and description word match strategy.
-
-This strategy matches tools based on the presence of tags and words in the description.
-</details>
+*No class documentation available*
 
 #### Fields:
 
@@ -49,13 +43,7 @@ A list of tools that match the query.
 
 ### class TagAndDescriptionWordMatchStrategyConfigSerializer ([Serializer](./../interfaces/serializer.md#serializer)[TagAndDescriptionWordMatchStrategy]) {#taganddescriptionwordmatchstrategyconfigserializer}
 
-<details>
-<summary>Documentation</summary>
-
-[Serializer](./../interfaces/serializer.md#serializer) for `TagAndDescriptionWordMatchStrategy`.
-
-Converts a `TagAndDescriptionWordMatchStrategy` instance to a dictionary and vice versa.
-</details>
+*No class documentation available*
 
 #### Methods:
 

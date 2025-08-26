@@ -39,24 +39,20 @@ Supports environment variable injection and custom working directories.
 
 ### class CliCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[CliCallTemplate]) {#clicalltemplateserializer}
 
-<details>
-<summary>Documentation</summary>
-
-[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for CliCallTemplate.
-</details>
+*No class documentation available*
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: CliCallTemplate) -> dict</summary>
 
-Converts a CliCallTemplate to a dictionary.
+*No method documentation available*
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> CliCallTemplate</summary>
 
-Validates a dictionary and returns a CliCallTemplate.
+*No method documentation available*
 </details>
 
 ---

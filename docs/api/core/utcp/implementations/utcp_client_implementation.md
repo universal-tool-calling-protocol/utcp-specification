@@ -9,13 +9,7 @@ sidebar_label: utcp_client_implementation
 
 ### class UtcpClientImplementation ([UtcpClient](./../utcp_client.md#utcpclient)) {#utcpclientimplementation}
 
-<details>
-<summary>Documentation</summary>
-
-Implementation of the `[UtcpClient](./../utcp_client.md#utcpclient)` interface.
-
-This class provides a concrete implementation of the `[UtcpClient](./../utcp_client.md#utcpclient)` interface.
-</details>
+*No class documentation available*
 
 #### Methods:
 

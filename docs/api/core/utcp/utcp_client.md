@@ -9,15 +9,7 @@ sidebar_label: utcp_client
 
 ### class UtcpClient {#utcpclient}
 
-<details>
-<summary>Documentation</summary>
-
-Abstract interface for UTCP client implementations.
-
-Defines the core contract for UTCP clients, including [CallTemplate](./data/call_template.md#calltemplate) management,
-tool execution, search capabilities, and variable handling. This interface
-allows for different client implementations while maintaining consistency.
-</details>
+*No class documentation available*
 
 #### Methods:
 
