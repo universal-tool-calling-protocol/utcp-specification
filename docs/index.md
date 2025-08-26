@@ -84,7 +84,7 @@ def utcp_discovery():
                         "conditions": {"type": "string"}
                     }
                 },
-                "call_template": {
+                "tool_call_template": {
                     "call_template_type": "http",
                     "url": "https://example.com/api/weather",
                     "http_method": "GET"
