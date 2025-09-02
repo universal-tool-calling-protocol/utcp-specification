@@ -30,9 +30,11 @@ We believe in the power of open source collaboration. This project thrives on co
 ### Go Port Maintainer
 - Kamil Mościszko ([LinkedIn](https://www.linkedin.com/in/kamilm97/), kmosc@protonmail.com)
 
-### Contributors
+### Langchain Utcp Adapters Maintainter
 - Luca Perrozzi ([LinkedIn](https://www.linkedin.com/in/luca-perrozzi/))
 - Roberto Catalano ([LinkedIn](https://www.linkedin.com/in/roberto-catalano-5b7793123/), [GitHub](https://github.com/Robobc))
+
+### Contributors
 - Tiago Prelato ([LinkedIn](https://www.linkedin.com/in/tiago-prelato-257787210/), [X](https://x.com/SneyX_))
 - Bruce Miao
 
