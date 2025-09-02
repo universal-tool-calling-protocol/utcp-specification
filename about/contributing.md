@@ -170,21 +170,13 @@ class DatabaseToolRepository(ToolRepository):
 
 ### Test Coverage for Source Code Changes
 
-**All PRs that modify source code in the library must include appropriate tests:**
-
-- **Unit Tests**: Test individual components in isolation
-- **Integration Tests**: Test component interactions
-- **Contract Tests**: Verify interface implementations
-- **End-to-End Tests**: Test complete workflows
+**All PRs that modify source code in the library must include appropriate tests**
 
 ### Test Structure
 
 ```
 tests/
-├── unit/           # Fast, isolated tests
-├── integration/    # Component interaction tests
-├── e2e/           # End-to-end workflow tests
-└── fixtures/      # Test data and mocks
+├── ...
 ```
 
 ### Test Quality Standards
@@ -193,23 +185,6 @@ tests/
 - **Independence**: Tests must not depend on external services
 - **Speed**: Unit tests should run in milliseconds
 - **Clarity**: Test names should describe the scenario being tested
-
-```python
-# Good test structure
-class TestToolInvoker:
-    def test_invoke_with_valid_params_returns_success_response(self):
-        # Arrange
-        mock_client = Mock(spec=HttpClient)
-        mock_client.post.return_value = {"status": "success"}
-        invoker = ToolInvoker(mock_client)
-        
-        # Act
-        result = invoker.invoke(sample_tool, {"param": "value"})
-        
-        # Assert
-        assert result["status"] == "success"
-        mock_client.post.assert_called_once()
-```
 
 ## Code Quality Standards
 
