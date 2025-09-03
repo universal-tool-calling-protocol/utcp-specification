@@ -34,7 +34,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "🚀 Starting contributor data fetch..."
-        node scripts/fetch-contributors.js
+        npm run fetch-contributors
         echo "✅ Contributor data fetch completed"
         
     - name: Check if contributors data changed
