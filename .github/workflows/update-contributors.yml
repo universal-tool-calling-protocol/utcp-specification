@@ -1,0 +1,65 @@
+name: Update Contributors Data
+
+on:
+  schedule:
+    # Run every day at 6 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allow manual triggering
+  push:
+    branches: [ main ]
+    paths:
+      - 'scripts/fetch-contributors.js'
+
+jobs:
+  update-contributors:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Fetch contributors data
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "🚀 Starting contributor data fetch..."
+        node scripts/fetch-contributors.js
+        echo "✅ Contributor data fetch completed"
+        
+    - name: Check if contributors data changed
+      id: verify-changed-files
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "changed=true" >> $GITHUB_OUTPUT
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Commit and push changes
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add src/data/contributors.json
+        git commit -m "chore: update contributors data $(date +'%Y-%m-%d')"
+        git push
+        echo "✅ Contributors data updated and pushed to repository"
+        
+    - name: Workflow Summary
+      run: |
+        if [[ "${{ steps.verify-changed-files.outputs.changed }}" == "true" ]]; then
+          echo "📊 Contributors data was updated and the site will be redeployed automatically"
+        else
+          echo "ℹ️  Contributors data unchanged - no updates needed"
+        fi

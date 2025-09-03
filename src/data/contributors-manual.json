@@ -1,0 +1,38 @@
+{
+  "generated_at": "2025-09-03T13:46:04.752Z",
+  "total_contributors": 1,
+  "total_contributions": 24,
+  "total_impact_score": 24,
+  "total_recent_activity": 24,
+  "scoring_method": "manual_entry",
+  "contributors": [
+    {
+      "id": 999999999,
+      "login": "Robobc",
+      "name": "Roberto Catalano",
+      "avatar_url": "https://avatars.githubusercontent.com/u/999999999?v=4",
+      "html_url": "https://github.com/Robobc",
+      "bio": "Solutions Architect at AWS in Zurich",
+      "company": "Amazon Web Services",
+      "location": "Zürich",
+      "blog": null,
+      "hireable": null,
+      "public_repos": 6,
+      "followers": 2,
+      "following": 7,
+      "created_at": null,
+      "contributions": 24,
+      "repositories": [
+        "Transform-your-APIs-into-agent-tools-with-UTCP"
+      ],
+      "repo_count": 1,
+      "impact_score": 24,
+      "total_prs": 0,
+      "total_merged_prs": 0,
+      "total_recent_commits": 24,
+      "total_reviews": 0,
+      "last_activity": "2025-09-03T13:46:04Z",
+      "pr_success_rate": 0
+    }
+  ]
+}

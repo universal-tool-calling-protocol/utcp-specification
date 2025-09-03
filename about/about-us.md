@@ -18,6 +18,8 @@ We believe in the power of open source collaboration. This project thrives on co
 
 ## Contributors
 
+The UTCP project is made possible by the dedication and contributions of our amazing community. For a complete and up-to-date list of all contributors with their activity rankings, visit our [**Hall of Fame**](/hall-of-fame) page.
+
 ### UTCP Admin
 - Razvan-Ion Radulescu ([Bevel Software](https://www.bevel.software), razvan.radulescu@bevel.software)
 - Andrei-Stefan Ghiurtu ([LinkedIn](https://www.linkedin.com/in/andrei-stefan-ghiurtu/))
