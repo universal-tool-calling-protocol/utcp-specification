@@ -1,10 +1,14 @@
 {
-  "generated_at": "2025-09-03T14:53:34.638Z",
+  "generated_at": "2025-09-03T19:07:43.751Z",
   "total_contributors": 10,
   "total_contributions": 505,
   "total_impact_score": 359,
   "total_recent_activity": 361,
   "scoring_method": "simplified_recent_activity",
+  "total_additions": 313932,
+  "total_deletions": 77961,
+  "total_changes": 391893,
+  "total_commits_analyzed": 505,
   "contributors": [
     {
       "id": 43811028,
@@ -35,12 +39,17 @@
       ],
       "repo_count": 9,
       "impact_score": 169,
-      "total_prs": 165,
+      "total_prs": 166,
       "total_merged_prs": 133,
       "total_recent_commits": 169,
+      "total_commits": 169,
       "total_reviews": 9,
       "last_activity": "2025-09-02T14:45:10Z",
-      "pr_success_rate": 81
+      "pr_success_rate": 80,
+      "total_additions": 210552,
+      "total_deletions": 54504,
+      "total_changes": 265056,
+      "commits_analyzed": 169
     },
     {
       "id": 170965471,
@@ -66,9 +75,14 @@
       "total_prs": 86,
       "total_merged_prs": 64,
       "total_recent_commits": 100,
+      "total_commits": 244,
       "total_reviews": 3,
       "last_activity": "2025-08-29T12:15:29Z",
-      "pr_success_rate": 74
+      "pr_success_rate": 74,
+      "total_additions": 39386,
+      "total_deletions": 11377,
+      "total_changes": 50763,
+      "commits_analyzed": 244
     },
     {
       "id": 69489757,
@@ -94,12 +108,17 @@
       ],
       "repo_count": 4,
       "impact_score": 38,
-      "total_prs": 67,
+      "total_prs": 68,
       "total_merged_prs": 57,
       "total_recent_commits": 38,
+      "total_commits": 38,
       "total_reviews": 0,
       "last_activity": "2025-08-21T12:32:23Z",
-      "pr_success_rate": 85
+      "pr_success_rate": 84,
+      "total_additions": 12605,
+      "total_deletions": 5194,
+      "total_changes": 17799,
+      "commits_analyzed": 38
     },
     {
       "id": 5594869,
@@ -128,9 +147,14 @@
       "total_prs": 54,
       "total_merged_prs": 44,
       "total_recent_commits": 24,
+      "total_commits": 24,
       "total_reviews": 0,
       "last_activity": "2025-09-02T14:17:44Z",
-      "pr_success_rate": 81
+      "pr_success_rate": 81,
+      "total_additions": 12023,
+      "total_deletions": 3946,
+      "total_changes": 15969,
+      "commits_analyzed": 24
     },
     {
       "id": 7006124,
@@ -156,9 +180,14 @@
       "total_prs": 0,
       "total_merged_prs": 0,
       "total_recent_commits": 11,
+      "total_commits": 11,
       "total_reviews": 0,
       "last_activity": "2025-08-31T02:56:43Z",
-      "pr_success_rate": 0
+      "pr_success_rate": 0,
+      "total_additions": 8399,
+      "total_deletions": 1706,
+      "total_changes": 10105,
+      "commits_analyzed": 11
     },
     {
       "id": 21357398,
@@ -186,9 +215,14 @@
       "total_prs": 51,
       "total_merged_prs": 43,
       "total_recent_commits": 7,
+      "total_commits": 7,
       "total_reviews": 5,
       "last_activity": "2025-09-02T14:17:22Z",
-      "pr_success_rate": 84
+      "pr_success_rate": 84,
+      "total_additions": 28358,
+      "total_deletions": 916,
+      "total_changes": 29274,
+      "commits_analyzed": 7
     },
     {
       "id": 46451363,
@@ -215,9 +249,14 @@
       "total_prs": 48,
       "total_merged_prs": 38,
       "total_recent_commits": 6,
+      "total_commits": 6,
       "total_reviews": 0,
       "last_activity": "2025-07-31T09:55:48Z",
-      "pr_success_rate": 79
+      "pr_success_rate": 79,
+      "total_additions": 2282,
+      "total_deletions": 309,
+      "total_changes": 2591,
+      "commits_analyzed": 6
     },
     {
       "id": 150209392,
@@ -240,12 +279,17 @@
       ],
       "repo_count": 1,
       "impact_score": 3,
-      "total_prs": 19,
+      "total_prs": 20,
       "total_merged_prs": 19,
       "total_recent_commits": 4,
+      "total_commits": 4,
       "total_reviews": 0,
       "last_activity": "2025-08-01T15:02:36Z",
-      "pr_success_rate": 100
+      "pr_success_rate": 95,
+      "total_additions": 7,
+      "total_deletions": 7,
+      "total_changes": 14,
+      "commits_analyzed": 4
     },
     {
       "id": 210855846,
@@ -271,9 +315,14 @@
       "total_prs": 0,
       "total_merged_prs": 0,
       "total_recent_commits": 1,
+      "total_commits": 1,
       "total_reviews": 0,
       "last_activity": "2025-07-11T12:42:11Z",
-      "pr_success_rate": 0
+      "pr_success_rate": 0,
+      "total_additions": 2,
+      "total_deletions": 2,
+      "total_changes": 4,
+      "commits_analyzed": 1
     },
     {
       "id": 89096740,
@@ -299,9 +348,14 @@
       "total_prs": 6,
       "total_merged_prs": 6,
       "total_recent_commits": 1,
+      "total_commits": 1,
       "total_reviews": 0,
       "last_activity": "2025-07-24T16:29:37Z",
-      "pr_success_rate": 100
+      "pr_success_rate": 100,
+      "total_additions": 318,
+      "total_deletions": 0,
+      "total_changes": 318,
+      "commits_analyzed": 1
     }
   ]
 }

@@ -4,6 +4,111 @@
   color: #ffffff;
 }
 
+/* Tooltip styles */
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltipContent {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Alternative positioning for tooltips near viewport edges */
+.tooltipContentLeft {
+  position: absolute;
+  bottom: 120%;
+  left: 0;
+  transform: none;
+  background-color: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tooltipContentRight {
+  position: absolute;
+  bottom: 120%;
+  right: 0;
+  transform: none;
+  background-color: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tooltipArrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #333;
+}
+
+.tooltipArrowLeft {
+  position: absolute;
+  top: 100%;
+  left: 12px;
+  transform: none;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #333;
+}
+
+.tooltipArrowRight {
+  position: absolute;
+  top: 100%;
+  right: 12px;
+  transform: none;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #333;
+}
+
+/* Avatar styles */
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.avatarEmoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 1.5rem;
+}
+
 .header {
   text-align: center;
   padding: 4rem 1rem 3rem;
@@ -312,12 +417,124 @@
   line-height: 1;
 }
 
-.contributionCount::after {
-  content: 'contribution score';
+/* Line Changes Display Styles */
+.lineChangesDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+.linesChangedNumber {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.linesChangedLabel {
   font-size: 0.5rem;
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.2px;
+  font-weight: 500;
+}
+
+/* Enhanced Community Impact Statistics */
+.statsFooter {
+  margin-top: 3rem;
+  padding: 3rem 0 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);
+  border-radius: 16px;
+  border: 1px solid #333333;
+  position: relative;
+}
+
+.statsFooter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #8b5cf6 50%, transparent 100%);
+  border-radius: 16px 16px 0 0;
+}
+
+.statsFooter h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 2rem 0;
+  background: linear-gradient(135deg, #ffffff 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.communityStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #1a1a1a 0%, #111111 100%);
+  border: 1px solid #333333;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.statItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #8b5cf6 0%, #a78bfa 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.statItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+  border-color: #8b5cf6;
+}
+
+.statItem:hover::before {
+  opacity: 1;
+}
+
+.statNumber {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #8b5cf6;
+  line-height: 1;
+  text-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: #cccccc;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  text-align: center;
 }
 
 .callToAction {
@@ -495,6 +712,19 @@
     font-size: 1.25rem;
   }
   
+  .lineChangesDisplay {
+    padding: 0.4rem 0.75rem;
+    gap: 0.2rem;
+  }
+  
+  .linesChangedNumber {
+    font-size: 1.25rem;
+  }
+  
+  .linesChangedLabel {
+    font-size: 0.45rem;
+  }
+  
   .ctaButtons {
     flex-direction: column;
     align-items: center;
@@ -505,6 +735,34 @@
     width: 100%;
     max-width: 300px;
     justify-content: center;
+  }
+  
+  .statsFooter {
+    margin-top: 2rem;
+    padding: 2rem 0 1.5rem;
+  }
+  
+  .statsFooter h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .communityStats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .statItem {
+    padding: 1rem;
+  }
+  
+  .statNumber {
+    font-size: 1.8rem;
+  }
+  
+  .statLabel {
+    font-size: 0.8rem;
   }
 }
 
@@ -543,5 +801,46 @@
   
   .callToAction {
     padding: 3rem 1rem;
+  }
+  
+  .statsFooter {
+    margin-top: 1.5rem;
+    padding: 1.5rem 0 1rem;
+  }
+  
+  .statsFooter h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .communityStats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .statItem {
+    padding: 1rem 0.75rem;
+  }
+  
+  .statNumber {
+    font-size: 1.5rem;
+  }
+  
+  .statLabel {
+    font-size: 0.75rem;
+  }
+  
+  .lineChangesDisplay {
+    padding: 0.35rem 0.5rem;
+    gap: 0.15rem;
+  }
+  
+  .linesChangedNumber {
+    font-size: 1rem;
+  }
+  
+  .linesChangedLabel {
+    font-size: 0.4rem;
   }
 }

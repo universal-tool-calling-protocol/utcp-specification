@@ -7,6 +7,15 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const ORG_NAME = 'universal-tool-calling-protocol';
 const OUTPUT_FILE = path.join(__dirname, '../src/data/contributors.json');
 
+// Configuration for efficient API batching
+const BATCH_CONFIG = {
+  COMMIT_DETAILS_BATCH_SIZE: 20, // Process commits in batches of 20
+  CONCURRENT_REQUESTS: 5, // Max concurrent API requests
+  RETRY_ATTEMPTS: 3, // Number of retry attempts for failed requests
+  RATE_LIMIT_DELAY: 100, // Base delay between requests (ms)
+  COMMIT_ANALYSIS_LIMIT: 1000, // Max commits to analyze (0 = no limit)
+};
+
 const githubApi = async (endpoint) => {
   const headers = {
     'Accept': 'application/vnd.github.v3+json',
@@ -50,6 +59,82 @@ const fetchContributorsForRepo = async (repoName) => {
   }
 };
 
+const fetchCommitDetails = async (repoName, commitSha) => {
+  try {
+    const commit = await githubApi(`/repos/${ORG_NAME}/${repoName}/commits/${commitSha}`);
+    return {
+      additions: commit.stats?.additions || 0,
+      deletions: commit.stats?.deletions || 0,
+      total: commit.stats?.total || 0
+    };
+  } catch (error) {
+    console.warn(`Could not fetch commit details for ${commitSha}:`, error.message);
+    return { additions: 0, deletions: 0, total: 0 };
+  }
+};
+
+// Helper function for batched API calls with retry logic
+const batchedApiCall = async (items, apiCallFn, batchSize = BATCH_CONFIG.COMMIT_DETAILS_BATCH_SIZE) => {
+  const results = [];
+  const batches = [];
+  
+  // Split items into batches
+  for (let i = 0; i < items.length; i += batchSize) {
+    batches.push(items.slice(i, i + batchSize));
+  }
+  
+  console.log(`    📦 Processing ${items.length} items in ${batches.length} batches...`);
+  
+  for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
+    const batch = batches[batchIndex];
+    console.log(`    ⚡ Processing batch ${batchIndex + 1}/${batches.length} (${batch.length} items)...`);
+    
+    // Process items in current batch concurrently
+    const batchPromises = batch.map(async (item) => {
+      let retryCount = 0;
+      while (retryCount < BATCH_CONFIG.RETRY_ATTEMPTS) {
+        try {
+          const result = await apiCallFn(item);
+          return result;
+        } catch (error) {
+          retryCount++;
+          if (retryCount === BATCH_CONFIG.RETRY_ATTEMPTS) {
+            console.warn(`    ⚠️ Failed after ${BATCH_CONFIG.RETRY_ATTEMPTS} attempts:`, error.message);
+            return null;
+          }
+          // Exponential backoff for retries
+          await new Promise(resolve => setTimeout(resolve, BATCH_CONFIG.RATE_LIMIT_DELAY * Math.pow(2, retryCount)));
+        }
+      }
+    });
+    
+    const batchResults = await Promise.all(batchPromises);
+    results.push(...batchResults.filter(Boolean)); // Filter out null results from failures
+    
+    // Rate limiting between batches
+    if (batchIndex < batches.length - 1) {
+      await new Promise(resolve => setTimeout(resolve, BATCH_CONFIG.RATE_LIMIT_DELAY));
+    }
+  }
+  
+  return results;
+};
+
+// Helper function to create progress reporting
+const createProgressReporter = (total, operation) => {
+  let processed = 0;
+  return {
+    update: () => {
+      processed++;
+      const percentage = Math.round((processed / total) * 100);
+      console.log(`    📊 ${operation}: ${processed}/${total} (${percentage}%)`);
+    },
+    finish: () => {
+      console.log(`    ✅ ${operation}: Completed all ${total} items`);
+    }
+  };
+};
+
 const fetchUserPRsAndActivity = async (username, repoName) => {
   try {
     // Get PRs for this user in this repo
@@ -60,6 +145,61 @@ const fetchUserPRsAndActivity = async (username, repoName) => {
     sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
     const commits = await githubApi(`/repos/${ORG_NAME}/${repoName}/commits?author=${username}&since=${sixMonthsAgo.toISOString()}&per_page=100`);
     
+    // Get ALL commits by this user for line change statistics
+    let allCommits = [];
+    let page = 1;
+    let hasMore = true;
+    
+    console.log(`    📊 Fetching all commits for line statistics...`);
+    while (hasMore && allCommits.length < 500) { // Limit to prevent excessive API calls
+      try {
+        const commitPage = await githubApi(`/repos/${ORG_NAME}/${repoName}/commits?author=${username}&per_page=100&page=${page}`);
+        
+        if (commitPage.length === 0) {
+          hasMore = false;
+        } else {
+          allCommits = allCommits.concat(commitPage);
+          page++;
+          
+          // Rate limiting for commit fetching
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+      } catch (error) {
+        console.warn(`    Could not fetch commits page ${page} for ${username}:`, error.message);
+        hasMore = false;
+      }
+    }
+    
+    // Analyze ALL commits with efficient batching (improved from 100 commit limit)
+    let totalAdditions = 0;
+    let totalDeletions = 0;
+    let totalChanges = 0;
+    
+    // Apply configurable limit if set (0 = no limit)
+    const commitsToAnalyze = BATCH_CONFIG.COMMIT_ANALYSIS_LIMIT > 0 
+      ? allCommits.slice(0, BATCH_CONFIG.COMMIT_ANALYSIS_LIMIT)
+      : allCommits;
+    
+    console.log(`    📈 Analyzing ${commitsToAnalyze.length} commits for line changes (improved batching)...`);
+    
+    if (commitsToAnalyze.length > 0) {
+      // Use efficient batching instead of sequential processing
+      const commitDetails = await batchedApiCall(
+        commitsToAnalyze, 
+        async (commit) => await fetchCommitDetails(repoName, commit.sha),
+        BATCH_CONFIG.COMMIT_DETAILS_BATCH_SIZE
+      );
+      
+      // Aggregate the results
+      for (const details of commitDetails) {
+        totalAdditions += details.additions;
+        totalDeletions += details.deletions;
+        totalChanges += details.total;
+      }
+      
+      console.log(`    ✅ Successfully analyzed ${commitDetails.length}/${commitsToAnalyze.length} commits`);
+    }
+    
     // Get PR reviews by this user
     const reviews = await githubApi(`/repos/${ORG_NAME}/${repoName}/pulls/comments?per_page=100`);
     const userReviews = reviews.filter(review => review.user.login === username);
@@ -68,8 +208,15 @@ const fetchUserPRsAndActivity = async (username, repoName) => {
       prs: prs.length,
       mergedPrs: prs.filter(pr => pr.merged_at).length,
       recentCommits: commits.length,
+      totalCommits: allCommits.length,
       reviews: userReviews.length,
-      lastActivity: commits.length > 0 ? commits[0].commit.author.date : null
+      lastActivity: commits.length > 0 ? commits[0].commit.author.date : null,
+      // Enhanced line change statistics (now analyzes ALL commits up to limit)
+      totalAdditions,
+      totalDeletions,
+      totalChanges,
+      commitsAnalyzed: commitsToAnalyze.length, // Total commits we attempted to analyze
+      commitsSuccessfullyAnalyzed: totalChanges > 0 ? commitsToAnalyze.filter(commit => commit).length : 0 // Successful analyses
     };
   } catch (error) {
     console.warn(`Could not fetch detailed activity for ${username} in ${repoName}:`, error.message);
@@ -77,8 +224,14 @@ const fetchUserPRsAndActivity = async (username, repoName) => {
       prs: 0,
       mergedPrs: 0,
       recentCommits: 0,
+      totalCommits: 0,
       reviews: 0,
-      lastActivity: null
+      lastActivity: null,
+      totalAdditions: 0,
+      totalDeletions: 0,
+      totalChanges: 0,
+      commitsAnalyzed: 0,
+      commitsSuccessfullyAnalyzed: 0
     };
   }
 };
@@ -107,7 +260,13 @@ const aggregateContributors = (contributorsByRepo) => {
         existing.totalPrs += contributor.activityData.prs;
         existing.totalMergedPrs += contributor.activityData.mergedPrs;
         existing.totalRecentCommits += contributor.activityData.recentCommits;
+        existing.totalCommits += contributor.activityData.totalCommits;
         existing.totalReviews += contributor.activityData.reviews;
+        // Aggregate line change statistics
+        existing.totalAdditions += contributor.activityData.totalAdditions;
+        existing.totalDeletions += contributor.activityData.totalDeletions;
+        existing.totalChanges += contributor.activityData.totalChanges;
+        existing.commitsAnalyzed += contributor.activityData.commitsAnalyzed;
         // Keep the most recent activity date
         if (contributor.activityData.lastActivity) {
           const activityDate = new Date(contributor.activityData.lastActivity);
@@ -127,8 +286,14 @@ const aggregateContributors = (contributorsByRepo) => {
         totalPrs: contributor.activityData?.prs || 0,
         totalMergedPrs: contributor.activityData?.mergedPrs || 0,
         totalRecentCommits: contributor.activityData?.recentCommits || 0,
+        totalCommits: contributor.activityData?.totalCommits || 0,
         totalReviews: contributor.activityData?.reviews || 0,
-        lastActivity: contributor.activityData?.lastActivity || null
+        lastActivity: contributor.activityData?.lastActivity || null,
+        // New line change statistics
+        totalAdditions: contributor.activityData?.totalAdditions || 0,
+        totalDeletions: contributor.activityData?.totalDeletions || 0,
+        totalChanges: contributor.activityData?.totalChanges || 0,
+        commitsAnalyzed: contributor.activityData?.commitsAnalyzed || 0
       });
     }
   });
@@ -194,10 +359,16 @@ const enhanceWithUserData = async (contributors) => {
       total_prs: contributor.totalPrs,
       total_merged_prs: contributor.totalMergedPrs,
       total_recent_commits: contributor.totalRecentCommits,
+      total_commits: contributor.totalCommits,
       total_reviews: contributor.totalReviews,
       last_activity: contributor.lastActivity,
       pr_success_rate: contributor.totalPrs > 0 ? 
-        Math.round((contributor.totalMergedPrs / contributor.totalPrs) * 100) : 0
+        Math.round((contributor.totalMergedPrs / contributor.totalPrs) * 100) : 0,
+      // New line change statistics
+      total_additions: contributor.totalAdditions,
+      total_deletions: contributor.totalDeletions,
+      total_changes: contributor.totalChanges,
+      commits_analyzed: contributor.commitsAnalyzed
     });
     
     // Rate limiting: delay between requests
@@ -269,15 +440,19 @@ const calculateAllScores = async (contributorsByRepo, repositories) => {
 
 const main = async () => {
   try {
-    console.log('🚀 Starting contributor data fetch with simplified scoring...');
+    console.log('🚀 Starting contributor data fetch with enhanced batching and full commit analysis...');
+    console.log(`📊 Configuration: Analyzing up to ${BATCH_CONFIG.COMMIT_ANALYSIS_LIMIT} commits per contributor (0 = no limit)`);
+    console.log(`⚡ Batching: ${BATCH_CONFIG.COMMIT_DETAILS_BATCH_SIZE} commits per batch with ${BATCH_CONFIG.RETRY_ATTEMPTS} retry attempts`);
+    console.log('✨ Improvements: Removed 100-commit limit, added efficient batching, retry logic, and better error handling\n');
     
     /* 
      * Process Flow:
      * 1. Fetch all repositories from the organization
      * 2. Fetch all contributors from all repositories  
      * 3. Calculate scores for all contributors (simplified recent activity scoring)
-     * 4. Enhance with detailed user information from GitHub
-     * 5. Generate and save output file
+     * 4. Fetch detailed line change statistics for each contributor
+     * 5. Enhance with detailed user information from GitHub
+     * 6. Generate and save output file with comprehensive metrics
      */
     
     // Step 1: Fetch all repositories
@@ -308,6 +483,10 @@ const main = async () => {
     const totalImpactScore = enhancedContributors.reduce((sum, c) => sum + c.impact_score, 0);
     const totalContributions = enhancedContributors.reduce((sum, c) => sum + c.contributions, 0);
     const totalRecentActivity = enhancedContributors.reduce((sum, c) => sum + c.total_recent_commits, 0);
+    const totalAdditions = enhancedContributors.reduce((sum, c) => sum + c.total_additions, 0);
+    const totalDeletions = enhancedContributors.reduce((sum, c) => sum + c.total_deletions, 0);
+    const totalChanges = enhancedContributors.reduce((sum, c) => sum + c.total_changes, 0);
+    const totalCommitsAnalyzed = enhancedContributors.reduce((sum, c) => sum + c.commits_analyzed, 0);
     
     // Write to file
     fs.writeFileSync(OUTPUT_FILE, JSON.stringify({
@@ -317,6 +496,11 @@ const main = async () => {
       total_impact_score: totalImpactScore,
       total_recent_activity: totalRecentActivity,
       scoring_method: 'simplified_recent_activity',
+      // New aggregated line change statistics
+      total_additions: totalAdditions,
+      total_deletions: totalDeletions,
+      total_changes: totalChanges,
+      total_commits_analyzed: totalCommitsAnalyzed,
       contributors: enhancedContributors
     }, null, 2));
     
@@ -325,6 +509,8 @@ const main = async () => {
     console.log(`   💫 Total impact score: ${totalImpactScore}`);
     console.log(`   📈 Total contributions: ${totalContributions}`);
     console.log(`   🔥 Recent activity: ${totalRecentActivity} commits (last 6 months)`);
+    console.log(`   📊 Line changes: +${totalAdditions.toLocaleString()} -${totalDeletions.toLocaleString()} (${totalChanges.toLocaleString()} total)`);
+    console.log(`   🔍 Commits analyzed: ${totalCommitsAnalyzed.toLocaleString()}`);
     console.log(`   🏆 Top contributor: ${enhancedContributors[0]?.name} (${enhancedContributors[0]?.impact_score} impact score)`);
     
   } catch (error) {
