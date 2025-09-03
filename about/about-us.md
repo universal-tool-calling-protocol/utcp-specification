@@ -39,6 +39,7 @@ The UTCP project is made possible by the dedication and contributions of our ama
 ### Contributors
 - Tiago Prelato ([LinkedIn](https://www.linkedin.com/in/tiago-prelato-257787210/), [X](https://x.com/SneyX_))
 - Bruce Miao
+- Lochy W
 
 ## Join Us
 
