@@ -151,7 +151,7 @@ const fetchUserPRsAndActivity = async (username, repoName) => {
     let hasMore = true;
     
     console.log(`    📊 Fetching all commits for line statistics...`);
-    while (hasMore && allCommits.length < 500) { // Limit to prevent excessive API calls
+    while (hasMore && allCommits.length < (BATCH_CONFIG.COMMIT_ANALYSIS_LIMIT || Infinity)) { // Limit to prevent excessive API calls
       try {
         const commitPage = await githubApi(`/repos/${ORG_NAME}/${repoName}/commits?author=${username}&per_page=100&page=${page}`);
         
