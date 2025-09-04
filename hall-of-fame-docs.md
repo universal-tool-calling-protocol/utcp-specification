@@ -67,7 +67,7 @@ The generated `src/data/contributors.json` file contains:
   "total_contributions": 1500,
   "total_impact_score": 3250,
   "total_recent_activity": 145,
-  "scoring_method": "hybrid_impact_score",
+  "scoring_method": "simplified_recent_activity",
   "contributors": [
     {
       "id": 123456,
