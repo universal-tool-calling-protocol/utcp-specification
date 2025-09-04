@@ -247,6 +247,10 @@ const config: Config = {
               to: '/about/about-us',
             },
             {
+              label: 'Hall of Fame',
+              to: '/hall-of-fame',
+            },
+            {
               label: 'RFC',
               to: '/about/RFC',
             },

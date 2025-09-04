@@ -18,6 +18,8 @@ We believe in the power of open source collaboration. This project thrives on co
 
 ## Contributors
 
+The UTCP project is made possible by the dedication and contributions of our amazing community. For a complete and up-to-date list of all contributors with their activity rankings, visit our [**Hall of Fame**](/hall-of-fame) page.
+
 ### UTCP Admin
 - Razvan-Ion Radulescu ([Bevel Software](https://www.bevel.software), razvan.radulescu@bevel.software)
 - Andrei-Stefan Ghiurtu ([LinkedIn](https://www.linkedin.com/in/andrei-stefan-ghiurtu/))
@@ -30,11 +32,14 @@ We believe in the power of open source collaboration. This project thrives on co
 ### Go Port Maintainer
 - Kamil Mościszko ([LinkedIn](https://www.linkedin.com/in/kamilm97/), kmosc@protonmail.com)
 
-### Contributors
+### LangChain UTCP Adapters Maintainers
 - Luca Perrozzi ([LinkedIn](https://www.linkedin.com/in/luca-perrozzi/))
 - Roberto Catalano ([LinkedIn](https://www.linkedin.com/in/roberto-catalano-5b7793123/), [GitHub](https://github.com/Robobc))
+
+### Contributors
 - Tiago Prelato ([LinkedIn](https://www.linkedin.com/in/tiago-prelato-257787210/), [X](https://x.com/SneyX_))
 - Bruce Miao
+- Lochy W
 
 ## Join Us
 
