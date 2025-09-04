@@ -182,4 +182,4 @@ If the contributors page shows "Contributors data unavailable":
 4. Check console for error messages
 
 ### Build Integration
-The build process automatically fetches fresh data. For faster builds during development, use `npm run build:fast` to skip the data fetch.
+The build process does not fetch data automatically; run `npm run fetch-contributors` before `npm run build`. `npm run build:fast` is equivalent to `npm run build`.
