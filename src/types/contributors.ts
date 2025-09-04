@@ -21,9 +21,15 @@ export interface GitHubContributor {
   total_prs: number;
   total_merged_prs: number;
   total_recent_commits: number;
+  total_commits: number;
   total_reviews: number;
   last_activity: string | null;
   pr_success_rate: number;
+  // Line change statistics
+  total_additions: number;
+  total_deletions: number;
+  total_changes: number;
+  commits_analyzed: number;
 }
 
 export interface ContributorsData {
@@ -33,6 +39,11 @@ export interface ContributorsData {
   total_impact_score: number;
   total_recent_activity: number;
   scoring_method: string;
+  // Enhanced aggregated line change statistics
+  total_additions: number;
+  total_deletions: number;
+  total_changes: number;
+  total_commits_analyzed: number;
   contributors: GitHubContributor[];
 }
 
@@ -49,10 +60,25 @@ export interface DisplayContributor {
   joinDate: string;
   topContribution: string;
   lookingForJob: boolean;
+  // Repository data
+  repositories?: string[];
   // Additional scoring display data
   recentActivity?: string;
   qualityMetrics?: string;
   total_recent_commits: number;
+  // Line change statistics for display
+  total_additions: number;
+  total_deletions: number;
+  total_changes: number;
+  total_commits: number;
+  commits_analyzed: number;
+  // PR and review statistics for tooltips
+  total_prs: number;
+  total_merged_prs: number;
+  total_reviews: number;
+  pr_success_rate: number;
+  // Formatted line change display
+  lineChangeSummary?: string;
   badges?: Array<{
     icon: string;
     tooltip: string;

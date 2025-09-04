@@ -1,50 +1,75 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Layout from '@theme/Layout';
 import styles from './hall-of-fame.module.css';
 import { ContributorsData, GitHubContributor, DisplayContributor } from '../types/contributors';
 
-// Simple tooltip component
+// Constants for better maintainability
+const CONTRIBUTOR_STATUS_THRESHOLDS = {
+  CORE_CONTRIBUTOR: 100,
+  ACTIVE_CONTRIBUTOR: 50,
+  REGULAR_CONTRIBUTOR: 20,
+  INACTIVITY_DAYS: 90,
+} as const;
+
+const SPECIAL_CONTRIBUTORS = {
+  FOUNDING: ['h3xxit', 'AndreiGS', 'edujuan', 'aliraza1006', 'ulughbeck'] as readonly string[],
+  ADMINS: ['h3xxit', 'aliraza1006', 'edujuan', 'ulughbeck', 'AndreiGS'] as readonly string[],
+  LEAD_DEVELOPER: 'Raezil',
+} as const;
+
+// Simple tooltip component with dynamic positioning to prevent edge cutoff
 const Tooltip: React.FC<{ children: React.ReactNode; text: string }> = ({ children, text }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [position, setPosition] = useState<'center' | 'left' | 'right'>('center');
+  const containerRef = useCallback((node: HTMLDivElement | null) => {
+    if (node && isVisible) {
+      const rect = node.getBoundingClientRect();
+      const tooltipWidth = text.length * 8 + 16; // Approximate tooltip width
+      const viewportWidth = window.innerWidth;
+      
+      // Check if tooltip would overflow on the right
+      if (rect.left + rect.width / 2 + tooltipWidth / 2 > viewportWidth - 10) {
+        setPosition('right');
+      }
+      // Check if tooltip would overflow on the left
+      else if (rect.left + rect.width / 2 - tooltipWidth / 2 < 10) {
+        setPosition('left');
+      }
+      else {
+        setPosition('center');
+      }
+    }
+  }, [isVisible, text]);
+
+  const handleMouseEnter = useCallback(() => setIsVisible(true), []);
+  const handleMouseLeave = useCallback(() => setIsVisible(false), []);
+
+  // Get the appropriate CSS classes based on position
+  const getTooltipClasses = () => {
+    switch (position) {
+      case 'left':
+        return { content: styles.tooltipContentLeft, arrow: styles.tooltipArrowLeft };
+      case 'right':
+        return { content: styles.tooltipContentRight, arrow: styles.tooltipArrowRight };
+      default:
+        return { content: styles.tooltipContent, arrow: styles.tooltipArrow };
+    }
+  };
+
+  const tooltipClasses = getTooltipClasses();
 
   return (
     <div
-      style={{ position: 'relative', display: 'inline-block' }}
-      onMouseEnter={() => setIsVisible(true)}
-      onMouseLeave={() => setIsVisible(false)}
+      ref={containerRef}
+      className={styles.tooltipContainer}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {children}
       {isVisible && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '120%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            backgroundColor: '#333',
-            color: 'white',
-            padding: '4px 8px',
-            borderRadius: '4px',
-            fontSize: '12px',
-            whiteSpace: 'nowrap',
-            zIndex: 1000,
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
-          }}
-        >
+        <div className={tooltipClasses.content}>
           {text}
-          <div
-            style={{
-              position: 'absolute',
-              top: '100%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: 0,
-              height: 0,
-              borderLeft: '4px solid transparent',
-              borderRight: '4px solid transparent',
-              borderTop: '4px solid #333'
-            }}
-          />
+          <div className={tooltipClasses.arrow} />
         </div>
       )}
     </div>
@@ -61,12 +86,11 @@ const formatDate = (dateString: string | null): string => {
 // Function to determine contributor status based on contribution score
 const getContributorStatus = (contributionScore: number, lastActivity: string | null, username: string): string => {
   // Special status for founding contributors
-  const foundingContributors = ['h3xxit', 'AndreiGS', 'edujuan', 'aliraza1006', 'ulughbeck'];
-  if (foundingContributors.includes(username)) {
+  if (SPECIAL_CONTRIBUTORS.FOUNDING.includes(username)) {
     return 'Founding Contributor';
   }
   
-  if (username === 'Raezil') {
+  if (username === SPECIAL_CONTRIBUTORS.LEAD_DEVELOPER) {
     return 'Lead Developer';
   }
   
@@ -76,13 +100,13 @@ const getContributorStatus = (contributionScore: number, lastActivity: string | 
     (now.getTime() - lastActivityDate.getTime()) / (1000 * 60 * 60 * 24) : Infinity;
   
   // Factor in recency for status determination
-  if (contributionScore >= 100) {
-    return daysSinceLastActivity <= 90 ? 'Core contributor' : 'Core contributor (inactive)';
+  if (contributionScore >= CONTRIBUTOR_STATUS_THRESHOLDS.CORE_CONTRIBUTOR) {
+    return daysSinceLastActivity <= CONTRIBUTOR_STATUS_THRESHOLDS.INACTIVITY_DAYS ? 'Core contributor' : 'Core contributor (inactive)';
   }
-  if (contributionScore >= 50) {
-    return daysSinceLastActivity <= 90 ? 'Active contributor' : 'Regular contributor';
+  if (contributionScore >= CONTRIBUTOR_STATUS_THRESHOLDS.ACTIVE_CONTRIBUTOR) {
+    return daysSinceLastActivity <= CONTRIBUTOR_STATUS_THRESHOLDS.INACTIVITY_DAYS ? 'Active contributor' : 'Regular contributor';
   }
-  if (contributionScore >= 20) return 'Regular contributor';
+  if (contributionScore >= CONTRIBUTOR_STATUS_THRESHOLDS.REGULAR_CONTRIBUTOR) return 'Regular contributor';
   return 'New contributor';
 };
 
@@ -95,16 +119,15 @@ const generateFallbackAvatar = (username: string): string => {
 
 // Function to determine primary role based on repositories
 const getPrimaryRole = (repositories: string[], contributionScore: number, username: string): string => {
-  if (repositories.length === 0) return 'Contributor';
+  if (!repositories || repositories.length === 0) return 'Contributor';
   
   // Special roles for UTCP admins
-  const utcpAdmins = ['h3xxit', 'aliraza1006', 'edujuan', 'ulughbeck', 'AndreiGS'];
-  if (utcpAdmins.includes(username)) {
+  if (SPECIAL_CONTRIBUTORS.ADMINS.includes(username)) {
     return 'UTCP Admin';
   }
   
-  // Special role for Kamil
-  if (username === 'Raezil') {
+  // Special role for lead developer
+  if (username === SPECIAL_CONTRIBUTORS.LEAD_DEVELOPER) {
     return 'Lead Maintainer of Go Port';
   }
   
@@ -134,49 +157,101 @@ const getPrimaryRole = (repositories: string[], contributionScore: number, usern
 
 // Transform GitHub contributor data to display format
 const transformContributor = (ghContributor: GitHubContributor): DisplayContributor => {
-  const status = getContributorStatus(ghContributor.impact_score, ghContributor.last_activity, ghContributor.login);
-  const role = getPrimaryRole(ghContributor.repositories, ghContributor.impact_score, ghContributor.login);
-  const avatar = ghContributor.avatar_url || generateFallbackAvatar(ghContributor.login);
-  const joinDate = formatDate(ghContributor.created_at);
+  // Add null safety checks for all operations
+  const impact_score = ghContributor?.impact_score || 0;
+  const repositories = ghContributor?.repositories || [];
+  const login = ghContributor?.login || 'unknown';
+  
+  const status = getContributorStatus(impact_score, ghContributor?.last_activity || null, login);
+  const role = getPrimaryRole(repositories, impact_score, login);
+  const avatar = ghContributor?.avatar_url || generateFallbackAvatar(login);
+  const joinDate = formatDate(ghContributor?.created_at || null);
   
   // Determine top contribution based on repositories
-  const topContribution = ghContributor.repo_count > 1 
-    ? `Cross-project development (${ghContributor.repo_count} repos)` 
-    : ghContributor.repositories[0] || 'Code contributions';
+  const repo_count = ghContributor?.repo_count || 0;
+  const topContribution = repo_count > 1 
+    ? `Cross-project development (${repo_count} repos)` 
+    : repositories[0] || 'Code contributions';
   
-  // Format recent activity
-  const recentActivity = ghContributor.total_recent_commits > 0 
-    ? `${ghContributor.total_recent_commits} recent commits`
+  // Format line changes summary
+  const formatLineChanges = (additions: number, deletions: number, total: number) => {
+    if (total === 0) return 'No code changes tracked';
+    
+    const additionsStr = additions.toLocaleString();
+    const deletionsStr = deletions.toLocaleString();
+    const totalStr = total.toLocaleString();
+    
+    return `+${additionsStr} -${deletionsStr} (${totalStr} total)`;
+  };
+  
+  // Format recent activity (now showing line changes instead of just commit count)
+  const total_changes = ghContributor?.total_changes || 0;
+  const total_additions = ghContributor?.total_additions || 0;
+  const total_deletions = ghContributor?.total_deletions || 0;
+  const total_recent_commits = ghContributor?.total_recent_commits || 0;
+  
+  const recentActivity = total_changes > 0
+    ? formatLineChanges(total_additions, total_deletions, total_changes)
+    : total_recent_commits > 0 
+    ? `${total_recent_commits} recent commits`
     : 'No recent activity';
   
-  // Format quality metrics
+  // Format quality metrics with enhanced commit info
+  const total_prs = ghContributor?.total_prs || 0;
+  const total_reviews = ghContributor?.total_reviews || 0;
+  const total_commits = ghContributor?.total_commits || 0;
+  const pr_success_rate = ghContributor?.pr_success_rate || 0;
+  
   const qualityMetrics = [
-    ghContributor.total_prs > 0 ? `${ghContributor.total_prs} PRs (${ghContributor.pr_success_rate}% merged)` : null,
-    ghContributor.total_reviews > 0 ? `${ghContributor.total_reviews} reviews` : null
+    total_prs > 0 ? `${total_prs} PRs (${pr_success_rate}% merged)` : null,
+    total_reviews > 0 ? `${total_reviews} reviews` : null,
+    total_commits > 0 ? `${total_commits} total commits` : null
   ].filter(Boolean).join(' • ') || 'Building great code';
   
   // Add star badge for high contributors
   const badges: Array<{ icon: string; tooltip: string }> = [];
-  if (ghContributor.impact_score >= 100) {
+  if (impact_score >= CONTRIBUTOR_STATUS_THRESHOLDS.CORE_CONTRIBUTOR) {
     badges.push({ icon: "⭐", tooltip: "High Contributor" });
   }
+
+  const generateHash = (string) => {
+    let hash = 0;
+    for (const char of string) {
+      hash = (hash << 5) - hash + char.charCodeAt(0);
+      hash |= 0; // Constrain to 32bit integer
+    }
+    return hash;
+  };
   
   return {
-    id: ghContributor.id,
-    name: ghContributor.name || ghContributor.login,
-    username: ghContributor.login,
-    githubUsername: ghContributor.login,
+    id: ghContributor?.id || generateHash(login),
+    name: ghContributor?.name || login,
+    username: login,
+    githubUsername: login,
     role,
     status,
-    contributions: ghContributor.contributions,
-    impact_score: ghContributor.impact_score,
+    contributions: ghContributor?.contributions || 0,
+    impact_score,
     avatar,
     joinDate,
     topContribution,
     recentActivity,
     qualityMetrics,
-    lookingForJob: ghContributor.hireable,
-    total_recent_commits: ghContributor.total_recent_commits,
+    lookingForJob: ghContributor?.hireable || false,
+    repositories,
+    total_recent_commits,
+    // Enhanced line change statistics
+    total_additions,
+    total_deletions,
+    total_changes,
+    total_commits: total_commits || total_recent_commits,
+    commits_analyzed: ghContributor?.commits_analyzed || 0,
+    // PR and review statistics for tooltips
+    total_prs,
+    total_merged_prs: ghContributor?.total_merged_prs || 0,
+    total_reviews,
+    pr_success_rate,
+    lineChangeSummary: recentActivity,
     badges: badges.length > 0 ? badges : undefined
   };
 };
@@ -198,6 +273,16 @@ const fallbackContributors: DisplayContributor[] = [
     recentActivity: "Loading...",
     qualityMetrics: "Loading...",
     total_recent_commits: 0,
+    total_additions: 0,
+    total_deletions: 0,
+    total_changes: 0,
+    total_commits: 0,
+    commits_analyzed: 0,
+    total_prs: 0,
+    total_merged_prs: 0,
+    total_reviews: 0,
+    pr_success_rate: 0,
+    lineChangeSummary: "Loading...",
     lookingForJob: false
   }
 ];
@@ -214,25 +299,43 @@ const useContributors = (): DisplayContributor[] => {
       try {
         const autoModule = await import('../data/contributors.json');
         const autoContributorsData = autoModule.default as ContributorsData;
-        allContributors = [...allContributors, ...autoContributorsData.contributors];
+        if (autoContributorsData?.contributors && Array.isArray(autoContributorsData.contributors)) {
+          allContributors = [...allContributors, ...autoContributorsData.contributors];
+        } else {
+          console.warn('Auto-generated contributors data has invalid format');
+        }
       } catch (error) {
-        console.warn('Could not load auto-generated contributors data from GitHub.', error);
+        console.warn('Could not load auto-generated contributors data from GitHub:', error instanceof Error ? error.message : 'Unknown error');
       }
       
-      // Load manually added contributors
-      try {
-        const manualModule = await import('../data/contributors-manual.json');
-        const manualContributorsData = manualModule.default as ContributorsData;
-        allContributors = [...allContributors, ...manualContributorsData.contributors];
-      } catch (error) {
-        console.warn('Could not load manual contributors data.', error);
-      }
+      // Load manually added contributors (temporarily disabled)
+      // try {
+      //   const manualModule = await import('../data/contributors-manual.json');
+      //   const manualContributorsData = manualModule.default as ContributorsData;
+      //   if (manualContributorsData?.contributors && Array.isArray(manualContributorsData.contributors)) {
+      //     allContributors = [...allContributors, ...manualContributorsData.contributors];
+      //   } else {
+      //     console.warn('Manual contributors data has invalid format');
+      //   }
+      // } catch (error) {
+      //   console.warn('Could not load manual contributors data:', error instanceof Error ? error.message : 'Unknown error');
+      // }
       
       // If we have any contributors, transform and sort them
       if (allContributors.length > 0) {
         const transformedContributors = allContributors
           .map(transformContributor)
-          .sort((a, b) => b.impact_score - a.impact_score); // Sort by impact score descending
+          .sort((a, b) => {
+            // Sort by total changes first (if available), then by impact score as fallback
+            const aChanges = a.total_changes || 0;
+            const bChanges = b.total_changes || 0;
+            
+            if (aChanges !== bChanges) {
+              return bChanges - aChanges; // Sort by lines changed descending
+            }
+            
+            return b.impact_score - a.impact_score; // Fallback to impact score
+          });
         setContributors(transformedContributors);
       } else {
         // No contributors loaded, show fallback message
@@ -251,6 +354,17 @@ const useContributors = (): DisplayContributor[] => {
           recentActivity: "N/A",
           qualityMetrics: "N/A",
           total_recent_commits: 0,
+          total_additions: 0,
+          total_deletions: 0,
+          total_changes: 0,
+          total_commits: 0,
+          commits_analyzed: 0,
+          total_prs: 0,
+          total_merged_prs: 0,
+          total_reviews: 0,
+          pr_success_rate: 0,
+          repositories: [],
+          lineChangeSummary: "N/A",
           lookingForJob: false
         }]);
       }
@@ -262,74 +376,99 @@ const useContributors = (): DisplayContributor[] => {
   return contributors;
 };
 
-const ContributorRow = ({ contributor, rank }: { contributor: DisplayContributor; rank: number }) => (
-  <div className={styles.contributorRow}>
-    <div className={styles.rowLeft}>
-      <div className={styles.avatar}>
-        {contributor.avatar.startsWith('http') ? (
-          <img 
-            src={contributor.avatar} 
-            alt={`${contributor.name} avatar`}
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
-              target.parentElement!.textContent = generateFallbackAvatar(contributor.username);
-            }}
-            style={{
-              width: '100%',
-              height: '100%',
-              borderRadius: '8px',
-              objectFit: 'cover'
-            }}
-          />
-        ) : (
-          contributor.avatar
-        )}
-      </div>
-      <div className={styles.contributorInfo}>
-        <h3 className={styles.contributorName}>
-          <span className={styles.rankNumber}>{rank}.</span>
-          <a 
-            href={`https://github.com/${contributor.githubUsername}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.nameLink}
-          >
-            {contributor.name}
-          </a>
-        </h3>
-        <p className={styles.contributorDescription}>
-          {contributor.role}
-        </p>
-        <p className={styles.contributorStatus}>
-          {contributor.status}
-        </p>
-      </div>
-    </div>
-    
-    <div className={styles.rowRight}>
-      {contributor.lookingForJob && (
-        <button className={styles.jobButton}>
-          Open to work
-        </button>
-      )}
-      {contributor.badges && (
-        <div className={styles.badges}>
-          {contributor.badges.map((badge, index) => (
-            <div key={index} className={styles.badge} title={badge.tooltip}>
-              <span className={styles.badgeIcon}>{badge.icon}</span>
-            </div>
-          ))}
+const ContributorRow = ({ contributor, rank }: { contributor: DisplayContributor; rank: number }) => {
+  const [imageError, setImageError] = useState(false);
+  
+  const handleImageError = useCallback(() => {
+    setImageError(true);
+  }, []);
+
+  const isHttpAvatar = contributor.avatar?.startsWith('http') ?? false;
+  const shouldShowImage = isHttpAvatar && !imageError;
+
+  return (
+    <div className={styles.contributorRow}>
+      <div className={styles.rowLeft}>
+        <div className={styles.avatar}>
+          {shouldShowImage ? (
+            <img 
+              src={contributor.avatar} 
+              alt={`${contributor.name} avatar`}
+              onError={handleImageError}
+              className={styles.avatarImage}
+            />
+          ) : (
+            <span className={styles.avatarEmoji}>
+              {imageError ? generateFallbackAvatar(contributor.username) : contributor.avatar}
+            </span>
+          )}
         </div>
-      )}
-      <div className={styles.contributionCount}>
-        <Tooltip text={`${contributor.total_recent_commits} total commits in last 6 months`}>
-          <span className={styles.countNumber}>{contributor.impact_score}</span>
-        </Tooltip>
+        <div className={styles.contributorInfo}>
+          <h3 className={styles.contributorName}>
+            <span className={styles.rankNumber}>{rank}.</span>
+            <a 
+              href={`https://github.com/${contributor.githubUsername}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.nameLink}
+            >
+              {contributor.name}
+            </a>
+          </h3>
+          <p className={styles.contributorDescription}>
+            {contributor.role}
+          </p>
+          <p className={styles.contributorStatus}>
+            {contributor.status}
+          </p>
+        </div>
+      </div>
+      
+      <div className={styles.rowRight}>
+        {contributor.lookingForJob && (
+          <button className={styles.jobButton}>
+            Open to work
+          </button>
+        )}
+        {contributor.badges && (
+          <div className={styles.badges}>
+            {contributor.badges.map((badge, index) => (
+              <div key={index} className={styles.badge} title={badge.tooltip}>
+                <span className={styles.badgeIcon}>{badge.icon}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        <div className={styles.contributionCount}>
+          <Tooltip text={
+            contributor.total_changes > 0 
+              ? `${contributor.lineChangeSummary || 'No line changes'} • ${contributor.total_commits || 0} total commits • ${contributor.total_prs || 0} PRs (${contributor.pr_success_rate || 0}% merged)`
+              : `${contributor.total_recent_commits || 0} commits in last 6 months • ${contributor.total_prs || 0} PRs • ${contributor.total_reviews || 0} reviews`
+          }>
+            {contributor.total_changes > 0 ? (
+              <div className={styles.lineChangesDisplay}>
+                <span className={styles.linesChangedNumber}>
+                  {contributor.total_changes >= 1000 
+                    ? `${Math.round(contributor.total_changes / 1000)}k`
+                    : contributor.total_changes.toLocaleString()
+                  }
+                </span>
+                <span className={styles.linesChangedLabel}>lines changed</span>
+              </div>
+            ) : (
+              <div className={styles.lineChangesDisplay}>
+                <span className={styles.linesChangedNumber}>
+                  {contributor.total_recent_commits}
+                </span>
+                <span className={styles.linesChangedLabel}>commits</span>
+              </div>
+            )}
+          </Tooltip>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function Contributors(): React.ReactNode {
   const contributors = useContributors();
@@ -348,7 +487,7 @@ export default function Contributors(): React.ReactNode {
               We are extremely grateful for each and every one of you!
             </p>
             <p className={styles.leaderboardSubtitle}>
-              Ranked by contribution score: recent activity across all repositories
+              Ranked by total lines changed across all repositories
             </p>
           </div>
         </div>
@@ -363,6 +502,33 @@ export default function Contributors(): React.ReactNode {
               />
             ))}
           </div>
+          
+          {contributors.length > 1 && contributors[0]?.total_changes > 0 && (
+            <div className={styles.statsFooter}>
+              <h3>📊 Community Impact</h3>
+              <div className={styles.communityStats}>
+                <div className={styles.statItem}>
+                  <span className={styles.statNumber}>
+                    {contributors.reduce((sum, c) => sum + (c?.total_changes || 0), 0).toLocaleString()}
+                  </span>
+                  <span className={styles.statLabel}>Total Lines Changed</span>
+                </div>
+
+                <div className={styles.statItem}>
+                  <span className={styles.statNumber}>
+                    {contributors.reduce((sum, c) => sum + (c?.total_commits || 0), 0).toLocaleString()}
+                  </span>
+                  <span className={styles.statLabel}>Total Commits</span>
+                </div>
+                <div className={styles.statItem}>
+                  <span className={styles.statNumber}>
+                    {new Set(contributors.flatMap(c => c?.repositories || [])).size}
+                  </span>
+                  <span className={styles.statLabel}>Active Repositories</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         
         <div className={styles.callToAction}>
