@@ -11,7 +11,11 @@ The Text protocol plugin (`utcp-text`) enables UTCP to read and process text fil
 ## Installation
 
 ```bash
+# Example installation (Python)
 pip install utcp-text
+
+# Example installation (Node.js)
+npm install @utcp/text
 ```
 
 ## Call Template Structure

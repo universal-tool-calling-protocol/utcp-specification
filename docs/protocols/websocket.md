@@ -11,7 +11,11 @@ The WebSocket protocol plugin (`utcp-websocket`) enables UTCP to communicate wit
 ## Installation
 
 ```bash
+# Example installation (Python)
 pip install utcp-websocket
+
+# Example installation (Node.js)
+npm install @utcp/websocket
 ```
 
 ## Call Template Structure

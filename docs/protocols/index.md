@@ -41,9 +41,15 @@ Handle the actual communication logic for each protocol type. The implementation
 
 Protocol plugins are available for different programming languages:
 
-- **Python**: `pip install utcp-http utcp-cli utcp-websocket utcp-text utcp-mcp`
-- **TypeScript**: `npm install @utcp/http @utcp/cli @utcp/websocket`
-- **Other languages**: Check the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
+```bash
+# Example installation (Python)
+pip install utcp-http utcp-cli utcp-websocket utcp-text utcp-mcp
+
+# Example installation (Node.js)
+npm install @utcp/http @utcp/cli @utcp/websocket @utcp/text @utcp/mcp
+```
+
+For other languages, check the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
 
 ## Creating Custom Protocol Plugins
 
@@ -80,7 +86,7 @@ Choose the right protocol plugin based on your needs:
 
 For implementation details and examples in your programming language:
 
-- **Python**: [Python UTCP Documentation](https://github.com/universal-tool-calling-protocol/python-utcp/tree/main/docs)
+- **Multi-language**: [UTCP Implementation Examples](https://github.com/universal-tool-calling-protocol) - Examples across Python, TypeScript, Go, and other languages
 - **TypeScript**: [TypeScript UTCP Documentation](https://github.com/universal-tool-calling-protocol/typescript-utcp/tree/main/docs)
 - **Other languages**: Check respective repositories in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
 

@@ -51,45 +51,20 @@ pip install utcp-http utcp-cli utcp-websocket utcp-text utcp-mcp
 
 ### v0.1 Client Code
 
-```python
-from utcp import UtcpClient
-
-# Old way
-client = UtcpClient(config={
-    "providers": [
-        {
-            "name": "weather_service",
-            "provider_type": "http",
-            "url": "https://weather.example.com/utcp",
-            "http_method": "GET"
-        }
-    ]
-})
-
-# Call tool
-result = client.call_tool("weather_service.get_weather", {"location": "NYC"})
-```
+**Legacy v0.1 client configuration:**
+- Import UTCP client library
+- Configure providers with provider-specific settings (name, type, URL, HTTP method)
+- Call tools using provider.tool_name format
+- Synchronous tool calling interface
 
 ### v1.0 Client Code
 
-```python
-from utcp.utcp_client import UtcpClient
-
-# New way - async factory method
-client = await UtcpClient.create(config={
-    "manual_call_templates": [
-        {
-            "name": "weather_service",
-            "call_template_type": "http",
-            "url": "https://weather.example.com/utcp",
-            "http_method": "GET"
-        }
-    ]
-})
-
-# Call tool - now async
-result = await client.call_tool("weather_service.get_weather", {"location": "NYC"})
-```
+**New v1.0 client configuration:**
+- Import updated UTCP client library from new module path
+- Use async factory method for client creation
+- Configure manual call templates instead of providers
+- Use async/await pattern for tool calling
+- Enhanced error handling and response processing
 
 ## Configuration Migration
 
@@ -302,34 +277,20 @@ variable_loaders:
 
 ### v0.1 Error Handling
 
-```python
-try:
-    result = client.call_tool("service.tool", args)
-except Exception as e:
-    print(f"Error: {e}")
-```
+**Basic error handling in v0.1:**
+- Simple try/catch block with generic Exception handling
+- Limited error information and context
+- Basic error message printing
 
 ### v1.0 Error Handling
 
-```python
-from utcp.exceptions import (
-    UtcpError, 
-    ToolNotFoundError, 
-    ToolCallError,
-    AuthenticationError
-)
-
-try:
-    result = await client.call_tool("service.tool", args)
-except ToolNotFoundError as e:
-    print(f"Tool not found: {e}")
-except AuthenticationError as e:
-    print(f"Authentication failed: {e}")
-except ToolCallError as e:
-    print(f"Tool call failed: {e}")
-except UtcpError as e:
-    print(f"UTCP error: {e}")
-```
+**Enhanced error handling in v1.0:**
+- Import specific exception types from utcp.exceptions module
+- Handle ToolNotFoundError for missing tools
+- Handle AuthenticationError for auth failures  
+- Handle ToolCallError for tool execution failures
+- Handle base UtcpError for general UTCP errors
+- Use try/catch blocks with specific exception handling
 
 ## Step-by-Step Migration
 
@@ -345,132 +306,46 @@ pip install utcp utcp-http utcp-cli utcp-websocket utcp-text
 
 ### Step 2: Update Client Code
 
-```python
-# Before
-from utcp import UtcpClient
-
-def main():
-    client = UtcpClient(config=config)
-    result = client.call_tool("service.tool", args)
-    return result
-
-# After
-import asyncio
-from utcp.utcp_client import UtcpClient
-
-async def main():
-    client = await UtcpClient.create(config=config)
-    result = await client.call_tool("service.tool", args)
-    return result
-
-if __name__ == "__main__":
-    asyncio.run(main())
-```
+**Migration to async pattern:**
+- **Before**: Synchronous client creation and tool calls
+- **After**: Async client factory method and async tool calls
+- Import asyncio module for async execution
+- Use async/await keywords for client creation and tool calls
+- Run async main function with asyncio.run()
 
 ### Step 3: Update Configuration
 
-```python
-# Migration helper function
-def migrate_config_v0_to_v1(old_config):
-    new_config = {
-        "manual_call_templates": [],
-        "variable_loaders": [
-            {"loader_type": "env", "prefix": "UTCP_"}
-        ]
-    }
-    
-    for provider in old_config.get("providers", []):
-        call_template = {
-            "name": provider["name"],
-            "call_template_type": provider["provider_type"],
-        }
-        
-        # Migrate HTTP providers
-        if provider["provider_type"] == "http":
-            call_template.update({
-                "url": provider["url"],
-                "http_method": provider.get("method", "GET"),
-                "headers": provider.get("headers", {}),
-                "body": provider.get("body")
-            })
-        
-        # Migrate CLI providers
-        elif provider["provider_type"] == "cli":
-            call_template.update({
-                "command": provider["command"],
-                "args": provider.get("args", []),
-                "working_directory": provider.get("cwd")
-            })
-        
-        new_config["manual_call_templates"].append(call_template)
-    
-    return new_config
-
-# Use migration helper
-old_config = load_old_config()
-new_config = migrate_config_v0_to_v1(old_config)
-client = await UtcpClient.create(config=new_config)
-```
+**Configuration migration helper:**
+- Create migration function to convert v0.1 config to v1.0 format
+- Transform providers array to manual_call_templates array
+- Add variable_loaders configuration for environment variables
+- Map provider_type to call_template_type
+- Migrate HTTP provider settings (URL, method, headers, body)
+- Migrate CLI provider settings (command, args, working_directory)
+- Load old configuration and apply migration helper
+- Create new client with migrated configuration
 
 ### Step 4: Update Manual Format
 
-```python
-# Migration helper for manuals
-def migrate_manual_v0_to_v1(old_manual):
-    new_manual = {
-        "manual_version": "1.0.0",
-        "utcp_version": "1.0.1",
-        "info": {
-            "title": old_manual.get("provider_info", {}).get("name", "API"),
-            "version": old_manual.get("provider_info", {}).get("version", "1.0.0"),
-            "description": old_manual.get("provider_info", {}).get("description", "")
-        },
-        "tools": []
-    }
-    
-    for tool in old_manual.get("tools", []):
-        new_tool = {
-            "name": tool["name"],
-            "description": tool["description"],
-            "inputs": tool.get("parameters", {}),
-            "tool_call_template": {}
-        }
-        
-        # Migrate provider to call_template
-        provider = tool.get("provider", {})
-        if provider.get("provider_type") == "http":
-            new_tool["tool_call_template"] = {
-                "call_template_type": "http",
-                "url": provider["url"],
-                "http_method": provider.get("method", "GET"),
-                "headers": provider.get("headers", {}),
-                "body": provider.get("body")
-            }
-        
-        new_manual["tools"].append(new_tool)
-    
-    return new_manual
-```
+**Manual migration helper:**
+- Create migration function to convert v0.1 manual to v1.0 format
+- Update manual_version and utcp_version fields
+- Transform provider_info to info structure (title, version, description)
+- Migrate tools array with updated structure
+- Convert tool parameters to inputs field
+- Transform provider configuration to tool_call_template
+- Map provider_type to call_template_type
+- Migrate HTTP provider settings (URL, method, headers, body)
 
 ### Step 5: Test Migration
 
-```python
-import pytest
-from utcp.utcp_client import UtcpClient
-
-@pytest.mark.asyncio
-async def test_migrated_client():
-    # Test with migrated configuration
-    client = await UtcpClient.create(config=migrated_config)
-    
-    # Test tool discovery
-    tools = await client.list_tools()
-    assert len(tools) > 0
-    
-    # Test tool calls
-    result = await client.call_tool("service.tool", {"param": "value"})
-    assert result is not None
-```
+**Testing migrated client:**
+- Import pytest and UtcpClient for async testing
+- Create test function with pytest.mark.asyncio decorator
+- Test client creation with migrated configuration
+- Test tool discovery functionality (list_tools)
+- Test tool calling with sample parameters
+- Assert expected results and functionality
 
 ## Common Migration Issues
 
@@ -479,26 +354,18 @@ async def test_migrated_client():
 **Problem**: v1.0 client methods are async
 **Solution**: Add `async`/`await` keywords
 
-```python
-# Before
-result = client.call_tool("tool", args)
-
-# After
-result = await client.call_tool("tool", args)
-```
+**Code changes:**
+- **Before**: Synchronous tool calling (result = client.call_tool("tool", args))
+- **After**: Async tool calling (result = await client.call_tool("tool", args))
 
 ### Issue 2: Configuration Format
 
 **Problem**: Configuration structure changed
 **Solution**: Use migration helper or update manually
 
-```python
-# Before
-config = {"providers": [...]}
-
-# After
-config = {"manual_call_templates": [...]}
-```
+**Configuration changes:**
+- **Before**: Use "providers" array in configuration
+- **After**: Use "manual_call_templates" array in configuration
 
 ### Issue 3: Plugin Dependencies
 
@@ -526,33 +393,21 @@ pip install utcp-http utcp-cli utcp-websocket
 
 ### Configuration Validator
 
-```python
-from utcp.data.utcp_client_config import UtcpClientConfig
-
-def validate_config(config_dict):
-    try:
-        config = UtcpClientConfig(**config_dict)
-        print("Configuration is valid!")
-        return config
-    except Exception as e:
-        print(f"Configuration validation failed: {e}")
-        return None
-```
+**Configuration validation helper:**
+- Import UtcpClientConfig from utcp.data.utcp_client_config
+- Create validation function that accepts configuration dictionary
+- Use UtcpClientConfig constructor to validate configuration structure
+- Handle validation exceptions and provide error messages
+- Return validated config object or None on failure
 
 ### Manual Validator
 
-```python
-from utcp.data.utcp_manual import UtcpManual
-
-def validate_manual(manual_dict):
-    try:
-        manual = UtcpManual(**manual_dict)
-        print("Manual is valid!")
-        return manual
-    except Exception as e:
-        print(f"Manual validation failed: {e}")
-        return None
-```
+**Manual validation helper:**
+- Import UtcpManual from utcp.data.utcp_manual
+- Create validation function that accepts manual dictionary
+- Use UtcpManual constructor to validate manual structure
+- Handle validation exceptions and provide error messages
+- Return validated manual object or None on failure
 
 ## Best Practices for Migration
 
@@ -583,7 +438,7 @@ If you encounter issues during migration:
 1. **Check Documentation**: Review the [Implementation Guide](./implementation.md)
 2. **GitHub Issues**: Search existing issues or create new ones
 3. **Discord Community**: Join the [UTCP Discord](https://discord.gg/ZpMbQ8jRbD)
-4. **Examples**: Check the [examples repository](https://github.com/universal-tool-calling-protocol/python-utcp/tree/main/examples)
+4. **Examples**: Check the [examples repository](https://github.com/universal-tool-calling-protocol) for implementations across multiple languages
 
 ## Rollback Plan
 

@@ -33,8 +33,13 @@ UTCP acts as a **"manual"** that tells agents how to call your tools directly:
 ### 1. Install UTCP
 
 ```bash
-# Core library + HTTP support
+# Example installation (Python)
 pip install utcp utcp-http
+
+# Example installation (Node.js)
+npm install @utcp/core @utcp/http
+
+# See language-specific documentation for other implementations
 ```
 
 ### 2. Expose Your First Tool

@@ -231,6 +231,6 @@ Common HTTP errors and their meanings:
 
 For implementation details and examples in your programming language:
 
-- **Python**: [Python HTTP Protocol Documentation](https://github.com/universal-tool-calling-protocol/python-utcp/blob/main/docs/protocols/http.md)
+- **Multi-language**: [UTCP HTTP Protocol Examples](https://github.com/universal-tool-calling-protocol) - HTTP protocol examples across multiple languages
 - **TypeScript**: [TypeScript HTTP Protocol Documentation](https://github.com/universal-tool-calling-protocol/typescript-utcp/blob/main/docs/protocols/http.md)
 - **Other languages**: Check respective repositories in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)

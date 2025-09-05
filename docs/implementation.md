@@ -15,7 +15,7 @@ This guide covers the core concepts and patterns for implementing UTCP in any pr
 Choose the UTCP implementation for your programming language:
 
 - **Python**: `pip install utcp utcp-http utcp-cli`
-- **TypeScript**: `npm install @utcp/core @utcp/http @utcp/cli`
+- **Node.js**: `npm install @utcp/core @utcp/http @utcp/cli`
 - **Other languages**: Check the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
 
 ### 2. Create Your First Tool Provider
@@ -374,7 +374,7 @@ Implement custom tool storage:
 
 For detailed implementation examples and code samples in your programming language:
 
-- **Python**: [Python UTCP Documentation](https://github.com/universal-tool-calling-protocol/python-utcp/tree/main/docs)
+- **Multi-language**: [UTCP Implementation Examples](https://github.com/universal-tool-calling-protocol) - Examples across Python, TypeScript, Go, and other languages
 - **TypeScript**: [TypeScript UTCP Documentation](https://github.com/universal-tool-calling-protocol/typescript-utcp/tree/main/docs)
 - **Other languages**: Check respective repositories in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
 

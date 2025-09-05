@@ -289,274 +289,112 @@ CLI execution poses significant security risks. Use with extreme caution.
 
 ### Parameter Sanitization
 
-**Server-side validation:**
-```python
-from pydantic import BaseModel, validator, Field
-import re
-
-class ToolInput(BaseModel):
-    user_id: str = Field(..., regex=r'^[a-zA-Z0-9_-]+$', max_length=50)
-    query: str = Field(..., max_length=1000)
-    
-    @validator('query')
-    def sanitize_query(cls, v):
-        # Remove potentially dangerous characters
-        return re.sub(r'[<>"\']', '', v).strip()
-```
+**Server-side validation requirements:**
+- Use regex patterns to validate input formats (e.g., `^[a-zA-Z0-9_-]+$` for user IDs)
+- Implement maximum length limits for all string inputs
+- Remove dangerous characters like `<>`, `"`, `'` from user inputs
+- Validate all inputs against expected schemas
+- Sanitize inputs before processing
 
 ## Secure Variable Handling
 
 ### Environment Variable Security
 
-**Secure variable loading:**
-```python
-import os
-from typing import Dict, Optional
-
-class SecureVariableLoader:
-    def __init__(self, allowed_prefixes: list = None):
-        self.allowed_prefixes = allowed_prefixes or ['UTCP_', 'API_']
-    
-    def load_variable(self, var_name: str) -> Optional[str]:
-        # Only load variables with allowed prefixes
-        if not any(var_name.startswith(prefix) for prefix in self.allowed_prefixes):
-            raise ValueError(f"Variable {var_name} not allowed")
-        
-        return os.getenv(var_name)
-    
-    def substitute_variables(self, template: str, context: Dict[str, str]) -> str:
-        # Safely substitute variables
-        for var_name, value in context.items():
-            if self.is_safe_variable(var_name, value):
-                template = template.replace(f"${{{var_name}}}", value)
-        return template
-    
-    def is_safe_variable(self, name: str, value: str) -> bool:
-        # Validate variable safety
-        if len(value) > 10000:  # Prevent extremely long values
-            return False
-        if any(char in value for char in ['<', '>', '"', "'"]):  # Basic XSS prevention
-            return False
-        return True
-```
+**Secure variable loading requirements:**
+- Only allow variables with approved prefixes (e.g., `UTCP_`, `API_`)
+- Validate variable names against allowlists
+- Implement length limits for variable values (e.g., max 10,000 characters)
+- Check for dangerous characters in values (`<`, `>`, `"`, `'`)
+- Use secure variable substitution methods
+- Log all variable access attempts
 
 ### Runtime Variable Substitution
 
-**Secure substitution:**
-```python
-import re
-from typing import Dict
+**Secure substitution requirements:**
 
-def secure_substitute(template: str, variables: Dict[str, str]) -> str:
-    def replace_var(match):
-        var_name = match.group(1)
-        if var_name in variables:
-            value = variables[var_name]
-            # Validate and sanitize the value
-            if is_safe_value(value):
-                return value
-            else:
-                raise ValueError(f"Unsafe variable value for {var_name}")
-        else:
-            raise ValueError(f"Variable {var_name} not found")
-    
-    # Only replace variables with the expected pattern
-    return re.sub(r'\$\{([a-zA-Z_][a-zA-Z0-9_]*)\}', replace_var, template)
-
-def is_safe_value(value: str) -> bool:
-    # Implement your safety checks
-    return len(value) < 1000 and not any(c in value for c in ['<', '>', '"', "'", ';', '&'])
-```
+Implement variable substitution with these security measures:
+- Only substitute variables matching the pattern `${variable_name}`
+- Validate variable names contain only alphanumeric characters and underscores
+- Check that all variables exist before substitution
+- Sanitize variable values to prevent injection attacks
+- Reject values containing dangerous characters like `<`, `>`, `"`, `'`, `;`, `&`
+- Limit variable value length to prevent buffer overflow attacks
 
 ## Network & Transport Security
 
 ### TLS Configuration
 
 **Minimum TLS requirements:**
-```python
-import ssl
-import httpx
+**TLS configuration requirements:**
 
-# Configure secure HTTP client
-client = httpx.AsyncClient(
-    verify=True,  # Verify SSL certificates
-    timeout=30.0,
-    limits=httpx.Limits(max_connections=100, max_keepalive_connections=20)
-)
-
-# For custom SSL context
-ssl_context = ssl.create_default_context()
-ssl_context.minimum_version = ssl.TLSVersion.TLSv1_2
-ssl_context.check_hostname = True
-ssl_context.verify_mode = ssl.CERT_REQUIRED
-```
+Configure secure HTTP clients with these settings:
+- Enable SSL certificate verification
+- Set reasonable connection timeouts (e.g., 30 seconds)
+- Limit maximum connections to prevent resource exhaustion
+- Use TLS 1.2 or higher as minimum version
+- Enable hostname verification
+- Require certificate verification (CERT_REQUIRED mode)
 
 ### Certificate Validation
 
 **Enhanced certificate validation:**
-```python
-import ssl
-import certifi
 
-def create_secure_context():
-    context = ssl.create_default_context(cafile=certifi.where())
-    context.check_hostname = True
-    context.verify_mode = ssl.CERT_REQUIRED
-    context.minimum_version = ssl.TLSVersion.TLSv1_2
-    
-    # Disable weak ciphers
-    context.set_ciphers('ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5:!DSS')
-    
-    return context
-```
+Implement robust certificate validation:
+- Use trusted certificate authority bundles
+- Enable hostname verification against certificate
+- Require valid certificate chains
+- Set minimum TLS version to 1.2
+- Configure strong cipher suites (ECDHE+AESGCM, CHACHA20, DHE+AESGCM)
+- Reject weak algorithms (aNULL, MD5, DSS)
 
 ## Monitoring & Incident Response
 
 ### Security Logging
 
 **Comprehensive security logging:**
-```python
-import logging
-import json
-from datetime import datetime
 
-class SecurityLogger:
-    def __init__(self):
-        self.logger = logging.getLogger('utcp.security')
-        
-    def log_tool_call(self, tool_name: str, user_id: str, success: bool, **kwargs):
-        log_entry = {
-            'timestamp': datetime.utcnow().isoformat(),
-            'event_type': 'tool_call',
-            'tool_name': tool_name,
-            'user_id': user_id,
-            'success': success,
-            'metadata': kwargs
-        }
-        self.logger.info(json.dumps(log_entry))
-    
-    def log_auth_failure(self, tool_name: str, reason: str, **kwargs):
-        log_entry = {
-            'timestamp': datetime.utcnow().isoformat(),
-            'event_type': 'auth_failure',
-            'tool_name': tool_name,
-            'reason': reason,
-            'metadata': kwargs
-        }
-        self.logger.warning(json.dumps(log_entry))
-```
+Implement security logging with these components:
+- **Tool Call Logging**: Record all tool invocations with user ID, tool name, timestamp, success status, and parameters
+- **Authentication Logging**: Log authentication attempts, failures, and reasons
+- **Structured Format**: Use JSON format for easy parsing and analysis
+- **Sensitive Data Protection**: Avoid logging sensitive information like passwords or tokens
+- **Audit Trail**: Maintain immutable logs for compliance and forensic analysis
 
 ### Anomaly Detection
 
 **Basic anomaly detection:**
-```python
-from collections import defaultdict
-from datetime import datetime, timedelta
 
-class AnomalyDetector:
-    def __init__(self):
-        self.call_counts = defaultdict(list)
-        self.rate_limits = {
-            'calls_per_minute': 60,
-            'calls_per_hour': 1000
-        }
-    
-    def check_rate_limit(self, user_id: str) -> bool:
-        now = datetime.utcnow()
-        user_calls = self.call_counts[user_id]
-        
-        # Clean old entries
-        user_calls[:] = [call_time for call_time in user_calls 
-                        if now - call_time < timedelta(hours=1)]
-        
-        # Check limits
-        recent_calls = [call_time for call_time in user_calls 
-                       if now - call_time < timedelta(minutes=1)]
-        
-        if len(recent_calls) >= self.rate_limits['calls_per_minute']:
-            return False
-        if len(user_calls) >= self.rate_limits['calls_per_hour']:
-            return False
-        
-        # Record this call
-        user_calls.append(now)
-        return True
-```
+Implement anomaly detection with these features:
+- **Rate Limiting**: Track requests per user with configurable limits (e.g., 60 calls/minute, 1000 calls/hour)
+- **Time Window Management**: Clean old entries and maintain sliding time windows
+- **Multi-tier Limits**: Enforce both short-term (per minute) and long-term (per hour) rate limits
+- **Automatic Blocking**: Reject requests that exceed configured thresholds
+- **Call Tracking**: Record timestamps of all user requests for analysis
 
 ## Security Testing & Validation
 
 ### Testing Methodologies
 
 **Security test examples:**
-```python
-import pytest
-from utcp.utcp_client import UtcpClient
 
-@pytest.mark.asyncio
-async def test_injection_prevention():
-    client = await UtcpClient.create(config=test_config)
-    
-    # Test SQL injection attempt
-    malicious_input = "'; DROP TABLE users; --"
-    
-    with pytest.raises(ValueError, match="Invalid input"):
-        await client.call_tool("db.query", {"query": malicious_input})
-
-@pytest.mark.asyncio
-async def test_path_traversal_prevention():
-    client = await UtcpClient.create(config=test_config)
-    
-    # Test directory traversal attempt
-    malicious_path = "../../../etc/passwd"
-    
-    with pytest.raises(ValueError, match="Path not allowed"):
-        await client.call_tool("file.read", {"path": malicious_path})
-
-@pytest.mark.asyncio
-async def test_rate_limiting():
-    client = await UtcpClient.create(config=test_config)
-    
-    # Test rate limiting
-    for i in range(100):  # Exceed rate limit
-        try:
-            await client.call_tool("api.test", {})
-        except Exception as e:
-            assert "rate limit" in str(e).lower()
-            break
-    else:
-        pytest.fail("Rate limiting not enforced")
-```
+Implement comprehensive security testing:
+- **Injection Prevention Tests**: Test for SQL injection, command injection, and other malicious inputs
+- **Path Traversal Tests**: Verify protection against directory traversal attacks (../../../etc/passwd)  
+- **Rate Limiting Tests**: Confirm rate limiting enforcement under high load
+- **Authentication Tests**: Validate proper authentication and authorization
+- **Input Validation Tests**: Test boundary conditions and malformed inputs
 
 ### Security Automation
 
 **Automated security checks:**
-```python
-def validate_manual_security(manual: dict) -> list:
-    issues = []
-    
-    for tool in manual.get('tools', []):
-        call_template = tool.get('tool_call_template', {})
-        
-        # Check for HTTP over HTTPS
-        if call_template.get('call_template_type') == 'http':
-            url = call_template.get('url', '')
-            if url.startswith('http://'):
-                issues.append(f"Tool {tool['name']}: Uses insecure HTTP")
-        
-        # Check for hardcoded credentials
-        template_str = str(call_template)
-        if any(keyword in template_str.lower() for keyword in ['password', 'secret', 'key']):
-            if not any(var in template_str for var in ['${', '${']):
-                issues.append(f"Tool {tool['name']}: May contain hardcoded credentials")
-        
-        # Check for CLI security
-        if call_template.get('call_template_type') == 'cli':
-            command = call_template.get('command', '')
-            if not command.startswith('/'):
-                issues.append(f"Tool {tool['name']}: CLI command should use absolute path")
-    
-    return issues
-```
+
+Implement automated security validation:
+- **Protocol Security**: Verify HTTPS usage instead of HTTP for web requests
+- **Credential Detection**: Check for hardcoded passwords, secrets, or API keys  
+- **Variable Validation**: Ensure proper variable substitution patterns (${variable})
+- **CLI Security**: Validate command-line tools use absolute paths and safe commands
+- **URL Validation**: Check for suspicious or malformed URLs
+- **Configuration Review**: Automated scanning of UTCP manuals for security issues
 
 ## Security Checklist
 

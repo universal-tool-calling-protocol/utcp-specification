@@ -11,7 +11,11 @@ The CLI protocol plugin (`utcp-cli`) enables UTCP to execute command-line tools 
 ## Installation
 
 ```bash
+# Example installation (Python)
 pip install utcp-cli
+
+# Example installation (Node.js)
+npm install @utcp/cli
 ```
 
 ## Call Template Structure

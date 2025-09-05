@@ -261,6 +261,6 @@ Not all MCP features are supported through UTCP:
 
 For implementation details and examples in your programming language:
 
-- **Python**: [Python MCP Protocol Documentation](https://github.com/universal-tool-calling-protocol/python-utcp/blob/main/docs/protocols/mcp.md)
+- **Multi-language**: [UTCP MCP Protocol Examples](https://github.com/universal-tool-calling-protocol) - MCP protocol examples across multiple languages
 - **TypeScript**: [TypeScript MCP Protocol Documentation](https://github.com/universal-tool-calling-protocol/typescript-utcp/blob/main/docs/protocols/mcp.md)
 - **Other languages**: Check respective repositories in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)

@@ -13,7 +13,11 @@ The Server-Sent Events protocol plugin (`utcp-http`) enables UTCP to receive rea
 SSE support is included with the HTTP plugin:
 
 ```bash
+# Example installation (Python)
 pip install utcp-http
+
+# Example installation (Node.js)
+npm install @utcp/http
 ```
 
 ## Call Template Structure

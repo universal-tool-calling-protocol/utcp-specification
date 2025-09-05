@@ -56,23 +56,12 @@ UTCP provides a standardized way to describe how to call existing tools directly
 
 MCP requires building servers that wrap your tools:
 
-```python
-# MCP Server (required infrastructure)
-from mcp.server import Server
-from mcp.types import Tool
-
-server = Server("weather-server")
-
-@server.list_tools()
-async def list_tools():
-    return [Tool(name="get_weather", description="Get weather")]
-
-@server.call_tool()
-async def call_tool(name: str, arguments: dict):
-    if name == "get_weather":
-        # Call actual weather API
-        return await weather_api.get(arguments["location"])
-```
+**MCP Server Implementation Requirements:**
+- Create a dedicated server process for each tool provider
+- Implement tool listing functionality to expose available tools
+- Implement tool calling handlers that proxy requests to actual APIs
+- Maintain server infrastructure and handle client connections
+- Route all tool calls through the MCP server layer
 
 **Flow:** Agent → MCP Server → Tool → MCP Server → Agent
 
@@ -81,55 +70,38 @@ async def call_tool(name: str, arguments: dict):
 ### Performance Impact
 
 #### UTCP Performance
-```python
-# Direct API call - no overhead
-import httpx
 
-async def call_weather_tool():
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            "https://api.weather.com/current",
-            params={"location": "San Francisco"}
-        )
-        return response.json()
-
-# Latency: ~100ms (API response time only)
-```
+**Direct API calls with no overhead:**
+- Make HTTP requests directly to weather service endpoints
+- No intermediate proxy servers or additional network hops
+- Latency equals API response time only (~100ms)
+- Native HTTP client performance with connection pooling
 
 #### MCP Performance
-```python
-# Requires MCP server proxy
-import mcp
 
-async def call_weather_tool():
-    client = mcp.Client()
-    await client.connect("weather-server")
-    result = await client.call_tool("get_weather", {"location": "San Francisco"})
-    return result
-
-# Latency: ~150ms (API + MCP server overhead)
-```
+**Requires MCP server proxy:**
+- Connect to MCP server before making tool calls
+- Route requests through MCP server to actual weather API
+- Additional network hop adds latency overhead
+- Latency includes API response time plus MCP server processing (~150ms)
 
 ### Infrastructure Requirements
 
 #### UTCP Infrastructure
-```python
-# Add one endpoint to existing API
-@app.get("/utcp")
-def get_manual():
-    return utcp_manual  # Static JSON
 
-# Total infrastructure: 0 additional servers
-```
+**Minimal infrastructure requirements:**
+- Add single discovery endpoint to existing API (e.g., GET /utcp)
+- Return static JSON manual describing available tools
+- No additional servers, processes, or infrastructure needed
+- Total infrastructure: 0 additional servers
 
 #### MCP Infrastructure
-```python
-# Requires dedicated MCP server
-# Plus process management, monitoring, scaling
-# Plus client connection management
 
-# Total infrastructure: N MCP servers (one per tool provider)
-```
+**MCP infrastructure requirements:**
+- Requires dedicated MCP server processes for each tool provider
+- Process management, monitoring, and scaling infrastructure needed
+- Client connection management and session handling required
+- Total infrastructure: N MCP servers (one per tool provider)
 
 ### Protocol Support Comparison
 
@@ -164,11 +136,12 @@ def get_manual():
 ```
 
 #### MCP Protocol Limitation
-```python
-# MCP only supports JSON-RPC over stdio/HTTP
-# All tools must be wrapped in MCP servers
-# Cannot directly call WebSocket, CLI, or other protocols
-```
+
+**MCP protocol constraints:**
+- Only supports JSON-RPC over stdio/HTTP transport
+- All tools must be wrapped in MCP server implementations
+- Cannot directly call WebSocket, CLI, or other native protocols
+- Requires protocol translation layer for non-HTTP tools
 
 ## Feature Comparison
 
@@ -197,16 +170,12 @@ def get_manual():
 - Existing security policies apply
 
 #### MCP: Server-Mediated Authentication
-```python
-# MCP server must handle auth translation
-class WeatherMCPServer:
-    def __init__(self, api_key):
-        self.api_key = api_key  # Server stores credentials
-    
-    async def call_tool(self, name, args):
-        # Server makes authenticated call
-        return await weather_api.get(args["location"], auth=self.api_key)
-```
+
+**MCP server authentication requirements:**
+- MCP server must handle authentication translation between client and API
+- Server stores and manages API credentials on behalf of clients
+- Server makes authenticated calls to actual APIs using stored credentials
+- Requires credential management and secure storage in MCP server
 
 **Challenges:**
 - Credential management in MCP servers
@@ -228,32 +197,29 @@ class WeatherMCPServer:
 ```
 
 #### MCP: Limited Streaming
-```python
-# MCP has basic streaming but requires server implementation
-# More complex to set up and maintain
-```
+
+**MCP streaming limitations:**
+- MCP has basic streaming capabilities but requires server implementation
+- More complex to set up and maintain than native streaming protocols
+- Additional abstraction layer between client and streaming data source
 
 ### Error Handling
 
 #### UTCP: Native Error Responses
-```python
-# Errors come directly from the tool
-try:
-    result = await client.call_tool("api.get_data", {"id": "123"})
-except httpx.HTTPStatusError as e:
-    # Native HTTP error with full context
-    print(f"API returned {e.response.status_code}: {e.response.text}")
-```
+
+**Direct error handling:**
+- Errors come directly from the tool without translation
+- Native HTTP status codes and error messages preserved
+- Full error context available including headers and response body
+- No error translation or abstraction layer
 
 #### MCP: Wrapped Error Responses
-```python
-# Errors are wrapped by MCP server
-try:
-    result = await mcp_client.call_tool("get_data", {"id": "123"})
-except MCPError as e:
-    # MCP error - original context may be lost
-    print(f"MCP error: {e.message}")
-```
+
+**Error abstraction layer:**
+- Errors are wrapped and translated by MCP server
+- Original error context may be lost in translation
+- MCP-specific error format instead of native tool errors
+- Additional debugging complexity due to error wrapping
 
 ## Migration & Interoperability
 
@@ -261,22 +227,11 @@ except MCPError as e:
 
 UTCP provides an MCP plugin for gradual migration:
 
-```python
-# Phase 1: Use existing MCP servers via UTCP
-client = await UtcpClient.create(config={
-    "manual_call_templates": [{
-        "name": "legacy_mcp_service",
-        "call_template_type": "mcp",
-        "server_config": {
-            "command": "node",
-            "args": ["existing-mcp-server.js"]
-        }
-    }]
-})
-
-# Phase 2: Migrate high-value tools to native UTCP
-# Phase 3: Deprecate MCP servers
-```
+**Migration Strategy:**
+- **Phase 1**: Use existing MCP servers via UTCP's MCP protocol plugin
+- Configure UTCP client to connect to legacy MCP servers using MCP call templates
+- **Phase 2**: Migrate high-value tools to native UTCP protocols (HTTP, WebSocket, CLI)
+- **Phase 3**: Deprecate MCP servers once migration is complete
 
 [**Complete migration guide →**](./protocols/mcp.md)
 
@@ -284,28 +239,12 @@ client = await UtcpClient.create(config={
 
 You can use both protocols simultaneously:
 
-```python
-client = await UtcpClient.create(config={
-    "manual_call_templates": [
-        {
-            "name": "native_api",
-            "call_template_type": "http",
-            "url": "https://api.example.com/utcp"
-        },
-        {
-            "name": "legacy_mcp",
-            "call_template_type": "mcp",
-            "server_config": {"command": "mcp-server"}
-        }
-    ]
-})
-
-# Call native UTCP tool
-result1 = await client.call_tool("native_api.get_data", {})
-
-# Call MCP tool through UTCP
-result2 = await client.call_tool("legacy_mcp.mcp_tool", {})
-```
+**Hybrid approach during migration:**
+- Configure UTCP client with both native UTCP and legacy MCP call templates
+- Native UTCP tools use direct HTTP/WebSocket/CLI protocols  
+- Legacy MCP tools continue using MCP protocol plugin
+- Gradually migrate tools from MCP to native UTCP protocols
+- Single client interface for both native and legacy tools
 
 ## Enterprise Decision Factors
 
@@ -332,24 +271,21 @@ Monitoring: Additional monitoring stack needed
 ### Development Velocity
 
 #### UTCP Development Speed
-```python
-# Day 1: Add UTCP endpoint
-@app.get("/utcp")
-def get_manual():
-    return {"tools": [...]}
 
-# Day 2: Tools are available to AI agents
-# No additional infrastructure needed
-```
+**Rapid deployment timeline:**
+- **Day 1**: Add UTCP discovery endpoint to existing API
+- **Day 2**: Tools are immediately available to AI agents
+- No additional infrastructure, servers, or deployment needed
+- Minimal code changes to existing systems
 
 #### MCP Development Speed
-```python
-# Week 1-2: Build MCP server
-# Week 3: Deploy and configure server
-# Week 4: Set up monitoring and scaling
-# Week 5: Handle production issues
-# Ongoing: Server maintenance
-```
+
+**Extended development timeline:**
+- **Week 1-2**: Build dedicated MCP server implementation
+- **Week 3**: Deploy and configure server infrastructure
+- **Week 4**: Set up monitoring, logging, and scaling
+- **Week 5**: Handle production issues and debugging
+- **Ongoing**: Server maintenance, updates, and operations
 
 ### Risk Assessment
 
@@ -394,48 +330,24 @@ def get_manual():
 ### E-commerce API Integration
 
 #### UTCP Approach
-```python
-# Existing e-commerce API
-@app.get("/products/{product_id}")
-def get_product(product_id: str):
-    return {"id": product_id, "name": "Widget", "price": 29.99}
 
-# Add UTCP discovery
-@app.get("/utcp")
-def get_manual():
-    return {
-        "tools": [{
-            "name": "get_product",
-            "tool_call_template": {
-                "call_template_type": "http",
-                "url": "https://api.shop.com/products/${product_id}",
-                "http_method": "GET"
-            }
-        }]
-    }
-
-# Total additional code: ~10 lines
-# Additional infrastructure: 0 servers
-```
+**E-commerce API with UTCP:**
+- Keep existing product API endpoints unchanged (GET /products/{product_id})
+- Add single UTCP discovery endpoint (GET /utcp)
+- Return UTCP manual describing available tools and how to call them
+- Tools directly reference existing API endpoints with proper parameters
+- Total additional code: ~10 lines
+- Additional infrastructure: 0 servers
 
 #### MCP Approach
-```python
-# Requires building MCP server
-from mcp.server import Server
 
-server = Server("ecommerce-server")
-
-@server.call_tool()
-async def call_tool(name: str, args: dict):
-    if name == "get_product":
-        # Call existing API
-        response = await httpx.get(f"https://api.shop.com/products/{args['product_id']}")
-        return response.json()
-
-# Plus: server deployment, monitoring, scaling
-# Total additional code: ~50+ lines
-# Additional infrastructure: 1+ servers
-```
+**E-commerce API with MCP:**
+- Requires building dedicated MCP server wrapper
+- Implement tool listing and calling handlers in MCP server
+- MCP server calls existing API endpoints on behalf of clients
+- Additional server deployment, monitoring, and scaling required
+- Total additional code: ~50+ lines
+- Additional infrastructure: 1+ servers
 
 ### Database Query Tool
 
@@ -459,11 +371,11 @@ async def call_tool(name: str, args: dict):
 ```
 
 #### MCP Approach
-```python
-# Requires MCP server with database connection
-# Plus connection pooling, query validation, etc.
-# Much more complex implementation
-```
+**MCP database approach:**
+- Requires MCP server with database connection management
+- Connection pooling, query validation, and security in MCP server
+- Much more complex implementation than direct database access
+- Additional abstraction layer between client and database
 
 ## Performance Benchmarks
 
@@ -552,7 +464,7 @@ Both UTCP and MCP solve the tool integration problem, but with fundamentally dif
 ### To Get Started with UTCP:
 1. **[Read the implementation guide](./implementation.md)** - Learn how to implement UTCP
 2. **[Choose your protocols](./protocols/index.md)** - Select communication methods
-3. **[Check examples](https://github.com/universal-tool-calling-protocol/python-utcp/tree/main/examples)** - See real implementations
+3. **[Check examples](https://github.com/universal-tool-calling-protocol)** - See real implementations across multiple languages
 
 ### To Migrate from MCP:
 1. **[Read the MCP integration guide](./protocols/mcp.md)** - Use MCP tools via UTCP
