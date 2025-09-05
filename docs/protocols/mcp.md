@@ -1,18 +1,12 @@
 ---
 id: mcp
-title: Model Context Protocol (MCP)
+title: MCP Protocol
 sidebar_position: 6
 ---
 
-# Model Context Protocol (MCP)
+# MCP Protocol Plugin
 
-The MCP protocol plugin (`utcp-mcp`) provides interoperability with the Model Context Protocol, allowing UTCP clients to call tools exposed through MCP servers. This enables gradual migration from MCP to UTCP or hybrid deployments.
-
-## Installation
-
-```bash
-pip install utcp-mcp
-```
+The MCP (Model Context Protocol) plugin provides interoperability between UTCP and existing MCP servers, enabling gradual migration from MCP to UTCP while maintaining compatibility with existing MCP tools.
 
 ## Call Template Structure
 
@@ -21,53 +15,98 @@ pip install utcp-mcp
   "call_template_type": "mcp",
   "server_config": {
     "command": "node",
-    "args": ["/path/to/mcp-server.js"],
+    "args": ["mcp-server.js"],
+    "working_directory": "/app/mcp",
     "env": {
-      "API_KEY": "${API_KEY}"
-    }
+      "NODE_ENV": "production",
+      "LOG_LEVEL": "info"
+    },
+    "timeout": 30
   },
-  "tool_name": "${tool_name}",
-  "connection_timeout": 30,
-  "call_timeout": 60
+  "connection_timeout": 10,
+  "request_timeout": 30
 }
 ```
 
-## Configuration Options
+## Server Configuration
 
-### Required Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `call_template_type` | string | Must be `"mcp"` |
-| `server_config` | object | MCP server configuration |
-| `tool_name` | string | Name of the MCP tool to call |
-
-### Server Configuration
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `command` | string | Command to start MCP server |
-| `args` | array | Command arguments |
-| `env` | object | Environment variables |
-| `cwd` | string | Working directory |
-
-### Optional Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `connection_timeout` | number | Server connection timeout (default: 30) |
-| `call_timeout` | number | Tool call timeout (default: 60) |
-| `server_name` | string | Friendly name for the server |
-| `auto_restart` | boolean | Auto-restart server on failure (default: true) |
-
-## Examples
-
-### File System MCP Server
-
+### Command-based Servers
 ```json
 {
-  "name": "read_file_mcp",
-  "description": "Read file content via MCP filesystem server",
+  "server_config": {
+    "command": "python",
+    "args": ["-m", "mcp_server", "--config", "config.json"],
+    "working_directory": "/app",
+    "env": {
+      "PYTHONPATH": "/app/lib",
+      "API_KEY": "${MCP_API_KEY}"
+    }
+  }
+}
+```
+
+### HTTP-based Servers
+```json
+{
+  "server_config": {
+    "transport": "http",
+    "url": "http://localhost:8080/mcp",
+    "headers": {
+      "Authorization": "Bearer ${MCP_TOKEN}"
+    }
+  }
+}
+```
+
+## Migration Strategy
+
+The MCP protocol plugin enables a gradual migration path from MCP to native UTCP protocols:
+
+### Phase 1: MCP Integration
+- Use existing MCP servers through UTCP
+- No changes to MCP server code required
+- UTCP client can call MCP tools seamlessly
+
+### Phase 2: Hybrid Approach
+- Some tools use native UTCP protocols
+- Legacy tools continue using MCP
+- Gradual migration of high-value tools
+
+### Phase 3: Full Migration
+- All tools use native UTCP protocols
+- MCP servers deprecated
+- Simplified architecture
+
+## Tool Discovery
+
+MCP servers expose tools through the standard MCP protocol. The UTCP MCP plugin:
+
+1. **Connects** to the MCP server using stdio or HTTP transport
+2. **Discovers** available tools via MCP's `tools/list` method
+3. **Maps** MCP tool definitions to UTCP tool format
+4. **Registers** tools in the UTCP client
+
+## Request/Response Mapping
+
+### MCP to UTCP Tool Mapping
+```json
+// MCP Tool Definition
+{
+  "name": "read_file",
+  "description": "Read contents of a file",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "path": {"type": "string"}
+    },
+    "required": ["path"]
+  }
+}
+
+// UTCP Tool (after mapping)
+{
+  "name": "read_file",
+  "description": "Read contents of a file",
   "inputs": {
     "type": "object",
     "properties": {
@@ -77,260 +116,151 @@ pip install utcp-mcp
   },
   "tool_call_template": {
     "call_template_type": "mcp",
-    "server_config": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/allowed/path"],
-      "env": {}
-    },
-    "tool_name": "read_file"
+    "server_config": {...}
   }
 }
 ```
 
-### Database MCP Server
+### Request Flow
+1. UTCP client receives tool call
+2. MCP plugin formats request as MCP `tools/call`
+3. Request sent to MCP server
+4. MCP server processes and responds
+5. Response mapped back to UTCP format
 
+## Authentication and Security
+
+### Server Authentication
 ```json
 {
-  "name": "query_database_mcp",
-  "description": "Query database via MCP server",
-  "inputs": {
-    "type": "object",
-    "properties": {
-      "query": {"type": "string"},
-      "params": {"type": "array"}
-    },
-    "required": ["query"]
-  },
-  "tool_call_template": {
-    "call_template_type": "mcp",
-    "server_config": {
-      "command": "python",
-      "args": ["-m", "mcp_server_sqlite", "--db-path", "/data/app.db"],
-      "env": {
-        "DATABASE_URL": "${DATABASE_URL}"
-      }
-    },
-    "tool_name": "execute_query",
-    "call_timeout": 120
-  }
-}
-```
-
-### Custom MCP Server
-
-```json
-{
-  "name": "custom_mcp_tool",
-  "description": "Call custom MCP server tool",
-  "inputs": {
-    "type": "object",
-    "properties": {
-      "input_data": {"type": "object"}
-    },
-    "required": ["input_data"]
-  },
-  "tool_call_template": {
-    "call_template_type": "mcp",
-    "server_config": {
-      "command": "node",
-      "args": ["./custom-mcp-server.js"],
-      "cwd": "/app/servers",
-      "env": {
-        "NODE_ENV": "production",
-        "API_KEY": "${MCP_API_KEY}"
-      }
-    },
-    "tool_name": "process_data",
-    "server_name": "custom_processor"
-  }
-}
-```
-
-## Server Management
-
-### Automatic Server Lifecycle
-
-The MCP protocol plugin automatically manages server lifecycle:
-
-1. **Startup**: Launches MCP server when first tool is called
-2. **Connection**: Establishes JSON-RPC connection
-3. **Tool Discovery**: Retrieves available tools from server
-4. **Call Routing**: Routes tool calls to appropriate server
-5. **Shutdown**: Gracefully shuts down server when no longer needed
-
-### Server Pooling
-
-Multiple tools can share the same MCP server instance:
-
-```json
-{
-  "manual_version": "1.0.0",
-  "utcp_version": "1.0.1",
-  "tools": [
-    {
-      "name": "list_files",
-      "tool_call_template": {
-        "call_template_type": "mcp",
-        "server_config": {
-          "command": "npx",
-          "args": ["-y", "@modelcontextprotocol/server-filesystem", "/data"]
-        },
-        "tool_name": "list_directory"
-      }
-    },
-    {
-      "name": "read_file",
-      "tool_call_template": {
-        "call_template_type": "mcp",
-        "server_config": {
-          "command": "npx",
-          "args": ["-y", "@modelcontextprotocol/server-filesystem", "/data"]
-        },
-        "tool_name": "read_file"
-      }
+  "server_config": {
+    "command": "secure-mcp-server",
+    "env": {
+      "MCP_AUTH_TOKEN": "${MCP_SERVER_TOKEN}",
+      "MCP_CLIENT_ID": "${MCP_CLIENT_ID}"
     }
-  ]
+  }
 }
 ```
+
+### Transport Security
+- **stdio**: Inherits process security model
+- **HTTP**: Use HTTPS and proper authentication headers
+- **WebSocket**: Use WSS and authentication tokens
 
 ## Error Handling
 
-| Error Type | Description | Handling |
-|------------|-------------|----------|
-| Server Start Failed | Cannot start MCP server | Raise `MCPServerStartError` |
-| Connection Failed | Cannot connect to server | Raise `MCPConnectionError` |
-| Tool Not Found | Tool doesn't exist on server | Raise `MCPToolNotFoundError` |
-| Call Timeout | Tool call exceeded timeout | Raise `MCPTimeoutError` |
-| Server Crashed | MCP server process died | Auto-restart if enabled |
+### Connection Errors
+- Server startup failures
+- Network connectivity issues
+- Authentication failures
+- Timeout errors
 
-## Migration from MCP
+### Protocol Errors
+- Invalid MCP messages
+- Unsupported MCP features
+- Tool execution failures
+- Resource access errors
 
-### Gradual Migration Strategy
+### Error Mapping
+MCP errors are mapped to UTCP exceptions:
+- `InvalidRequest` → `ValidationError`
+- `MethodNotFound` → `ToolNotFoundError`
+- `InternalError` → `ToolCallError`
 
-1. **Wrap Existing MCP Servers**: Use UTCP-MCP plugin to call existing servers
-2. **Identify High-Value Tools**: Prioritize frequently used tools for direct migration
-3. **Migrate Tool by Tool**: Convert individual tools to native UTCP protocols
-4. **Deprecate MCP Servers**: Remove MCP dependency once migration is complete
+## Performance Considerations
 
-### Migration Example
+### Connection Management
+- Persistent connections for stdio transport
+- Connection pooling for HTTP transport
+- Automatic reconnection on failures
+- Graceful shutdown handling
 
-**Before (Pure MCP):**
-```javascript
-// MCP Client
-const client = new MCPClient();
-await client.connect("filesystem-server");
-const result = await client.callTool("read_file", {path: "/data/file.txt"});
+### Request Optimization
+- Batch multiple tool calls when possible
+- Cache tool discovery results
+- Implement request timeouts
+- Monitor response times
+
+## Limitations
+
+### MCP Feature Support
+Not all MCP features are supported through UTCP:
+- **Resources**: Not directly mapped to UTCP tools
+- **Prompts**: Not supported in UTCP model
+- **Sampling**: Not applicable to tool calling
+
+### Protocol Differences
+- MCP's bidirectional communication vs UTCP's request/response
+- MCP's resource model vs UTCP's tool-only model
+- Different authentication mechanisms
+
+## Configuration Examples
+
+### Development Setup
+```json
+{
+  "manual_call_templates": [{
+    "name": "dev_mcp",
+    "call_template_type": "mcp",
+    "server_config": {
+      "command": "node",
+      "args": ["dev-server.js"],
+      "env": {"NODE_ENV": "development"}
+    },
+    "connection_timeout": 5,
+    "request_timeout": 10
+  }]
+}
 ```
 
-**During Migration (UTCP with MCP):**
-```python
-# UTCP Client with MCP plugin
-client = await UtcpClient.create()
-result = await client.call_tool("filesystem.read_file", {
-    "path": "/data/file.txt"
-})
-```
-
-**After Migration (Pure UTCP):**
-```python
-# UTCP Client with native protocol
-client = await UtcpClient.create()
-result = await client.call_tool("filesystem.read_file", {
-    "path": "/data/file.txt"
-})
+### Production Setup
+```json
+{
+  "manual_call_templates": [{
+    "name": "prod_mcp",
+    "call_template_type": "mcp",
+    "server_config": {
+      "transport": "http",
+      "url": "https://mcp.example.com/api",
+      "headers": {
+        "Authorization": "Bearer ${MCP_PROD_TOKEN}",
+        "X-Client-Version": "1.0.0"
+      }
+    },
+    "connection_timeout": 30,
+    "request_timeout": 60
+  }]
+}
 ```
 
 ## Best Practices
 
-1. **Server Reuse**: Share MCP servers across multiple tools when possible
-2. **Timeout Configuration**: Set appropriate timeouts for server startup and calls
-3. **Error Handling**: Implement retry logic for transient server failures
-4. **Resource Management**: Monitor server resource usage and lifecycle
-5. **Migration Planning**: Plan gradual migration to native UTCP protocols
-6. **Testing**: Test MCP server compatibility thoroughly
-7. **Documentation**: Document MCP server dependencies and requirements
+### Migration Planning
+1. **Inventory** existing MCP servers and tools
+2. **Prioritize** tools for migration based on usage
+3. **Test** MCP integration thoroughly
+4. **Monitor** performance and reliability
+5. **Migrate** incrementally to native UTCP protocols
 
-## Performance Considerations
+### Monitoring and Debugging
+- Enable debug logging for MCP communication
+- Monitor server health and response times
+- Track tool usage patterns
+- Log authentication failures
+- Set up alerts for connection issues
 
-### Overhead Comparison
+### Security
+- Use secure transport methods (HTTPS, WSS)
+- Implement proper authentication
+- Validate all inputs and outputs
+- Monitor for suspicious activity
+- Keep MCP servers updated
 
-| Aspect | Native UTCP | UTCP-MCP | Pure MCP |
-|--------|-------------|----------|----------|
-| Latency | Low | Medium | Medium |
-| Memory Usage | Low | Medium | High |
-| Process Overhead | None | Medium | High |
-| Network Hops | 1 | 2 | 2 |
+## Language-Specific Implementation
 
-### Optimization Tips
+For implementation details and examples in your programming language:
 
-1. **Server Pooling**: Reuse servers across multiple tools
-2. **Connection Caching**: Cache server connections
-3. **Batch Operations**: Group related tool calls when possible
-4. **Resource Limits**: Set memory and CPU limits for MCP servers
-5. **Health Monitoring**: Monitor server health and performance
-
-## Compatibility
-
-### Supported MCP Versions
-
-- MCP 1.0.x: ✅ Full support
-- MCP 0.x: ⚠️ Limited support
-
-### Known Limitations
-
-1. **Streaming**: MCP streaming not fully supported
-2. **Resources**: MCP resources not mapped to UTCP
-3. **Prompts**: MCP prompts not supported
-4. **Sampling**: MCP sampling not supported
-
-## Common Use Cases
-
-- **Legacy Integration**: Calling existing MCP servers
-- **Gradual Migration**: Transitioning from MCP to UTCP
-- **Hybrid Deployments**: Using both MCP and UTCP tools
-- **Third-party Tools**: Accessing MCP-only tools
-- **Development**: Testing MCP compatibility
-
-## Troubleshooting
-
-### Server Won't Start
-
-```bash
-# Check server command manually
-npx -y @modelcontextprotocol/server-filesystem /path
-
-# Verify environment variables
-echo $API_KEY
-
-# Check file permissions
-ls -la /path/to/mcp-server.js
-```
-
-### Connection Issues
-
-```python
-# Enable debug logging
-import logging
-logging.getLogger('utcp.mcp').setLevel(logging.DEBUG)
-
-# Test connection timeout
-{
-  "connection_timeout": 60,  # Increase timeout
-  "auto_restart": true       # Enable auto-restart
-}
-```
-
-### Tool Not Found
-
-```python
-# List available tools from MCP server
-server_tools = await mcp_client.list_tools()
-print(f"Available tools: {[tool.name for tool in server_tools]}")
-```
-
-## Related Documentation
-
-- [UTCP vs MCP Comparison](../utcp-vs-mcp.md)
-- [Migration Guide](../migration/from-mcp.md)
-- [HTTP Protocol](./http.md) - Alternative to MCP for REST APIs
-- [CLI Protocol](./cli.md) - Alternative to MCP for command-line tools
+- **Python**: [Python MCP Protocol Documentation](https://github.com/universal-tool-calling-protocol/python-utcp/blob/main/docs/protocols/mcp.md)
+- **TypeScript**: [TypeScript MCP Protocol Documentation](https://github.com/universal-tool-calling-protocol/typescript-utcp/blob/main/docs/protocols/mcp.md)
+- **Other languages**: Check respective repositories in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)

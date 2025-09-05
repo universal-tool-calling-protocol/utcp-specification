@@ -25,8 +25,7 @@ Each protocol plugin consists of:
 
 ### Call Templates
 Define how to structure calls for the specific protocol:
-```python
-# Example: HTTP Call Template
+```json
 {
   "call_template_type": "http",
   "url": "https://api.example.com/endpoint",
@@ -36,48 +35,34 @@ Define how to structure calls for the specific protocol:
 ```
 
 ### Communication Protocols
-Handle the actual communication logic:
-```python
-class HttpCommunicationProtocol:
-    async def call_tool(self, call_template, tool_args):
-        # Implementation for HTTP calls
-        pass
-```
+Handle the actual communication logic for each protocol type. The implementation varies by programming language.
 
 ## Installing Protocol Plugins
 
-```bash
-# Core UTCP library
-pip install utcp
+Protocol plugins are available for different programming languages:
 
-# Install specific protocol plugins
-pip install utcp-http      # HTTP, SSE protocols
-pip install utcp-cli       # CLI protocol
-pip install utcp-websocket # WebSocket protocol
-pip install utcp-text      # Text file protocol
-pip install utcp-mcp       # MCP interoperability
-```
+- **Python**: `pip install utcp-http utcp-cli utcp-websocket utcp-text utcp-mcp`
+- **TypeScript**: `npm install @utcp/http @utcp/cli @utcp/websocket`
+- **Other languages**: Check the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
 
 ## Creating Custom Protocol Plugins
 
-You can extend UTCP with custom communication protocols:
+You can extend UTCP with custom communication protocols by implementing the protocol interface in your chosen language. Each implementation must:
 
-```python
-from utcp.interfaces.communication_protocol import CommunicationProtocol
-from utcp.data.call_template import CallTemplate
+1. **Define Call Templates**: Specify the structure for protocol-specific calls
+2. **Implement Communication Handler**: Handle the actual protocol communication
+3. **Register the Protocol**: Make it available to the UTCP client
 
-class CustomCallTemplate(CallTemplate):
-    call_template_type: str = "custom"
-    custom_field: str
-
-class CustomCommunicationProtocol(CommunicationProtocol):
-    async def call_tool(self, call_template: CustomCallTemplate, tool_args: dict):
-        # Your custom protocol implementation
-        pass
-
-# Register the protocol
-from utcp.plugins.discovery import register_communication_protocol
-register_communication_protocol(CustomCommunicationProtocol())
+Example call template structure:
+```json
+{
+  "call_template_type": "custom",
+  "custom_field": "value",
+  "auth": {
+    "auth_type": "api_key",
+    "api_key": "${API_KEY}"
+  }
+}
 ```
 
 ## Protocol Selection Guide
@@ -90,5 +75,13 @@ Choose the right protocol plugin based on your needs:
 - **SSE**: Server-sent events for streaming data
 - **Text**: Reading configuration files or static content
 - **MCP**: Interoperability with Model Context Protocol tools
+
+## Language-Specific Documentation
+
+For implementation details and examples in your programming language:
+
+- **Python**: [Python UTCP Documentation](https://github.com/universal-tool-calling-protocol/python-utcp/tree/main/docs)
+- **TypeScript**: [TypeScript UTCP Documentation](https://github.com/universal-tool-calling-protocol/typescript-utcp/tree/main/docs)
+- **Other languages**: Check respective repositories in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
 
 For detailed information about each protocol plugin, see the individual protocol documentation pages.
