@@ -463,6 +463,60 @@ const ContributorRow = ({ contributor, rank }: { contributor: DisplayContributor
 
 export default function Contributors(): React.ReactNode {
   const contributors = useContributors();
+  const [otherContributors, setOtherContributors] = useState<Array<{ avatar?: string; role: string; thanks: string; username: string }>>([]);
+
+  useEffect(() => {
+    const loadOtherContributors = async () => {
+      try {
+        const manualModule = await import('../data/contributors-manual.json');
+        const manualData = manualModule.default as { contributors?: Array<any> };
+        const mapped = (manualData?.contributors || []).map((c: any) => {
+          const username: string = c?.login || c?.name || 'friend';
+          const name: string = c?.name || username;
+          const bio: string | null = c?.bio || null;
+          const avatar: string | undefined = c?.avatar_url || undefined;
+          return {
+            avatar,
+            role: name,
+            thanks: bio || 'Thank you for supporting UTCP.',
+            username
+          };
+        });
+        setOtherContributors(mapped);
+      } catch (err) {
+        // Fallback to a small static list when manual file is unavailable
+        setOtherContributors([
+          { avatar: undefined, role: 'Maintainer', thanks: 'Guiding the project and ensuring high quality.', username: 'maintainer' },
+          { avatar: undefined, role: 'Designer', thanks: 'Improving UX and visual language.', username: 'designer' },
+          { avatar: undefined, role: 'Researcher', thanks: 'Exploring the landscape and informing decisions.', username: 'researcher' }
+        ]);
+      }
+    };
+    loadOtherContributors();
+  }, []);
+
+  const OtherContributorCard = ({ avatar, role, thanks, username }: { avatar?: string; role: string; thanks: string; username: string }) => {
+    const [imageError, setImageError] = useState(false);
+    const showImage = Boolean(avatar) && !imageError;
+    return (
+      <div className={styles.otherContributorCard}>
+        <div className={styles.otherContributorIcon}>
+          {showImage ? (
+            <img
+              src={avatar as string}
+              alt={`${role} avatar`}
+              className={styles.otherContributorImage}
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <span className={styles.avatarEmoji}>{generateFallbackAvatar(username)}</span>
+          )}
+        </div>
+        <div className={styles.otherContributorRole}>{role}</div>
+        <div className={styles.otherContributorThanks}>{thanks}</div>
+      </div>
+    );
+  };
 
   return (
     <Layout
@@ -492,6 +546,18 @@ export default function Contributors(): React.ReactNode {
                 rank={index + 1}
               />
             ))}
+          </div>
+
+          <div className={styles.otherContributorsSection}>
+            <div className={styles.otherContributorsHeader}>
+              <h2 className={styles.otherContributorsTitle}>Special Thanks</h2>
+              <p className={styles.otherContributorsSubtitle}>Beyond code, here are some of our champions</p>
+            </div>
+            <div className={styles.otherContributorsGrid}>
+              {otherContributors.map((oc, i) => (
+                <OtherContributorCard key={i} avatar={oc.avatar} role={oc.role} thanks={oc.thanks} username={oc.username} />
+              ))}
+            </div>
           </div>
           
           {contributors.length > 1 && contributors[0]?.total_changes > 0 && (
