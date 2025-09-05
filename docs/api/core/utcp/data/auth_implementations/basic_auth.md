@@ -35,7 +35,7 @@ encoded in the Authorization header.
 
 ### class BasicAuthSerializer ([Serializer](./../../interfaces/serializer.md#serializer)[BasicAuth]) {#basicauthserializer}
 
-*No class documentation available*
+Serializer for BasicAuth configuration and credentials.
 
 #### Methods:
 

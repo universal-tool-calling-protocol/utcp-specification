@@ -39,7 +39,7 @@ Supports environment variable injection and custom working directories.
 
 ### class CliCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[CliCallTemplate]) {#clicalltemplateserializer}
 
-*No class documentation available*
+Call template for executing command-line tools and scripts.
 
 #### Methods:
 

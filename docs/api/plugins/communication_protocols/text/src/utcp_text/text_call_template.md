@@ -35,7 +35,7 @@ static tool configurations or environments where manuals are distributed as file
 
 ### class TextCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[TextCallTemplate]) {#textcalltemplateserializer}
 
-*No class documentation available*
+Call template for reading and processing text files from local or remote sources.
 
 #### Methods:
 

@@ -70,7 +70,7 @@ exclude=["tool1"]
 
 ### class UtcpManualSerializer ([Serializer](./../interfaces/serializer.md#serializer)[UtcpManual]) {#utcpmanualserializer}
 
-*No class documentation available*
+Serializer for converting UtcpManual objects to/from dictionary format.
 
 #### Methods:
 

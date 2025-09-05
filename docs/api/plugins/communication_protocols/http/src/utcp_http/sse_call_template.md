@@ -49,7 +49,7 @@ or query pattern parameters are passed as query parameters using '?arg_name=\{ar
 
 ### class SSECallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[SseCallTemplate]) {#ssecalltemplateserializer}
 
-*No class documentation available*
+Call template for Server-Sent Events (SSE) streaming connections.
 
 #### Methods:
 
