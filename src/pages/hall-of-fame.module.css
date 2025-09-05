@@ -844,3 +844,87 @@
     font-size: 0.4rem;
   }
 }
+
+/* Other Contributors (non-coder) section */
+.otherContributorsSection {
+  padding: 3rem 1rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.otherContributorsHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.otherContributorsTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #ffffff 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.otherContributorsSubtitle {
+  font-size: 1rem;
+  color: #888888;
+  margin: 0;
+}
+
+.otherContributorsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.otherContributorCard {
+  background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
+  border: 1px solid #222222;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.otherContributorIcon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: 1px solid #333333;
+}
+
+.otherContributorImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.otherContributorRole {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0.25rem 0 0;
+  color: #ffffff;
+}
+
+.otherContributorThanks {
+  font-size: 0.9rem;
+  color: #cccccc;
+  margin: 0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .otherContributorsSection {
+    padding-top: 2rem;
+  }
+}
