@@ -52,7 +52,7 @@ Variable value if found, None otherwise.
 
 ### class VariableLoaderSerializer ([Serializer](./../interfaces/serializer.md#serializer)[VariableLoader]) {#variableloaderserializer}
 
-Abstract base class for loading variables from different sources (environment, files, etc.).
+*No class documentation available*
 
 #### Fields:
 

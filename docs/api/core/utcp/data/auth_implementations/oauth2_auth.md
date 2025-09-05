@@ -39,7 +39,7 @@ authentication. The client automatically handles token acquisition and refresh.
 
 ### class OAuth2AuthSerializer ([Serializer](./../../interfaces/serializer.md#serializer)[OAuth2Auth]) {#oauth2authserializer}
 
-Serializer for OAuth2Auth configuration and token management.
+*No class documentation available*
 
 #### Methods:
 

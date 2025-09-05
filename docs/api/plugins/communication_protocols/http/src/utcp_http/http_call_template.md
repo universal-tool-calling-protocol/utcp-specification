@@ -48,7 +48,7 @@ URL body, headers or query pattern parameters are passed as query parameters usi
 
 ### class HttpCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[HttpCallTemplate]) {#httpcalltemplateserializer}
 
-Call template for HTTP-based tool calls with support for various HTTP methods and authentication.
+*No class documentation available*
 
 #### Methods:
 

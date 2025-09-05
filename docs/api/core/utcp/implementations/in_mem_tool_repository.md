@@ -9,7 +9,7 @@ sidebar_label: in_mem_tool_repository
 
 ### class InMemToolRepository ([ConcurrentToolRepository](./../interfaces/concurrent_tool_repository.md#concurrenttoolrepository)) {#inmemtoolrepository}
 
-In-memory implementation of tool repository for storing and managing UTCP tools.
+*No class documentation available*
 
 #### Methods:
 
@@ -164,7 +164,7 @@ A list of all manual call templates in the repository.
 
 ### class InMemToolRepositoryConfigSerializer ([Serializer](./../interfaces/serializer.md#serializer)[InMemToolRepository]) {#inmemtoolrepositoryconfigserializer}
 
-Serializer for InMemToolRepository configuration to enable persistence and setup.
+*No class documentation available*
 
 #### Methods:
 

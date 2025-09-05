@@ -9,7 +9,7 @@ sidebar_label: utcp_client
 
 ### class UtcpClient {#utcpclient}
 
-Main client for discovering and calling UTCP tools across multiple communication protocols.
+*No class documentation available*
 
 #### Methods:
 
