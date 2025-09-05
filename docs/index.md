@@ -4,152 +4,221 @@ title: Introduction
 sidebar_position: 1
 ---
 
-# Introduction to UTCP 1.0
+# Universal Tool Calling Protocol (UTCP)
 
-The Universal Tool Calling Protocol (UTCP) is a lightweight, secure, and scalable standard for defining and interacting with tools across a wide variety of communication protocols. Version 1.0 introduces a modular core with a plugin-based architecture, making it more extensible, testable, and easier to package.
-
-## Core Components
-
-UTCP consists of four main components:
-
-1. [**Manuals**](./api/core/utcp/data/utcp_manual.md): The standard tool provider description format that contains tool definitions
-2. [**Tools**](./api/core/utcp/data/tool.md): The individual capabilities that can be called
-3. [**Call Templates**](./api/core/utcp/data/call_template.md): The communication configurations that specify how tools are accessed. Concretely this maps a tool name and provided arguments to an actual API request in a communication protocol.
-4. [**UtcpClient**](./api/core/utcp/utcp_client.md): The client that calls tools using the call templates.
-
-## The "Manual" Approach
-
-UTCP's fundamental philosophy is to act as a descriptive manual rather than a prescriptive middleman:
-
-:::note
-A UTCP Manual tells an agent: "Here is a tool. Here is its native endpoint (HTTP, WebSocket, CLI, etc.), and here is how to call it directly."
+:::info Language Examples
+This documentation uses **Python** examples. UTCP is available in multiple languages - see [TypeScript](https://github.com/universal-tool-calling-protocol/typescript-utcp), [Go](https://github.com/universal-tool-calling-protocol/go-utcp), and other implementations in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol).
 :::
 
-This approach eliminates the need for wrapper servers and allows direct communication between agents and tools.
+UTCP is a lightweight, secure, and scalable standard that enables AI agents and applications to discover and call tools directly using their native protocols - **no wrapper servers required**.
 
-## New Architecture in 1.0
+## Why UTCP?
 
-UTCP has been refactored into a core library and a set of optional plugins:
+### The Problem with Current Approaches
+Most tool integration solutions force you to:
+- Build and maintain wrapper servers for every tool
+- Route all traffic through a middleman protocol
+- Reimplement existing authentication and security
+- Accept additional latency and complexity
 
-### Core Package (`utcp`)
-- **Data Models**: Pydantic models for [`Tool`](./api/core/utcp/data/tool.md), [`CallTemplate`](./api/core/utcp/data/call_template.md), [`UtcpManual`](./api/core/utcp/data/utcp_manual.md), and [`Auth`](./api/core/utcp/data/auth.md)
-- **Pluggable Interfaces**: [`CommunicationProtocol`](./api/core/utcp/interfaces/communication_protocol.md), [`ConcurrentToolRepository`](./api/core/utcp/interfaces/concurrent_tool_repository.md), [`ToolSearchStrategy`](./api/core/utcp/interfaces/tool_search_strategy.md), [`VariableSubstitutor`](./api/core/utcp/interfaces/variable_substitutor.md), [`ToolPostProcessor`](./api/core/utcp/interfaces/tool_post_processor.md)
-- **Default Implementations**: [`UtcpClient`](./api/core/utcp/utcp_client.md), [`InMemToolRepository`](./api/core/utcp/implementations/in_mem_tool_repository.md), [`TagAndDescriptionWordMatchStrategy`](./api/core/utcp/implementations/tag_search.md)
+### The UTCP Solution
+UTCP acts as a **"manual"** that tells agents how to call your tools directly:
 
-### Protocol Plugins
-- `utcp-http`: Supports HTTP, SSE, and streamable HTTP, plus an OpenAPI converter
-- `utcp-cli`: For wrapping local command-line tools
-- `utcp-mcp`: For interoperability with the Model Context Protocol (MCP)
-- `utcp-text`: For reading text files
-- `utcp-socket`: TCP and UDP protocols (work in progress)
-- `utcp-gql`: GraphQL (work in progress)
+:::tip Core Philosophy
+*"If a human can call your API, an AI agent should be able to call it too - with the same security and no additional infrastructure."*
+:::
 
-## Minimal Example
+## Quick Start (5 Minutes)
 
-Let's see how easy it is to use UTCP with a minimal example.
+### 1. Install UTCP
 
-### 1. Defining a Tool (Tool Provider)
+```bash
+# Core library + HTTP support
+pip install utcp utcp-http
+```
 
-Create a simple HTTP endpoint that serves a UTCP Manual (JSON):
+### 2. Expose Your First Tool
+
+Add a discovery endpoint to your existing API:
 
 ```python
-# app.py
 from fastapi import FastAPI
 
 app = FastAPI()
 
+# Your existing API endpoint (unchanged)
+@app.get("/weather")
+def get_weather(location: str):
+    return {"temperature": 22, "conditions": "Sunny"}
+
+# Add UTCP discovery endpoint
 @app.get("/utcp")
-def utcp_discovery():
+def utcp_manual():
     return {
         "manual_version": "1.0.0",
         "utcp_version": "1.0.1",
-        "tools": [
-            {
-                "name": "get_weather",
-                "description": "Get current weather for a location",
-                "inputs": {
-                    "type": "object",
-                    "properties": {
-                        "location": {
-                            "type": "string",
-                            "description": "City name"
-                        }
-                    },
-                    "required": ["location"]
-                },
-                "outputs": {
-                    "type": "object",
-                    "properties": {
-                        "temperature": {"type": "number"},
-                        "conditions": {"type": "string"}
-                    }
-                },
-                "tool_call_template": {
-                    "call_template_type": "http",
-                    "url": "https://example.com/api/weather",
-                    "http_method": "GET"
-                }
+        "tools": [{
+            "name": "get_weather",
+            "description": "Get current weather for a location",
+            "inputs": {
+                "type": "object",
+                "properties": {"location": {"type": "string"}},
+                "required": ["location"]
+            },
+            "tool_call_template": {
+                "call_template_type": "http",
+                "url": "http://localhost:8000/weather",
+                "http_method": "GET",
+                "query_params": {"location": "${location}"}
             }
-        ]
+        }]
     }
-
-# Implement the actual weather API endpoint
-@app.get("/api/weather")
-def get_weather(location: str):
-    # In a real app, you'd fetch actual weather data
-    return {"temperature": 22.5, "conditions": "Sunny"}
 ```
 
-Run the server:
-
-```bash
-uvicorn app:app --reload
-```
-
-### 2. Using the Tool (Client)
+### 3. Call Your Tool
 
 ```python
-# client.py
 import asyncio
 from utcp.utcp_client import UtcpClient
-from utcp_http.http_call_template import HttpCallTemplate
 
 async def main():
-    # Create a UTCP client with configuration
     client = await UtcpClient.create(config={
-        "manual_call_templates": [
-            {
-                "name": "weather_service",
-                "call_template_type": "http",
-                "http_method": "GET",
-                "url": "http://localhost:8000/utcp"
-            }
-        ]
+        "manual_call_templates": [{
+            "name": "weather_api",
+            "call_template_type": "http",
+            "url": "http://localhost:8000/utcp",
+            "http_method": "GET"
+        }]
     })
-
-    # Tools are automatically registered from the manual call templates
-    # Call a tool by its namespaced name: {manual_name}.{tool_name}
+    
     result = await client.call_tool(
-        "weather_service.get_weather", 
+        "weather_api.get_weather",
         tool_args={"location": "San Francisco"}
     )
-    print(f"Weather: {result['temperature']}°C, {result['conditions']}")
+    print(f"Weather: {result}")
 
-if __name__ == "__main__":
-    asyncio.run(main())
+asyncio.run(main())
 ```
 
-Run the client:
+**That's it!** Your tool is now discoverable and callable by any UTCP client.
 
-```bash
-python client.py
+## Key Benefits
+
+| Benefit | Description |
+|---------|-------------|
+| **🚀 Zero Latency Overhead** | Direct tool calls, no proxy servers |
+| **🔒 Native Security** | Use your existing authentication and authorization |
+| **🌐 Protocol Flexibility** | HTTP, WebSocket, CLI, GraphQL, and more |
+| **⚡ Easy Integration** | Add one endpoint, no infrastructure changes |
+| **📈 Scalable** | Leverage your existing scaling and monitoring |
+
+## How It Works
+
+```mermaid
+graph LR
+    A[AI Agent] -->|1. Discover| B[UTCP Manual]
+    B -->|2. Learn| C[Tool Definitions]
+    A -->|3. Call Directly| D[Your API]
+    D -->|4. Response| A
 ```
 
-## Benefits of the UTCP Approach
+1. **Discovery**: Agent fetches your UTCP manual
+2. **Learning**: Agent understands how to call your tools
+3. **Direct Calling**: Agent calls your API directly using native protocols
+4. **Response**: Your API responds normally
 
-1. **Direct Communication**: The client calls the tool's native endpoint directly
-2. **No Wrapper Infrastructure**: No need to build and maintain wrapper servers
-3. **Leverage Existing Systems**: Uses the tool's existing authentication, rate limiting, etc.
-4. **Flexible Protocol Support**: Works with any communication protocol (HTTP, WebSockets, CLI, etc.)
+## Supported Protocols
 
-In the following sections, we'll explore the details of UTCP's components and how to implement them in your applications.
+UTCP supports multiple communication protocols through plugins:
+
+| Protocol | Use Case | Plugin | Status |
+|----------|----------|--------|--------|
+| **[HTTP](./providers/http.md)** | REST APIs, webhooks | `utcp-http` | ✅ Stable |
+| **[WebSocket](./providers/websocket.md)** | Real-time communication | `utcp-websocket` | ✅ Stable |
+| **[CLI](./providers/cli.md)** | Command-line tools | `utcp-cli` | ✅ Stable |
+| **[Server-Sent Events](./providers/sse.md)** | Streaming data | `utcp-http` | ✅ Stable |
+| **[Text Files](./providers/text.md)** | File reading | `utcp-text` | ✅ Stable |
+| **[MCP](./providers/mcp.md)** | MCP interoperability | `utcp-mcp` | ✅ Stable |
+
+[View all protocols →](./providers/index.md)
+
+## Architecture Overview
+
+UTCP v1.0 features a modular, plugin-based architecture:
+
+### Core Components
+- **[Manuals](./api/core/utcp/data/utcp_manual.md)**: Tool definitions and metadata
+- **[Tools](./api/core/utcp/data/tool.md)**: Individual callable capabilities  
+- **[Call Templates](./api/core/utcp/data/call_template.md)**: Protocol-specific call instructions
+- **[UTCP Client](./api/core/utcp/utcp_client.md)**: Tool discovery and execution engine
+
+### Plugin System
+- **Protocol Plugins**: HTTP, WebSocket, CLI, etc.
+- **Custom Protocols**: Extend with your own communication methods
+- **Tool Repositories**: Pluggable storage for tool definitions
+- **Search Strategies**: Customizable tool discovery algorithms
+
+[Learn more about the architecture →](./api/index.md)
+
+## Who Should Use UTCP?
+
+### 🛠️ Tool Providers
+You have APIs, services, or tools that you want AI agents to use:
+- **Existing API owners** - Expose your REST APIs to AI agents
+- **SaaS providers** - Make your services AI-accessible
+- **Enterprise teams** - Enable internal tool usage by AI systems
+
+[**Get started as a tool provider →**](./for-tool-providers.md)
+
+### 🤖 Tool Consumers  
+You're building AI agents or applications that need to call external tools:
+- **AI agent developers** - Give your agents access to external capabilities
+- **Application builders** - Integrate third-party tools seamlessly
+- **Enterprise developers** - Connect to internal and external services
+
+[**Get started as a tool consumer →**](./implementation.md)
+
+## UTCP vs Alternatives
+
+| Feature | UTCP | MCP | Custom Wrappers |
+|---------|------|-----|-----------------|
+| **Infrastructure** | None required | Wrapper servers | Custom servers |
+| **Latency** | Direct calls | Double hop | Variable |
+| **Security** | Native | Reimplemented | Custom |
+| **Protocols** | Multiple | HTTP streaming | Single |
+| **Maintenance** | Minimal | High | Very high |
+
+[**Detailed comparison with MCP →**](./utcp-vs-mcp.md)
+
+## Next Steps
+
+### For Tool Providers
+1. **[Read the provider guide](./for-tool-providers.md)** - Learn how to expose your tools
+2. **[Choose your protocol](./providers/index.md)** - Select the right communication method
+3. **[Implement your manual](./implementation.md)** - Add UTCP to your existing API
+4. **[Secure your tools](./security.md)** - Implement proper authentication
+
+### For Tool Consumers
+1. **[Read the implementation guide](./implementation.md)** - Learn how to build UTCP clients
+2. **[Explore protocols](./providers/index.md)** - Understand available communication options
+3. **[Check examples](https://github.com/universal-tool-calling-protocol/python-utcp/tree/main/examples)** - See real-world implementations
+4. **[Join the community](https://discord.gg/ZpMbQ8jRbD)** - Get help and share experiences
+
+### Migration from Other Systems
+- **[From UTCP v0.1](./migration-v0.1-to-v1.0.md)** - Upgrade to the latest version
+- **[From MCP](./providers/mcp.md)** - Migrate from Model Context Protocol
+- **[From custom solutions](./implementation.md)** - Replace existing tool integrations
+
+## Community & Support
+
+- **[GitHub Organization](https://github.com/universal-tool-calling-protocol)** - Source code and issues
+- **[Discord Community](https://discord.gg/ZpMbQ8jRbD)** - Real-time help and discussions  
+- **[Tool Registry](https://utcp.io/registry)** - Discover available tools
+- **[RFC Process](/about/RFC)** - Contribute to the specification
+
+---
+
+**Ready to get started?** Choose your path:
+- 🛠️ [**I want to expose my tools**](./for-tool-providers.md)
+- 🤖 [**I want to call tools**](./implementation.md)
+- 📚 [**I want to learn more**](./providers/index.md)
