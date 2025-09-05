@@ -214,7 +214,7 @@ You're building AI agents or applications that need to call external tools:
 - **[GitHub Organization](https://github.com/universal-tool-calling-protocol)** - Source code and issues
 - **[Discord Community](https://discord.gg/ZpMbQ8jRbD)** - Real-time help and discussions  
 - **[Tool Registry](https://utcp.io/registry)** - Discover available tools
-- **[RFC Process](./about/RFC.md)** - Contribute to the specification
+- **[RFC Process](/about/RFC)** - Contribute to the specification
 
 ---
 
