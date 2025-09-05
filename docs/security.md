@@ -223,24 +223,13 @@ CLI execution poses significant security risks. Use with extreme caution.
 - ✅ Prevent directory traversal attacks
 - ✅ Use safe encoding handling
 
-**Path validation example:**
-```python
-import os
-from pathlib import Path
-
-def validate_file_path(file_path: str, allowed_dirs: list) -> bool:
-    try:
-        # Resolve to absolute path
-        abs_path = Path(file_path).resolve()
-        
-        # Check if path is within allowed directories
-        for allowed_dir in allowed_dirs:
-            if abs_path.is_relative_to(Path(allowed_dir).resolve()):
-                return True
-        return False
-    except (OSError, ValueError):
-        return False
-```
+**Path validation requirements:**
+- Resolve all paths to absolute paths
+- Check if paths are within allowed directories
+- Handle symbolic links by resolving them first
+- Validate against directory traversal attacks (`../`)
+- Return false for any path resolution errors
+- Use allowlists of permitted directories
 
 ### MCP Security
 
