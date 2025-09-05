@@ -317,97 +317,87 @@ Use `${VARIABLE_NAME}` syntax for dynamic values:
 
 ## Implementation Examples
 
-### FastAPI Implementation (Python)
+### REST API Implementation
 
-```python
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import List, Optional
+For a typical REST API, you'll need to:
 
-app = FastAPI()
+1. **Keep your existing endpoints unchanged**
+2. **Add a UTCP discovery endpoint** at `/utcp`
+3. **Map your API operations to UTCP tools**
 
-class User(BaseModel):
-    id: str
-    name: str
-    email: str
+Example API structure:
+```
+GET  /users/{user_id}     # Your existing endpoint
+POST /users               # Your existing endpoint  
+GET  /utcp                # New UTCP discovery endpoint
+```
 
-# Your existing API endpoints
-@app.get("/users/{user_id}")
-def get_user(user_id: str) -> User:
-    # Your existing logic
-    return User(id=user_id, name="John Doe", email="john@example.com")
+The UTCP manual describes how to call your existing endpoints:
 
-@app.post("/users")
-def create_user(user: User) -> User:
-    # Your existing logic
-    return user
-
-# UTCP Discovery endpoint
-@app.get("/utcp")
-def get_utcp_manual():
-    return {
-        "manual_version": "1.0.0",
-        "utcp_version": "1.0.1",
-        "info": {
-            "title": "User Management API",
-            "version": "1.0.0",
-            "description": "API for managing user accounts"
+```json
+{
+  "manual_version": "1.0.0",
+  "utcp_version": "1.0.1",
+  "info": {
+    "title": "User Management API",
+    "version": "1.0.0",
+    "description": "API for managing user accounts"
+  },
+  "tools": [
+    {
+      "name": "get_user",
+      "description": "Retrieve user information by ID",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "user_id": {"type": "string"}
         },
-        "tools": [
-            {
-                "name": "get_user",
-                "description": "Retrieve user information by ID",
-                "inputs": {
-                    "type": "object",
-                    "properties": {
-                        "user_id": {"type": "string"}
-                    },
-                    "required": ["user_id"]
-                },
-                "outputs": {
-                    "type": "object",
-                    "properties": {
-                        "id": {"type": "string"},
-                        "name": {"type": "string"},
-                        "email": {"type": "string"}
-                    }
-                },
-                "tool_call_template": {
-                    "call_template_type": "http",
-                    "url": f"{BASE_URL}/users/{{user_id}}",
-                    "http_method": "GET",
-                    "headers": {
-                        "Authorization": "Bearer ${API_TOKEN}"
-                    }
-                }
-            },
-            {
-                "name": "create_user",
-                "description": "Create a new user account",
-                "inputs": {
-                    "type": "object",
-                    "properties": {
-                        "name": {"type": "string"},
-                        "email": {"type": "string", "format": "email"}
-                    },
-                    "required": ["name", "email"]
-                },
-                "tool_call_template": {
-                    "call_template_type": "http",
-                    "url": f"{BASE_URL}/users",
-                    "http_method": "POST",
-                    "headers": {
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer ${API_TOKEN}"
-                    },
-                    "body": {
-                        "name": "${name}",
-                        "email": "${email}"
-                    }
-                }
-            }
-        ]
+        "required": ["user_id"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "email": {"type": "string"}
+        }
+      },
+      "tool_call_template": {
+        "call_template_type": "http",
+        "url": "https://api.example.com/users/${user_id}",
+        "http_method": "GET",
+        "headers": {
+          "Authorization": "Bearer ${API_TOKEN}"
+        }
+      }
+    },
+    {
+      "name": "create_user",
+      "description": "Create a new user account",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "email": {"type": "string"}
+        },
+        "required": ["name", "email"]
+      },
+      "tool_call_template": {
+        "call_template_type": "http",
+        "url": "https://api.example.com/users",
+        "http_method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${API_TOKEN}"
+        },
+        "body": {
+          "name": "${name}",
+          "email": "${email}"
+        }
+      }
     }
+  ]
+}
 ```
 
 ### Express.js Implementation
