@@ -67,7 +67,7 @@ The generated `src/data/contributors.json` file contains:
   "total_contributions": 1500,
   "total_impact_score": 3250,
   "total_recent_activity": 145,
-  "scoring_method": "hybrid_impact_score",
+  "scoring_method": "simplified_recent_activity",
   "contributors": [
     {
       "id": 123456,
@@ -182,4 +182,4 @@ If the contributors page shows "Contributors data unavailable":
 4. Check console for error messages
 
 ### Build Integration
-The build process automatically fetches fresh data. For faster builds during development, use `npm run build:fast` to skip the data fetch.
+The build process does not fetch data automatically; run `npm run fetch-contributors` before `npm run build`. `npm run build:fast` is equivalent to `npm run build`.

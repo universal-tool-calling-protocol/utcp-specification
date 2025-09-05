@@ -5,20 +5,18 @@ on:
     # Run every day at 6 AM UTC
     - cron: '0 6 * * *'
   workflow_dispatch: # Allow manual triggering
-  push:
-    branches: [ main ]
-    paths:
-      - 'scripts/fetch-contributors.js'
 
 jobs:
   update-contributors:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.UPDATE_HALL_OF_FAME || secrets.GITHUB_TOKEN }}
         
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -34,7 +32,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "🚀 Starting contributor data fetch..."
-        node scripts/fetch-contributors.js
+        npm run fetch-contributors
         echo "✅ Contributor data fetch completed"
         
     - name: Check if contributors data changed
