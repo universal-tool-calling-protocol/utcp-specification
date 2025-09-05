@@ -213,9 +213,18 @@ const transformContributor = (ghContributor: GitHubContributor): DisplayContribu
   if (impact_score >= CONTRIBUTOR_STATUS_THRESHOLDS.CORE_CONTRIBUTOR) {
     badges.push({ icon: "⭐", tooltip: "High Contributor" });
   }
+
+  const generateHash = (string) => {
+    let hash = 0;
+    for (const char of string) {
+      hash = (hash << 5) - hash + char.charCodeAt(0);
+      hash |= 0; // Constrain to 32bit integer
+    }
+    return hash;
+  };
   
   return {
-    id: ghContributor?.id || 0,
+    id: ghContributor?.id || generateHash(login),
     name: ghContributor?.name || login,
     username: login,
     githubUsername: login,
