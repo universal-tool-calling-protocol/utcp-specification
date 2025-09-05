@@ -6,10 +6,6 @@ sidebar_position: 6
 
 # Security Considerations
 
-:::info Language Examples
-This guide uses **Python** examples for implementation code. UTCP security principles apply to all language implementations - check the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol) for language-specific security examples.
-:::
-
 Security is critical when enabling direct tool access through UTCP. This guide covers security considerations specific to UTCP's "manual" approach and provides practical guidance for secure implementations.
 
 ## UTCP Security Model
@@ -33,30 +29,12 @@ UTCP's direct communication model has unique security characteristics:
 
 Secure your UTCP manual endpoints:
 
-```python
-from fastapi import FastAPI, HTTPException, Depends
-from fastapi.security import HTTPBearer
-
-app = FastAPI()
-security = HTTPBearer()
-
-@app.get("/utcp")
-def get_manual(token: str = Depends(security)):
-    # Validate discovery access
-    if not validate_discovery_token(token.credentials):
-        raise HTTPException(401, "Invalid discovery token")
-    
-    return {
-        "manual_version": "1.0.0",
-        "utcp_version": "1.0.1",
-        "tools": get_authorized_tools(token.credentials)
-    }
-
-def get_authorized_tools(token: str):
-    # Return only tools the client is authorized to see
-    user_permissions = get_user_permissions(token)
-    return filter_tools_by_permissions(all_tools, user_permissions)
-```
+**Best Practices:**
+- Implement authentication for manual discovery endpoints
+- Validate discovery access tokens
+- Return only tools the client is authorized to see
+- Filter tools based on user permissions
+- Log all manual discovery attempts
 
 ## Authentication & Authorization
 
@@ -76,21 +54,10 @@ def get_authorized_tools(token: str):
 ```
 
 **Secure implementation:**
-```python
-import os
-from datetime import datetime, timedelta
-
-class RotatingAPIKey:
-    def __init__(self):
-        self.current_key = os.getenv("API_KEY_CURRENT")
-        self.next_key = os.getenv("API_KEY_NEXT")
-        self.rotation_time = datetime.fromisoformat(os.getenv("KEY_ROTATION_TIME"))
-    
-    def get_valid_key(self):
-        if datetime.now() > self.rotation_time:
-            return self.next_key
-        return self.current_key
-```
+- Use rotating API keys with current and next key support
+- Implement automatic key rotation based on time
+- Store keys securely in environment variables
+- Validate keys before processing requests
 
 #### OAuth2 with Scope Validation
 
@@ -205,17 +172,12 @@ CLI execution poses significant security risks. Use with extreme caution.
 - ✅ Validate exit codes
 - ✅ Use minimal user permissions
 
-**Input sanitization example:**
-```python
-import re
-import shlex
-
-def sanitize_cli_input(input_value: str) -> str:
-    # Remove dangerous characters
-    sanitized = re.sub(r'[;&|`$(){}[\]<>]', '', input_value)
-    # Escape for shell safety
-    return shlex.quote(sanitized)
-```
+**Input sanitization requirements:**
+- Remove dangerous shell metacharacters: `;`, `&`, `|`, `` ` ``, `$`, `()`, `{}`, `[]`, `<>` 
+- Escape inputs appropriately for shell execution
+- Use parameterized command execution when possible
+- Validate inputs against expected patterns
+- Implement length limits for all inputs
 
 ### Server-Sent Events (SSE) Security
 
