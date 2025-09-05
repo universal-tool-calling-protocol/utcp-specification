@@ -63,26 +63,24 @@ As a tool provider, you'll create a **UTCP Manual** - a standardized description
 
 ### 2. Expose via Discovery Endpoint
 
-```python
-from fastapi import FastAPI
+Create an HTTP endpoint that returns your UTCP manual:
 
-app = FastAPI()
-
-@app.get("/utcp")
-def get_utcp_manual():
-    return {
-        "manual_version": "1.0.0",
-        "utcp_version": "1.0.1",
-        "tools": [
-            # ... your tools here
-        ]
-    }
-
-# Your existing API endpoints remain unchanged
-@app.get("/users/{user_id}")
-def get_user(user_id: str):
-    return {"id": user_id, "name": "John Doe", "email": "john@example.com"}
+**Endpoint**: `GET /utcp`
+**Response**:
+```json
+{
+  "manual_version": "1.0.0",
+  "utcp_version": "1.0.1",
+  "tools": [
+    // ... your tools here
+  ]
+}
 ```
+
+Your existing API endpoints remain unchanged. For example:
+- `GET /users/{user_id}` - Returns user data
+- `POST /orders` - Creates new orders
+- etc.
 
 ## Manual Structure
 
@@ -467,43 +465,44 @@ app.listen(3000);
 
 ## OpenAPI Integration
 
-Convert existing OpenAPI specifications to UTCP manuals:
+If you already have an OpenAPI/Swagger specification, you can automatically convert it to a UTCP manual:
 
-### Python with utcp-http
+### Automatic Conversion
 
-```python
-from utcp_http.openapi_converter import OpenApiConverter
+Many UTCP implementations provide OpenAPI converters that can:
 
-# Convert OpenAPI spec to UTCP manual
-converter = OpenApiConverter()
-manual = await converter.convert_openapi_to_manual(
-    "https://api.example.com/openapi.json",
-    base_url="https://api.example.com"
-)
+1. **Parse OpenAPI specifications** from URLs or files
+2. **Convert paths to UTCP tools** automatically
+3. **Map authentication schemes** to UTCP auth types
+4. **Generate proper input/output schemas**
 
-# Serve the converted manual
-@app.get("/utcp")
-def get_utcp_manual():
-    return manual.model_dump()
+### Conversion Configuration
+
+You can customize the conversion process:
+
+```json
+{
+  "source": "https://api.example.com/openapi.json",
+  "base_url": "https://api.example.com",
+  "include_operations": ["get", "post"],
+  "exclude_paths": ["/internal/*"],
+  "auth_template": {
+    "auth_type": "api_key",
+    "api_key": "${API_KEY}",
+    "var_name": "X-API-Key",
+    "location": "header"
+  }
+}
 ```
 
-### Customizing OpenAPI Conversion
+### Manual Review
 
-```python
-# Convert with custom settings
-manual = await converter.convert_openapi_to_manual(
-    "https://api.example.com/openapi.json",
-    base_url="https://api.example.com",
-    include_operations=["get", "post"],  # Only include specific operations
-    exclude_paths=["/internal/*"],       # Exclude internal paths
-    auth_template={                      # Default auth for all tools
-        "auth_type": "api_key",
-        "api_key": "${API_KEY}",
-        "var_name": "X-API-Key",
-        "location": "header"
-    }
-)
-```
+After automatic conversion:
+1. **Review generated tools** for accuracy
+2. **Add missing descriptions** and examples
+3. **Validate input/output schemas**
+4. **Test with UTCP clients**
+5. **Customize authentication** as needed
 
 ## Best Practices
 
@@ -543,51 +542,33 @@ manual = await converter.convert_openapi_to_manual(
 
 ### Manual Validation
 
-```python
-from utcp.data.utcp_manual import UtcpManual
-import json
+Validate your UTCP manual structure:
 
-# Load and validate your manual
-with open('manual.json', 'r') as f:
-    manual_data = json.load(f)
-
-try:
-    manual = UtcpManual(**manual_data)
-    print("Manual is valid!")
-except Exception as e:
-    print(f"Manual validation failed: {e}")
-```
+1. **JSON Schema Validation**: Ensure your manual follows the UTCP schema
+2. **Tool Definition Validation**: Check that all tools have required fields
+3. **Call Template Validation**: Verify call templates are properly formatted
+4. **Authentication Validation**: Test authentication configurations
 
 ### Integration Testing
 
-```python
-import pytest
-from utcp.utcp_client import UtcpClient
+Test your manual with UTCP clients:
 
-@pytest.mark.asyncio
-async def test_manual_integration():
-    client = await UtcpClient.create(config={
-        "manual_call_templates": [
-            {
-                "name": "test_service",
-                "call_template_type": "http",
-                "url": "http://localhost:8000/utcp",
-                "http_method": "GET"
-            }
-        ]
-    })
-    
-    # Test tool discovery
-    tools = await client.list_tools()
-    assert len(tools) > 0
-    
-    # Test tool call
-    result = await client.call_tool(
-        "test_service.get_user",
-        tool_args={"user_id": "123"}
-    )
-    assert "id" in result
-```
+1. **Tool Discovery**: Verify clients can discover your tools
+2. **Tool Execution**: Test actual tool calls with various inputs
+3. **Error Handling**: Test error scenarios and responses
+4. **Authentication**: Verify authentication works correctly
+5. **Performance**: Test response times and reliability
+
+### Testing Checklist
+
+- [ ] Manual validates against UTCP schema
+- [ ] All tools have unique names
+- [ ] All required fields are present
+- [ ] Call templates are correctly formatted
+- [ ] Authentication works as expected
+- [ ] Tools return expected outputs
+- [ ] Error responses are properly formatted
+- [ ] Performance meets requirements
 
 ## Migration Strategies
 
@@ -687,3 +668,11 @@ For more information, see:
 - [Communication Protocol Plugins](./protocols/index.md)
 - [Implementation Guide](./implementation.md)
 - [Security Considerations](./security.md)
+
+## Language-Specific Implementation
+
+For detailed implementation examples and code samples in your programming language:
+
+- **Python**: [Python UTCP Documentation](https://github.com/universal-tool-calling-protocol/python-utcp/tree/main/docs)
+- **TypeScript**: [TypeScript UTCP Documentation](https://github.com/universal-tool-calling-protocol/typescript-utcp/tree/main/docs)
+- **Other languages**: Check respective repositories in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)

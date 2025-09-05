@@ -41,63 +41,49 @@ pip install utcp utcp-http
 
 Add a discovery endpoint to your existing API:
 
-```python
-from fastapi import FastAPI
-
-app = FastAPI()
-
-# Your existing API endpoint (unchanged)
-@app.get("/weather")
-def get_weather(location: str):
-    return {"temperature": 22, "conditions": "Sunny"}
-
-# Add UTCP discovery endpoint
-@app.get("/utcp")
-def utcp_manual():
-    return {
-        "manual_version": "1.0.0",
-        "utcp_version": "1.0.1",
-        "tools": [{
-            "name": "get_weather",
-            "description": "Get current weather for a location",
-            "inputs": {
-                "type": "object",
-                "properties": {"location": {"type": "string"}},
-                "required": ["location"]
-            },
-            "tool_call_template": {
-                "call_template_type": "http",
-                "url": "http://localhost:8000/weather",
-                "http_method": "GET",
-                "query_params": {"location": "${location}"}
-            }
-        }]
+**Add endpoint**: `GET /utcp`
+**Return your UTCP manual**:
+```json
+{
+  "manual_version": "1.0.0",
+  "utcp_version": "1.0.1",
+  "tools": [{
+    "name": "get_weather",
+    "description": "Get current weather for a location",
+    "inputs": {
+      "type": "object",
+      "properties": {"location": {"type": "string"}},
+      "required": ["location"]
+    },
+    "tool_call_template": {
+      "call_template_type": "http",
+      "url": "http://localhost:8000/weather",
+      "http_method": "GET",
+      "query_params": {"location": "${location}"}
     }
+  }]
+}
 ```
 
 ### 3. Call Your Tool
 
-```python
-import asyncio
-from utcp.utcp_client import UtcpClient
+**Configure UTCP client**:
+```json
+{
+  "manual_call_templates": [{
+    "name": "weather_api", 
+    "call_template_type": "http",
+    "url": "http://localhost:8000/utcp",
+    "http_method": "GET"
+  }]
+}
+```
 
-async def main():
-    client = await UtcpClient.create(config={
-        "manual_call_templates": [{
-            "name": "weather_api",
-            "call_template_type": "http",
-            "url": "http://localhost:8000/utcp",
-            "http_method": "GET"
-        }]
-    })
-    
-    result = await client.call_tool(
-        "weather_api.get_weather",
-        tool_args={"location": "San Francisco"}
-    )
-    print(f"Weather: {result}")
-
-asyncio.run(main())
+**Call the tool**:
+1. Initialize UTCP client with configuration
+2. Discover tools from weather API  
+3. Call `get_weather` tool with location parameter
+4. Receive weather data response
 ```
 
 **That's it!** Your tool is now discoverable and callable by any UTCP client.
