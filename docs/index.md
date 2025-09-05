@@ -7,7 +7,7 @@ sidebar_position: 1
 # Universal Tool Calling Protocol (UTCP)
 
 :::info Language Examples
-This documentation uses **Python** examples. UTCP is available in multiple languages - see [TypeScript](https://github.com/universal-tool-calling-protocol/typescript-utcp), [Go](https://github.com/universal-tool-calling-protocol/go-utcp), and other implementations in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol).
+UTCP is available in multiple languages - see [Python](https://github.com/universal-tool-calling-protocol/python-utcp), [TypeScript](https://github.com/universal-tool-calling-protocol/typescript-utcp), [Go](https://github.com/universal-tool-calling-protocol/go-utcp), and other implementations in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol).
 :::
 
 UTCP is a lightweight, secure, and scalable standard that enables AI agents and applications to discover and call tools directly using their native protocols - **no wrapper servers required**.
@@ -187,7 +187,7 @@ You're building AI agents or applications that need to call external tools:
 ### For Tool Consumers
 1. **[Read the implementation guide](./implementation.md)** - Learn how to build UTCP clients
 2. **[Explore protocols](./protocols/index.md)** - Understand available communication options
-3. **[Check examples](https://github.com/universal-tool-calling-protocol/python-utcp/tree/main/examples)** - See real-world implementations
+3. **[Check examples](https://github.com/universal-tool-calling-protocol)** - See real-world implementations
 4. **[Join the community](https://discord.gg/ZpMbQ8jRbD)** - Get help and share experiences
 
 ### Migration from Other Systems

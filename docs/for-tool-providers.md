@@ -7,7 +7,7 @@ sidebar_position: 2
 # For Tool Providers
 
 :::info Language Note
-This guide uses **Python** examples with the reference implementation. UTCP implementations are available in multiple languages - check the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol) for TypeScript, Go, and other language implementations.
+This guide covers how to expose your existing APIs and services as UTCP tools. UTCP implementations are available in multiple languages - check the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol) for Python, TypeScript, Go, and other language implementations.
 :::
 
 This guide helps you expose your tools through UTCP so they can be discovered and used by AI agents and other applications.
