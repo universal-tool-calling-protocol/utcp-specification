@@ -379,59 +379,6 @@ The UTCP manual describes how to call your existing endpoints:
 }
 ```
 
-### Express.js Implementation
-
-```javascript
-const express = require('express');
-const app = express();
-
-// Your existing API endpoints
-app.get('/users/:userId', (req, res) => {
-  // Your existing logic
-  res.json({
-    id: req.params.userId,
-    name: 'John Doe',
-    email: 'john@example.com'
-  });
-});
-
-// UTCP Discovery endpoint
-app.get('/utcp', (req, res) => {
-  res.json({
-    manual_version: "1.0.0",
-    utcp_version: "1.0.1",
-    info: {
-      title: "User Management API",
-      version: "1.0.0",
-      description: "API for managing user accounts"
-    },
-    tools: [
-      {
-        name: "get_user",
-        description: "Retrieve user information by ID",
-        inputs: {
-          type: "object",
-          properties: {
-            user_id: { type: "string" }
-          },
-          required: ["user_id"]
-        },
-        tool_call_template: {
-          call_template_type: "http",
-          url: `${process.env.BASE_URL}/users/\${user_id}`,
-          http_method: "GET",
-          headers: {
-            "Authorization": "Bearer ${API_TOKEN}"
-          }
-        }
-      }
-    ]
-  });
-});
-
-app.listen(3000);
-```
-
 ## OpenAPI Integration
 
 If you already have an OpenAPI/Swagger specification, you can automatically convert it to a UTCP manual:
