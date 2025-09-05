@@ -121,7 +121,7 @@ Optional tool fields:
 | `tags` | array | Tags for categorization and search |
 | `examples` | array | Usage examples |
 
-## Communication Protocols
+## Communication Protocol Plugins
 
 ### HTTP Tools
 
@@ -684,6 +684,6 @@ async def test_manual_integration():
 6. **Iterate**: Improve based on usage patterns and feedback
 
 For more information, see:
-- [Communication Protocols](./providers/index.md)
+- [Communication Protocol Plugins](./protocols/index.md)
 - [Implementation Guide](./implementation.md)
 - [Security Considerations](./security.md)

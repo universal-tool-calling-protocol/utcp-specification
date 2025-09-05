@@ -133,14 +133,14 @@ UTCP supports multiple communication protocols through plugins:
 
 | Protocol | Use Case | Plugin | Status |
 |----------|----------|--------|--------|
-| **[HTTP](./providers/http.md)** | REST APIs, webhooks | `utcp-http` | ✅ Stable |
-| **[WebSocket](./providers/websocket.md)** | Real-time communication | `utcp-websocket` | ✅ Stable |
-| **[CLI](./providers/cli.md)** | Command-line tools | `utcp-cli` | ✅ Stable |
-| **[Server-Sent Events](./providers/sse.md)** | Streaming data | `utcp-http` | ✅ Stable |
-| **[Text Files](./providers/text.md)** | File reading | `utcp-text` | ✅ Stable |
-| **[MCP](./providers/mcp.md)** | MCP interoperability | `utcp-mcp` | ✅ Stable |
+| **[HTTP](./protocols/http.md)** | REST APIs, webhooks | `utcp-http` | ✅ Stable |
+| **[WebSocket](./protocols/websocket.md)** | Real-time communication | `utcp-websocket` | ✅ Stable |
+| **[CLI](./protocols/cli.md)** | Command-line tools | `utcp-cli` | ✅ Stable |
+| **[Server-Sent Events](./protocols/sse.md)** | Streaming data | `utcp-http` | ✅ Stable |
+| **[Text Files](./protocols/text.md)** | File reading | `utcp-text` | ✅ Stable |
+| **[MCP](./protocols/mcp.md)** | MCP interoperability | `utcp-mcp` | ✅ Stable |
 
-[View all protocols →](./providers/index.md)
+[View all protocols →](./protocols/index.md)
 
 ## Architecture Overview
 
@@ -194,19 +194,19 @@ You're building AI agents or applications that need to call external tools:
 
 ### For Tool Providers
 1. **[Read the provider guide](./for-tool-providers.md)** - Learn how to expose your tools
-2. **[Choose your protocol](./providers/index.md)** - Select the right communication method
+2. **[Choose your protocol](./protocols/index.md)** - Select the right communication method
 3. **[Implement your manual](./implementation.md)** - Add UTCP to your existing API
 4. **[Secure your tools](./security.md)** - Implement proper authentication
 
 ### For Tool Consumers
 1. **[Read the implementation guide](./implementation.md)** - Learn how to build UTCP clients
-2. **[Explore protocols](./providers/index.md)** - Understand available communication options
+2. **[Explore protocols](./protocols/index.md)** - Understand available communication options
 3. **[Check examples](https://github.com/universal-tool-calling-protocol/python-utcp/tree/main/examples)** - See real-world implementations
 4. **[Join the community](https://discord.gg/ZpMbQ8jRbD)** - Get help and share experiences
 
 ### Migration from Other Systems
 - **[From UTCP v0.1](./migration-v0.1-to-v1.0.md)** - Upgrade to the latest version
-- **[From MCP](./providers/mcp.md)** - Migrate from Model Context Protocol
+- **[From MCP](./protocols/mcp.md)** - Migrate from Model Context Protocol
 - **[From custom solutions](./implementation.md)** - Replace existing tool integrations
 
 ## Community & Support
@@ -221,4 +221,4 @@ You're building AI agents or applications that need to call external tools:
 **Ready to get started?** Choose your path:
 - 🛠️ [**I want to expose my tools**](./for-tool-providers.md)
 - 🤖 [**I want to call tools**](./implementation.md)
-- 📚 [**I want to learn more**](./providers/index.md)
+- 📚 [**I want to learn more**](./protocols/index.md)

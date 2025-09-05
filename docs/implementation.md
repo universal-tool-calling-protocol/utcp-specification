@@ -421,7 +421,7 @@ except UtcpError as e:
 
 ## Advanced Implementation Patterns (Python)
 
-### Custom Communication Protocols
+### Custom Communication Protocol Plugins
 
 ```python
 from utcp.interfaces.communication_protocol import CommunicationProtocol
@@ -575,6 +575,6 @@ Check the [UTCP GitHub organization](https://github.com/universal-tool-calling-p
 7. **Scale**: Plan for scaling as your tool ecosystem grows
 
 For more detailed information, see:
-- [Communication Protocols](./providers/index.md)
+- [Communication Protocol Plugins](./protocols/index.md)
 - [API Reference](./api/index.md)
 - [Security Considerations](./security.md)

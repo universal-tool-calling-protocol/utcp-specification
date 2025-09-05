@@ -644,9 +644,9 @@ def validate_manual_security(manual: dict) -> list:
 By following these security guidelines, you can safely implement UTCP while maintaining strong security posture across all communication protocols.
 
 For protocol-specific security details, see:
-- [HTTP Security](./providers/http.md#security-considerations)
-- [WebSocket Security](./providers/websocket.md#security-considerations)
-- [CLI Security](./providers/cli.md#security-considerations)
-- [SSE Security](./providers/sse.md#security-considerations)
-- [Text Security](./providers/text.md#security-considerations)
-- [MCP Security](./providers/mcp.md#security-considerations)
+- [HTTP Security](./protocols/http.md#security-considerations)
+- [WebSocket Security](./protocols/websocket.md#security-considerations)
+- [CLI Security](./protocols/cli.md#security-considerations)
+- [SSE Security](./protocols/sse.md#security-considerations)
+- [Text Security](./protocols/text.md#security-considerations)
+- [MCP Security](./protocols/mcp.md#security-considerations)

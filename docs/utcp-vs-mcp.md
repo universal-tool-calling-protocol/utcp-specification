@@ -278,7 +278,7 @@ client = await UtcpClient.create(config={
 # Phase 3: Deprecate MCP servers
 ```
 
-[**Complete migration guide →**](./providers/mcp.md)
+[**Complete migration guide →**](./protocols/mcp.md)
 
 ### Hybrid Approach
 
@@ -551,11 +551,11 @@ Both UTCP and MCP solve the tool integration problem, but with fundamentally dif
 
 ### To Get Started with UTCP:
 1. **[Read the implementation guide](./implementation.md)** - Learn how to implement UTCP
-2. **[Choose your protocols](./providers/index.md)** - Select communication methods
+2. **[Choose your protocols](./protocols/index.md)** - Select communication methods
 3. **[Check examples](https://github.com/universal-tool-calling-protocol/python-utcp/tree/main/examples)** - See real implementations
 
 ### To Migrate from MCP:
-1. **[Read the MCP integration guide](./providers/mcp.md)** - Use MCP tools via UTCP
+1. **[Read the MCP integration guide](./protocols/mcp.md)** - Use MCP tools via UTCP
 2. **[Plan your migration](./migration-v0.1-to-v1.0.md)** - Step-by-step migration process
 3. **[Join the community](https://discord.gg/ZpMbQ8jRbD)** - Get migration support
 
