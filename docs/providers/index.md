@@ -1,5 +1,5 @@
 ---
-id: providers
+id: index
 title: Communication Protocols
 sidebar_position: 3
 ---
