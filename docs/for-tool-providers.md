@@ -84,40 +84,19 @@ Your existing API endpoints remain unchanged. For example:
 
 ## Manual Structure
 
-### Required Fields
+The UTCP manual follows a standardized structure that defines your tools and how to call them. For complete field specifications, data types, and validation rules, see the [UTCP Manual API Reference](../api/core/utcp/data/utcp_manual.md).
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `manual_version` | string | Version of your manual (semantic versioning) |
-| `utcp_version` | string | UTCP specification version |
-| `tools` | array | List of available tools |
+### Key Components
 
-### Optional Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `info` | object | Metadata about your API |
-| `auth` | object | Default authentication for all tools |
-| `variables` | object | Default variable values |
+- **Manual metadata**: Version information and API details
+- **Tool definitions**: Description of available tools and their capabilities  
+- **Call templates**: Instructions for invoking each tool
+- **Authentication**: Security configuration for tool access
+- **Variables**: Dynamic values for tool parameters
 
 ### Tool Definition
 
-Each tool must include:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | string | Unique tool identifier |
-| `description` | string | Human-readable description |
-| `inputs` | object | JSON Schema for input parameters |
-| `tool_call_template` | object | How to call the tool |
-
-Optional tool fields:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `outputs` | object | JSON Schema for expected outputs |
-| `tags` | array | Tags for categorization and search |
-| `examples` | array | Usage examples |
+Tools are defined in your UTCP manual with their input parameters, call instructions, and optional metadata. For complete field specifications, see the [Tool API Reference](../api/core/utcp/data/tool.md).
 
 ## Communication Protocol Plugins
 

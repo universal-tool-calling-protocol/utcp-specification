@@ -35,22 +35,7 @@ npm install @utcp/text
 
 ## Configuration Options
 
-### Required Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `call_template_type` | string | Must be `"text"` |
-| `file_path` | string | Path to text file (local or URL) |
-
-### Optional Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `encoding` | string | File encoding (default: "utf-8") |
-| `max_size` | number | Maximum file size in bytes (default: 1MB) |
-| `line_range` | object | Specific line range to read |
-| `pattern` | string | Regex pattern to filter content |
-| `transform` | string | Content transformation ("upper", "lower", "strip") |
+The Text call template enables reading and processing text files from local filesystem or URLs. For complete field specifications and validation rules, see the [Text Call Template API Reference](../api/plugins/communication_protocols/text/src/utcp_text/text_call_template.md).
 
 ## File Sources
 

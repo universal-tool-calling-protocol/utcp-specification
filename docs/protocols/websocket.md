@@ -41,22 +41,7 @@ npm install @utcp/websocket
 
 ## Configuration Options
 
-### Required Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `call_template_type` | string | Must be `"websocket"` |
-| `url` | string | WebSocket URL (ws:// or wss://) |
-| `message` | object/string | Message to send to the WebSocket |
-
-### Optional Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `headers` | object | HTTP headers for WebSocket handshake |
-| `connection_timeout` | number | Connection timeout in seconds (default: 10) |
-| `response_timeout` | number | Response timeout in seconds (default: 30) |
-| `close_after_response` | boolean | Close connection after receiving response (default: true) |
+The WebSocket call template enables real-time communication with WebSocket servers. For complete field specifications and validation rules, see the [WebSocket Call Template API Reference](../api/plugins/communication_protocols/websocket/src/utcp_websocket/websocket_call_template.md).
 | `expected_responses` | number | Number of expected response messages (default: 1) |
 | `ping_interval` | number | Ping interval in seconds (default: 30) |
 

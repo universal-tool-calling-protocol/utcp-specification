@@ -39,23 +39,7 @@ npm install @utcp/cli
 
 ## Configuration Options
 
-### Required Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `call_template_type` | string | Must be `"cli"` |
-| `command` | string | The command to execute |
-
-### Optional Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `args` | array | Command arguments |
-| `working_directory` | string | Working directory for command execution |
-| `environment` | object | Environment variables |
-| `timeout` | number | Execution timeout in seconds (default: 30) |
-| `shell` | boolean | Whether to execute through shell (default: false) |
-| `capture_output` | boolean | Whether to capture stdout/stderr (default: true) |
+The CLI call template allows you to execute command-line tools and scripts. For complete field specifications and validation rules, see the [CLI Call Template API Reference](../api/plugins/communication_protocols/cli/src/utcp_cli/cli_call_template.md).
 
 ## Security Considerations
 

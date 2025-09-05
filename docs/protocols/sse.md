@@ -40,22 +40,7 @@ npm install @utcp/http
 
 ## Configuration Options
 
-### Required Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `call_template_type` | string | Must be `"sse"` |
-| `url` | string | SSE endpoint URL |
-
-### Optional Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `headers` | object | HTTP headers for the request |
-| `query_params` | object | URL query parameters |
-| `timeout` | number | Stream timeout in seconds (default: 60) |
-| `max_events` | number | Maximum events to receive (default: unlimited) |
-| `event_filter` | object | Filter events by type or data |
+The Server-Sent Events (SSE) call template enables real-time streaming data from HTTP endpoints. For complete field specifications and validation rules, see the [SSE Call Template API Reference](../api/plugins/communication_protocols/sse/src/utcp_sse/sse_call_template.md).
 | `reconnect` | boolean | Auto-reconnect on connection loss (default: true) |
 | `reconnect_delay` | number | Delay between reconnection attempts (default: 3) |
 
