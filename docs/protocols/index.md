@@ -1,7 +1,7 @@
 ---
-id: index
-title: Communication Protocol Plugins
-sidebar_position: 3
+id: protocols
+title: Protocols
+sidebar_position: 4
 ---
 
 # Communication Protocol Plugins

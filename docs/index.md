@@ -63,8 +63,15 @@ Add a discovery endpoint to your existing API:
     "tool_call_template": {
       "call_template_type": "http",
       "url": "http://localhost:8000/weather",
-      "http_method": "GET",
-      "query_params": {"location": "${location}"}
+      "http_method": "GET"
+    }
+  }],
+  "auth": {
+    "auth_type": "api_key",
+    "api_key": "${WEATHER_API_KEY}",
+    "var_name": "appid",
+    "location": "query"
+  }
     }
   }]
 }
@@ -127,7 +134,7 @@ UTCP supports multiple communication protocols through plugins:
 | **[HTTP](./protocols/http.md)** | REST APIs, webhooks | `utcp-http` | ✅ Stable |
 | **[WebSocket](./protocols/websocket.md)** | Real-time communication | `utcp-websocket` | ✅ Stable |
 | **[CLI](./protocols/cli.md)** | Command-line tools | `utcp-cli` | ✅ Stable |
-| **[Server-Sent Events](./protocols/sse.md)** | Streaming data | `utcp-http` | ✅ Stable |
+| **[Server-Sent Events](./protocols/streamable-http.md)** | Streaming data | `utcp-http` | ✅ Stable |
 | **[Text Files](./protocols/text.md)** | File reading | `utcp-text` | ✅ Stable |
 | **[MCP](./protocols/mcp.md)** | MCP interoperability | `utcp-mcp` | ✅ Stable |
 

@@ -151,15 +151,21 @@ CLI execution poses significant security risks. Use with extreme caution.
 ```json
 {
   "call_template_type": "cli",
-  "command": "/usr/local/bin/safe-script",
-  "args": ["--input", "${sanitized_input}"],
-  "working_directory": "/safe/sandbox",
-  "environment": {
+  "commands": [
+    {
+      "command": "cd /safe/sandbox",
+      "append_to_final_output": false
+    },
+    {
+      "command": "/usr/local/bin/safe-script --input UTCP_ARG_sanitized_input_UTCP_END",
+      "append_to_final_output": true
+    }
+  ],
+  "working_dir": "/safe/sandbox",
+  "env_vars": {
     "PATH": "/usr/local/bin:/usr/bin",
     "HOME": "/tmp/sandbox"
-  },
-  "timeout": 30,
-  "allowed_exit_codes": [0]
+  }
 }
 ```
 
@@ -209,10 +215,7 @@ CLI execution poses significant security risks. Use with extreme caution.
 ```json
 {
   "call_template_type": "text",
-  "file_path": "/safe/data/${filename}",
-  "max_size": 1048576,
-  "allowed_paths": ["/safe/data/"],
-  "encoding": "utf-8"
+  "file_path": "/safe/data/${filename}"
 }
 ```
 
@@ -237,13 +240,13 @@ CLI execution poses significant security risks. Use with extreme caution.
 ```json
 {
   "call_template_type": "mcp",
-  "server_config": {
-    "command": "/usr/local/bin/mcp-server",
-    "args": ["--config", "/safe/config.json"],
-    "env": {
-      "MCP_LOG_LEVEL": "INFO"
-    },
-    "timeout": 60
+  "config": {
+    "mcpServers": {
+      "server_name": {
+        "transport": "stdio",
+        "command": ["python", "-m", "my_mcp_server"]
+      }
+    }
   }
 }
 ```
@@ -391,7 +394,7 @@ Implement comprehensive security testing:
 Implement automated security validation:
 - **Protocol Security**: Verify HTTPS usage instead of HTTP for web requests
 - **Credential Detection**: Check for hardcoded passwords, secrets, or API keys  
-- **Variable Validation**: Ensure proper variable substitution patterns (${variable})
+- **Variable Validation**: Ensure proper variable substitution patterns ($\{variable\})
 - **CLI Security**: Validate command-line tools use absolute paths and safe commands
 - **URL Validation**: Check for suspicious or malformed URLs
 - **Configuration Review**: Automated scanning of UTCP manuals for security issues

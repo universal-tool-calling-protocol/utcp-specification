@@ -127,8 +127,12 @@ MCP requires building servers that wrap your tools:
       "name": "cli_tool",
       "tool_call_template": {
         "call_template_type": "cli",
-        "command": "git",
-        "args": ["status"]
+        "commands": [
+          {
+            "command": "git status --porcelain",
+            "append_to_final_output": true
+          }
+        ]
       }
     }
   ]
@@ -332,7 +336,7 @@ Monitoring: Additional monitoring stack needed
 #### UTCP Approach
 
 **E-commerce API with UTCP:**
-- Keep existing product API endpoints unchanged (GET /products/{product_id})
+- Keep existing product API endpoints unchanged (GET /products/\{product_id\})
 - Add single UTCP discovery endpoint (GET /utcp)
 - Return UTCP manual describing available tools and how to call them
 - Tools directly reference existing API endpoints with proper parameters

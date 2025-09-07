@@ -98,11 +98,9 @@ manual_call_templates:
     command: cat
     args: ["${filename}"]
 
-variable_loaders:
-  - loader_type: env
-    prefix: UTCP_
-  - loader_type: dotenv
-    file_path: .env
+load_variables_from:
+  - variable_loader_type: dotenv
+    env_file_path: .env
 ```
 
 ## Manual Format Migration
@@ -169,9 +167,13 @@ variable_loaders:
         "call_template_type": "http",
         "url": "https://api.weather.com/current",
         "http_method": "GET",
-        "query_params": {
-          "location": "${location}"
-        }
+      },
+      "auth": {
+        "auth_type": "api_key",
+        "api_key": "${API_KEY}",
+        "var_name": "appid",
+        "location": "query"
+      }
       }
     }
   ]
@@ -202,7 +204,7 @@ variable_loaders:
   "url": "https://api.example.com/endpoint",
   "http_method": "POST",
   "headers": {"Authorization": "Bearer ${TOKEN}"},
-  "body": {"data": "${input}"},
+  "body_field": "body",
   "auth": {
     "auth_type": "api_key",
     "api_key": "${TOKEN}",
@@ -230,11 +232,18 @@ variable_loaders:
 ```json
 {
   "call_template_type": "cli",
-  "command": "python",
-  "args": ["script.py", "${input}"],
-  "working_directory": "/app",
-  "timeout": 30,
-  "environment": {
+  "commands": [
+    {
+      "command": "cd /app",
+      "append_to_final_output": false
+    },
+    {
+      "command": "python script.py UTCP_ARG_input_UTCP_END",
+      "append_to_final_output": true
+    }
+  ],
+  "working_dir": "/app",
+  "env_vars": {
     "PYTHONPATH": "/app/lib"
   }
 }

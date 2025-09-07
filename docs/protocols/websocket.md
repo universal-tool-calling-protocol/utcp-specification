@@ -41,7 +41,7 @@ npm install @utcp/websocket
 
 ## Configuration Options
 
-The WebSocket call template enables real-time communication with WebSocket servers. For complete field specifications and validation rules, see the [WebSocket Call Template API Reference](../api/plugins/communication_protocols/websocket/src/utcp_websocket/websocket_call_template.md).
+The WebSocket call template enables real-time communication with WebSocket servers. For complete field specifications and validation rules, see the WebSocket Call Template API Reference (WIP).
 | `expected_responses` | number | Number of expected response messages (default: 1) |
 | `ping_interval` | number | Ping interval in seconds (default: 30) |
 

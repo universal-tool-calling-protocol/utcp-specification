@@ -47,9 +47,11 @@ Create an HTTP endpoint that serves a UTCP manual:
         "call_template_type": "http",
         "url": "https://api.weather.com/current",
         "http_method": "GET",
-        "query_params": {
-          "q": "${location}",
-          "appid": "${WEATHER_API_KEY}"
+        "auth": {
+            "auth_type": "api_key",
+            "api_key": "${WEATHER_API_KEY}",
+            "var_name": "appid",
+            "location": "query"
         }
       }
     }
@@ -134,13 +136,16 @@ Call templates define how to invoke tools using specific protocols:
   "call_template_type": "http",
   "url": "https://api.example.com/endpoint",
   "http_method": "POST",
-  "headers": {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer ${API_TOKEN}"
+  "auth": {
+    "auth_type": "api_key",
+    "api_key": "${API_TOKEN}",
+    "var_name": "Authorization",
+    "location": "header"
   },
-  "body": {
-    "data": "${input_data}"
-  }
+  "body_field": "body"
+}
+
+Tool arguments not used in the URL path or headers will be sent as query parameters for GET requests, or in the request body for POST/PUT/PATCH requests. The `body_field` specifies which tool argument contains the data for the request body.
 }
 ```
 
@@ -148,12 +153,20 @@ Call templates define how to invoke tools using specific protocols:
 ```json
 {
   "call_template_type": "cli",
-  "command": "python",
-  "args": ["script.py", "${input}"],
-  "working_directory": "/app",
-  "env": {
+  "commands": [
+    {
+      "command": "cd /app",
+      "append_to_final_output": false
+    },
+    {
+      "command": "python script.py UTCP_ARG_input_UTCP_END",
+      "append_to_final_output": true
+    }
+  ],
+  "env_vars": {
     "PYTHONPATH": "/app/lib"
-  }
+  },
+  "working_dir": "/app"
 }
 ```
 
@@ -233,14 +246,13 @@ manual_call_templates:
   - name: weather_service
     call_template_type: http
     url: https://api.weather.com/utcp
-    http_method: GET
 
 variables:
   WEATHER_API_KEY: your-api-key
   
-variable_loaders:
-  - type: dot_env
-    file_path: .env
+load_variables_from:
+  - variable_loader_type: dotenv
+    env_file_path: .env
 ```
 
 #### Programmatic Configuration

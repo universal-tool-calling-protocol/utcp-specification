@@ -7,6 +7,53 @@ sidebar_label: cli_call_template
 
 **File:** `plugins/communication_protocols/cli/src/utcp_cli/cli_call_template.py`
 
+### class CommandStep {#commandstep}
+
+<details>
+<summary>Documentation</summary>
+
+Configuration for a single command step in a CLI execution flow.
+
+
+**Attributes**
+
+- **`command`**: The command string to execute. Can contain UTCP_ARG_argname_UTCP_END
+  placeholders that will be replaced with values from tool_args. Can also
+  reference previous command outputs using $CMD_0_OUTPUT, $CMD_1_OUTPUT, etc.
+- **`append_to_final_output`**: Whether this command's output should be included
+  in the final result. If not specified, defaults to False for all
+  commands except the last one.
+
+
+
+**Basic Command Step**
+
+```json
+    {
+      "command": "git status",
+      "append_to_final_output": true
+    }
+```
+
+
+
+**Command With Argument Placeholders And Output Reference**
+
+```json
+    {
+      "command": "echo "Cloning to: UTCP_ARG_target_dir_UTCP_END, previous status: $CMD_0_OUTPUT"",
+      "append_to_final_output": true
+    }
+```
+</details>
+
+#### Fields:
+
+- command: str
+- append_to_final_output: Optional[bool]
+
+---
+
 ### class CliCallTemplate ([CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) {#clicalltemplate}
 
 <details>
@@ -15,46 +62,92 @@ sidebar_label: cli_call_template
 Call template configuration for Command Line Interface (CLI) tools.
 
 This class defines the configuration for executing command-line tools and
-programs as UTCP tool providers. It supports environment variable injection,
-custom working directories, and defines the command to be executed.
+programs as UTCP tool providers. Commands are executed in a single subprocess
+to maintain state (like directory changes) between commands.
+
+
+
+
+**You Can Reference The Output Of Previous Commands Using Variables**
+
+
+- **`Example`**: `echo "Previous result: $CMD_0_OUTPUT"`
+
 
 
 **Attributes**
 
 - **`call_template_type`**: The type of the call template. Must be "cli".
-- **`command_name`**: The command or path of the program to execute. It can
-  contain placeholders for arguments that will be substituted at
-  runtime (e.g., `${arg_name}`).
+- **`commands`**: A list of CommandStep objects defining the commands to execute
+  in order. Each command can contain UTCP_ARG_argname_UTCP_END placeholders
+  that will be replaced with values from tool_args during execution.
 - **`env_vars`**: A dictionary of environment variables to set for the command's
   execution context. Values can be static strings or placeholders for
   variables from the UTCP client's variable substitutor.
-- **`working_dir`**: The working directory from which to run the command. If not
+- **`working_dir`**: The working directory from which to run the commands. If not
   provided, it defaults to the current process's working directory.
 - **`auth`**: Authentication details. Not applicable to the CLI protocol, so it
   is always None.
 
 
 
-**Basic Cli Command**
+**Cross-Platform Directory Operations**
 
 ```json
     {
-      "name": "list_files_tool",
+      "name": "cross_platform_dir_tool",
       "call_template_type": "cli",
-      "command_name": "ls -la",
-      "working_dir": "/tmp"
+      "commands": [
+        {
+          "command": "cd UTCP_ARG_target_dir_UTCP_END",
+          "append_to_final_output": false
+        },
+        {
+          "command": "ls -la",
+          "append_to_final_output": true
+        }
+      ]
     }
 ```
 
 
 
-**Command With Environment Variables And Argument Placeholders**
+**Referencing Previous Command Output**
 
 ```json
     {
-      "name": "python_script_tool",
+      "name": "reference_previous_output_tool",
       "call_template_type": "cli",
-      "command_name": "python script.py --input ${input_file}",
+      "commands": [
+        {
+          "command": "git status --porcelain",
+          "append_to_final_output": false
+        },
+        {
+          "command": "echo "Found changes: $CMD_0_OUTPUT"",
+          "append_to_final_output": true
+        }
+      ]
+    }
+```
+
+
+
+**Command With Environment Variables And Placeholders**
+
+```json
+    {
+      "name": "python_multi_step_tool",
+      "call_template_type": "cli",
+      "commands": [
+        {
+          "command": "python setup.py install",
+          "append_to_final_output": false
+        },
+        {
+          "command": "python script.py --input UTCP_ARG_input_file_UTCP_END --result "$CMD_0_OUTPUT""
+        }
+      ],
       "env_vars": {
         "PYTHONPATH": "/custom/path",
         "API_KEY": "${API_KEY_VAR}"
@@ -70,12 +163,17 @@ custom working directories, and defines the command to be executed.
 specified are from a trusted source.
 - Avoid passing unsanitized user input directly into the command string.
 Use tool argument validation where possible.
+- All placeholders are replaced with string values from tool_args.
+- Commands should use the appropriate syntax for the target platform
+(PowerShell on Windows, Bash on Unix).
+- Previous command outputs are available as variables but should be
+used carefully to avoid command injection.
 </details>
 
 #### Fields:
 
 - call_template_type: Literal['cli']
-- command_name: str
+- commands: List[CommandStep]
 - env_vars: Optional[Dict[str, str]]
 - working_dir: Optional[str]
 - auth: None

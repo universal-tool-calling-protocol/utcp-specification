@@ -24,11 +24,6 @@ As a tool provider, you'll create a **UTCP Manual** - a standardized description
 {
   "manual_version": "1.0.0",
   "utcp_version": "1.0.1",
-  "info": {
-    "title": "My API Tools",
-    "version": "1.0.0",
-    "description": "Collection of useful API tools"
-  },
   "tools": [
     {
       "name": "get_user",
@@ -51,10 +46,7 @@ As a tool provider, you'll create a **UTCP Manual** - a standardized description
       "tool_call_template": {
         "call_template_type": "http",
         "url": "https://api.example.com/users/${user_id}",
-        "http_method": "GET",
-        "headers": {
-          "Authorization": "Bearer ${API_TOKEN}"
-        }
+        "http_method": "GET"
       }
     }
   ]
@@ -84,7 +76,7 @@ Your existing API endpoints remain unchanged. For example:
 
 ## Manual Structure
 
-The UTCP manual follows a standardized structure that defines your tools and how to call them. For complete field specifications, data types, and validation rules, see the [UTCP Manual API Reference](../api/core/utcp/data/utcp_manual.md).
+The UTCP manual follows a standardized structure that defines your tools and how to call them. For complete field specifications, data types, and validation rules, see the [UTCP Manual API Reference](./api/core/utcp/data/utcp_manual.md).
 
 ### Key Components
 
@@ -96,7 +88,7 @@ The UTCP manual follows a standardized structure that defines your tools and how
 
 ### Tool Definition
 
-Tools are defined in your UTCP manual with their input parameters, call instructions, and optional metadata. For complete field specifications, see the [Tool API Reference](../api/core/utcp/data/tool.md).
+Tools are defined in your UTCP manual with their input parameters, call instructions, and optional metadata. For complete field specifications, see the [Tool API Reference](./api/core/utcp/data/tool.md).
 
 ## Communication Protocol Plugins
 
@@ -111,23 +103,28 @@ Most common for REST APIs:
   "inputs": {
     "type": "object",
     "properties": {
-      "name": {"type": "string"},
-      "email": {"type": "string", "format": "email"}
+      "user_fields": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "email": {"type": "string", "format": "email"}
+        },
+        "required": ["name", "email"]
+      }
     },
-    "required": ["name", "email"]
+    "required": ["user_fields"]
   },
   "tool_call_template": {
     "call_template_type": "http",
     "url": "https://api.example.com/users",
     "http_method": "POST",
-    "headers": {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer ${API_TOKEN}"
+    "auth": {
+        "auth_type": "api_key",
+        "api_key": "Bearer ${API_TOKEN}",
+        "var_name": "Authorization",
+        "location": "header"
     },
-    "body": {
-      "name": "${name}",
-      "email": "${email}"
-    }
+    "body_field": "user_fields"
   }
 }
 ```
@@ -138,8 +135,8 @@ For command-line applications:
 
 ```json
 {
-  "name": "git_status",
-  "description": "Get git repository status",
+  "name": "git_analysis",
+  "description": "Analyze git repository status and commit history",
   "inputs": {
     "type": "object",
     "properties": {
@@ -149,35 +146,20 @@ For command-line applications:
   },
   "tool_call_template": {
     "call_template_type": "cli",
-    "command": "git",
-    "args": ["status", "--porcelain"],
-    "working_directory": "${repo_path}"
-  }
-}
-```
-
-### WebSocket Tools
-
-For real-time communication:
-
-```json
-{
-  "name": "subscribe_updates",
-  "description": "Subscribe to real-time updates",
-  "inputs": {
-    "type": "object",
-    "properties": {
-      "channel": {"type": "string"}
-    },
-    "required": ["channel"]
-  },
-  "tool_call_template": {
-    "call_template_type": "websocket",
-    "url": "wss://api.example.com/ws",
-    "message": {
-      "action": "subscribe",
-      "channel": "${channel}"
-    }
+    "commands": [
+      {
+        "command": "cd UTCP_ARG_repo_path_UTCP_END",
+        "append_to_final_output": false
+      },
+      {
+        "command": "git status --porcelain",
+        "append_to_final_output": false
+      },
+      {
+        "command": "echo \"Status: $CMD_1_OUTPUT, Files changed: $(echo \"$CMD_1_OUTPUT\" | wc -l)\"",
+        "append_to_final_output": true
+      }
+    ]
   }
 }
 ```
@@ -199,11 +181,13 @@ For real-time communication:
 
 ### Bearer Token
 
+To use a Bearer Token, you can use the `api_key` authentication type. 
+
 ```json
 {
   "auth": {
     "auth_type": "api_key",
-    "api_key": "${ACCESS_TOKEN}",
+    "api_key": "Bearer ${ACCESS_TOKEN}",
     "var_name": "Authorization",
     "location": "header"
   }
@@ -345,8 +329,11 @@ The UTCP manual describes how to call your existing endpoints:
         "call_template_type": "http",
         "url": "https://api.example.com/users/${user_id}",
         "http_method": "GET",
-        "headers": {
-          "Authorization": "Bearer ${API_TOKEN}"
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${API_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
         }
       }
     },
@@ -365,14 +352,13 @@ The UTCP manual describes how to call your existing endpoints:
         "call_template_type": "http",
         "url": "https://api.example.com/users",
         "http_method": "POST",
-        "headers": {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer ${API_TOKEN}"
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${API_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
         },
-        "body": {
-          "name": "${name}",
-          "email": "${email}"
-        }
+        "body_field": "user_data"
       }
     }
   ]

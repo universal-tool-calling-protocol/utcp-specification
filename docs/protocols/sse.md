@@ -40,7 +40,7 @@ npm install @utcp/http
 
 ## Configuration Options
 
-The Server-Sent Events (SSE) call template enables real-time streaming data from HTTP endpoints. For complete field specifications and validation rules, see the [SSE Call Template API Reference](../api/plugins/communication_protocols/sse/src/utcp_sse/sse_call_template.md).
+The Server-Sent Events (SSE) call template enables real-time streaming data from HTTP endpoints. For complete field specifications and validation rules, see the [SSE Call Template API Reference](../api/plugins/communication_protocols/http/src/utcp_http/sse_call_template.md).
 | `reconnect` | boolean | Auto-reconnect on connection loss (default: true) |
 | `reconnect_delay` | number | Delay between reconnection attempts (default: 3) |
 
