@@ -30,7 +30,7 @@ UTCP acts as a **"manual"** that tells agents how to call your tools directly:
 
 ## OpenAPI Compatibility
 
-UTCP extends OpenAPI for AI agents while maintaining full backward compatibility. Where OpenAPI describes APIs for human developers, UTCP adds agent-focused enhancements: `tags` for categorization, `average_response_size` for resource planning, multi-protocol support (CLI, gRPC, WebSocket), and direct execution instructions. Existing OpenAPI specs are automatically converted to UTCP manuals without requiring API changes.
+UTCP extends OpenAPI for AI agents while maintaining full backward compatibility. Where OpenAPI describes APIs for human developers, UTCP adds agent-focused enhancements: `tags` for categorization, `average_response_size` for resource planning, multi-protocol support (CLI, gRPC, WebSocket), and direct execution instructions. Existing OpenAPI specs can be automatically converted to UTCP manuals without requiring API changes.
 
 ## Quick Start (5 Minutes)
 
