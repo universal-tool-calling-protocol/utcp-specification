@@ -11,8 +11,8 @@ This specification is organized by module of the reference python implementation
 
 **Note:** The modules don't have to be implemented in the same way as in the reference implementation, but all of the functionality here needs to be provided.
 
-**Total documented items:** 189
-**Modules documented:** 39
+**Total documented items:** 195
+**Modules documented:** 41
 
 ## Core Modules
 
@@ -93,6 +93,16 @@ Core UTCP framework components that define the fundamental interfaces and implem
 - **Contains:** 2 classes, 12 methods
 
 
+### [utcp.implementations.post_processors.filter_dict_post_processor](./core\utcp\implementations\post_processors\filter_dict_post_processor.md)
+
+- **Contains:** 2 classes
+
+
+### [utcp.implementations.post_processors.limit_strings_post_processor](./core\utcp\implementations\post_processors\limit_strings_post_processor.md)
+
+- **Contains:** 2 classes
+
+
 ### [utcp.implementations.tag_search](./core\utcp\implementations\tag_search.md)
 
 - **Contains:** 2 classes, 3 methods
@@ -140,7 +150,7 @@ Core UTCP framework components that define the fundamental interfaces and implem
 
 ### [utcp.plugins.plugin_loader](./core\utcp\plugins\plugin_loader.md)
 
-- **Contains:** 1 functions
+- **Contains:** 2 functions
 
 
 ### [utcp.utcp_client](./core\utcp\utcp_client.md)
@@ -154,7 +164,7 @@ Plugin implementations that extend UTCP with specific transport protocols and ca
 
 ### [communication_protocols.cli.src.utcp_cli.cli_call_template](./plugins\communication_protocols\cli\src\utcp_cli\cli_call_template.md)
 
-- **Contains:** 2 classes, 2 methods
+- **Contains:** 3 classes, 2 methods
 
 
 ### [communication_protocols.cli.src.utcp_cli.cli_communication_protocol](./plugins\communication_protocols\cli\src\utcp_cli\cli_communication_protocol.md)
