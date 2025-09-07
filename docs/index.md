@@ -28,6 +28,10 @@ UTCP acts as a **"manual"** that tells agents how to call your tools directly:
 *"If a human can call your API, an AI agent should be able to call it too - with the same security and no additional infrastructure."*
 :::
 
+## OpenAPI Compatibility
+
+UTCP extends OpenAPI for AI agents while maintaining full backward compatibility. Where OpenAPI describes APIs for human developers, UTCP adds agent-focused enhancements: `tags` for categorization, `average_response_size` for resource planning, multi-protocol support (CLI, gRPC, WebSocket), and direct execution instructions. Existing OpenAPI specs are automatically converted to UTCP manuals without requiring API changes.
+
 ## Quick Start (5 Minutes)
 
 ### 1. Install UTCP
@@ -44,7 +48,16 @@ npm install @utcp/core @utcp/http
 
 ### 2. Expose Your First Tool
 
-Add a discovery endpoint to your existing API:
+**Option A: From existing OpenAPI spec**
+```python
+from utcp_http.openapi_converter import OpenApiConverter
+
+converter = OpenApiConverter.from_url("https://api.example.com/openapi.json")
+manual = converter.convert()
+# Your OpenAPI spec is now a UTCP manual with agent-friendly metadata
+```
+
+**Option B: Add a discovery endpoint to your existing API**
 
 **Add endpoint**: `GET /utcp`
 **Return your UTCP manual**:
