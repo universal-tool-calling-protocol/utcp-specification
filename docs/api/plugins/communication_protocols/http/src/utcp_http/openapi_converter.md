@@ -22,14 +22,50 @@ a UTCP tool with appropriate input/output schemas.
 
 **Features**
 
-- Complete OpenAPI specification parsing
-- Recursive JSON reference ($ref) resolution
-- Authentication scheme conversion (API key, Basic, OAuth2)
-- Input parameter and request body handling
-- Response schema extraction
-- URL template and path parameter support
-- Provider name normalization
-- Placeholder variable generation for configuration
+- Complete OpenAPI specification parsing.
+- Recursive JSON reference ($ref) resolution.
+- Authentication scheme conversion (API key, Basic, OAuth2).
+- Input parameter and request body handling.
+- Response schema extraction.
+- URL template and path parameter support.
+- Call template name normalization.
+- Placeholder variable generation for configuration.
+
+
+
+**Basic Openapi Conversion**
+
+```python
+    from utcp_http.openapi_converter import OpenApiConverter
+
+    # Assuming you have a method to fetch and parse the spec
+    openapi_spec = fetch_and_parse_spec("https://api.example.com/openapi.json")
+
+    converter = OpenApiConverter(openapi_spec)
+    manual = converter.convert()
+
+    # Use the generated manual with a UTCP client
+    # client = await UtcpClient.create()
+    # await client.register_manual(manual)
+```
+
+
+
+**Converting Local Openapi File**
+
+```python
+    import yaml
+
+    converter = OpenApiConverter()
+
+
+**With Open("Api_Spec.Yaml", "R") As F**
+
+spec_content = yaml.safe_load(f)
+
+converter = OpenApiConverter(spec_content)
+manual = converter.convert()
+```
 
 
 
@@ -54,7 +90,16 @@ operation, and creating corresponding UTCP tools with HTTP call_templates.
 <details>
 <summary>convert(self) -> [UtcpManual](./../../../../../core/utcp/data/utcp_manual.md#utcpmanual)</summary>
 
-*No method documentation available*
+Converts the loaded OpenAPI specification into a [UtcpManual](./../../../../../core/utcp/data/utcp_manual.md#utcpmanual).
+
+This is the main entry point for the conversion process. It iterates through
+the paths and operations in the specification, creating a UTCP tool for each
+one.
+
+
+**Returns**
+
+A [UtcpManual](./../../../../../core/utcp/data/utcp_manual.md#utcpmanual) object containing all the tools generated from the spec.
 </details>
 
 ---
