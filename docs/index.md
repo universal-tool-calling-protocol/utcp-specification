@@ -48,14 +48,10 @@ npm install @utcp/core @utcp/http
 
 ### 2. Expose Your First Tool
 
-**Option A: From existing OpenAPI spec**
-```python
-from utcp_http.openapi_converter import OpenApiConverter
+**Option A: Discovery via existing OpenAPI spec**
 
-converter = OpenApiConverter.from_url("https://api.example.com/openapi.json")
-manual = converter.convert()
-# Your OpenAPI spec is now a UTCP manual with agent-friendly metadata
-```
+**Generate OpenAPI endpoint**: `GET http://api.github.com/openapi.json`
+
 
 **Option B: Add a discovery endpoint to your existing API**
 
@@ -85,24 +81,49 @@ manual = converter.convert()
     "var_name": "appid",
     "location": "query"
   }
-    }
-  }]
 }
 ```
 
 ### 3. Call Your Tool
 
-**Configure UTCP client**:
+**Option A: Configure UTCP client**:
 ```json
 {
   "manual_call_templates": [{
     "name": "weather_api", 
     "call_template_type": "http",
-    "url": "http://localhost:8000/utcp",
+    "url": "http://localhost:8000/utcp", // Or http://api.github.com/openapi.json, the openapi spec gets converted automatically
     "http_method": "GET"
   }]
 }
 ```
+
+**Option B: Convert OpenAPI spec to UTCP manual manually**
+
+```python
+async def convert_api():
+    async with aiohttp.ClientSession() as session:
+        async with session.get("https://api.github.com/openapi.json") as response:
+            openapi_spec = await response.json()
+
+    converter = OpenApiConverter(openapi_spec)
+    manual = converter.convert()
+
+    print(f"Generated {len(manual.tools)} tools from GitHub API!")
+    return manual
+```
+
+Then save that to a text file and load it with the text configuration:
+```json
+{
+  "manual_call_templates": [{
+    "name": "github_manual", 
+    "call_template_type": "text",
+    "file_path": "./github_manual.json",
+  }]
+}
+```
+
 
 **Call the tool**:
 1. Initialize UTCP client with configuration
