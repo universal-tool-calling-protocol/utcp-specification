@@ -28,6 +28,10 @@ UTCP acts as a **"manual"** that tells agents how to call your tools directly:
 *"If a human can call your API, an AI agent should be able to call it too - with the same security and no additional infrastructure."*
 :::
 
+## OpenAPI Compatibility
+
+UTCP extends OpenAPI for AI agents while maintaining full backward compatibility. Where OpenAPI describes APIs for human developers, UTCP adds agent-focused enhancements: `tags` for categorization, `average_response_size` for resource planning, multi-protocol support (CLI, gRPC, WebSocket), and direct execution instructions. Existing OpenAPI specs can be automatically converted to UTCP manuals without requiring API changes or additional infrastructure.
+
 ## Quick Start (5 Minutes)
 
 ### 1. Install UTCP
@@ -44,7 +48,12 @@ npm install @utcp/core @utcp/http
 
 ### 2. Expose Your First Tool
 
-Add a discovery endpoint to your existing API:
+**Option A: Discovery via existing OpenAPI spec**
+
+**Generate OpenAPI endpoint**: `GET http://api.github.com/openapi.json`
+
+
+**Option B: Add a discovery endpoint to your existing API**
 
 **Add endpoint**: `GET /utcp`
 **Return your UTCP manual**:
@@ -72,24 +81,49 @@ Add a discovery endpoint to your existing API:
     "var_name": "appid",
     "location": "query"
   }
-    }
-  }]
 }
 ```
 
 ### 3. Call Your Tool
 
-**Configure UTCP client**:
+**Option A: Configure UTCP client**:
 ```json
 {
   "manual_call_templates": [{
     "name": "weather_api", 
     "call_template_type": "http",
-    "url": "http://localhost:8000/utcp",
+    "url": "http://localhost:8000/utcp", // Or http://api.github.com/openapi.json, the openapi spec gets converted automatically
     "http_method": "GET"
   }]
 }
 ```
+
+**Option B: Convert OpenAPI spec to UTCP manual manually**
+
+```python
+async def convert_api():
+    async with aiohttp.ClientSession() as session:
+        async with session.get("https://api.github.com/openapi.json") as response:
+            openapi_spec = await response.json()
+
+    converter = OpenApiConverter(openapi_spec)
+    manual = converter.convert()
+
+    print(f"Generated {len(manual.tools)} tools from GitHub API!")
+    return manual
+```
+
+Then save that to a text file and load it with the text configuration:
+```json
+{
+  "manual_call_templates": [{
+    "name": "github_manual", 
+    "call_template_type": "text",
+    "file_path": "./github_manual.json",
+  }]
+}
+```
+
 
 **Call the tool**:
 1. Initialize UTCP client with configuration
