@@ -381,7 +381,7 @@ async def main():
     client = UtcpClient()
     
     # Register MCP provider with multiple servers
-    await client.register_tool_provider(mcp_manual)
+    await client.register_manual(mcp_manual)
     
     # Call tools with server-prefixed names
     result = await client.call_tool("filesystem.read_file", {"path": "/data/file.txt"})

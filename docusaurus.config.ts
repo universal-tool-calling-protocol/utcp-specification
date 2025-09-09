@@ -183,10 +183,6 @@ const config: Config = {
               to: '/',
             },
             {
-              label: 'Provider Types',
-              to: '/providers/http',
-            },
-            {
               label: 'Implementation Guide',
               to: '/implementation',
             },

@@ -246,7 +246,7 @@ async def main():
     client = UtcpClient()
     
     # Register streamable HTTP provider
-    await client.register_tool_provider(streamable_http_manual)
+    await client.register_manual(streamable_http_manual)
     
     # Stream large dataset
     async for chunk in client.call_tool_streaming("download_dataset", {"dataset_id": "large_dataset_123"}):
