@@ -409,7 +409,7 @@ async def main():
     client = UtcpClient()
     
     # Register SSE provider
-    await client.register_tool_provider(sse_manual)
+    await client.register_manual(sse_manual)
     
     # Stream events with automatic filtering and reconnection
     async for event in client.call_tool_streaming("stream_notifications", {"user_id": "123"}):

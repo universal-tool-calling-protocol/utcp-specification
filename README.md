@@ -7,10 +7,23 @@ This repository contains the official specification documentation for the Univer
 UTCP provides a standardized way for AI systems and other clients to discover and call tools from different providers, regardless of the underlying protocol used (HTTP, WebSocket, CLI, etc.). This specification defines:
 
 - Tool discovery mechanisms
-- Tool call formats
-- Provider configuration
-- Authentication methods
-- Response handling
+- Tool call formats and templates
+- Plugin-based architecture for extensibility
+- Enhanced authentication methods
+- Comprehensive error handling
+- Response processing and validation
+
+## Version 1.0 Features
+
+UTCP v1.0 introduces significant architectural improvements:
+
+- **Plugin Architecture**: Core functionality split into pluggable components for better modularity
+- **Enhanced Data Models**: Improved Pydantic models with comprehensive validation
+- **Multiple Protocol Support**: HTTP, CLI, WebSocket, Text, and MCP protocols via plugins
+- **Advanced Authentication**: Expanded authentication options including API key, OAuth, and custom auth
+- **Better Error Handling**: Specific exception types for different error scenarios
+- **Performance Optimizations**: Optimized client and protocol implementations
+- **Async/Await Support**: Full asynchronous client interface for better performance
 
 ## Contributing to the Specification
 
@@ -28,15 +41,35 @@ When contributing, please follow these guidelines:
 - Include examples when adding new features or concepts
 - Update relevant sections to maintain consistency across the documentation
 
+## Installation and Usage
+
+### Core Package Installation
+
+```bash
+# Install the core UTCP package
+pip install utcp
+
+# Install protocol plugins as needed
+pip install utcp-http utcp-cli utcp-websocket utcp-text utcp-mcp
+```
+
+### Migration from v0.1 to v1.0
+
+If you're upgrading from UTCP v0.1, please see our comprehensive [Migration Guide](docs/migration-v0.1-to-v1.0.md) which covers:
+
+- Breaking changes and architectural improvements
+- Step-by-step migration instructions
+- Configuration and manual format updates
+- Common migration issues and solutions
+
 ## Building the Documentation Locally
 
 ### Prerequisites
 
 To build and preview the documentation site locally, you'll need:
 
-- Ruby version 2.5.0 or higher
-- RubyGems
-- Bundler
+- Node.js version 18.0 or higher
+- npm or yarn package manager
 
 ### Setup
 
@@ -48,7 +81,7 @@ To build and preview the documentation site locally, you'll need:
 
 2. Install dependencies:
    ```bash
-   bundle install
+   npm install
    ```
 
 ### Running the Documentation Site
@@ -56,46 +89,55 @@ To build and preview the documentation site locally, you'll need:
 To build and serve the site locally:
 
 ```bash
-bundle exec jekyll serve
+npm start
 ```
 
-This will start a local web server at `http://localhost:4000` where you can preview the documentation.
+This will start a local development server at `http://localhost:3000` where you can preview the documentation.
 
 ## Documentation Structure
 
 The UTCP documentation is organized as follows:
 
-- `index.md`: Homepage and introduction to UTCP
 - `docs/`
+  - `index.md`: Homepage and introduction to UTCP
   - `introduction.md`: Detailed introduction and core concepts
   - `for-tool-providers.md`: Guide for implementing tool providers
   - `for-tool-callers.md`: Guide for implementing tool callers
-  - `providers/`: Documentation for each provider type
-    - `http.md`: HTTP provider
-    - `websocket.md`: WebSocket provider
-    - `cli.md`: CLI provider
-    - `sse.md`: Server-Sent Events provider
-    - etc.
+  - `migration-v0.1-to-v1.0.md`: Comprehensive migration guide from v0.1 to v1.0
+  - `protocols/`: Documentation for each protocol type
+    - `http.md`: HTTP protocol implementation
+    - `websocket.md`: WebSocket protocol implementation
+    - `cli.md`: CLI protocol implementation
+    - `sse.md`: Server-Sent Events protocol implementation
+    - `text.md`: Text protocol implementation
+    - `mcp.md`: Model Context Protocol implementation
+  - `api/`: API reference documentation
+    - `core/`: Core API documentation
+    - `plugins/`: Plugin API documentation
   - `implementation.md`: Implementation guidelines and best practices
+- `versioned_docs/`: Version-specific documentation for backwards compatibility
 
 ## Working with the Specification
 
 ### Modifying the Documentation
 
-The documentation is written in Markdown format with Jekyll front matter. When making changes:
+The documentation is built with Docusaurus and written in Markdown format. When making changes:
 
 1. Ensure your Markdown follows the established style
 2. Preview changes locally before submitting PRs
-3. Keep examples up-to-date with the latest specification
-4. Update navigation items in `_config.yml` if adding new pages
+3. Keep examples up-to-date with the latest specification (v1.0)
+4. Update navigation items in `sidebars.ts` if adding new pages
+5. Consider version compatibility when making breaking changes
 
 ### File Organization
 
 When adding new documentation:
 
-- Place provider-specific documentation in `docs/providers/`
+- Place protocol-specific documentation in `docs/protocols/`
+- Place API documentation in `docs/api/core/` or `docs/api/plugins/`
 - Use consistent front matter with appropriate navigation ordering
-- Include tags for improved searchability on GitHub Pages
+- Include tags for improved searchability
+- Consider versioning for breaking changes using `versioned_docs/`
 
 ## Version Control
 
