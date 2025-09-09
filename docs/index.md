@@ -30,7 +30,7 @@ UTCP acts as a **"manual"** that tells agents how to call your tools directly:
 
 ## OpenAPI Compatibility
 
-UTCP extends OpenAPI for AI agents while maintaining full backward compatibility. Where OpenAPI describes APIs for human developers, UTCP adds agent-focused enhancements: `tags` for categorization, `average_response_size` for resource planning, multi-protocol support (CLI, gRPC, WebSocket), and direct execution instructions. Existing OpenAPI specs can be automatically converted to UTCP manuals without requiring API changes or additional infrastructure.
+UTCP extends OpenAPI for AI agents while maintaining full backward compatibility. Where OpenAPI describes APIs for human developers, UTCP adds agent-focused enhancements: `tags` for categorization, `average_response_size` for resource planning, multi-protocol support (HTTP, CLI, gRPC, MCP), and direct execution instructions. Existing OpenAPI specs can be automatically converted to UTCP manuals without requiring API changes or additional infrastructure.
 
 ## Quick Start (5 Minutes)
 
@@ -130,7 +130,6 @@ Then save that to a text file and load it with the text configuration:
 2. Discover tools from weather API  
 3. Call `get_weather` tool with location parameter
 4. Receive weather data response
-```
 
 **That's it!** Your tool is now discoverable and callable by any UTCP client.
 
@@ -140,7 +139,7 @@ Then save that to a text file and load it with the text configuration:
 |---------|-------------|
 | **🚀 Zero Latency Overhead** | Direct tool calls, no proxy servers |
 | **🔒 Native Security** | Use your existing authentication and authorization |
-| **🌐 Protocol Flexibility** | HTTP, WebSocket, CLI, GraphQL, and more |
+| **🌐 Protocol Flexibility** | HTTP, MCP, CLI, GraphQL, and more |
 | **⚡ Easy Integration** | Add one endpoint, no infrastructure changes |
 | **📈 Scalable** | Leverage your existing scaling and monitoring |
 
@@ -166,7 +165,6 @@ UTCP supports multiple communication protocols through plugins:
 | Protocol | Use Case | Plugin | Status |
 |----------|----------|--------|--------|
 | **[HTTP](./protocols/http.md)** | REST APIs, webhooks | `utcp-http` | ✅ Stable |
-| **[WebSocket](./protocols/websocket.md)** | Real-time communication | `utcp-websocket` | ✅ Stable |
 | **[CLI](./protocols/cli.md)** | Command-line tools | `utcp-cli` | ✅ Stable |
 | **[Server-Sent Events](./protocols/streamable-http.md)** | Streaming data | `utcp-http` | ✅ Stable |
 | **[Text Files](./protocols/text.md)** | File reading | `utcp-text` | ✅ Stable |
@@ -185,7 +183,7 @@ UTCP v1.0 features a modular, plugin-based architecture:
 - **[UTCP Client](./api/core/utcp/utcp_client.md)**: Tool discovery and execution engine
 
 ### Plugin System
-- **Protocol Plugins**: HTTP, WebSocket, CLI, etc.
+- **Protocol Plugins**: HTTP, MCP, CLI, etc.
 - **Custom Protocols**: Extend with your own communication methods
 - **Tool Repositories**: Pluggable storage for tool definitions
 - **Search Strategies**: Customizable tool discovery algorithms

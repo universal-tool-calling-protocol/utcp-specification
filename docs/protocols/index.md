@@ -13,7 +13,6 @@ UTCP v1.0 features a modular, plugin-based architecture where different communic
 | Protocol | Plugin Package | Call Template | Use Cases |
 |----------|----------------|---------------|-----------|
 | **[HTTP](./http.md)** | `utcp-http` | `HttpCallTemplate` | REST APIs, webhooks, web services |
-| **[WebSocket](./websocket.md)** | `utcp-websocket` | `WebSocketCallTemplate` | Real-time communication, streaming |
 | **[CLI](./cli.md)** | `utcp-cli` | `CliCallTemplate` | Command-line tools, scripts |
 | **[Server-Sent Events](./sse.md)** | `utcp-http` | `SseCallTemplate` | Event streaming, live updates |
 | **[Text Files](./text.md)** | `utcp-text` | `TextCallTemplate` | File reading, static content |
@@ -43,10 +42,10 @@ Protocol plugins are available for different programming languages:
 
 ```bash
 # Example installation (Python)
-pip install utcp-http utcp-cli utcp-websocket utcp-text utcp-mcp
+pip install utcp-http utcp-cli utcp-text utcp-mcp
 
 # Example installation (Node.js)
-npm install @utcp/http @utcp/cli @utcp/websocket @utcp/text @utcp/mcp
+npm install @utcp/http @utcp/cli @utcp/text @utcp/mcp
 ```
 
 For other languages, check the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
@@ -76,7 +75,6 @@ Example call template structure:
 Choose the right protocol plugin based on your needs:
 
 - **HTTP**: Most common for REST APIs and web services
-- **WebSocket**: Real-time bidirectional communication
 - **CLI**: Wrapping existing command-line tools
 - **SSE**: Server-sent events for streaming data
 - **Text**: Reading configuration files or static content

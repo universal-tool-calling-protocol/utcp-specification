@@ -13,30 +13,28 @@ The HTTP protocol plugin enables UTCP to call tools via HTTP/HTTPS requests. Thi
 ```json
 {
   "call_template_type": "http",
-  "url": "https://api.example.com/endpoint",
+  "url": "https://api.example.com/users/{user_id}",
   "http_method": "GET|POST|PUT|DELETE|PATCH",
+  "content_type": "application/json",
   "headers": {
-    "Content-Type": "application/json",
-    "User-Agent": "UTCP-Client/1.0"
+    "X-Custom-Header": "static_value"
   },
-  "query_params": {
-    "param1": "${variable1}",
-    "param2": "static_value"
-  },
-  "body": {
-    "data": "${input_data}",
-    "timestamp": "${current_time}"
-  },
-  "timeout": 30,
-  "verify_ssl": true,
+  "body_field": "body",
+  "header_fields": ["user_agent", "request_id"],
   "auth": {
     "auth_type": "api_key|basic|oauth2",
     "api_key": "${API_KEY}",
-    "var_name": "Authorization",
-    "location": "header"
+    "var_name": "Authorization", 
+    "location": "header|query|cookie"
   }
 }
 ```
+
+### Field Descriptions
+
+For detailed field descriptions, examples, and implementation details, see:
+- **[HttpCallTemplate API Reference](../api/plugins/communication_protocols/http/src/utcp_http/http_call_template.md)** - Complete field documentation with examples
+- **[HttpCommunicationProtocol API Reference](../api/plugins/communication_protocols/http/src/utcp_http/http_communication_protocol.md)** - Implementation details and method documentation
 
 ## Supported HTTP Methods
 
@@ -57,10 +55,15 @@ The HTTP protocol plugin enables UTCP to call tools via HTTP/HTTPS requests. Thi
     "auth_type": "api_key",
     "api_key": "${API_KEY}",
     "var_name": "X-API-Key",
-    "location": "header"
+    "location": "header|query|cookie"
   }
 }
 ```
+
+Supported locations:
+- `"header"`: API key sent as HTTP header
+- `"query"`: API key sent as query parameter  
+- `"cookie"`: API key sent as HTTP cookie
 
 ### Basic Authentication
 ```json
@@ -86,37 +89,81 @@ The HTTP protocol plugin enables UTCP to call tools via HTTP/HTTPS requests. Thi
 }
 ```
 
-## Variable Substitution
+## Parameter Handling
 
-Variables in call templates are substituted with values from:
-- Tool call arguments: `${argument_name}`
-- Environment variables: `${ENV_VAR}`
-- Configuration variables: `${config.variable}`
+The HTTP protocol handles tool arguments in a hierarchical manner:
 
-Example:
+1. **URL Path Parameters**: Arguments matching `{param_name}` in the URL are substituted directly
+2. **Body Field**: If `body_field` is specified, that argument becomes the request body
+3. **Header Fields**: Arguments listed in `header_fields` become request headers
+4. **Query Parameters**: All remaining arguments become query parameters
+
+### URL Path Parameters
+URL templates can include path parameters using `{parameter_name}` syntax:
+
 ```json
 {
-  "url": "https://api.example.com/users/${user_id}",
-  "headers": {
-    "Authorization": "Bearer ${ACCESS_TOKEN}"
-  },
-  "query_params": {
-    "format": "${output_format}",
-    "limit": "${max_results}"
+  "url": "https://api.example.com/users/{user_id}/posts/{post_id}"
+}
+```
+
+When calling a tool with arguments `{"user_id": "123", "post_id": "456", "limit": "10"}`, the URL becomes:
+`https://api.example.com/users/123/posts/456?limit=10`
+
+### Body Field Mapping
+Specify which tool argument should be sent as the request body:
+
+```json
+{
+  "body_field": "data",
+  "content_type": "application/json"
+}
+```
+
+### Header Field Mapping  
+Map specific tool arguments to HTTP headers:
+
+```json
+{
+  "header_fields": ["user_agent", "request_id"]
+}
+```
+
+Tool arguments `user_agent` and `request_id` will be sent as HTTP headers.
+
+### Variable Substitution in Authentication
+Authentication fields support environment variable substitution:
+
+```json
+{
+  "auth": {
+    "auth_type": "api_key",
+    "api_key": "Bearer ${API_KEY}",
+    "var_name": "Authorization",
+    "location": "header"
   }
 }
 ```
 
 ## OpenAPI Integration
 
-The HTTP protocol plugin can automatically generate UTCP manuals from OpenAPI/Swagger specifications:
+The HTTP communication protocol automatically detects and converts OpenAPI/Swagger specifications to UTCP manuals:
 
-1. **Automatic Discovery**: Point to an OpenAPI spec URL
-2. **Schema Conversion**: Converts OpenAPI paths to UTCP tools
-3. **Authentication Mapping**: Maps OpenAPI security schemes to UTCP auth
-4. **Parameter Mapping**: Converts OpenAPI parameters to UTCP inputs
+### Automatic Detection
+When registering an HTTP provider, the protocol:
+1. Fetches content from the specified URL
+2. Checks if the response contains `utcp_version` and `tools` fields (UTCP manual)
+3. If not, assumes it's an OpenAPI specification and converts it automatically
 
-Example OpenAPI to UTCP conversion:
+### Conversion Process
+The `OpenApiConverter` handles:
+- **Path Mapping**: OpenAPI paths become UTCP tool URLs with path parameters
+- **Method Mapping**: HTTP methods are preserved
+- **Parameter Mapping**: Path, query, header, and body parameters are mapped appropriately
+- **Authentication**: OpenAPI security schemes are converted to UTCP auth configurations
+- **Schema Validation**: OpenAPI schemas become UTCP input/output schemas
+
+### Example Conversion
 ```yaml
 # OpenAPI Specification
 paths:
@@ -130,13 +177,13 @@ paths:
             type: string
 ```
 
-Becomes:
+Becomes a UTCP tool:
 ```json
 {
   "name": "get_user",
   "tool_call_template": {
     "call_template_type": "http",
-    "url": "https://api.example.com/users/${id}",
+    "url": "https://api.example.com/users/{id}",
     "http_method": "GET"
   },
   "inputs": {
@@ -152,21 +199,31 @@ Becomes:
 ## Response Handling
 
 HTTP responses are processed based on:
-- **Status Codes**: 2xx considered success, others as errors
-- **Content-Type**: JSON, XML, text, and binary content support
-- **Headers**: Response headers available in tool output
-- **Error Mapping**: HTTP errors mapped to UTCP exceptions
+- **Status Codes**: 2xx considered success, 4xx/5xx raise exceptions
+- **Content-Type**: 
+  - `application/json`: Parsed as JSON object
+  - Other types: Returned as text string
+- **Error Handling**: HTTP client errors are logged and re-raised
+- **Timeouts**: 10 seconds for tool discovery, 30 seconds for tool execution
 
-## Configuration Options
+## Security Features
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `timeout` | number | 30 | Request timeout in seconds |
-| `verify_ssl` | boolean | true | Verify SSL certificates |
-| `follow_redirects` | boolean | true | Follow HTTP redirects |
-| `max_redirects` | number | 5 | Maximum redirect hops |
-| `retry_count` | number | 0 | Number of retry attempts |
-| `retry_delay` | number | 1 | Delay between retries (seconds) |
+### HTTPS Enforcement
+The HTTP protocol enforces secure connections by only allowing:
+- HTTPS URLs (`https://`)
+- Localhost URLs (`http://localhost` or `http://127.0.0.1`)
+
+Any other HTTP URLs will be rejected with a security error to prevent man-in-the-middle attacks.
+
+### OAuth2 Token Caching
+OAuth2 tokens are automatically cached by `client_id` to avoid repeated authentication requests. The protocol supports both:
+- **Body credentials**: Client ID/secret in request body
+- **Header credentials**: Client ID/secret as Basic Auth header
+
+### Request Security
+- URL path parameters are properly URL-encoded to prevent path injection
+- All authentication credentials support environment variable substitution
+- Cookies are supported for API key authentication when required
 
 ## Security Considerations
 
@@ -188,10 +245,10 @@ HTTP responses are processed based on:
 - Implement rate limiting on the tool provider side
 
 ### Network Security
-- Use HTTPS for all production communications
-- Implement proper firewall rules
-- Consider using VPNs or private networks for sensitive tools
-- Monitor and log all HTTP requests for security analysis
+- HTTPS is enforced by the protocol (except for localhost development)
+- All credentials should use environment variable substitution (e.g., `${API_KEY}`)
+- Path parameters are automatically URL-encoded to prevent injection attacks
+- OAuth2 tokens are cached securely and not logged
 
 ## Error Handling
 
@@ -210,10 +267,10 @@ Common HTTP errors and their meanings:
 ## Best Practices
 
 ### Performance
-- Use connection pooling for multiple requests
-- Implement appropriate timeouts
-- Consider request/response compression
-- Cache responses when appropriate
+- Each request uses a fresh aiohttp ClientSession
+- Tool discovery timeout: 10 seconds
+- Tool execution timeout: 30 seconds
+- OAuth2 tokens are cached to reduce authentication overhead
 
 ### Reliability
 - Implement retry logic with exponential backoff
@@ -227,10 +284,58 @@ Common HTTP errors and their meanings:
 - Provide usage examples
 - Version your APIs and update call templates accordingly
 
+## Complete Examples
+
+### Basic GET Request
+```json
+{
+  "name": "get_user",
+  "call_template_type": "http",
+  "url": "https://api.example.com/users/{user_id}",
+  "http_method": "GET"
+}
+```
+
+### POST with Authentication and Body
+```json
+{
+  "name": "create_user",
+  "call_template_type": "http",
+  "url": "https://api.example.com/users",
+  "http_method": "POST",
+  "content_type": "application/json",
+  "body_field": "user_data",
+  "header_fields": ["request_id"],
+  "auth": {
+    "auth_type": "api_key",
+    "api_key": "Bearer ${API_KEY}",
+    "var_name": "Authorization",
+    "location": "header"
+  }
+}
+```
+
+### OAuth2 Authentication
+```json
+{
+  "name": "oauth_api",
+  "call_template_type": "http",
+  "url": "https://api.example.com/data",
+  "http_method": "GET",
+  "auth": {
+    "auth_type": "oauth2",
+    "client_id": "${CLIENT_ID}",
+    "client_secret": "${CLIENT_SECRET}",
+    "token_url": "https://auth.example.com/token",
+    "scope": "read write"
+  }
+}
+```
+
 ## Language-Specific Implementation
 
 For implementation details and examples in your programming language:
 
-- **Multi-language**: [UTCP HTTP Protocol Examples](https://github.com/universal-tool-calling-protocol) - HTTP protocol examples across multiple languages
+- **Python**: See `python-utcp/plugins/communication_protocols/http/`
 - **TypeScript**: [TypeScript HTTP Protocol Documentation](https://github.com/universal-tool-calling-protocol/typescript-utcp/blob/main/docs/protocols/http.md)
 - **Other languages**: Check respective repositories in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
