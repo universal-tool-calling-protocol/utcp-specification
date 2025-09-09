@@ -118,29 +118,6 @@ Secure your UTCP manual endpoints:
 - ✅ Include request tracking headers
 - ✅ Implement retry limits
 
-### WebSocket Security
-
-**Secure WebSocket configuration:**
-```json
-{
-  "call_template_type": "websocket",
-  "url": "wss://api.example.com/ws",
-  "headers": {
-    "Authorization": "Bearer ${WS_TOKEN}",
-    "Origin": "https://trusted-domain.com"
-  },
-  "ping_interval": 30,
-  "connection_timeout": 10
-}
-```
-
-**Security measures:**
-- ✅ Use WSS (secure WebSocket) only
-- ✅ Validate Origin headers
-- ✅ Implement connection timeouts
-- ✅ Use heartbeat/ping for connection health
-- ✅ Limit concurrent connections per client
-
 ### CLI Security
 
 :::danger High Risk Protocol
@@ -427,7 +404,6 @@ Implement automated security validation:
 ### Protocol-Specific Security
 
 - [ ] **HTTP**: HTTPS only, certificate validation
-- [ ] **WebSocket**: WSS only, origin validation
 - [ ] **CLI**: Sandboxed execution, input sanitization
 - [ ] **SSE**: Authenticated connections, event limits
 - [ ] **Text**: Path validation, size limits
@@ -437,7 +413,6 @@ By following these security guidelines, you can safely implement UTCP while main
 
 For protocol-specific security details, see:
 - [HTTP Security](./protocols/http.md#security-considerations)
-- [WebSocket Security](./protocols/websocket.md#security-considerations)
 - [CLI Security](./protocols/cli.md#security-considerations)
 - [SSE Security](./protocols/sse.md#security-considerations)
 - [Text Security](./protocols/text.md#security-considerations)

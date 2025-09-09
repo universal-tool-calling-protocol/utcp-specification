@@ -13,33 +13,61 @@ The MCP (Model Context Protocol) plugin provides interoperability between UTCP a
 ```json
 {
   "call_template_type": "mcp",
-  "server_config": {
-    "command": "node",
-    "args": ["mcp-server.js"],
-    "working_directory": "/app/mcp",
-    "env": {
-      "NODE_ENV": "production",
-      "LOG_LEVEL": "info"
-    },
-    "timeout": 30
+  "config": {
+    "mcpServers": {
+      "filesystem": {
+        "command": "node",
+        "args": ["mcp-server.js"],
+        "cwd": "/app/mcp",
+        "env": {
+          "NODE_ENV": "production",
+          "LOG_LEVEL": "info"
+        }
+      }
+    }
   },
-  "connection_timeout": 10,
-  "request_timeout": 30
+  "auth": {
+    "auth_type": "oauth2",
+    "client_id": "${CLIENT_ID}",
+    "client_secret": "${CLIENT_SECRET}",
+    "token_url": "https://auth.example.com/token",
+    "scope": "read:tools"
+  },
+  "register_resources_as_tools": false
 }
 ```
 
+## Field Descriptions
+
+For detailed field specifications, examples, and validation rules, see:
+- **[McpCallTemplate API Reference](../api/plugins/communication_protocols/mcp/src/utcp_mcp/mcp_call_template.md)** - Complete field documentation with examples
+- **[McpCommunicationProtocol API Reference](../api/plugins/communication_protocols/mcp/src/utcp_mcp/mcp_communication_protocol.md)** - Implementation details and method documentation
+
+### Key Fields
+
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| `call_template_type` | string | Yes | - | Always "mcp" for MCP providers |
+| `config` | object | Yes | - | Configuration object containing MCP server definitions |
+| `auth` | object | No | null | Optional OAuth2 authentication for HTTP-based MCP servers |
+| `register_resources_as_tools` | boolean | No | false | Whether to register MCP resources as callable tools |
+
 ## Server Configuration
 
-### Command-based Servers
+### Command-based (stdio) Servers
 ```json
 {
-  "server_config": {
-    "command": "python",
-    "args": ["-m", "mcp_server", "--config", "config.json"],
-    "working_directory": "/app",
-    "env": {
-      "PYTHONPATH": "/app/lib",
-      "API_KEY": "${MCP_API_KEY}"
+  "config": {
+    "mcpServers": {
+      "my_server": {
+        "command": "python",
+        "args": ["-m", "mcp_server", "--config", "config.json"],
+        "cwd": "/app",
+        "env": {
+          "PYTHONPATH": "/app/lib",
+          "API_KEY": "${MCP_API_KEY}"
+        }
+      }
     }
   }
 }
@@ -48,11 +76,41 @@ The MCP (Model Context Protocol) plugin provides interoperability between UTCP a
 ### HTTP-based Servers
 ```json
 {
-  "server_config": {
-    "transport": "http",
-    "url": "http://localhost:8080/mcp",
-    "headers": {
-      "Authorization": "Bearer ${MCP_TOKEN}"
+  "config": {
+    "mcpServers": {
+      "remote_server": {
+        "transport": "http",
+        "url": "https://mcp.example.com/api"
+      }
+    }
+  },
+  "auth": {
+    "auth_type": "oauth2",
+    "client_id": "${CLIENT_ID}",
+    "client_secret": "${CLIENT_SECRET}",
+    "token_url": "https://auth.example.com/token",
+    "scope": "mcp:access"
+  }
+}
+```
+
+### Multiple Servers
+```json
+{
+  "config": {
+    "mcpServers": {
+      "filesystem": {
+        "command": "node",
+        "args": ["filesystem-server.js"]
+      },
+      "database": {
+        "command": "python",
+        "args": ["-m", "db_server"]
+      },
+      "remote_api": {
+        "transport": "http",
+        "url": "https://api.example.com/mcp"
+      }
     }
   }
 }
@@ -79,12 +137,13 @@ The MCP protocol plugin enables a gradual migration path from MCP to native UTCP
 
 ## Tool Discovery
 
-MCP servers expose tools through the standard MCP protocol. The UTCP MCP plugin:
+The MCP protocol implementation automatically discovers and maps tools:
 
-1. **Connects** to the MCP server using stdio or HTTP transport
-2. **Discovers** available tools via MCP's `tools/list` method
-3. **Maps** MCP tool definitions to UTCP tool format
-4. **Registers** tools in the UTCP client
+1. **Session Management**: Creates persistent sessions with MCP servers using MCPClient
+2. **Tool Discovery**: Lists available tools via MCP's `list_tools` method
+3. **Tool Prefixing**: Adds server name prefix (e.g., `filesystem.read_file`) to ensure uniqueness
+4. **Resource Support**: Optionally registers MCP resources as callable tools when `register_resources_as_tools` is true
+5. **Tool Mapping**: Converts MCP tool schema to UTCP tool format automatically
 
 ## Request/Response Mapping
 
@@ -105,9 +164,9 @@ MCP servers expose tools through the standard MCP protocol. The UTCP MCP plugin:
 
 // UTCP Tool (after mapping)
 {
-  "name": "read_file",
+  "name": "filesystem.read_file",
   "description": "Read contents of a file",
-  "inputs": {
+  "input_schema": {
     "type": "object",
     "properties": {
       "path": {"type": "string"}
@@ -116,37 +175,65 @@ MCP servers expose tools through the standard MCP protocol. The UTCP MCP plugin:
   },
   "tool_call_template": {
     "call_template_type": "mcp",
-    "server_config": {...}
-  }
-}
-```
-
-### Request Flow
-1. UTCP client receives tool call
-2. MCP plugin formats request as MCP `tools/call`
-3. Request sent to MCP server
-4. MCP server processes and responds
-5. Response mapped back to UTCP format
-
-## Authentication and Security
-
-### Server Authentication
-```json
-{
-  "server_config": {
-    "command": "secure-mcp-server",
-    "env": {
-      "MCP_AUTH_TOKEN": "${MCP_SERVER_TOKEN}",
-      "MCP_CLIENT_ID": "${MCP_CLIENT_ID}"
+    "config": {
+      "mcpServers": {...}
     }
   }
 }
 ```
 
-### Transport Security
-- **stdio**: Inherits process security model
-- **HTTP**: Use HTTPS and proper authentication headers
-- **WebSocket**: Use WSS and authentication tokens
+### Request Flow
+1. UTCP client receives tool call with server-prefixed name (e.g., `filesystem.read_file`)
+2. MCP plugin extracts server name and tool name
+3. Gets or creates session with target MCP server
+4. Calls MCP server's `call_tool` method
+5. Processes response content (text, JSON, structured output)
+6. Returns mapped result to UTCP client
+
+### Response Processing
+The implementation intelligently processes MCP responses:
+- **Structured output**: Returns `result.structured_output` if available
+- **Text content**: Attempts JSON parsing, number parsing, or returns as string
+- **List content**: Processes each item and returns as list or single item
+- **Error handling**: Session-level errors trigger session restart
+
+## Authentication
+
+### OAuth2 Authentication (HTTP Servers)
+```json
+{
+  "auth": {
+    "auth_type": "oauth2",
+    "client_id": "${CLIENT_ID}",
+    "client_secret": "${CLIENT_SECRET}",
+    "token_url": "https://auth.example.com/token",
+    "scope": "mcp:read mcp:write"
+  }
+}
+```
+
+### Environment-based Authentication (stdio Servers)
+```json
+{
+  "config": {
+    "mcpServers": {
+      "secure_server": {
+        "command": "secure-mcp-server",
+        "env": {
+          "MCP_AUTH_TOKEN": "${MCP_SERVER_TOKEN}",
+          "MCP_CLIENT_ID": "${MCP_CLIENT_ID}"
+        }
+      }
+    }
+  }
+}
+```
+
+### Security Features
+- **OAuth2 token caching**: Tokens cached by client_id to avoid repeated requests
+- **Session management**: Persistent sessions with automatic error recovery
+- **Environment variables**: Use `${VAR_NAME}` syntax for sensitive credentials
+- **Transport security**: stdio inherits process security, HTTP supports OAuth2
 
 ## Error Handling
 
@@ -184,53 +271,70 @@ MCP errors are mapped to UTCP exceptions:
 
 ## Limitations
 
-### MCP Feature Support
-Not all MCP features are supported through UTCP:
-- **Resources**: Not directly mapped to UTCP tools
+### Current Limitations
 - **Prompts**: Not supported in UTCP model
 - **Sampling**: Not applicable to tool calling
+- **Streaming**: MCP streaming calls return single result (no streaming support)
 
-### Protocol Differences
-- MCP's bidirectional communication vs UTCP's request/response
-- MCP's resource model vs UTCP's tool-only model
-- Different authentication mechanisms
+### MCP Feature Support
+Full support for core MCP features:
+- **Tools**: Complete tool discovery and execution support
+- **Resources**: Optional support via `register_resources_as_tools` flag
+- **Authentication**: OAuth2 support for HTTP-based servers
+- **Session management**: Persistent sessions with automatic recovery
+- **Multiple servers**: Single provider can manage multiple MCP servers
+
+### Protocol Mapping
+- **Tool naming**: Server-prefixed names ensure uniqueness across multiple servers
+- **Response processing**: Intelligent parsing of MCP response formats
+- **Error handling**: Session-level vs protocol-level error distinction
+- **Resource tools**: Resources exposed as callable tools when enabled
 
 ## Configuration Examples
 
 ### Development Setup
 ```json
 {
-  "manual_call_templates": [{
-    "name": "dev_mcp",
-    "call_template_type": "mcp",
-    "server_config": {
-      "command": "node",
-      "args": ["dev-server.js"],
-      "env": {"NODE_ENV": "development"}
-    },
-    "connection_timeout": 5,
-    "request_timeout": 10
-  }]
+  "name": "dev_mcp",
+  "call_template_type": "mcp",
+  "config": {
+    "mcpServers": {
+      "filesystem": {
+        "command": "node",
+        "args": ["dev-server.js"],
+        "env": {"NODE_ENV": "development"}
+      },
+      "database": {
+        "command": "python",
+        "args": ["-m", "db_server", "--dev"]
+      }
+    }
+  },
+  "register_resources_as_tools": true
 }
 ```
 
 ### Production Setup
 ```json
 {
-  "manual_call_templates": [{
-    "name": "prod_mcp",
-    "call_template_type": "mcp",
-    "server_config": {
-      "transport": "http",
-      "url": "https://mcp.example.com/api",
-      "headers": {
-        "Authorization": "Bearer ${MCP_PROD_TOKEN}",
-        "X-Client-Version": "1.0.0"
+  "name": "prod_mcp",
+  "call_template_type": "mcp",
+  "config": {
+    "mcpServers": {
+      "api_server": {
+        "transport": "http",
+        "url": "https://mcp.example.com/api"
       }
-    },
-    "connection_timeout": 30,
-    "request_timeout": 60
-  }]
+    }
+  },
+  "auth": {
+    "auth_type": "oauth2",
+    "client_id": "${MCP_CLIENT_ID}",
+    "client_secret": "${MCP_CLIENT_SECRET}",
+    "token_url": "https://auth.example.com/token",
+    "scope": "mcp:access"
+  },
+  "register_resources_as_tools": false
 }
 ```
 
@@ -257,10 +361,44 @@ Not all MCP features are supported through UTCP:
 - Monitor for suspicious activity
 - Keep MCP servers updated
 
-## Language-Specific Implementation
+## Implementation Notes
 
-For implementation details and examples in your programming language:
+The MCP protocol implementation provides:
 
-- **Multi-language**: [UTCP MCP Protocol Examples](https://github.com/universal-tool-calling-protocol) - MCP protocol examples across multiple languages
-- **TypeScript**: [TypeScript MCP Protocol Documentation](https://github.com/universal-tool-calling-protocol/typescript-utcp/blob/main/docs/protocols/mcp.md)
-- **Other languages**: Check respective repositories in the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
+- **Session persistence**: Reuses MCP sessions for better performance
+- **Automatic recovery**: Handles session failures with automatic retry
+- **Multi-server support**: Single provider manages multiple MCP servers
+- **Resource integration**: Optional resource-to-tool mapping
+- **OAuth2 support**: Full OAuth2 authentication for HTTP servers
+- **Intelligent response processing**: Handles various MCP response formats
+
+### Usage Example
+```python
+import asyncio
+from utcp_client import UtcpClient
+
+async def main():
+    client = UtcpClient()
+    
+    # Register MCP provider with multiple servers
+    await client.register_tool_provider(mcp_manual)
+    
+    # Call tools with server-prefixed names
+    result = await client.call_tool("filesystem.read_file", {"path": "/data/file.txt"})
+    
+    # Access resources as tools (if enabled)
+    resource_data = await client.call_tool("filesystem.resource_config", {})
+    
+    await client.close()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+## Related Protocols
+
+- **[HTTP](./http.md)** - For native HTTP-based tool implementations
+- **[Server-Sent Events (SSE)](./sse.md)** - For real-time streaming tools
+- **TCP/UDP** - For custom protocol implementations
+
+For complete implementation details, see the [MCP Communication Protocol API Reference](../api/plugins/communication_protocols/mcp/src/utcp_mcp/mcp_communication_protocol.md).

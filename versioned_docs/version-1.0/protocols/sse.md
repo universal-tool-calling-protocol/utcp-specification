@@ -25,56 +25,85 @@ npm install @utcp/http
 ```json
 {
   "call_template_type": "sse",
-  "url": "https://api.example.com/events",
+  "url": "https://api.example.com/events/{stream_id}",
+  "event_type": "data_update",
+  "reconnect": true,
+  "retry_timeout": 30000,
   "headers": {
-    "Authorization": "Bearer ${API_TOKEN}",
-    "Accept": "text/event-stream"
+    "X-Custom-Header": "static_value"
   },
-  "timeout": 60,
-  "max_events": 10,
-  "event_filter": {
-    "type": "data_update"
+  "body_field": "payload",
+  "header_fields": ["user_id", "session_token"],
+  "auth": {
+    "auth_type": "api_key",
+    "api_key": "Bearer ${API_TOKEN}",
+    "var_name": "Authorization",
+    "location": "header"
   }
 }
 ```
 
-## Configuration Options
+## Field Descriptions
 
-The Server-Sent Events (SSE) call template enables real-time streaming data from HTTP endpoints. For complete field specifications and validation rules, see the [SSE Call Template API Reference](../api/plugins/communication_protocols/http/src/utcp_http/sse_call_template.md).
-| `reconnect` | boolean | Auto-reconnect on connection loss (default: true) |
-| `reconnect_delay` | number | Delay between reconnection attempts (default: 3) |
+For detailed field specifications, examples, and validation rules, see:
+- **[SseCallTemplate API Reference](../api/plugins/communication_protocols/http/src/utcp_http/sse_call_template.md)** - Complete field documentation with examples
+- **[SseCommunicationProtocol API Reference](../api/plugins/communication_protocols/http/src/utcp_http/sse_communication_protocol.md)** - Implementation details and method documentation
+
+### Key Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `call_template_type` | string | Yes | Always "sse" for SSE providers |
+| `url` | string | Yes | SSE endpoint URL with optional path parameters like `{stream_id}` |
+| `event_type` | string | No | Filter for specific event types (default: all events) |
+| `reconnect` | boolean | No | Auto-reconnect on connection loss (default: true) |
+| `retry_timeout` | number | No | Retry timeout in milliseconds (default: 30000) |
+| `headers` | object | No | Static headers for the initial connection |
+| `body_field` | string | No | Tool argument name to map to request body |
+| `header_fields` | array | No | Tool argument names to map to request headers |
+| `auth` | object | No | Authentication configuration |
 
 ## Authentication
 
-SSE uses standard HTTP authentication methods:
+SSE supports the same authentication methods as HTTP:
 
-### Bearer Token
-
+### API Key Authentication
 ```json
 {
-  "headers": {
-    "Authorization": "Bearer ${ACCESS_TOKEN}"
+  "auth": {
+    "auth_type": "api_key",
+    "api_key": "Bearer ${ACCESS_TOKEN}",
+    "var_name": "Authorization",
+    "location": "header"
   }
 }
 ```
 
-### API Key
+Supported locations:
+- `"header"`: API key sent as HTTP header
+- `"query"`: API key sent as query parameter  
+- `"cookie"`: API key sent as HTTP cookie
 
+### Basic Authentication
 ```json
 {
-  "headers": {
-    "X-API-Key": "${API_KEY}"
+  "auth": {
+    "auth_type": "basic",
+    "username": "${USERNAME}",
+    "password": "${PASSWORD}"
   }
 }
 ```
 
-### Query Parameter Auth
-
+### OAuth2 Authentication
 ```json
 {
-  "query_params": {
-    "token": "${API_TOKEN}",
-    "user_id": "${USER_ID}"
+  "auth": {
+    "auth_type": "oauth2",
+    "client_id": "${CLIENT_ID}",
+    "client_secret": "${CLIENT_SECRET}",
+    "token_url": "https://auth.example.com/token",
+    "scope": "read write"
   }
 }
 ```
@@ -96,14 +125,16 @@ SSE uses standard HTTP authentication methods:
   },
   "tool_call_template": {
     "call_template_type": "sse",
-    "url": "https://api.example.com/notifications/stream",
-    "query_params": {
-      "user_id": "${user_id}"
-    },
-    "headers": {
-      "Authorization": "Bearer ${ACCESS_TOKEN}"
-    },
-    "timeout": 300
+    "url": "https://api.example.com/notifications/stream/{user_id}",
+    "event_type": "notification",
+    "reconnect": true,
+    "retry_timeout": 30000,
+    "auth": {
+      "auth_type": "api_key",
+      "api_key": "Bearer ${ACCESS_TOKEN}",
+      "var_name": "Authorization",
+      "location": "header"
+    }
   }
 }
 ```
@@ -114,11 +145,9 @@ SSE uses standard HTTP authentication methods:
 {
   "call_template_type": "sse",
   "url": "https://api.example.com/events",
-  "event_filter": {
-    "type": "order_update",
-    "status": ["completed", "cancelled"]
-  },
-  "max_events": 5
+  "event_type": "order_update",
+  "reconnect": true,
+  "retry_timeout": 15000
 }
 ```
 
@@ -133,27 +162,21 @@ SSE uses standard HTTP authentication methods:
   "inputs": {
     "type": "object",
     "properties": {
-      "symbols": {
-        "type": "array",
-        "items": {"type": "string"}
-      },
-      "duration": {"type": "number", "default": 60}
+      "symbol": {"type": "string"}
     },
-    "required": ["symbols"]
+    "required": ["symbol"]
   },
   "tool_call_template": {
     "call_template_type": "sse",
-    "url": "https://api.stocks.com/stream",
-    "query_params": {
-      "symbols": "${symbols}",
-      "format": "json"
-    },
-    "headers": {
-      "Authorization": "Bearer ${STOCK_API_KEY}"
-    },
-    "timeout": "${duration}",
-    "event_filter": {
-      "type": "price_update"
+    "url": "https://api.stocks.com/stream/{symbol}",
+    "event_type": "price_update",
+    "reconnect": true,
+    "retry_timeout": 30000,
+    "auth": {
+      "auth_type": "api_key",
+      "api_key": "${STOCK_API_KEY}",
+      "var_name": "Authorization",
+      "location": "header"
     }
   }
 }
@@ -169,22 +192,24 @@ SSE uses standard HTTP authentication methods:
     "type": "object",
     "properties": {
       "service": {"type": "string"},
-      "level": {"type": "string", "enum": ["error", "warn", "info", "debug"]}
+      "level": {"type": "string"}
     },
     "required": ["service"]
   },
   "tool_call_template": {
     "call_template_type": "sse",
-    "url": "https://logs.example.com/stream",
-    "query_params": {
-      "service": "${service}",
-      "level": "${level}"
-    },
-    "headers": {
-      "X-API-Key": "${LOG_API_KEY}"
-    },
-    "timeout": 600,
-    "max_events": 100
+    "url": "https://logs.example.com/stream/{service}",
+    "event_type": "log_entry",
+    "reconnect": true,
+    "retry_timeout": 45000,
+    "body_field": "filter_config",
+    "header_fields": ["level"],
+    "auth": {
+      "auth_type": "api_key",
+      "api_key": "${LOG_API_KEY}",
+      "var_name": "X-API-Key",
+      "location": "header"
+    }
   }
 }
 ```
@@ -198,27 +223,25 @@ SSE uses standard HTTP authentication methods:
   "inputs": {
     "type": "object",
     "properties": {
-      "metrics": {
-        "type": "array",
-        "items": {"type": "string"}
-      },
-      "interval": {"type": "number", "default": 5}
+      "server_id": {"type": "string"},
+      "metrics_config": {"type": "object"}
     },
-    "required": ["metrics"]
+    "required": ["server_id"]
   },
   "tool_call_template": {
     "call_template_type": "sse",
-    "url": "https://monitoring.example.com/metrics/stream",
-    "query_params": {
-      "metrics": "${metrics}",
-      "interval": "${interval}"
-    },
-    "headers": {
-      "Authorization": "Bearer ${MONITORING_TOKEN}"
-    },
-    "timeout": 300,
+    "url": "https://monitoring.example.com/metrics/stream/{server_id}",
+    "event_type": "metric_update",
     "reconnect": true,
-    "reconnect_delay": 5
+    "retry_timeout": 20000,
+    "body_field": "metrics_config",
+    "auth": {
+      "auth_type": "oauth2",
+      "client_id": "${MONITORING_CLIENT_ID}",
+      "client_secret": "${MONITORING_CLIENT_SECRET}",
+      "token_url": "https://auth.monitoring.com/token",
+      "scope": "metrics:read"
+    }
   }
 }
 ```
@@ -318,45 +341,84 @@ data: {"message": "Simple data without event type"}
 
 ## Advanced Features
 
-### Custom Event Parsing
+### Dynamic Parameter Substitution
+- **URL path parameters**: Use `{parameter_name}` syntax in URLs
+- **Body field mapping**: Map tool arguments to request body via `body_field`
+- **Header field mapping**: Map tool arguments to headers via `header_fields`
 
 ```json
 {
   "call_template_type": "sse",
-  "url": "https://api.example.com/events",
-  "event_parser": {
-    "format": "json",
-    "extract_fields": ["timestamp", "level", "message"]
+  "url": "https://api.example.com/events/{stream_id}",
+  "event_type": "data_update",
+  "body_field": "filter_config",
+  "header_fields": ["user_context", "session_id"]
+}
+```
+
+### OAuth2 Token Management
+- **Automatic token caching**: Tokens cached by client_id
+- **Token refresh**: Automatic token refresh on expiration
+- **Client credentials flow**: Supports OAuth2 client credentials grant
+
+```json
+{
+  "auth": {
+    "auth_type": "oauth2",
+    "client_id": "${OAUTH_CLIENT_ID}",
+    "client_secret": "${OAUTH_CLIENT_SECRET}",
+    "token_url": "https://auth.example.com/token",
+    "scope": "stream:read"
   }
 }
 ```
 
-### Event Aggregation
+### Multiple Authentication Locations
+- **Header**: Standard Authorization header or custom headers
+- **Query**: API key as URL query parameter
+- **Cookie**: API key sent as HTTP cookie
 
 ```json
 {
-  "call_template_type": "sse",
-  "url": "https://api.example.com/metrics",
-  "aggregation": {
-    "window": 10,
-    "function": "average",
-    "field": "value"
+  "auth": {
+    "auth_type": "api_key",
+    "api_key": "${API_TOKEN}",
+    "var_name": "access_token",
+    "location": "cookie"
   }
 }
 ```
 
-### Conditional Termination
+## Implementation Notes
 
-```json
-{
-  "call_template_type": "sse",
-  "url": "https://api.example.com/events",
-  "termination_condition": {
-    "event_type": "complete",
-    "data_field": "status",
-    "value": "finished"
-  }
-}
+The SSE protocol implementation provides:
+
+- **Async streaming**: Real-time event processing with async generators
+- **Automatic reconnection**: Configurable via `reconnect` and `retry_timeout` fields
+- **Event filtering**: Client-side filtering by `event_type`
+- **Authentication caching**: OAuth2 tokens cached by client_id
+- **Security enforcement**: HTTPS or localhost connections only
+- **Error handling**: Graceful handling of connection failures and retries
+
+### Usage Example
+```python
+import asyncio
+from utcp_client import UtcpClient
+
+async def main():
+    client = UtcpClient()
+    
+    # Register SSE provider
+    await client.register_tool_provider(sse_manual)
+    
+    # Stream events with automatic filtering and reconnection
+    async for event in client.call_tool_streaming("stream_notifications", {"user_id": "123"}):
+        print(f"Event: {event}")
+    
+    await client.close()
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 ## Common Use Cases
@@ -381,6 +443,8 @@ data: {"message": "Simple data without event type"}
 
 ## Related Protocols
 
-- [HTTP](./http.md) - For request/response patterns
-- [WebSocket](./websocket.md) - For bidirectional communication
-- [Streamable HTTP](./streamable-http.md) - For chunked HTTP responses
+- **[HTTP](./http.md)** - For standard request/response patterns
+- **WebSocket** - For bidirectional real-time communication  
+- **TCP/UDP** - For custom protocol implementations
+
+For complete implementation details, see the [SSE Communication Protocol API Reference](../api/plugins/communication_protocols/http/src/utcp_http/sse_communication_protocol.md).
