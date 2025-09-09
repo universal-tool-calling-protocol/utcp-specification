@@ -146,7 +146,6 @@ Call templates define how to invoke tools using specific protocols:
 }
 
 Tool arguments not used in the URL path or headers will be sent as query parameters for GET requests, or in the request body for POST/PUT/PATCH requests. The `body_field` specifies which tool argument contains the data for the request body.
-}
 ```
 
 #### CLI Call Template

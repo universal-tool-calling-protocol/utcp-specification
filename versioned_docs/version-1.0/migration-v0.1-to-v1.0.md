@@ -139,7 +139,7 @@ load_variables_from:
 ```json
 {
   "manual_version": "1.0.0",
-  "utcp_version": "1.0.1",
+  "utcp_version": "0.2.0",
   "info": {
     "title": "Weather API",
     "version": "1.0.0",
@@ -173,7 +173,6 @@ load_variables_from:
         "api_key": "${API_KEY}",
         "var_name": "appid",
         "location": "query"
-      }
       }
     }
   ]

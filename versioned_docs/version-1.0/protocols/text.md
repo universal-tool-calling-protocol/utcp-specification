@@ -6,16 +6,13 @@ sidebar_position: 5
 
 # Text Protocol
 
-The Text protocol plugin (`utcp-text`) enables UTCP to read and process text files from local filesystem or remote URLs. This is useful for tools that need to access documentation, configuration files, logs, or any text-based data.
+The Text protocol plugin (`utcp-text`) enables UTCP to read UTCP manuals and tool definitions from local JSON/YAML files. This protocol is designed for static tool configurations or environments where manuals are distributed as files.
 
 ## Installation
 
 ```bash
-# Example installation (Python)
+# Python installation
 pip install utcp-text
-
-# Example installation (Node.js)
-npm install @utcp/text
 ```
 
 ## Call Template Structure
@@ -23,415 +20,202 @@ npm install @utcp/text
 ```json
 {
   "call_template_type": "text",
-  "file_path": "/path/to/file.txt",
-  "encoding": "utf-8",
-  "max_size": 1048576,
-  "line_range": {
-    "start": 1,
-    "end": 100
-  }
+  "file_path": "/path/to/manual.json"
 }
 ```
 
 ## Configuration Options
 
-The Text call template enables reading and processing text files from local filesystem or URLs. For complete field specifications and validation rules, see the [Text Call Template API Reference](../api/plugins/communication_protocols/text/src/utcp_text/text_call_template.md).
+The Text call template has a simple structure for reading UTCP manuals from files. For complete field specifications and validation rules, see the [Text Call Template API Reference](../api/plugins/communication_protocols/text/src/utcp_text/text_call_template.md).
 
-## File Sources
+### Required Fields
 
-### Local Files
+- **`call_template_type`**: Must be "text"
+- **`file_path`**: Path to the file containing UTCP manual or tool definitions
+- **`auth`**: Always `None` (text call templates don't support authentication)
 
-```json
-{
-  "call_template_type": "text",
-  "file_path": "/var/log/application.log",
-  "encoding": "utf-8"
-}
-```
+## Supported File Types
 
-### Remote URLs
+### UTCP Manual Files
 
 ```json
 {
   "call_template_type": "text",
-  "file_path": "https://example.com/config.txt",
-  "max_size": 512000
+  "file_path": "/path/to/utcp_manual.json"
 }
 ```
 
-### Variable Substitution
+### OpenAPI Specifications
+
+The protocol automatically detects and converts OpenAPI specs to UTCP manuals:
 
 ```json
 {
   "call_template_type": "text",
-  "file_path": "/data/${filename}",
-  "encoding": "${file_encoding}"
+  "file_path": "/path/to/openapi.yaml"
 }
 ```
 
-## Examples
+### Path Resolution
 
-### Read Configuration File
+Relative paths are resolved against the UTCP client's root directory:
 
 ```json
 {
-  "name": "read_config",
-  "description": "Read application configuration file",
-  "inputs": {
-    "type": "object",
-    "properties": {
-      "config_name": {"type": "string"}
-    },
-    "required": ["config_name"]
-  },
-  "tool_call_template": {
+  "call_template_type": "text",
+  "file_path": "manuals/my_tools.json"  // Resolved against client root_dir
+}
+```
+
+## Usage Examples
+
+### Manual Registration
+
+#### UTCP Manual File
+
+```json
+{
+  "name": "local_tools_manual",
+  "call_template": {
     "call_template_type": "text",
-    "file_path": "/etc/app/${config_name}.conf",
-    "encoding": "utf-8",
-    "max_size": 65536
+    "file_path": "/path/to/my_tools.json"
   }
 }
 ```
 
-### Read Log File with Line Range
+#### OpenAPI Specification
 
 ```json
 {
-  "name": "read_recent_logs",
-  "description": "Read recent log entries",
+  "name": "api_tools_manual",
+  "call_template": {
+    "call_template_type": "text",
+    "file_path": "/path/to/openapi.yaml"
+  }
+}
+```
+
+### Tool Execution
+
+When tools are called, the Text protocol returns the content of the configured file:
+
+```json
+{
+  "name": "read_file",
+  "description": "Read content from a file",
   "inputs": {
     "type": "object",
-    "properties": {
-      "log_file": {"type": "string"},
-      "lines": {"type": "number", "default": 100}
-    },
-    "required": ["log_file"]
+    "properties": {},
+    "required": []
   },
   "tool_call_template": {
     "call_template_type": "text",
-    "file_path": "/var/log/${log_file}",
-    "line_range": {
-      "start": -${lines},
-      "end": -1
+    "file_path": "/path/to/data.txt"
+  }
+}
+```
+
+## Protocol Behavior
+
+### Manual Registration
+
+When registering a manual with `register_manual()`, the protocol:
+
+1. **Reads the file** from the specified `file_path`
+2. **Detects file format** (JSON/YAML)
+3. **Identifies content type**:
+   - UTCP Manual: Validates and returns directly
+   - OpenAPI Spec: Converts to UTCP manual using OpenApiConverter
+4. **Returns result** with loaded tools
+
+### Tool Execution
+
+When calling a tool with `call_tool()`, the protocol:
+
+1. **Reads file content** from the `file_path` in the tool's call template
+2. **Returns raw content** as a string
+
+### Streaming Support
+
+The `call_tool_streaming()` method yields the entire file content as a single chunk.
+
+## File Format Support
+
+### JSON Files
+
+```json
+// /path/to/manual.json
+{
+  "version": "0.2.0",
+  "tools": [
+    {
+      "name": "example_tool",
+      "description": "An example tool",
+      "inputs": {"type": "object", "properties": {}}
     }
-  }
+  ]
 }
 ```
 
-### Read Remote Documentation
+### YAML Files
 
-```json
-{
-  "name": "fetch_documentation",
-  "description": "Fetch documentation from remote URL",
-  "inputs": {
-    "type": "object",
-    "properties": {
-      "doc_url": {"type": "string"},
-      "section": {"type": "string"}
-    },
-    "required": ["doc_url"]
-  },
-  "tool_call_template": {
-    "call_template_type": "text",
-    "file_path": "${doc_url}",
-    "pattern": "(?s)## ${section}.*?(?=## |$)",
-    "max_size": 2097152
-  }
-}
-```
-
-### Search in File
-
-```json
-{
-  "name": "search_in_file",
-  "description": "Search for pattern in text file",
-  "inputs": {
-    "type": "object",
-    "properties": {
-      "file_path": {"type": "string"},
-      "search_pattern": {"type": "string"}
-    },
-    "required": ["file_path", "search_pattern"]
-  },
-  "tool_call_template": {
-    "call_template_type": "text",
-    "file_path": "${file_path}",
-    "pattern": "${search_pattern}",
-    "transform": "strip"
-  }
-}
-```
-
-## Line Range Options
-
-### Absolute Line Numbers
-
-```json
-{
-  "line_range": {
-    "start": 10,
-    "end": 50
-  }
-}
-```
-
-### Relative to End (Tail)
-
-```json
-{
-  "line_range": {
-    "start": -100,
-    "end": -1
-  }
-}
-```
-
-### From Start (Head)
-
-```json
-{
-  "line_range": {
-    "start": 1,
-    "end": 100
-  }
-}
-```
-
-## Pattern Matching
-
-### Simple Text Search
-
-```json
-{
-  "pattern": "ERROR"
-}
-```
-
-### Regex Pattern
-
-```json
-{
-  "pattern": "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} ERROR.*"
-}
-```
-
-### Multi-line Pattern
-
-```json
-{
-  "pattern": "(?s)START.*?END"
-}
-```
-
-## Content Transformations
-
-### Case Transformations
-
-```json
-{
-  "transform": "upper"    // Convert to uppercase
-}
-```
-
-```json
-{
-  "transform": "lower"    // Convert to lowercase
-}
-```
-
-### Whitespace Handling
-
-```json
-{
-  "transform": "strip"    // Remove leading/trailing whitespace
-}
-```
-
-### Custom Transformations
-
-```json
-{
-  "transform": "normalize_whitespace"  // Normalize all whitespace
-}
-```
-
-## Response Format
-
-### Successful Read
-
-```json
-{
-  "content": "File content here...",
-  "metadata": {
-    "file_path": "/path/to/file.txt",
-    "size": 1024,
-    "lines": 25,
-    "encoding": "utf-8",
-    "last_modified": "2024-01-15T10:30:00Z"
-  }
-}
-```
-
-### Filtered Content
-
-```json
-{
-  "content": "Matching lines...",
-  "metadata": {
-    "file_path": "/path/to/file.txt",
-    "total_lines": 1000,
-    "matched_lines": 5,
-    "pattern": "ERROR",
-    "line_range": {"start": 1, "end": 100}
-  }
-}
+```yaml
+# /path/to/manual.yaml
+version: "0.2.0"
+tools:
+  - name: example_tool
+    description: An example tool
+    inputs:
+      type: object
+      properties: {}
 ```
 
 ## Error Handling
 
-| Error Type | Description | Handling |
-|------------|-------------|----------|
-| File Not Found | File doesn't exist | Raise `FileNotFoundError` |
-| Permission Denied | No read permission | Raise `PermissionError` |
-| File Too Large | Exceeds max_size limit | Raise `FileSizeError` |
-| Encoding Error | Invalid file encoding | Raise `EncodingError` |
-| Network Error | URL fetch failed | Raise `NetworkError` |
+The Text protocol handles various error conditions:
+
+| Error Type | Condition | Behavior |
+|------------|-----------|----------|
+| File Not Found | File doesn't exist | Returns `RegisterManualResult` with `success: false` |
+| Parse Error | Invalid JSON/YAML | Returns error result with exception details |
+| Validation Error | Invalid UTCP manual | Returns error result with validation details |
+| Generic Error | Unexpected exceptions | Returns error result with traceback |
+
+### Error Response Format
+
+```json
+{
+  "manual_call_template": { /* original template */ },
+  "manual": { "tools": [] },
+  "success": false,
+  "errors": ["Error details here..."]
+}
+```
 
 ## Security Considerations
 
-### Path Traversal Prevention
-
-```json
-{
-  "call_template_type": "text",
-  "file_path": "/safe/directory/${filename}",
-  "allowed_paths": ["/safe/directory/"]
-}
-```
-
-### File Size Limits
-
-```json
-{
-  "max_size": 1048576  // 1MB limit
-}
-```
-
-### URL Restrictions
-
-```json
-{
-  "allowed_domains": ["example.com", "docs.company.com"]
-}
-```
+- **Path Resolution**: Relative paths are resolved against the client's `root_dir`
+- **Local Files Only**: Protocol only supports local file system access
+- **No Authentication**: Text call templates don't support auth (always `None`)
 
 ## Best Practices
 
-1. **Set Size Limits**: Always set appropriate max_size limits
-2. **Validate Paths**: Validate file paths to prevent directory traversal
-3. **Handle Encoding**: Specify encoding explicitly for non-UTF-8 files
-4. **Use Line Ranges**: Use line ranges for large files to improve performance
-5. **Pattern Efficiency**: Use efficient regex patterns for content filtering
-6. **Cache Results**: Cache frequently accessed files
-7. **Monitor Access**: Log file access for security auditing
-
-## Advanced Features
-
-### Conditional Reading
-
-```json
-{
-  "call_template_type": "text",
-  "file_path": "/var/log/app.log",
-  "condition": {
-    "modified_since": "2024-01-15T00:00:00Z"
-  }
-}
-```
-
-### Multi-file Reading
-
-```json
-{
-  "call_template_type": "text",
-  "file_paths": [
-    "/etc/app/config1.txt",
-    "/etc/app/config2.txt"
-  ],
-  "merge_strategy": "concatenate"
-}
-```
-
-### Streaming Large Files
-
-```json
-{
-  "call_template_type": "text",
-  "file_path": "/var/log/huge.log",
-  "streaming": true,
-  "chunk_size": 8192
-}
-```
+1. **Use Absolute Paths**: When possible, use absolute file paths for clarity
+2. **Validate Files**: Ensure UTCP manual files are valid before registration
+3. **Handle Errors**: Check `RegisterManualResult.success` before using tools
+4. **Organize Manuals**: Keep manual files in a dedicated directory structure
+5. **Version Control**: Include manual files in version control for consistency
 
 ## Common Use Cases
 
-- **Configuration Management**: Reading config files, environment files
-- **Log Analysis**: Processing application logs, system logs
-- **Documentation**: Accessing README files, API docs, manuals
-- **Data Processing**: Reading CSV, JSON, XML text files
-- **Template Processing**: Reading template files for generation
-- **Code Analysis**: Reading source code files for analysis
-- **Monitoring**: Reading status files, health check files
+- **Static Tool Definitions**: Distributing tool configurations as files
+- **Local Development**: Testing UTCP tools without external dependencies
+- **Offline Environments**: Using tools in environments without network access
+- **Configuration Management**: Reading tool definitions from config files
+- **OpenAPI Integration**: Converting existing OpenAPI specs to UTCP tools
 
-## Performance Considerations
+## API Reference
 
-| File Size | Recommended Approach |
-|-----------|---------------------|
-| < 1MB | Read entire file |
-| 1MB - 10MB | Use line ranges |
-| 10MB - 100MB | Use streaming |
-| > 100MB | Use external tools |
-
-## Integration Examples
-
-### With HTTP Protocol
-
-```json
-{
-  "name": "process_uploaded_file",
-  "description": "Process uploaded text file",
-  "inputs": {
-    "type": "object",
-    "properties": {
-      "file_url": {"type": "string"}
-    }
-  },
-  "tool_call_template": {
-    "call_template_type": "text",
-    "file_path": "${file_url}",
-    "max_size": 5242880
-  }
-}
-```
-
-### With CLI Protocol
-
-```json
-{
-  "name": "analyze_log_file",
-  "description": "Analyze log file with external tool",
-  "inputs": {
-    "type": "object",
-    "properties": {
-      "log_path": {"type": "string"}
-    }
-  },
-  "tool_call_template": {
-    "call_template_type": "cli",
-    "command": "log-analyzer",
-    "args": ["--file", "${log_path}", "--format", "json"]
-  }
-}
-```
+For detailed information about the implementation, see:
+- [Text Call Template API](../api/plugins/communication_protocols/text/src/utcp_text/text_call_template.md)
+- [Text Communication Protocol API](../api/plugins/communication_protocols/text/src/utcp_text/text_communication_protocol.md)

@@ -45,7 +45,7 @@ As a tool provider, you'll create a **UTCP Manual** - a standardized description
       },
       "tool_call_template": {
         "call_template_type": "http",
-        "url": "https://api.example.com/users/${user_id}",
+        "url": "https://api.example.com/users/{user_id}",
         "http_method": "GET"
       }
     }
@@ -236,11 +236,7 @@ Use `${VARIABLE_NAME}` syntax for dynamic values:
 
 ```json
 {
-  "url": "https://api.example.com/users/${user_id}",
-  "body": {
-    "name": "${name}",
-    "email": "${email}"
-  }
+  "url": "https://api.example.com/users/{user_id}"
 }
 ```
 
@@ -270,8 +266,7 @@ Use `${VARIABLE_NAME}` syntax for dynamic values:
       "name": "get_data",
       "tool_call_template": {
         "call_template_type": "http",
-        "url": "${base_url}/data",
-        "timeout": "${timeout}"
+        "url": "${base_url}/data"
       }
     }
   ]
@@ -327,7 +322,7 @@ The UTCP manual describes how to call your existing endpoints:
       },
       "tool_call_template": {
         "call_template_type": "http",
-        "url": "https://api.example.com/users/${user_id}",
+        "url": "https://api.example.com/users/{user_id}",
         "http_method": "GET",
         "auth": {
           "auth_type": "api_key",
@@ -550,9 +545,7 @@ Test your manual with UTCP clients:
     "call_template_type": "http",
     "url": "https://api.example.com/batch",
     "http_method": "POST",
-    "body": {
-      "items": "${items}"
-    }
+    "body_field": "items"
   }
 }
 ```
