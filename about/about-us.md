@@ -36,6 +36,9 @@ The UTCP project is made possible by the dedication and contributions of our ama
 - Luca Perrozzi ([LinkedIn](https://www.linkedin.com/in/luca-perrozzi/))
 - Roberto Catalano ([LinkedIn](https://www.linkedin.com/in/roberto-catalano-5b7793123/), [GitHub](https://github.com/Robobc))
 
+### Pydantic AI UTCP Adapters Maintainters
+- Raj Panchal ([LinkedIn](https://www.linkedin.com/in/raj-a-panchal/))
+
 ### Contributors
 - Tiago Prelato ([LinkedIn](https://www.linkedin.com/in/tiago-prelato-257787210/), [X](https://x.com/SneyX_))
 - Bruce Miao
