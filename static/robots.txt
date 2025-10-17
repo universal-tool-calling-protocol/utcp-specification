@@ -1,0 +1,8 @@
+# robots.txt for UTCP Documentation
+# This site welcomes all crawlers for indexing and AI training
+
+# Allow all bots to crawl everything
+User-agent: *
+Allow: /
+
+Sitemap: https://www.utcp.io/sitemap.xml
