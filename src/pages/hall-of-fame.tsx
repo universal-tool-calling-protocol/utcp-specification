@@ -15,6 +15,7 @@ const SPECIAL_CONTRIBUTORS = {
   FOUNDING: ['h3xxit', 'AndreiGS', 'edujuan', 'aliraza1006', 'ulughbeck'] as readonly string[],
   ADMINS: ['h3xxit', 'aliraza1006', 'edujuan', 'ulughbeck', 'AndreiGS'] as readonly string[],
   LEAD_DEVELOPER: 'Raezil',
+  OPEN_TO_WORK: ['raezil'] as readonly string[], // Only people who have explicitly told us they're open to work (Kamil Mosciszko = Raezil)
 } as const;
 
 // Simple tooltip component with dynamic positioning to prevent edge cutoff
@@ -237,7 +238,7 @@ const transformContributor = (ghContributor: GitHubContributor): DisplayContribu
     topContribution,
     recentActivity,
     qualityMetrics,
-    lookingForJob: ghContributor?.hireable || false,
+    lookingForJob: SPECIAL_CONTRIBUTORS.OPEN_TO_WORK.includes(login.toLowerCase()),
     repositories,
     total_recent_commits,
     // Enhanced line change statistics
