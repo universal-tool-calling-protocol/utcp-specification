@@ -44,6 +44,7 @@ The UTCP project is made possible by the dedication and contributions of our ama
 - Bruce Miao
 - Lochy W
 - Ali Moradi ([LinkedIn](https://www.linkedin.com/in/ali-moradi-1b1b12213/), [GitHub](https://github.com/alimoradi296))
+- Roman Rogov ([LinkedIn](https://www.linkedin.com/in/romarogov/))
 
 ## Join Us
 
