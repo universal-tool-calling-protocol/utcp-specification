@@ -265,7 +265,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} UTCP Contributors. Distributed under the Apache 2.0 License.`,
+      copyright: `Copyright © ${new Date().getFullYear()} UTCP Contributors. Licensed under Apache-2.0, except API reference docs (api/**) under MPL-2.0.`,
     },
     prism: {
       theme: prismThemes.github,

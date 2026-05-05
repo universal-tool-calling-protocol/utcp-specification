@@ -1,3 +1,37 @@
+UTCP Specification — Dual License Notice
+========================================
+
+This repository is dual-licensed by directory:
+
+  * The contents of the following directories — which are auto-generated
+    from docstrings in the python-utcp reference implementation
+    (https://github.com/universal-tool-calling-protocol/python-utcp,
+    licensed under the Mozilla Public License 2.0) — are licensed under
+    the Mozilla Public License, Version 2.0 (MPL-2.0):
+
+      docs/api/**
+      versioned_docs/version-1.0/api/**
+      versioned_docs/version-1.1/api/**
+      (and equivalent api/ subtrees in any future versioned_docs entries)
+
+    The full text of MPL-2.0 is in the accompanying file LICENSE-MPL,
+    and a copy is also placed at the root of each MPL-covered subtree.
+
+  * All other content in this repository — including hand-written
+    specification prose, protocol documentation, blog posts, RFCs,
+    configuration, build scripts, code examples (whether standalone
+    files or fenced code blocks embedded in Markdown), and site source
+    code — is licensed under the Apache License, Version 2.0. The full
+    text of Apache-2.0 follows below.
+
+The MPL-2.0 boundary is the api/ directory, not a "code vs. prose"
+distinction. If you are unsure whether a given file is MPL-covered,
+check whether it lives under one of the api/ paths listed above.
+
+SPDX-License-Identifier: Apache-2.0 AND MPL-2.0
+
+----------------------------------------------------------------------
+
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/

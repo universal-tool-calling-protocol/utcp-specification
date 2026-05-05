@@ -149,7 +149,26 @@ The UTCP specification follows semantic versioning:
 
 ## License
 
-This specification is distributed under the Mozilla Public License 2.0 (MPL-2.0).
+This repository is **dual-licensed by directory** to keep adoption friction
+low while respecting the upstream license of the reference implementation:
+
+- **Default license — [Apache License 2.0](LICENSE).** Covers everything
+  in the repository *except* the `api/` documentation subtrees: the
+  specification prose, protocol guides, RFC, blog posts, code examples
+  (whether standalone files or fenced code blocks in Markdown), site
+  source code, and build configuration. Implementers can quote, copy,
+  and embed this content freely under Apache-2.0 terms.
+- **API reference docs — [Mozilla Public License 2.0](LICENSE-MPL).** The
+  contents of `docs/api/**` and `versioned_docs/version-*/api/**` are
+  auto-generated from docstrings in
+  [python-utcp](https://github.com/universal-tool-calling-protocol/python-utcp),
+  which is MPL-2.0-licensed. External contributors submit docstring
+  changes under MPL-2.0, so the generated reference docs inherit that
+  license. Each MPL-covered subtree contains its own `LICENSE` and
+  `NOTICE.md`.
+
+The MPL-2.0 boundary is the `api/` directory — not a "code vs. prose"
+distinction. SPDX: `Apache-2.0 AND MPL-2.0`.
 
 ## Additional Resources
 
