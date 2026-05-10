@@ -81,6 +81,7 @@ operation, and creating corresponding UTCP tools with HTTP call_templates.
 
 - **`spec`**: The parsed OpenAPI specification dictionary.
 - **`spec_url`**: Optional URL where the specification was retrieved from.
+- **`base_url`**: Optional base URL override for all API endpoints.
 - **`placeholder_counter`**: Counter for generating unique placeholder variables.
 - **`call_template_name`**: Normalized name for the call_template derived from the spec.
 </details>
