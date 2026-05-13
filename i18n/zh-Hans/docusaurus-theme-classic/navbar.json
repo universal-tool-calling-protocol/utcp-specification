@@ -1,0 +1,30 @@
+{
+  "title": {
+    "message": "UTCP",
+    "description": "The title in the navbar"
+  },
+  "item.label.Docs": {
+    "message": "文档",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.Tool Registry": {
+    "message": "工具注册表",
+    "description": "Navbar item with label Tool Registry"
+  },
+  "item.label.RFC": {
+    "message": "RFC",
+    "description": "Navbar item with label RFC"
+  },
+  "item.label.About Us": {
+    "message": "关于我们",
+    "description": "Navbar item with label About Us"
+  },
+  "item.label.Blog": {
+    "message": "博客",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  }
+}

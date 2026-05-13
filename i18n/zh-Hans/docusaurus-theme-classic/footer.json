@@ -1,0 +1,90 @@
+{
+  "link.item.label.Overview": {
+    "message": "概述",
+    "description": "The label of footer link with label=Overview"
+  },
+  "link.item.label.Implementation Guide": {
+    "message": "实现指南",
+    "description": "The label of footer link"
+  },
+  "link.item.label.UTCP vs MCP": {
+    "message": "UTCP 与 MCP 对比",
+    "description": "The label of footer link"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link"
+  },
+  "link.item.label.Issues": {
+    "message": "问题反馈",
+    "description": "The label of footer link"
+  },
+  "link.item.label.Discussions": {
+    "message": "讨论",
+    "description": "The label of footer link"
+  },
+  "link.item.label.Repository": {
+    "message": "代码仓库",
+    "description": "The label of footer link"
+  },
+  "link.item.label.Releases": {
+    "message": "发布版本",
+    "description": "The label of footer link"
+  },
+  "link.item.label.Blog": {
+    "message": "博客",
+    "description": "The label of footer link"
+  },
+  "link.item.label.Registry": {
+    "message": "注册表",
+    "description": "The label of footer link"
+  },
+  "link.item.label.About Us": {
+    "message": "关于我们",
+    "description": "The label of footer link"
+  },
+  "link.item.label.Hall of Fame": {
+    "message": "名人堂",
+    "description": "The label of footer link"
+  },
+  "link.item.label.RFC": {
+    "message": "RFC",
+    "description": "The label of footer link"
+  },
+  "link.item.label.Contact the Founders": {
+    "message": "联系创始人",
+    "description": "The label of footer link"
+  },
+  "link.item.label.Impressum": {
+    "message": "版权声明",
+    "description": "The label of footer link"
+  },
+  "link.title.Docs": {
+    "message": "文档",
+    "description": "The title of footer section"
+  },
+  "link.title.Community": {
+    "message": "社区",
+    "description": "The title of footer section"
+  },
+  "link.title.Specification": {
+    "message": "规范",
+    "description": "The title of footer section"
+  },
+  "link.title.Resources": {
+    "message": "资源",
+    "description": "The title of footer section"
+  },
+  "link.title.About": {
+    "message": "关于",
+    "description": "The title of footer section"
+  },
+  "copyright": {
+    "message": "版权所有 © {year} UTCP 贡献者。采用 Apache-2.0 许可证，API 参考文档（api/**）采用 MPL-2.0 许可证。",
+    "description": "The footer copyright"
+  }
+}
