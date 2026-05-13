@@ -45,6 +45,7 @@ The UTCP project is made possible by the dedication and contributions of our ama
 - Lochy W
 - Ali Moradi ([LinkedIn](https://www.linkedin.com/in/ali-moradi-1b1b12213/), [GitHub](https://github.com/alimoradi296))
 - Roman Rogov ([LinkedIn](https://www.linkedin.com/in/romarogov/))
+- Niels Provos ([Website](https://www.provos.org/))
 
 ## Join Us
 
