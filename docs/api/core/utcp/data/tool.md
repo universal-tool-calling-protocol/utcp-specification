@@ -30,6 +30,7 @@ JSON Schema for tool inputs and outputs.
 - **`default`**: Optional schema default value.
 - **`format`**: Optional schema format.
 - **`additionalProperties`**: Optional schema additional properties.
+- **`examples`**: Optional list of example values for the schema.
 </details>
 
 #### Fields:
@@ -45,6 +46,7 @@ JSON Schema for tool inputs and outputs.
 - enum: Optional[List[JsonType]]
 - const: Optional[JsonType]
 - default: Optional[JsonType]
+- examples: Optional[List[JsonType]]
 - format: Optional[str]
 - additionalProperties: Optional[Union[bool, 'JsonSchema']]
 - pattern: Optional[str]
