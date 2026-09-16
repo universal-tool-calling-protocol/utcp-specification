@@ -33,7 +33,7 @@ Enforces security by requiring HTTPS or localhost connections.
 **Attributes**
 
 - **`_session`**: Optional aiohttp ClientSession for connection reuse.
-- **`_oauth_tokens`**: Cache of OAuth2 tokens by client_id.
+- **`_oauth_tokens`**: Cache of OAuth2 tokens keyed by the full credential configuration (``[OAuth2Auth](./../../../../../core/utcp/data/auth_implementations/oauth2_auth.md#oauth2auth).cache_key``).
 - **`_log`**: Logger function for debugging and error reporting.
 </details>
 

@@ -138,13 +138,13 @@ Authentication and header values support environment variable substitution:
 ## Security Considerations
 
 ### Connection Security
-- **HTTPS enforcement**: Only HTTPS URLs or localhost connections are allowed
+- **HTTPS enforcement**: Only HTTPS URLs or literal loopback connections are allowed, for manual discovery, tool invocation and OAuth2 token endpoints alike, and redirects are never followed unchecked (re-validated per hop, or refused). A manual discovered from a non-loopback origin may not declare loopback tool URLs
 - **Certificate validation**: SSL certificates are validated by default
 - **Secure token handling**: OAuth2 tokens are cached securely
 
 ### Authentication Security
 - **Environment variables**: Use `${VAR_NAME}` syntax for sensitive credentials
-- **Token caching**: OAuth2 tokens are cached by client_id to avoid repeated requests
+- **Token caching**: OAuth2 tokens are cached per full credential configuration (token URL, client id, secret, scope), never by client id alone
 - **Authentication methods**: Support for API key, Basic auth, and OAuth2
 - **Location flexibility**: API keys can be sent in headers, query params, or cookies
 - **URL encoding**: Path parameters are properly URL-encoded to prevent injection
@@ -232,8 +232,8 @@ The Streamable HTTP protocol implementation provides:
 
 - **Chunked streaming**: Processes responses in configurable chunk sizes
 - **Content-type awareness**: Different handling for JSON, NDJSON, and binary content
-- **Authentication caching**: OAuth2 tokens cached by client_id
-- **Security enforcement**: HTTPS or localhost connections only
+- **Authentication caching**: OAuth2 tokens cached per full credential configuration
+- **Security enforcement**: HTTPS or loopback connections only; a remote manual may not target loopback tool URLs
 - **Error handling**: Graceful handling of connection failures and timeouts
 - **Resource management**: Proper cleanup of HTTP connections and sessions
 

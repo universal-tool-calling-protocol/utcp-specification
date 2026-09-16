@@ -233,7 +233,7 @@ The implementation intelligently processes MCP responses:
 - **OAuth2 client-credentials flow**: The manual-level `auth` is applied to HTTP-based servers as the connection's bearer credential, unless the server entry already carries its own (`auth_token` or an `Authorization` header). The token endpoint must be HTTPS or a literal loopback address, redirects from it are refused, and the returned `access_token` must be a non-empty string of visible ASCII. Tokens are cached per full credential configuration (token URL, client id, secret, scope), never shared between manuals that merely share a client id, and concurrent first-time requests share a single token fetch
 - **Session management**: Persistent sessions with automatic error recovery
 - **Environment variables**: Use `${VAR_NAME}` syntax for sensitive credentials
-- **Transport security**: stdio inherits process security. HTTP and WebSocket server URLs are validated before any connection is made: HTTPS/WSS anywhere, plain HTTP/WS only to a literal loopback address. Sessions are isolated per server configuration and credentials, so two manuals that name a server the same but point at different configurations never share a session
+- **Transport security**: stdio inherits process security. A server `url` is validated before any connection is made, whether it is HTTP or WebSocket (a `ws://`/`wss://` URL is served by the underlying MCP client's WebSocket connector): HTTPS/WSS anywhere, plain HTTP/WS only to a literal loopback address. Sessions are isolated per server configuration and credentials, so two manuals that name a server the same but point at different configurations never share a session
 
 ## Error Handling
 
