@@ -398,7 +398,7 @@ data: {"message": "Simple data without event type"}
 The SSE protocol implementation provides:
 
 - **Async streaming**: Real-time event processing with async generators
-- **Automatic reconnection**: When `reconnect` is true and an established stream drops, the client waits `retry_timeout` ms (overridden by any `retry:` field the server sent, capped at 60 s), reconnects with the `Last-Event-ID` header so the server can resume, and gives up after 5 reconnects per call; a reconnect handshake that fails counts as an attempt and is retried. A clean end of stream completes the call, and connection or HTTP errors on the initial request fail immediately. The handshake itself is limited to 30 s so a silent server cannot hang a call
+- **Automatic reconnection**: When `reconnect` is true, the call sent no request body (a call with a `body_field` is never re-issued, since that could re-execute a non-idempotent tool — see the error table) and an established stream drops, the client waits `retry_timeout` ms (overridden by any `retry:` field the server sent, capped at 60 s), reconnects with the `Last-Event-ID` header so the server can resume, and gives up after 5 reconnects per call; a reconnect handshake that fails counts as an attempt and is retried. A clean end of stream completes the call, and connection or HTTP errors on the initial request fail immediately. The handshake itself is limited to 30 s so a silent server cannot hang a call
 - **Event filtering**: Client-side filtering by `event_type`
 - **Authentication caching**: OAuth2 tokens cached per full credential configuration
 - **Security enforcement**: HTTPS or loopback connections only; a remote manual may not target loopback tool URLs

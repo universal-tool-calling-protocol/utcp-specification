@@ -418,7 +418,7 @@ Implement automated security validation:
 - [ ] **CLI**: Sandboxed execution, input sanitization
 - [ ] **SSE**: Authenticated connections, event limits
 - [ ] **Text**: Path validation, size limits
-- [ ] **MCP**: Trusted servers, HTTPS/loopback-only server URLs, resource limits
+- [ ] **MCP**: Trusted servers; server URLs HTTPS/WSS anywhere and plain HTTP/WS only to loopback; resource limits
 
 By following these security guidelines, you can safely implement UTCP while maintaining strong security posture across all communication protocols.
 

@@ -215,7 +215,7 @@ The HTTP protocol enforces secure connections by only allowing:
 
 Any other HTTP URL is rejected with a security error to prevent man-in-the-middle attacks. The rule applies to manual discovery, tool invocation and OAuth2 token endpoints alike, and every redirect hop is re-validated, with credentials not forwarded across origins.
 
-The loopback allowance exists for local development, so it is not extended to remote content: a manual or OpenAPI specification discovered from a non-loopback origin may not declare loopback tool URLs. Whether discovery counts as local is decided by the final origin after redirects.
+The loopback allowance exists for local development, so it is not extended to remote content: a manual or OpenAPI specification discovered from a non-loopback origin may not declare loopback tool URLs. A redirect is never followed from a non-loopback origin into loopback, so a remote server can neither steer a request at the agent's own services nor make what loopback serves look locally discovered; discovery counts as local only when it was addressed to loopback and stayed there. A loopback discovery that redirects to a remote origin is serving remote content and loses the allowance.
 
 ### OAuth2 Token Caching
 OAuth2 tokens are cached per full credential configuration (token URL, client id, secret and scope) to avoid repeated authentication requests; two templates that share only a `client_id` never receive each other's tokens. The token endpoint is validated by the HTTPS enforcement rule before credentials are sent. The protocol supports both:
