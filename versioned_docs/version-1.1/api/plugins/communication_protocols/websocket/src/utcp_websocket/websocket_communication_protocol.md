@@ -34,7 +34,7 @@ by requiring WSS or localhost connections.
 
 - **`_connections`**: Active WebSocket connections by provider key.
 - **`_sessions`**: aiohttp ClientSessions for connection management.
-- **`_oauth_tokens`**: Cache of OAuth2 tokens by client_id.
+- **`_oauth_tokens`**: Cache of OAuth2 tokens keyed by the full credential configuration (``[OAuth2Auth](./../../../../../core/utcp/data/auth_implementations/oauth2_auth.md#oauth2auth).cache_key``).
 </details>
 
 #### Methods:

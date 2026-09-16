@@ -55,7 +55,7 @@ For detailed field specifications, examples, and validation rules, see:
 |-------|------|----------|-------------|
 | `call_template_type` | string | Yes | Always "sse" for SSE providers |
 | `url` | string | Yes | SSE endpoint URL with optional path parameters like `{stream_id}` |
-| `event_type` | string | No | Filter for specific event types (default: all events) |
+| `event_type` | string | No | Filter for specific event types (default: all events). Events without an `event:` field have the type `message` |
 | `reconnect` | boolean | No | Auto-reconnect on connection loss (default: true) |
 | `retry_timeout` | number | No | Retry timeout in milliseconds (default: 30000) |
 | `headers` | object | No | Static headers for the initial connection |
@@ -323,11 +323,15 @@ data: {"message": "Simple data without event type"}
 
 | Error Type | Description | Handling |
 |------------|-------------|----------|
-| Connection Failed | Cannot connect to SSE endpoint | Raise `SSEConnectionError` |
-| Stream Timeout | No events received within timeout | Return partial results |
-| Parse Error | Invalid SSE event format | Skip malformed events |
-| Authentication Failed | Invalid credentials | Raise `SSEAuthError` |
-| Server Error | HTTP 5xx response | Raise `SSEServerError` |
+| Connection Failed | Cannot connect to the SSE endpoint | Raised immediately, no retry |
+| Connection Lost | An established stream drops before the server ends it | If `reconnect` is true and the call sent no request body: wait `retry_timeout` ms (or the last `retry:` value sent by the server, capped at 60 s), reconnect with the `Last-Event-ID` header, up to 5 reconnects per call. A reconnect handshake that fails counts as one attempt and is retried. Calls with a `body_field` are never re-issued, since that could re-execute a non-idempotent tool. Otherwise raised |
+| Not an Event Stream | The server answers 200 with a Content-Type other than `text/event-stream` | Raised immediately, never retried |
+| Handshake Stalled | The server accepts the connection but never sends response headers | Raised after 30 s. Reading the stream itself is not time-limited |
+| Malformed Stream | An event exceeds 16 MiB without a blank-line delimiter | Raised immediately, never retried |
+| Clean End of Stream | The server closes the stream normally | The tool call completes; never triggers a reconnect |
+| Parse Error | Event `data` is not valid JSON | Yielded as a raw string |
+| Authentication Failed | HTTP 401/403 response | Raised immediately |
+| Other HTTP Error | Any other 4xx or 5xx response | Raised immediately |
 
 ## Best Practices
 
@@ -357,7 +361,7 @@ data: {"message": "Simple data without event type"}
 ```
 
 ### OAuth2 Token Management
-- **Automatic token caching**: Tokens cached by client_id
+- **Automatic token caching**: Tokens cached per full credential configuration
 - **Token refresh**: Automatic token refresh on expiration
 - **Client credentials flow**: Supports OAuth2 client credentials grant
 
@@ -394,10 +398,10 @@ data: {"message": "Simple data without event type"}
 The SSE protocol implementation provides:
 
 - **Async streaming**: Real-time event processing with async generators
-- **Automatic reconnection**: Configurable via `reconnect` and `retry_timeout` fields
+- **Automatic reconnection**: When `reconnect` is true and an established stream drops, the client waits `retry_timeout` ms (overridden by any `retry:` field the server sent, capped at 60 s), reconnects with the `Last-Event-ID` header so the server can resume, and gives up after 5 reconnects per call; a reconnect handshake that fails counts as an attempt and is retried. A clean end of stream completes the call, and connection or HTTP errors on the initial request fail immediately. The handshake itself is limited to 30 s so a silent server cannot hang a call
 - **Event filtering**: Client-side filtering by `event_type`
-- **Authentication caching**: OAuth2 tokens cached by client_id
-- **Security enforcement**: HTTPS or localhost connections only
+- **Authentication caching**: OAuth2 tokens cached per full credential configuration
+- **Security enforcement**: HTTPS or loopback connections only; a remote manual may not target loopback tool URLs
 - **Error handling**: Graceful handling of connection failures and retries
 
 ### Usage Example

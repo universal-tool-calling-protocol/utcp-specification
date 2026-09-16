@@ -95,6 +95,16 @@ Secure your UTCP manual endpoints:
 
 ## Protocol-Specific Security
 
+### Client-Enforced Trust Boundary
+
+Reference clients enforce these rules regardless of configuration; design tools and manuals against them:
+
+- **Allowed destinations**: every URL a client connects to (manual discovery, tool invocation, OAuth2 token endpoints, MCP server URLs) must use HTTPS/WSS, or plain HTTP/WS to a literal loopback address only. Plain HTTP/WS to any other host is rejected.
+- **Redirects**: each hop is re-validated against the same rule, and credentials (auth headers, cookies, query keys, request bodies) are not forwarded across origins.
+- **No redirection at loopback**: a manual or OpenAPI specification discovered from a non-loopback origin may not declare tool or server URLs on the loopback interface. The local-development exemption is decided by the final origin after redirects, so a loopback URL that redirects to a remote origin does not keep it.
+- **OAuth2 token endpoints**: validated by the destination rule before any credentials are sent, with redirects handled under the same rule; tokens are cached per full credential configuration and never shared between configurations that only share a client id.
+- **MCP**: manual-level OAuth2 is applied as the bearer credential for HTTP-based servers unless the server entry carries its own; redirects from the token endpoint are refused and the returned `access_token` must be a non-empty string of visible ASCII; sessions are isolated per server configuration and credentials.
+
 ### HTTP/HTTPS Security
 
 **Required configurations:**
@@ -230,6 +240,7 @@ CLI execution poses significant security risks. Use with extreme caution.
 
 **Security considerations:**
 - ✅ Use trusted MCP server implementations
+- ✅ Server URLs are validated: HTTPS/WSS anywhere, plain HTTP/WS to loopback only
 - ✅ Sandbox MCP server processes
 - ✅ Limit server resource usage
 - ✅ Monitor server health and logs
@@ -403,11 +414,11 @@ Implement automated security validation:
 
 ### Protocol-Specific Security
 
-- [ ] **HTTP**: HTTPS only, certificate validation
+- [ ] **HTTP**: HTTPS or loopback only, certificate validation; remote manuals cannot target loopback
 - [ ] **CLI**: Sandboxed execution, input sanitization
 - [ ] **SSE**: Authenticated connections, event limits
 - [ ] **Text**: Path validation, size limits
-- [ ] **MCP**: Trusted servers, resource limits
+- [ ] **MCP**: Trusted servers, HTTPS/loopback-only server URLs, resource limits
 
 By following these security guidelines, you can safely implement UTCP while maintaining strong security posture across all communication protocols.
 

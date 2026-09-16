@@ -95,12 +95,24 @@ it returns the content of stderr.
 <details>
 <summary>async call_tool_streaming(self, caller, tool_name: str, tool_args: Dict[str, Any], tool_call_template: [CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) -> AsyncGenerator[Any, None]</summary>
 
-Streaming calls are not supported for the CLI protocol.
+Execute a tool call through the CLI transport streamingly.
+
+The CLI protocol does not natively support streaming, so the command is
+executed to completion and the full result is yielded as a single chunk.
 
 
-**Raises**
+**Args**
 
-- **`NotImplementedError`**: Always, as this functionality is not supported.
+- **`caller`**: The UTCP client that is calling this method.
+- **`tool_name`**: Name of the tool to call.
+- **`tool_args`**: Dictionary of arguments to pass to the tool.
+- **`tool_call_template`**: Call template of the tool to call.
+
+
+
+**Yields**
+
+The complete tool result as a single item.
 </details>
 
 ---

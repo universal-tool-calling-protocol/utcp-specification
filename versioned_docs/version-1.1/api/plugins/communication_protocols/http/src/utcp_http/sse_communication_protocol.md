@@ -11,6 +11,13 @@ sidebar_label: sse_communication_protocol
 
 *No class documentation available*
 
+#### Fields:
+
+- MAX_RECONNECT_ATTEMPTS: int
+- MAX_RECONNECT_DELAY_MS: int
+- HANDSHAKE_TIMEOUT_SECONDS: float
+- MAX_EVENT_BUFFER_CHARS: int
+
 #### Methods:
 
 <details>
