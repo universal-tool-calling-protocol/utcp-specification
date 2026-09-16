@@ -30,14 +30,20 @@ sources.
 
 **Attributes**
 
+variables (Optional[Dict[str, str]]): A dictionary of directly-defined
 variables for substitution.
+load_variables_from (Optional[List[[VariableLoader](./variable_loader.md#variableloader)]]): A list of
 variable loader configurations for loading variables from external
 sources like .env files or remote services.
+tool_repository ([ConcurrentToolRepository](./../interfaces/concurrent_tool_repository.md#concurrenttoolrepository)): Configuration for the tool
 repository, which manages the storage and retrieval of tools.
 Defaults to an in-memory repository.
+tool_search_strategy ([ToolSearchStrategy](./../interfaces/tool_search_strategy.md#toolsearchstrategy)): Configuration for the tool
 search strategy, defining how tools are looked up. Defaults to a
 tag and description-based search.
+post_processing (List[[ToolPostProcessor](./../interfaces/tool_post_processor.md#toolpostprocessor)]): A list of tool post-processor
 configurations to be applied after a tool call.
+manual_call_templates (List[[CallTemplate](./call_template.md#calltemplate)]): A list of manually defined
 call templates for registering tools that don't have a provider.
 
 
@@ -81,9 +87,7 @@ call templates for registering tools that don't have a provider.
 [Serializer](./../interfaces/serializer.md#serializer) for UTCP client configurations.
 
 Defines the contract for serializers that convert UTCP client configurations to and from
-
-**Dictionaries For Storage Or Transmission. Serializers Are Responsible For**
-
+dictionaries for storage or transmission. Serializers are responsible for:
 - Converting UTCP client configurations to dictionaries for storage or transmission
 - Converting dictionaries back to UTCP client configurations
 - Ensuring data consistency during serialization and deserialization

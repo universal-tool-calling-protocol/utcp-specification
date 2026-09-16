@@ -41,20 +41,24 @@ For file-based manuals, use the file protocol instead.
 
 ### class TextCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[TextCallTemplate]) {#textcalltemplateserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for TextCallTemplate.
+</details>
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: TextCallTemplate) -> dict</summary>
 
-*No method documentation available*
+Convert a TextCallTemplate to a dictionary.
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> TextCallTemplate</summary>
 
-*No method documentation available*
+Validate and convert a dictionary to a TextCallTemplate.
 </details>
 
 ---

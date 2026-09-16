@@ -66,9 +66,7 @@ JSON Schema for tool inputs and outputs.
 [Serializer](./../interfaces/serializer.md#serializer) for JSON Schema.
 
 Defines the contract for serializers that convert JSON Schema to and from
-
-**Dictionaries For Storage Or Transmission. Serializers Are Responsible For**
-
+dictionaries for storage or transmission. Serializers are responsible for:
 - Converting JSON Schema to dictionaries for storage or transmission
 - Converting dictionaries back to JSON Schema
 - Ensuring data consistency during serialization and deserialization
@@ -155,9 +153,7 @@ functionality in the UTCP ecosystem.
 [Serializer](./../interfaces/serializer.md#serializer) for tools.
 
 Defines the contract for serializers that convert tools to and from
-
-**Dictionaries For Storage Or Transmission. Serializers Are Responsible For**
-
+dictionaries for storage or transmission. Serializers are responsible for:
 - Converting tools to dictionaries for storage or transmission
 - Converting dictionaries back to tools
 - Ensuring data consistency during serialization and deserialization

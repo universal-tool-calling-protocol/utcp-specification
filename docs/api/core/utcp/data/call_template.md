@@ -48,9 +48,7 @@ inherit from. It provides the common fields that every provider must have.
 [Serializer](./../interfaces/serializer.md#serializer) for call templates.
 
 Defines the contract for serializers that convert call templates to and from
-
-**Dictionaries For Storage Or Transmission. Serializers Are Responsible For**
-
+dictionaries for storage or transmission. Serializers are responsible for:
 - Converting call templates to dictionaries for storage or transmission
 - Converting dictionaries back to call templates
 - Ensuring data consistency during serialization and deserialization

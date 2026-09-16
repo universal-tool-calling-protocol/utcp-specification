@@ -15,18 +15,16 @@ sidebar_label: default_variable_substitutor
 Default implementation of variable substitution.
 
 Provides a hierarchical variable resolution system that searches for
-
-**Variables In The Following Order**
-
+variables in the following order:
 1. Configuration variables (exact match)
 2. Custom variable loaders (in order)
 3. Environment variables
 
 
-
 **Features**
 
 - Provider-specific variable namespacing
+- Multiple variable syntax support: $\{VAR\} and $VAR
 - Hierarchical variable resolution
 - Recursive substitution in nested data structures
 - Variable discovery for validation
@@ -76,7 +74,7 @@ non-string values are preserved.
 
 **Raises**
 
-- **`[UtcpVariableNotFound](./../exceptions/utcp_variable_not_found_exception.md#utcpvariablenotfound)`**: If any referenced variable cannot be resolved.
+- **`UtcpVariableNotFound`**: If any referenced variable cannot be resolved.
 - **`ValueError`**: If variable_namespace contains invalid characters.
 
 

@@ -38,20 +38,24 @@ For direct text content, use the text protocol instead.
 
 ### class FileCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[FileCallTemplate]) {#filecalltemplateserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for FileCallTemplate.
+</details>
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: FileCallTemplate) -> dict</summary>
 
-*No method documentation available*
+Convert a FileCallTemplate to a dictionary.
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> FileCallTemplate</summary>
 
-*No method documentation available*
+Validate and convert a dictionary to a FileCallTemplate.
 </details>
 
 ---

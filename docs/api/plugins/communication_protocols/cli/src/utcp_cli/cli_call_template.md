@@ -52,8 +52,9 @@ Configuration for a single command step in a CLI execution flow.
 
 
 
-**Basic Command Step**
+**Examples**
 
+Basic command step:
 ```json
     {
       "command": "git status",
@@ -61,10 +62,7 @@ Configuration for a single command step in a CLI execution flow.
     }
 ```
 
-
-
-**Command With Argument Placeholders And Output Reference**
-
+Command with argument placeholders and output reference:
 ```json
     {
       "command": "echo "Cloning to: UTCP_ARG_target_dir_UTCP_END, previous status: $CMD_0_OUTPUT"",
@@ -91,14 +89,22 @@ This class defines the configuration for executing command-line tools and
 programs as UTCP tool providers. Commands are executed in a single subprocess
 to maintain state (like directory changes) between commands.
 
+**Cross-Platform Script Generation:**
+- **Windows**: Commands are converted to a PowerShell script
+- **Unix/Linux/macOS**: Commands are converted to a Bash script
 
+**Command Syntax Requirements:**
+- Windows: Use PowerShell syntax (e.g., `Get-ChildItem`, `Set-Location`)
+- Unix: Use Bash/shell syntax (e.g., `ls`, `cd`)
 
-
-**You Can Reference The Output Of Previous Commands Using Variables**
-
+**Referencing Previous Command Output:**
+You can reference the output of previous commands using variables:
+- **PowerShell**: `$CMD_0_OUTPUT`, `$CMD_1_OUTPUT`, etc.
+- **Bash**: `$CMD_0_OUTPUT`, `$CMD_1_OUTPUT`, etc.
 
 - **`Example`**: `echo "Previous result: $CMD_0_OUTPUT"`
 
+**Argument Substitution:**
 ``UTCP_ARG_argname_UTCP_END`` placeholders are replaced with a
 context-aware shell variable reference (``"$VAR"`` outside quotes,
 ``$\{VAR\}`` inside double quotes, an adjacent-quote concat trick
@@ -112,6 +118,7 @@ A placeholder always substitutes a single logical value (never a
 list of shell words). Several placeholders may appear in one
 quoted region and compose with the surrounding text into one
 argument (e.g.
+``"https://api/UTCP_ARG_id_UTCP_END/UTCP_ARG_action_UTCP_END"``).
 If a tool needs multiple separate flags, use one placeholder per
 flag in bare position. PowerShell single-quoted strings cannot
 expand variables, so a placeholder inside ``'...'`` on Windows
@@ -121,23 +128,24 @@ tracked as GHSA-33p6-5jxp-p3x4 (and its residual
 double-quote-context bypass that the inline ``shlex.quote``
 strategy in 1.1.2 left open).
 
+**Subprocess Environment (utcp-cli >= 1.1.2):**
 The CLI subprocess no longer inherits the full host environment.
-
-
-**Inheritance Is Controlled By `Inherit_Env_Vars`**
-
+Inheritance is controlled by `inherit_env_vars`:
+- Omitted / `null`: a built-in default allowlist of host variables
 is passed through (e.g. `PATH`, `PATHEXT`, `SYSTEMROOT`, `HOME`,
 `LANG`) so shells and binaries can be located normally.
+- []: strict mode — nothing from the host environment is
 inherited; only `env_vars` is propagated.
+- ["FOO", "BAR"]: exactly those host variables are passed
 through. The default allowlist is NOT merged in, so callers that
 still need `PATH` must list it explicitly.
 `env_vars` is always applied on top and overrides any inherited
 value. Values in `env_vars` may be plain strings or `$\{VARNAME\}`
 style placeholders resolved by the UTCP client's variable
+substitutor (note: those placeholders are resolved against the UTCP
 client's variable sources, not against the host shell — to forward
 a host variable by name use `inherit_env_vars`). This closes the
 secret-exfiltration vector tracked as GHSA-5v57-8rxj-3p2r.
-
 
 
 **Attributes**
@@ -146,8 +154,10 @@ secret-exfiltration vector tracked as GHSA-5v57-8rxj-3p2r.
 - **`commands`**: A list of CommandStep objects defining the commands to execute
   in order. Each command can contain UTCP_ARG_argname_UTCP_END placeholders
   that will be replaced with values from tool_args during execution.
-  Placeholders are shell-quoted and therefore expand to exactly one
-  shell token (see class docstring).
+  Each placeholder becomes a shell-variable reference whose value
+  reaches the subprocess through a per-invocation environment
+  variable, so it expands to exactly one shell token and cannot be
+  reinterpreted as shell syntax (see class docstring).
 - **`env_vars`**: A dictionary of environment variables to set for the command's
   execution context. Values can be static strings or placeholders for
   variables from the UTCP client's variable substitutor. Always
@@ -177,8 +187,9 @@ secret-exfiltration vector tracked as GHSA-5v57-8rxj-3p2r.
 
 
 
-**Cross-Platform Directory Operations**
+**Examples**
 
+Cross-platform directory operations:
 ```json
     {
       "name": "cross_platform_dir_tool",
@@ -196,10 +207,7 @@ secret-exfiltration vector tracked as GHSA-5v57-8rxj-3p2r.
     }
 ```
 
-
-
-**Referencing Previous Command Output**
-
+Referencing previous command output:
 ```json
     {
       "name": "reference_previous_output_tool",
@@ -217,10 +225,7 @@ secret-exfiltration vector tracked as GHSA-5v57-8rxj-3p2r.
     }
 ```
 
-
-
-**Command With Environment Variables, Host Pass-Through, And Placeholders**
-
+Command with environment variables, host pass-through, and placeholders:
 ```json
     {
       "name": "python_multi_step_tool",
@@ -248,9 +253,11 @@ secret-exfiltration vector tracked as GHSA-5v57-8rxj-3p2r.
 
 - Commands are executed in a subprocess. Ensure that the commands
 specified are from a trusted source.
-- `tool_args` values are shell-quoted on substitution, but the
-*command template itself* is not — never assemble it from
-untrusted input.
+- tool_args values never touch the command text: they reach the
+subprocess through per-invocation environment variables and the
+shell expands them only after it has parsed the script. The
+*command template itself* has no such protection — never assemble
+it from untrusted input.
 - The host environment is restricted; secrets are not propagated
 unless explicitly named in `env_vars` or `inherit_env_vars`.
 - Commands should use the appropriate syntax for the target platform
@@ -272,7 +279,15 @@ used carefully to avoid command injection.
 
 ### class CliCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[CliCallTemplate]) {#clicalltemplateserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for converting between `CliCallTemplate` and dictionary representations.
+
+This class handles the serialization and deserialization of `CliCallTemplate`
+objects, ensuring that they can be correctly represented as dictionaries and
+reconstructed from them, with validation.
+</details>
 
 #### Methods:
 
@@ -313,7 +328,7 @@ A `CliCallTemplate` instance.
 
 **Raises**
 
-- **`[UtcpSerializerValidationError](./../../../../../core/utcp/exceptions/utcp_serializer_validation_error.md#utcpserializervalidationerror)`**: If the dictionary is not a valid
+- **`UtcpSerializerValidationError`**: If the dictionary is not a valid
   representation of a `CliCallTemplate`.
 </details>
 

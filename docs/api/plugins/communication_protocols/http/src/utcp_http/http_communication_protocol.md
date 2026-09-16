@@ -22,6 +22,7 @@ Enforces security by requiring HTTPS or localhost connections.
 **Features**
 
 - RESTful API communication with configurable HTTP methods
+- Multiple authentication: API key (header/query/cookie), Basic, OAuth2
 - URL path parameter substitution from tool arguments
 - [Tool](./../../../../../core/utcp/data/tool.md#tool) discovery from UTCP manuals, OpenAPI specs, and YAML
 - Request body and header field mapping from tool arguments
@@ -33,7 +34,7 @@ Enforces security by requiring HTTPS or localhost connections.
 **Attributes**
 
 - **`_session`**: Optional aiohttp ClientSession for connection reuse.
-- **`_oauth_tokens`**: Cache of OAuth2 tokens keyed by the full credential configuration (``[OAuth2Auth](./../../../../../core/utcp/data/auth_implementations/oauth2_auth.md#oauth2auth).cache_key``).
+- **`_oauth_tokens`**: Cache of OAuth2 tokens keyed by the full credential configuration ([OAuth2Auth](./../../../../../core/utcp/data/auth_implementations/oauth2_auth.md#oauth2auth)'s ``cache_key``).
 - **`_log`**: Logger function for debugging and error reporting.
 </details>
 
@@ -60,7 +61,9 @@ Register a manual and its tools.
 <details>
 <summary>async deregister_manual(self, caller, manual_call_template: [CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) -> None</summary>
 
-*No method documentation available*
+Deregister a manual and its tools.
+
+Deregistering a manual is a no-op for the stateless HTTP communication protocol.
 </details>
 
 <details>

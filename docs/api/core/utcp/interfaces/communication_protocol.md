@@ -18,17 +18,38 @@ Defines the contract that all transport implementations must follow to
 integrate with the UTCP client. Each transport handles communication
 with a specific type of provider (HTTP, CLI, WebSocket, etc.).
 
-
-**Transport Implementations Are Responsible For**
-
+Transport implementations are responsible for:
 - Discovering available tools from providers
 - Managing provider lifecycle (registration/deregistration)
 - Executing tool calls through the appropriate protocol
+
+A protocol is registered in one of two registries, and the choice decides
+who its state belongs to:
+
+- `communication_protocols` holds an INSTANCE that is shared by every
+`UtcpClient` in the process, and so is any state it keeps. That is the
+right home for state that is meant to be shared (a credential cache, a
+registry a decorator writes into). The instance
+lives as long as the process that registered it; no client closes it.
+- `communication_protocol_factories` holds a FACTORY, for a protocol whose
+state must not be shared between clients: live sessions or connections
+keyed per manual, child processes — anything one client's use or
+`close()` would take away from another. Each `UtcpClient` calls it once
+— at creation, or on first use for a factory registered later — so each
+client gets its own instance, its own connections, and its own teardown
+on `close()`. That is what makes a client per tenant, per user, or per
+pooled connection actually isolate them, rather than every client
+reaching into one shared instance.
+
+A type registered as a factory wins over the same type registered as an
+instance, so a plugin migrates by moving its registration from one
+registry to the other and callers change nothing.
 </details>
 
 #### Fields:
 
 - communication_protocols: dict[str, 'CommunicationProtocol']
+- communication_protocol_factories: dict[str, Callable[[], 'CommunicationProtocol']]
 
 #### Methods:
 
@@ -147,6 +168,21 @@ An async generator that yields the tool's response, with type depending on the t
 - **`ValidationError`**: If the arguments don't match the tool's input schema.
 - **`ConnectionError`**: If unable to communicate with the provider.
 - **`TimeoutError`**: If the tool call exceeds the configured timeout.
+</details>
+
+<details>
+<summary>async close(self) -> None</summary>
+
+Release every connection, session, process or other resource this
+protocol instance holds.
+
+`UtcpClient.close()` calls this on each instance the client created
+from `communication_protocol_factories`, and `UtcpClient.create()`
+calls it on those instances when initialization fails after they were
+created. A shared instance from `communication_protocols` is never
+closed on a client's behalf.
+
+The default releases nothing, for protocols that hold nothing.
 </details>
 
 ---

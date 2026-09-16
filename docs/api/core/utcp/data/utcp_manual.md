@@ -36,27 +36,21 @@ a provider offers and how they should be invoked.
 
 ```python
     @utcp_tool
+    def tool1():
+        pass
 
+    @utcp_tool
+    def tool2():
+        pass
 
-**Def Tool1()**
+    # Create a manual from registered tools
+    manual = UtcpManual.create_from_decorators()
 
-pass
-
-@utcp_tool
-
-
-**Def Tool2()**
-
-pass
-
-# Create a manual from registered tools
-manual = UtcpManual.create_from_decorators()
-
-# Manual with specific tools
-manual = UtcpManual.create_from_decorators(
-manual_version="1.0.0",
-exclude=["tool1"]
-)
+    # Manual with specific tools
+    manual = UtcpManual.create_from_decorators(
+        manual_version="1.0.0",
+        exclude=["tool1"]
+    )
 ```
 </details>
 
@@ -70,7 +64,11 @@ exclude=["tool1"]
 
 ### class UtcpManualSerializer ([Serializer](./../interfaces/serializer.md#serializer)[UtcpManual]) {#utcpmanualserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../interfaces/serializer.md#serializer) for UtcpManual model.
+</details>
 
 #### Methods:
 

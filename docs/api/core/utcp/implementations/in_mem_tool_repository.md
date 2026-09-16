@@ -9,7 +9,15 @@ sidebar_label: in_mem_tool_repository
 
 ### class InMemToolRepository ([ConcurrentToolRepository](./../interfaces/concurrent_tool_repository.md#concurrenttoolrepository)) {#inmemtoolrepository}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+Thread-safe in-memory implementation of `ConcurrentToolRepository`.
+
+Stores tools and their associated manual call templates in dictionaries and
+protects all operations with a read-write lock to ensure consistency under
+concurrency while allowing multiple concurrent readers.
+</details>
 
 #### Methods:
 
@@ -164,7 +172,13 @@ A list of all manual call templates in the repository.
 
 ### class InMemToolRepositoryConfigSerializer ([Serializer](./../interfaces/serializer.md#serializer)[InMemToolRepository]) {#inmemtoolrepositoryconfigserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../interfaces/serializer.md#serializer) for `InMemToolRepository`.
+
+Converts an `InMemToolRepository` instance to a dictionary and vice versa.
+</details>
 
 #### Methods:
 

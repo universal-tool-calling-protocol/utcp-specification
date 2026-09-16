@@ -9,7 +9,17 @@ sidebar_label: cli_communication_protocol
 
 ### class CliCommunicationProtocol ([CommunicationProtocol](./../../../../../core/utcp/interfaces/communication_protocol.md#communicationprotocol)) {#clicommunicationprotocol}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+Communication protocol for interacting with CLI-based tool providers.
+
+This class implements the `CommunicationProtocol` interface to handle
+communication with command-line tools. It discovers tools by executing a
+command specified in a `CliCallTemplate` and parsing the output for a UTCP
+manual. It also executes tool calls by running the corresponding command
+with the provided arguments.
+</details>
 
 #### Methods:
 
@@ -18,7 +28,7 @@ sidebar_label: cli_communication_protocol
 
 Registers a CLI-based manual and discovers its tools.
 
-This method executes the command specified in the `[CliCallTemplate](./cli_call_template.md#clicalltemplate)`'s
+This method executes the command specified in the `CliCallTemplate`'s
 `command_name` field. It then attempts to parse the command's output
 (stdout) as a UTCP manual in JSON format.
 
@@ -26,14 +36,14 @@ This method executes the command specified in the `[CliCallTemplate](./cli_call_
 **Args**
 
 - **`caller`**: The UTCP client instance that is calling this method.
-- **`manual_call_template`**: The `[CliCallTemplate](./cli_call_template.md#clicalltemplate)` containing the details for
+- **`manual_call_template`**: The `CliCallTemplate` containing the details for
   tool discovery, such as the command to run.
 
 
 
 **Returns**
 
-A `[RegisterManualResult](./../../../../../core/utcp/data/register_manual_response.md#registermanualresult)` object indicating whether the registration
+A `RegisterManualResult` object indicating whether the registration
 was successful and containing the discovered tools.
 
 
@@ -41,7 +51,7 @@ was successful and containing the discovered tools.
 **Raises**
 
 - **`ValueError`**: If the `manual_call_template` is not an instance of
-  `[CliCallTemplate](./cli_call_template.md#clicalltemplate)` or if `command_name` is not set.
+  `CliCallTemplate` or if `command_name` is not set.
 </details>
 
 <details>
@@ -65,7 +75,7 @@ connections to terminate.
 Calls a CLI tool by executing its command.
 
 This method constructs and executes the command specified in the
-`[CliCallTemplate](./cli_call_template.md#clicalltemplate)`. It formats the provided `tool_args` as command-line
+`CliCallTemplate`. It formats the provided `tool_args` as command-line
 arguments and runs the command in a subprocess.
 
 
@@ -74,7 +84,7 @@ arguments and runs the command in a subprocess.
 - **`caller`**: The UTCP client instance that is calling this method.
 - **`tool_name`**: The name of the tool to call.
 - **`tool_args`**: A dictionary of arguments for the tool call.
-- **`tool_call_template`**: The `[CliCallTemplate](./cli_call_template.md#clicalltemplate)` for the tool.
+- **`tool_call_template`**: The `CliCallTemplate` for the tool.
 
 
 
@@ -89,7 +99,7 @@ it returns the content of stderr.
 **Raises**
 
 - **`ValueError`**: If `tool_call_template` is not an instance of
-  `[CliCallTemplate](./cli_call_template.md#clicalltemplate)` or if `command_name` is not set.
+  `CliCallTemplate` or if `command_name` is not set.
 </details>
 
 <details>

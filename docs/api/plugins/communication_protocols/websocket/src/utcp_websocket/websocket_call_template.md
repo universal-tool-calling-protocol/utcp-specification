@@ -18,8 +18,9 @@ Supports real-time bidirectional communication via WebSocket protocol with
 various message formats, authentication methods, and connection management features.
 
 
-**Basic Websocket Connection**
+**Configuration Examples**
 
+Basic WebSocket connection:
 ```json
     {
       "name": "realtime_service",
@@ -28,10 +29,7 @@ various message formats, authentication methods, and connection management featu
     }
 ```
 
-
-
-**With Authentication**
-
+With authentication:
 ```json
     {
       "name": "secure_websocket",
@@ -48,10 +46,7 @@ various message formats, authentication methods, and connection management featu
     }
 ```
 
-
-
-**Custom Message Format**
-
+Custom message format:
 ```json
     {
       "name": "custom_format_ws",
@@ -95,6 +90,13 @@ various message formats, authentication methods, and connection management featu
 
 ### class WebSocketCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[WebSocketCallTemplate]) {#websocketcalltemplateserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for WebSocket call templates.
+
+Handles conversion between WebSocketCallTemplate objects and dictionaries
+for storage, transmission, and configuration parsing.
+</details>
 
 ---

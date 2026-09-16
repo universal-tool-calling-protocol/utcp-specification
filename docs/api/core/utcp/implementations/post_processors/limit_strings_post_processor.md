@@ -43,6 +43,10 @@ tools or manuals.
 
 ### class LimitStringsPostProcessorConfigSerializer ([Serializer](./../../interfaces/serializer.md#serializer)[LimitStringsPostProcessor]) {#limitstringspostprocessorconfigserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../interfaces/serializer.md#serializer) for LimitStringsPostProcessor configuration.
+</details>
 
 ---

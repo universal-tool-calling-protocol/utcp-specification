@@ -39,7 +39,11 @@ Supports placement in headers, query parameters, or cookies.
 
 ### class ApiKeyAuthSerializer ([Serializer](./../../interfaces/serializer.md#serializer)[ApiKeyAuth]) {#apikeyauthserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../interfaces/serializer.md#serializer) for ApiKeyAuth model.
+</details>
 
 #### Methods:
 

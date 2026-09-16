@@ -14,16 +14,13 @@ sidebar_label: tag_search
 
 Tag and description word match strategy.
 
-
-**Implements A Weighted Scoring System That Matches Tools Based On**
-
+Implements a weighted scoring system that matches tools based on:
 1. Tag matches (higher weight)
 2. Description word matches (lower weight)
 
 The strategy normalizes queries to lowercase, extracts words using regex,
 and calculates relevance scores for each tool. Results are sorted by
 score in descending order.
-
 
 
 **Attributes**
@@ -74,7 +71,13 @@ A list of tools that match the query.
 
 ### class TagAndDescriptionWordMatchStrategyConfigSerializer ([Serializer](./../interfaces/serializer.md#serializer)[TagAndDescriptionWordMatchStrategy]) {#taganddescriptionwordmatchstrategyconfigserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../interfaces/serializer.md#serializer) for `TagAndDescriptionWordMatchStrategy`.
+
+Converts a `TagAndDescriptionWordMatchStrategy` instance to a dictionary and vice versa.
+</details>
 
 #### Methods:
 

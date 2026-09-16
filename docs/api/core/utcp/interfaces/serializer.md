@@ -15,9 +15,7 @@ sidebar_label: serializer
 Abstract interface for serializers.
 
 Defines the contract for serializers that convert objects to and from
-
-**Dictionaries For Storage Or Transmission. Serializers Are Responsible For**
-
+dictionaries for storage or transmission. Serializers are responsible for:
 - Converting objects to dictionaries for storage or transmission
 - Converting dictionaries back to objects
 - Ensuring data consistency during serialization and deserialization

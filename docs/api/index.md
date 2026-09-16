@@ -11,8 +11,8 @@ This specification is organized by module of the reference python implementation
 
 **Note:** The modules don't have to be implemented in the same way as in the reference implementation, but all of the functionality here needs to be provided.
 
-**Total documented items:** 213
-**Modules documented:** 47
+**Total documented items:** 218
+**Modules documented:** 48
 
 ## Core Modules
 
@@ -73,6 +73,11 @@ Core UTCP framework components that define the fundamental interfaces and implem
 - **Contains:** 2 classes, 3 methods
 
 
+### [utcp.exceptions.utcp_protocol_close_error](./core/utcp/exceptions/utcp_protocol_close_error.md)
+
+- **Contains:** 1 classes
+
+
 ### [utcp.exceptions.utcp_serializer_validation_error](./core/utcp/exceptions/utcp_serializer_validation_error.md)
 
 - **Contains:** 1 classes
@@ -110,12 +115,12 @@ Core UTCP framework components that define the fundamental interfaces and implem
 
 ### [utcp.implementations.utcp_client_implementation](./core/utcp/implementations/utcp_client_implementation.md)
 
-- **Contains:** 1 classes, 9 methods
+- **Contains:** 1 classes, 10 methods
 
 
 ### [utcp.interfaces.communication_protocol](./core/utcp/interfaces/communication_protocol.md)
 
-- **Contains:** 1 classes, 4 methods
+- **Contains:** 1 classes, 5 methods
 
 
 ### [utcp.interfaces.concurrent_tool_repository](./core/utcp/interfaces/concurrent_tool_repository.md)
@@ -145,7 +150,7 @@ Core UTCP framework components that define the fundamental interfaces and implem
 
 ### [utcp.plugins.discovery](./core/utcp/plugins/discovery.md)
 
-- **Contains:** 7 functions
+- **Contains:** 8 functions
 
 
 ### [utcp.plugins.plugin_loader](./core/utcp/plugins/plugin_loader.md)
@@ -155,7 +160,7 @@ Core UTCP framework components that define the fundamental interfaces and implem
 
 ### [utcp.utcp_client](./core/utcp/utcp_client.md)
 
-- **Contains:** 1 classes, 9 methods
+- **Contains:** 1 classes, 10 methods
 
 
 ## Plugin Modules

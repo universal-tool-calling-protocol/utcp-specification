@@ -20,8 +20,9 @@ parameters using \{parameter_name\} syntax. All tool arguments not mapped to
 URL body, headers or query pattern parameters are passed as query parameters using '?arg_name=\{arg_value\}'.
 
 
-**Basic Http Get Request**
+**Configuration Examples**
 
+Basic HTTP GET request:
 ```json
     {
       "name": "my_rest_api",
@@ -31,10 +32,7 @@ URL body, headers or query pattern parameters are passed as query parameters usi
     }
 ```
 
-
-
-**Post With Authentication**
-
+POST with authentication:
 ```json
     {
       "name": "secure_api",
@@ -62,10 +60,7 @@ URL body, headers or query pattern parameters are passed as query parameters usi
     }
 ```
 
-
-
-**Oauth2 Authentication**
-
+OAuth2 authentication:
 ```json
     {
       "name": "oauth_api",
@@ -81,10 +76,7 @@ URL body, headers or query pattern parameters are passed as query parameters usi
     }
 ```
 
-
-
-**Basic Authentication**
-
+Basic authentication:
 ```json
     {
       "name": "basic_auth_api",
@@ -131,20 +123,24 @@ URL body, headers or query pattern parameters are passed as query parameters usi
 
 ### class HttpCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[HttpCallTemplate]) {#httpcalltemplateserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for HttpCallTemplate.
+</details>
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: HttpCallTemplate) -> dict</summary>
 
-*No method documentation available*
+Convert HttpCallTemplate to dictionary.
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> HttpCallTemplate</summary>
 
-*No method documentation available*
+Validate dictionary and convert to HttpCallTemplate.
 </details>
 
 ---

@@ -22,6 +22,7 @@ by requiring WSS or localhost connections.
 **Features**
 
 - Real-time WebSocket communication with persistent connections
+- Multiple authentication: API key (header), Basic, OAuth2
 - [Tool](./../../../../../core/utcp/data/tool.md#tool) discovery via WebSocket handshake using UTCP messages
 - Flexible message formats (JSON or text-based with templates)
 - Connection pooling and automatic keep-alive
@@ -34,7 +35,7 @@ by requiring WSS or localhost connections.
 
 - **`_connections`**: Active WebSocket connections by provider key.
 - **`_sessions`**: aiohttp ClientSessions for connection management.
-- **`_oauth_tokens`**: Cache of OAuth2 tokens keyed by the full credential configuration (``[OAuth2Auth](./../../../../../core/utcp/data/auth_implementations/oauth2_auth.md#oauth2auth).cache_key``).
+- **`_oauth_tokens`**: Cache of OAuth2 tokens keyed by the full credential configuration ([OAuth2Auth](./../../../../../core/utcp/data/auth_implementations/oauth2_auth.md#oauth2auth)'s ``cache_key``).
 </details>
 
 #### Methods:
@@ -44,6 +45,7 @@ by requiring WSS or localhost connections.
 
 Register a manual and its tools via WebSocket discovery.
 
+Sends a discovery message: \{"type": "utcp"\}
 Expects a [UtcpManual](./../../../../../core/utcp/data/utcp_manual.md#utcpmanual) response with tools.
 
 
@@ -76,13 +78,10 @@ Deregister a manual by closing its WebSocket connection.
 
 Execute a tool call through WebSocket.
 
-
-**Provides Maximum Flexibility To Support Any Websocket Response Format**
-
+Provides maximum flexibility to support ANY WebSocket response format:
 - If response_format is specified, parses accordingly
 - Otherwise, returns the raw response (string or bytes)
 - No enforced response structure - works with any WebSocket endpoint
-
 
 
 **Args**

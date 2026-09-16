@@ -34,9 +34,7 @@ Authentication details for a provider.
 [Serializer](./../interfaces/serializer.md#serializer) for authentication details.
 
 Defines the contract for serializers that convert authentication details to and from
-
-**Dictionaries For Storage Or Transmission. Serializers Are Responsible For**
-
+dictionaries for storage or transmission. Serializers are responsible for:
 - Converting authentication details to dictionaries for storage or transmission
 - Converting dictionaries back to authentication details
 - Ensuring data consistency during serialization and deserialization

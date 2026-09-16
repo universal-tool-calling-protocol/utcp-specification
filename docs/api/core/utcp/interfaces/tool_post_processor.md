@@ -15,9 +15,7 @@ sidebar_label: tool_post_processor
 Abstract interface for tool post processors.
 
 Defines the contract for tool post processors that process the result of a tool call.
-
-**[Tool](./../data/tool.md#tool) Post Processors Are Responsible For**
-
+[Tool](./../data/tool.md#tool) post processors are responsible for:
 - Processing the result of a tool call
 - Returning the processed result
 </details>
@@ -58,9 +56,7 @@ The processed result.
 [Serializer](./serializer.md#serializer) for tool post processors.
 
 Defines the contract for serializers that convert tool post processors to and from
-
-**Dictionaries For Storage Or Transmission. Serializers Are Responsible For**
-
+dictionaries for storage or transmission. Serializers are responsible for:
 - Converting tool post processors to dictionaries for storage or transmission
 - Converting dictionaries back to tool post processors
 - Ensuring data consistency during serialization and deserialization

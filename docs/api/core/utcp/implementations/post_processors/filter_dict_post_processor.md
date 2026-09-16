@@ -44,6 +44,10 @@ Can be configured to apply filtering only to specific tools or manuals.
 
 ### class FilterDictPostProcessorConfigSerializer ([Serializer](./../../interfaces/serializer.md#serializer)[FilterDictPostProcessor]) {#filterdictpostprocessorconfigserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../interfaces/serializer.md#serializer) for FilterDictPostProcessor configuration.
+</details>
 
 ---

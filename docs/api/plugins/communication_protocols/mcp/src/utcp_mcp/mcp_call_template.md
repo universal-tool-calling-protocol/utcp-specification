@@ -44,8 +44,9 @@ interfaces. Supports both stdio (local process) and HTTP (remote)
 transport methods.
 
 
-**Basic Mcp Server With Stdio Transport**
+**Configuration Examples**
 
+Basic MCP server with stdio transport:
 ```json
     {
       "name": "mcp_server",
@@ -62,10 +63,7 @@ transport methods.
     }
 ```
 
-
-
-**Mcp Server With Working Directory**
-
+MCP server with working directory:
 ```json
     {
       "name": "mcp_tools",
@@ -86,10 +84,7 @@ transport methods.
     }
 ```
 
-
-
-**Mcp Server With Oauth2 Authentication**
-
+MCP server with OAuth2 authentication:
 ```json
     {
       "name": "secure_mcp",
@@ -114,8 +109,9 @@ transport methods.
 
 
 
-**During Migration (Utcp With Mcp)**
+**Migration Examples**
 
+During migration (UTCP with MCP):
 ```python
     # UTCP Client with MCP plugin
     client = await UtcpClient.create()
@@ -124,10 +120,7 @@ transport methods.
     })
 ```
 
-
-
-**After Migration (Pure Utcp)**
-
+After migration (Pure UTCP):
 ```python
     # UTCP Client with native protocol
     client = await UtcpClient.create()
@@ -160,20 +153,24 @@ transport methods.
 
 ### class McpCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[McpCallTemplate]) {#mcpcalltemplateserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for McpCallTemplate.
+</details>
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: McpCallTemplate) -> dict</summary>
 
-*No method documentation available*
+Convert McpCallTemplate to dictionary.
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> McpCallTemplate</summary>
 
-*No method documentation available*
+Validate and convert dictionary to McpCallTemplate.
 </details>
 
 ---

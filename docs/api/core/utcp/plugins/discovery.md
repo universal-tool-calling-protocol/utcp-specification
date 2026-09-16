@@ -99,6 +99,39 @@ True if the implementation was registered, False otherwise.
 
 ---
 
+### Function register_communication_protocol_factory(communication_protocol_type: str, factory: Callable[[], [CommunicationProtocol](./../interfaces/communication_protocol.md#communicationprotocol)], override: bool) -> bool {#register_communication_protocol_factory}
+
+<details>
+<summary>Documentation</summary>
+
+Register a communication protocol as a factory, so that every `UtcpClient`
+gets its own instance of it.
+
+Use this instead of `register_communication_protocol` for a protocol whose
+state must not be shared between clients: live sessions or connections
+keyed per manual, child processes — anything one client's use or `close()`
+would take away from another. (A credential cache is meant to be shared
+and stays an instance.) Each `UtcpClient` calls the factory once — at
+creation, or on first use if the factory is registered later — and that
+client's `close()` tears the instance down. A type registered as a factory
+wins over the same type registered as an instance.
+
+
+**Args**
+
+- **`communication_protocol_type`**: The communication protocol type identifier.
+- **`factory`**: A callable returning a new communication protocol instance.
+- **`override`**: Whether to override an existing factory for this type.
+
+
+
+**Returns**
+
+True if the factory was registered, False otherwise.
+</details>
+
+---
+
 ### Function register_tool_repository(tool_repository_type: str, tool_repository: [Serializer](./../interfaces/serializer.md#serializer)[[ConcurrentToolRepository](./../interfaces/concurrent_tool_repository.md#concurrenttoolrepository)], override: bool) -> bool {#register_tool_repository}
 
 <details>

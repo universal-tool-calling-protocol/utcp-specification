@@ -33,8 +33,9 @@ a UTCP tool with appropriate input/output schemas.
 
 
 
-**Basic Openapi Conversion**
+**Usage Examples**
 
+Basic OpenAPI conversion:
 ```python
     from utcp_http.openapi_converter import OpenApiConverter
 
@@ -49,22 +50,16 @@ a UTCP tool with appropriate input/output schemas.
     # await client.register_manual(manual)
 ```
 
-
-
-**Converting Local Openapi File**
-
+Converting local OpenAPI file:
 ```python
     import yaml
 
     converter = OpenApiConverter()
+    with open("api_spec.yaml", "r") as f:
+        spec_content = yaml.safe_load(f)
 
-
-**With Open("Api_Spec.Yaml", "R") As F**
-
-spec_content = yaml.safe_load(f)
-
-converter = OpenApiConverter(spec_content)
-manual = converter.convert()
+    converter = OpenApiConverter(spec_content)
+    manual = converter.convert()
 ```
 
 

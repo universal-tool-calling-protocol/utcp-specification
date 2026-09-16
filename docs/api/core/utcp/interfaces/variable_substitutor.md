@@ -9,7 +9,16 @@ sidebar_label: variable_substitutor
 
 ### class VariableSubstitutor {#variablesubstitutor}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+Abstract interface for variable substitution implementations.
+
+Defines the contract for variable substitution systems that can replace
+placeholders in configuration data with actual values from various sources.
+Implementations handle different variable resolution strategies and
+source hierarchies.
+</details>
 
 #### Methods:
 
@@ -36,7 +45,7 @@ Object with all variable references replaced by their values.
 
 **Raises**
 
-- **`[UtcpVariableNotFound](./../exceptions/utcp_variable_not_found_exception.md#utcpvariablenotfound)`**: If a referenced variable cannot be resolved.
+- **`UtcpVariableNotFound`**: If a referenced variable cannot be resolved.
 </details>
 
 <details>

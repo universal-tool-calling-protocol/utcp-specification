@@ -19,9 +19,7 @@ the UTCP client. Different implementations can provide various search
 algorithms such as tag-based matching, semantic similarity, or keyword
 search.
 
-
-**Search Strategies Are Responsible For**
-
+Search strategies are responsible for:
 - Interpreting search queries
 - Ranking tools by relevance
 - Limiting results appropriately
@@ -78,9 +76,7 @@ specified count. Empty list if no matches found.
 [Serializer](./serializer.md#serializer) for tool search strategies.
 
 Defines the contract for serializers that convert tool search strategies to and from
-
-**Dictionaries For Storage Or Transmission. Serializers Are Responsible For**
-
+dictionaries for storage or transmission. Serializers are responsible for:
 - Converting tool search strategies to dictionaries for storage or transmission
 - Converting dictionaries back to tool search strategies
 - Ensuring data consistency during serialization and deserialization

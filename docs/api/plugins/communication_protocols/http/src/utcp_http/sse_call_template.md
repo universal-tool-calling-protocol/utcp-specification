@@ -49,20 +49,24 @@ or query pattern parameters are passed as query parameters using '?arg_name=\{ar
 
 ### class SSECallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[SseCallTemplate]) {#ssecalltemplateserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for SSECallTemplate.
+</details>
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: SseCallTemplate) -> dict</summary>
 
-*No method documentation available*
+Converts a SSECallTemplate to a dictionary.
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> SseCallTemplate</summary>
 
-*No method documentation available*
+Validates a dictionary and returns a SSECallTemplate.
 </details>
 
 ---

@@ -9,14 +9,38 @@ sidebar_label: utcp_client_implementation
 
 ### class UtcpClientImplementation ([UtcpClient](./../utcp_client.md#utcpclient)) {#utcpclientimplementation}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+Implementation of the `UtcpClient` interface.
+
+This class provides a concrete implementation of the `UtcpClient` interface.
+</details>
 
 #### Methods:
 
 <details>
+<summary>async close(self) -> None</summary>
+
+Close the protocol instances this client created and release their resources.
+
+Only what this client created. A shared instance is in use by every
+other client in the process — closing it here would clear their state
+too (a credential cache, a decorator's registry), which is the
+cross-client damage per-client instances exist to prevent. Shared
+instances live as long as the process that registered them.
+
+
+**Raises**
+
+- **`UtcpProtocolCloseError`**: If one or more owned instances failed to close.
+  Every instance is still asked to close first.
+</details>
+
+<details>
 <summary>async create(cls, root_dir: Optional[str], config: Optional[Union[str, Dict[str, Any], [UtcpClientConfig](./../data/utcp_client_config.md#utcpclientconfig)]]) -> '[UtcpClient](./../utcp_client.md#utcpclient)'</summary>
 
-Create a new `[UtcpClient](./../utcp_client.md#utcpclient)` instance.
+Create a new `UtcpClient` instance.
 
 
 **Args**
@@ -28,7 +52,7 @@ Create a new `[UtcpClient](./../utcp_client.md#utcpclient)` instance.
 
 **Returns**
 
-A new `[UtcpClient](./../utcp_client.md#utcpclient)` instance.
+A new `UtcpClient` instance.
 </details>
 
 <details>
@@ -37,9 +61,7 @@ A new `[UtcpClient](./../utcp_client.md#utcpclient)` instance.
 Register a manual in the client.
 
 Registers a manual and its tools with the client. During registration, tools are
-
-**Filtered Based On The Manual'S `Allowed_Communication_Protocols` Setting**
-
+filtered based on the manual's `allowed_communication_protocols` setting:
 
 - If `allowed_communication_protocols` is set to a non-empty list, only tools using
 protocols in that list are registered.
@@ -50,16 +72,15 @@ Tools that don't match the allowed protocols are excluded from registration and 
 warning is logged for each excluded tool.
 
 
-
 **Args**
 
-- **`manual_call_template`**: The `[CallTemplate](./../data/call_template.md#calltemplate)` instance representing the manual to register.
+- **`manual_call_template`**: The `CallTemplate` instance representing the manual to register.
 
 
 
 **Returns**
 
-A `[RegisterManualResult](./../data/register_manual_response.md#registermanualresult)` instance containing the registered tools (filtered by
+A `RegisterManualResult` instance containing the registered tools (filtered by
 allowed protocols) and any errors encountered.
 
 
@@ -77,13 +98,13 @@ Register multiple manuals in the client.
 
 **Args**
 
-- **`manual_call_templates`**: A list of `[CallTemplate](./../data/call_template.md#calltemplate)` instances representing the manuals to register.
+- **`manual_call_templates`**: A list of `CallTemplate` instances representing the manuals to register.
 
 
 
 **Returns**
 
-A list of `[RegisterManualResult](./../data/register_manual_response.md#registermanualresult)` instances representing the results of the registration.
+A list of `RegisterManualResult` instances representing the results of the registration.
 </details>
 
 <details>
@@ -110,15 +131,12 @@ Call a tool in the client.
 
 Executes a registered tool with the provided arguments. Before execution, validates
 that the tool's communication protocol is allowed by the parent manual's
-
-**`Allowed_Communication_Protocols` Setting**
-
+`allowed_communication_protocols` setting:
 
 - If `allowed_communication_protocols` is set to a non-empty list, the tool's protocol
 must be in that list.
 - If `allowed_communication_protocols` is None or empty, only tools using the manual's
 own `call_template_type` are allowed.
-
 
 
 **Args**
@@ -147,15 +165,12 @@ Call a tool in the client with streaming response.
 
 Executes a registered tool with streaming output. Before execution, validates
 that the tool's communication protocol is allowed by the parent manual's
-
-**`Allowed_Communication_Protocols` Setting**
-
+`allowed_communication_protocols` setting:
 
 - If `allowed_communication_protocols` is set to a non-empty list, the tool's protocol
 must be in that list.
 - If `allowed_communication_protocols` is None or empty, only tools using the manual's
 own `call_template_type` are allowed.
-
 
 
 **Args**
@@ -204,7 +219,7 @@ Get the required variables for a manual and its tools.
 
 **Args**
 
-- **`manual_call_template`**: The `[CallTemplate](./../data/call_template.md#calltemplate)` instance representing the manual.
+- **`manual_call_template`**: The `CallTemplate` instance representing the manual.
 
 
 

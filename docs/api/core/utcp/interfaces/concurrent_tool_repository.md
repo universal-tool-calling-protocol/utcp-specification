@@ -15,9 +15,7 @@ sidebar_label: concurrent_tool_repository
 Abstract interface for tool and provider storage implementations.
 
 Defines the contract for repositories that manage the lifecycle and storage
-
-**Of Utcp Tools And Call Templates. Repositories Are Responsible For**
-
+of UTCP tools and call templates. Repositories are responsible for:
 - Persisting provider configurations and their associated tools
 - Providing efficient lookup and retrieval operations
 - Managing relationships between call templates and tools
@@ -27,7 +25,6 @@ Defines the contract for repositories that manage the lifecycle and storage
 The repository interface supports both individual and bulk operations,
 allowing for flexible implementation strategies ranging from simple
 in-memory storage to sophisticated database backends.
-
 
 
 **Note**

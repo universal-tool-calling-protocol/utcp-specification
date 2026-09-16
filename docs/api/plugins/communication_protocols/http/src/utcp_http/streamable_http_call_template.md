@@ -51,20 +51,24 @@ or query pattern parameters are passed as query parameters using '?arg_name=\{ar
 
 ### class StreamableHttpCallTemplateSerializer ([Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer)[StreamableHttpCallTemplate]) {#streamablehttpcalltemplateserializer}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+[Serializer](./../../../../../core/utcp/interfaces/serializer.md#serializer) for StreamableHttpCallTemplate.
+</details>
 
 #### Methods:
 
 <details>
 <summary>to_dict(self, obj: StreamableHttpCallTemplate) -> dict</summary>
 
-*No method documentation available*
+Converts a StreamableHttpCallTemplate to a dictionary.
 </details>
 
 <details>
 <summary>validate_dict(self, obj: dict) -> StreamableHttpCallTemplate</summary>
 
-*No method documentation available*
+Validates a dictionary and returns a StreamableHttpCallTemplate.
 </details>
 
 ---

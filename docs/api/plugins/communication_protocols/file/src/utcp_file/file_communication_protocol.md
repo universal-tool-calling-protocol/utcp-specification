@@ -9,32 +9,36 @@ sidebar_label: file_communication_protocol
 
 ### class FileCommunicationProtocol ([CommunicationProtocol](./../../../../../core/utcp/interfaces/communication_protocol.md#communicationprotocol)) {#filecommunicationprotocol}
 
-*No class documentation available*
+<details>
+<summary>Documentation</summary>
+
+Communication protocol for file-based UTCP manuals and tools.
+</details>
 
 #### Methods:
 
 <details>
 <summary>async register_manual(self, caller: '[UtcpClient](./../../../../../core/utcp/utcp_client.md#utcpclient)', manual_call_template: [CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) -> [RegisterManualResult](./../../../../../core/utcp/data/register_manual_response.md#registermanualresult)</summary>
 
-*No method documentation available*
+Register a file manual and return its tools as a [UtcpManual](./../../../../../core/utcp/data/utcp_manual.md#utcpmanual).
 </details>
 
 <details>
 <summary>async deregister_manual(self, caller: '[UtcpClient](./../../../../../core/utcp/utcp_client.md#utcpclient)', manual_call_template: [CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) -> None</summary>
 
-*No method documentation available*
+Deregister a file manual (no-op).
 </details>
 
 <details>
 <summary>async call_tool(self, caller: '[UtcpClient](./../../../../../core/utcp/utcp_client.md#utcpclient)', tool_name: str, tool_args: Dict[str, Any], tool_call_template: [CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) -> Any</summary>
 
-*No method documentation available*
+Call a tool: for file templates, return file content from the configured path.
 </details>
 
 <details>
 <summary>async call_tool_streaming(self, caller: '[UtcpClient](./../../../../../core/utcp/utcp_client.md#utcpclient)', tool_name: str, tool_args: Dict[str, Any], tool_call_template: [CallTemplate](./../../../../../core/utcp/data/call_template.md#calltemplate)) -> AsyncGenerator[Any, None]</summary>
 
-*No method documentation available*
+Streaming variant: yields the full content as a single chunk.
 </details>
 
 ---
