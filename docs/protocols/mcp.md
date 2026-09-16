@@ -231,7 +231,7 @@ The implementation intelligently processes MCP responses:
 
 ### Security Features
 - **OAuth2 client-credentials flow**: The manual-level `auth` is applied to HTTP-based servers as the connection's bearer credential, unless the server entry already carries its own (`auth_token` or an `Authorization` header). The token endpoint must be HTTPS or a literal loopback address, redirects from it are refused, and the returned `access_token` must be a non-empty string of visible ASCII. Tokens are cached per full credential configuration (token URL, client id, secret, scope), never shared between manuals that merely share a client id, and concurrent first-time requests share a single token fetch
-- **Session management**: Persistent sessions with automatic error recovery
+- **Session management**: Persistent sessions with automatic error recovery. Since v1.2 the MCP protocol is registered as a per-client factory: every UTCP client gets its own instance, so its sessions and stdio child processes belong to it alone — two clients (per tenant, per user, per pooled connection) never share a session, and one client's `close()` never drains another's
 - **Environment variables**: Use `${VAR_NAME}` syntax for sensitive credentials
 - **Transport security**: stdio inherits process security. A server `url` is validated before any connection is made, whether it is HTTP or WebSocket (a `ws://`/`wss://` URL is served by the underlying MCP client's WebSocket connector): HTTPS/WSS anywhere, plain HTTP/WS only to a literal loopback address. Sessions are isolated per server configuration and credentials, so two manuals that name a server the same but point at different configurations never share a session
 
@@ -365,7 +365,7 @@ Full support for core MCP features:
 
 The MCP protocol implementation provides:
 
-- **Session persistence**: Reuses MCP sessions for better performance
+- **Session persistence**: Reuses MCP sessions for better performance — within one client; each client owns its own sessions (v1.2)
 - **Automatic recovery**: Handles session failures with automatic retry
 - **Multi-server support**: Single provider manages multiple MCP servers
 - **Resource integration**: Optional resource-to-tool mapping
@@ -375,10 +375,10 @@ The MCP protocol implementation provides:
 ### Usage Example
 ```python
 import asyncio
-from utcp_client import UtcpClient
+from utcp.utcp_client import UtcpClient
 
 async def main():
-    client = UtcpClient()
+    client = await UtcpClient.create()
     
     # Register MCP provider with multiple servers
     await client.register_manual(mcp_manual)
@@ -389,6 +389,8 @@ async def main():
     # Access resources as tools (if enabled)
     resource_data = await client.call_tool("filesystem.resource_config", {})
     
+    # Closes this client's MCP sessions and stdio child processes; other
+    # clients in the process are unaffected
     await client.close()
 
 if __name__ == "__main__":
