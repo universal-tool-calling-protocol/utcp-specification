@@ -84,6 +84,7 @@ Configure a UTCP client to discover and call tools:
 1. Initialize UTCP client with configuration
 2. Discover tools from the weather service
 3. Call the `get_weather` tool with location parameter
+4. Close the client when you are done with it — `close()` releases the connections, sessions and child processes this client opened (see [Protocol Lifetime](#protocol-lifetime-shared-and-per-client-instances))
 
 ## Core Concepts
 
@@ -295,8 +296,8 @@ Execute tools with proper error handling:
 Extend UTCP with custom communication protocols:
 
 1. **Define Call Template**: Structure for your protocol
-2. **Implement Communication Handler**: Protocol-specific logic
-3. **Register Protocol**: Make it available to clients
+2. **Implement Communication Handler**: Protocol-specific logic, including `close()` if the handler holds anything that must be released
+3. **Register Protocol**: Make it available to clients — as a shared instance or as a per-client factory (below)
 
 Example custom protocol structure:
 ```json
@@ -306,6 +307,32 @@ Example custom protocol structure:
   "timeout": 30
 }
 ```
+
+### Protocol Lifetime: Shared and Per-Client Instances
+
+A communication protocol is registered in one of two ways, and the choice decides who its state belongs to.
+
+**A shared instance** is used by every UTCP client in the process, and so is any state it keeps. That is right for state that is *meant* to be shared — a credential cache, a registry a decorator writes into — and wrong for state that belongs to one client. A shared instance lives as long as the process; no client closes it.
+
+**A factory** is called once per client, so each client gets its own instance, its own connections, and its own teardown on `close()`. Register a factory for a protocol whose state must not be shared between clients: live sessions or connections keyed per manual, child processes — anything one client's use or `close()` would take away from another. This is what makes "a client per tenant / per user / per pooled connection" actually isolate them. A type registered as a factory wins over the same type registered as an instance, so a plugin migrates by moving its registration and callers change nothing.
+
+```python
+# Python
+from utcp.plugins.discovery import register_communication_protocol, register_communication_protocol_factory
+
+register_communication_protocol("custom", CustomCommunicationProtocol())          # shared by every client
+register_communication_protocol_factory("custom", CustomCommunicationProtocol)   # one instance per client
+```
+
+```typescript
+// TypeScript
+CommunicationProtocol.communicationProtocols['custom'] = new CustomCommunicationProtocol();       // shared
+CommunicationProtocol.communicationProtocolFactories['custom'] = () => new CustomCommunicationProtocol(); // per client
+```
+
+Of the reference plugins, `mcp` and `websocket` register as factories — MCP sessions (and, for stdio, child processes) and per-manual WebSocket connections belong to the client that opened them. The HTTP-based plugins (`http`, `sse`, `streamable_http`, `graphql`), `cli`, `text` and `file` keep nothing per client and stay shared; the only state the HTTP-based ones hold is an OAuth token cache, which is meant to be reused.
+
+**`client.close()`** closes the instances the client created — every one of them, even if one fails, after which the failures are raised together (`UtcpProtocolCloseError` in Python, `AggregateError` in TypeScript). Shared instances are left running. If client creation fails after instances were created, they are closed the same way — and, in Python, the manuals that attempt registered are removed again — before the error is re-raised, so a failed `create()` leaves nothing behind.
 
 ### Custom Tool Repositories
 

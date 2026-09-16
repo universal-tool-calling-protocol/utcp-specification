@@ -1,7 +1,7 @@
 ---
 id: showcase
 title: Showcase
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 # Showcase: projects built on UTCP

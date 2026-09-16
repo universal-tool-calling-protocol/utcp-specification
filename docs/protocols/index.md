@@ -17,6 +17,7 @@ UTCP v1.0 features a modular, plugin-based architecture where different communic
 | **[Server-Sent Events](./sse.md)** | `utcp-http` | `SseCallTemplate` | Event streaming, live updates |
 | **[Text Files](./text.md)** | `utcp-text` | `TextCallTemplate` | File reading, static content |
 | **[MCP](./mcp.md)** | `utcp-mcp` | `McpCallTemplate` | Model Context Protocol interop |
+| **[WebSocket](../api/plugins/communication_protocols/websocket/src/utcp_websocket/websocket_call_template.md)** | `utcp-websocket` | `WebSocketCallTemplate` | Real-time bidirectional communication |
 
 ## Plugin Architecture
 
@@ -55,8 +56,8 @@ For other languages, check the [UTCP GitHub organization](https://github.com/uni
 You can extend UTCP with custom communication protocols by implementing the protocol interface in your chosen language. Each implementation must:
 
 1. **Define Call Templates**: Specify the structure for protocol-specific calls
-2. **Implement Communication Handler**: Handle the actual protocol communication
-3. **Register the Protocol**: Make it available to the UTCP client
+2. **Implement Communication Handler**: Handle the actual protocol communication, including `close()` if the handler holds anything that must be released
+3. **Register the Protocol**: Make it available to the UTCP client — as a shared instance, or as a per-client factory when the handler keeps sessions, connections or child processes that must not be shared between clients (see [Protocol Lifetime](../implementation.md#protocol-lifetime-shared-and-per-client-instances))
 
 Example call template structure:
 ```json

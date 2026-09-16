@@ -235,6 +235,7 @@ You're building AI agents or applications that need to call external tools:
 4. **[Join the community](https://discord.gg/ZpMbQ8jRbD)** - Get help and share experiences
 
 ### Migration from Other Systems
+- **[From UTCP v1.1](./migration-v1.1-to-v1.2.md)** - Upgrade to v1.2
 - **[From UTCP v1.0](./migration-v1.0-to-v1.1.md)** - Upgrade to v1.1
 - **[From UTCP v0.1](./migration-v0.1-to-v1.0.md)** - Upgrade from legacy v0.1
 - **[From MCP](./protocols/mcp.md)** - Migrate from Model Context Protocol
