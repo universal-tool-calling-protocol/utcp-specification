@@ -178,6 +178,54 @@ Variables in call templates are replaced with actual values using two different 
 
 For example, `https://api.example.com/users/{user_id}` uses the `user_id` tool argument, while `${API_KEY}` references a configuration or environment variable.
 
+### Forward Compatibility
+
+A manual outlives the client that reads it. Providers add tools on new protocols, and
+later specification versions add keys. A client MUST keep a manual usable when it meets
+either.
+
+#### Unknown `call_template_type`
+
+When a tool's `tool_call_template.call_template_type` names a protocol the client has no
+handler for, the client MUST:
+
+1. **Skip that tool** — do not register it and do not offer it to the agent.
+2. **Warn**, naming the tool and the unrecognised type.
+3. **Register every other tool** in the manual normally.
+
+Rejecting the whole manual is not conformant. Under that behaviour, a provider that adds
+one tool on a new protocol withdraws every tool it already published from every client
+that has not installed the plugin yet — so the ecosystem cannot adopt a new protocol
+without a flag day.
+
+#### Unknown keys
+
+Manuals, tools and call templates are **open objects**. A client that reads a key it does
+not know MUST ignore that key for its own behaviour and MUST NOT reject the object that
+carries it. A client that writes a manual back out SHOULD preserve the unknown keys it
+read, so a manual survives a load/store round trip through a client that is older than the
+manual.
+
+#### Extension keys
+
+Keys beginning with `x-` are reserved for implementations. An `x-` key carries data for one
+implementation and never changes the meaning of the standard keys beside it, so a tool that
+carries one stays callable by clients that ignore it:
+
+```json
+{
+  "call_template_type": "http",
+  "url": "https://api.example.com/lists/{list_id}/commit",
+  "http_method": "POST",
+  "x-acme-retry": {"attempts": 3}
+}
+```
+
+Put an extension in an `x-` key, never in a new `call_template_type`: a custom
+`call_template_type` costs the tool its standard callers, an `x-` key costs nothing. Names
+without an `x-` prefix are reserved for this specification; to have a field standardised,
+open an [RFC](/about/RFC).
+
 ## Tool Provider Implementation
 
 ### Manual Structure
@@ -306,6 +354,11 @@ Example custom protocol structure:
   "timeout": 30
 }
 ```
+
+A manual containing such a tool stays loadable by clients without the plugin: they skip the
+one tool and register the rest, per [Forward Compatibility](#forward-compatibility). Use a
+custom `call_template_type` for a genuinely new transport; to add data to an existing
+transport, use an `x-` key instead.
 
 ### Custom Tool Repositories
 
