@@ -17,6 +17,7 @@ UTCP v1.0 features a modular, plugin-based architecture where different communic
 | **[Server-Sent Events](./sse.md)** | `utcp-http` | `SseCallTemplate` | Event streaming, live updates |
 | **[Text Files](./text.md)** | `utcp-text` | `TextCallTemplate` | File reading, static content |
 | **[MCP](./mcp.md)** | `utcp-mcp` | `McpCallTemplate` | Model Context Protocol interop |
+| **[GraphQL](./graphql.md)** | `utcp-gql` | `GraphQLCallTemplate` | GraphQL APIs |
 
 ## Plugin Architecture
 
@@ -42,10 +43,10 @@ Protocol plugins are available for different programming languages:
 
 ```bash
 # Example installation (Python)
-pip install utcp-http utcp-cli utcp-text utcp-mcp
+pip install utcp-http utcp-cli utcp-text utcp-mcp utcp-gql
 
 # Example installation (Node.js)
-npm install @utcp/http @utcp/cli @utcp/text @utcp/mcp
+npm install @utcp/http @utcp/cli @utcp/text @utcp/mcp @utcp/graphql
 ```
 
 For other languages, check the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)
@@ -79,6 +80,7 @@ Choose the right protocol plugin based on your needs:
 - **SSE**: Server-sent events for streaming data
 - **Text**: Reading configuration files or static content
 - **MCP**: Interoperability with Model Context Protocol tools
+- **GraphQL**: Queries and mutations on GraphQL APIs
 
 ## Language-Specific Documentation
 
