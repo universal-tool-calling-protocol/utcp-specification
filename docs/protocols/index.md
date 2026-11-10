@@ -43,10 +43,10 @@ Protocol plugins are available for different programming languages:
 
 ```bash
 # Example installation (Python)
-pip install utcp-http utcp-cli utcp-text utcp-mcp
+pip install utcp-http utcp-cli utcp-text utcp-mcp utcp-gql
 
 # Example installation (Node.js)
-npm install @utcp/http @utcp/cli @utcp/text @utcp/mcp
+npm install @utcp/http @utcp/cli @utcp/text @utcp/mcp @utcp/graphql
 ```
 
 For other languages, check the [UTCP GitHub organization](https://github.com/universal-tool-calling-protocol)

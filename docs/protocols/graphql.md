@@ -18,6 +18,15 @@ pip install utcp-gql
 npm install @utcp/graphql
 ```
 
+In Python, register the plugin before creating the client:
+
+```python
+import utcp_gql
+utcp_gql.register()
+```
+
+In Node.js, importing `@utcp/graphql` registers it.
+
 ## Call Template Structure
 
 ```json
@@ -55,7 +64,7 @@ npm install @utcp/graphql
 
 ## Discovery
 
-Registering a manual sends an introspection query to `url`. Each field on the query, mutation and subscription root types becomes a tool, named `<manual_name>.<field_name>`.
+Registering a manual sends an introspection query to `url`. Each field on the query, mutation and subscription root types becomes a tool, named `<manual_name>.<field_name>`. Subscriptions are sent as a single HTTP request and return one result; they are not streamed.
 
 ## Calling Tools
 
@@ -69,6 +78,7 @@ Generated operations have no selection set, so they only work for fields that re
 
 ```json
 {
+  "name": "my_graph",
   "call_template_type": "graphql",
   "url": "https://api.example.com/graphql",
   "query": "query GetUser($id: ID!) { user(id: $id) { id name email } }"
@@ -77,7 +87,15 @@ Generated operations have no selection set, so they only work for fields that re
 
 Tool arguments are passed as GraphQL variables.
 
-Note: `$name` in a call template is also UTCP variable syntax, so the client tries to substitute GraphQL variables in `query` when the manual is registered.
+UTCP substitutes both `${VAR}` and `$VAR` in call templates, including `query`, so `$id` above is resolved as a UTCP variable when the manual is registered. To keep it literal, define a variable that resolves to itself. Variables are namespaced by manual name, so for `my_graph`:
+
+```json
+{
+  "variables": {
+    "my__graph_id": "$id"
+  }
+}
+```
 
 ## Authentication
 
