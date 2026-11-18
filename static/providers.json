@@ -30,6 +30,19 @@
     }
   },
   {
+    "name": "notion",
+    "provider_type": "text",
+    "file_path": "./notion_manual.json",
+    "metadata": {
+      "description": "Search, read and edit Notion pages, blocks, databases (data sources), comments and users. Curated 20-tool manual including Markdown read/write.",
+      "category": "Productivity",
+      "last_updated": "2026-11-19",
+      "maintainer": "Community",
+      "documentation_url": "https://developers.notion.com/reference/intro",
+      "version": "2026-03-11"
+    }
+  },
+  {
     "name": "openai",
     "provider_type": "http",
     "http_method": "GET",
