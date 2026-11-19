@@ -3836,5 +3836,21 @@
       "version": "1.0.0",
       "openapi_version": "3.1.0"
     }
+  },
+  {
+    "name": "datacircle",
+    "provider_type": "http",
+    "http_method": "GET",
+    "url": "https://api.datacircle.dev/v1/openapi.json",
+    "content_type": "application/json",
+    "metadata": {
+      "description": "Find the best GTM APIs. We benchmark all the GTM APIs and we put the results on our website",
+      "category": "Data",
+      "last_updated": "2026-11-20",
+      "maintainer": "Datacircle (https://datacircle.dev)",
+      "documentation_url": "https://datacircle.dev/docs",
+      "version": "1.0.0",
+      "openapi_version": "3.0.0"
+    }
   }
 ]
