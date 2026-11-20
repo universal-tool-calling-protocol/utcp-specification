@@ -1,0 +1,1546 @@
+{
+  "utcp_version": "1.0.0",
+  "manual_version": "1.0.0",
+  "tools": [
+    {
+      "name": "search",
+      "description": "Search pages and data sources (databases) the integration can access, by title. Start here to find IDs. Only finds content explicitly shared with the integration. Paginated: if the response has `has_more: true`, call again with `start_cursor` set to the returned `next_cursor`.",
+      "tags": [
+        "notion",
+        "search"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "object",
+            "description": "Search request. All fields optional; an empty body lists everything shared with the integration.",
+            "properties": {
+              "query": {
+                "type": "string",
+                "description": "Text matched against page and data source titles."
+              },
+              "filter": {
+                "type": "object",
+                "description": "Restrict to one object type: {\"property\": \"object\", \"value\": \"page\"} or \"data_source\".",
+                "properties": {
+                  "property": {
+                    "type": "string",
+                    "enum": [
+                      "object"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "enum": [
+                      "page",
+                      "data_source"
+                    ]
+                  }
+                }
+              },
+              "sort": {
+                "type": "object",
+                "description": "{\"timestamp\": \"last_edited_time\", \"direction\": \"ascending\"|\"descending\"}. Default: most recently edited first.",
+                "properties": {
+                  "timestamp": {
+                    "type": "string",
+                    "enum": [
+                      "last_edited_time"
+                    ]
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "ascending",
+                      "descending"
+                    ]
+                  }
+                }
+              },
+              "start_cursor": {
+                "type": "string",
+                "description": "`next_cursor` from a previous response, to fetch the next page of results."
+              },
+              "page_size": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "description": "Results per page (max 100, default 100)."
+              }
+            }
+          }
+        },
+        "required": []
+      },
+      "outputs": {
+        "type": "object",
+        "description": "List response.",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "next_cursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "POST",
+        "url": "https://api.notion.com/v1/search",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": "body",
+        "header_fields": null
+      },
+      "average_response_size": 20000
+    },
+    {
+      "name": "get_page",
+      "description": "Retrieve a page's metadata and property values (title, status, dates, URL, parent). Does NOT return the page body; use get_page_markdown for content.",
+      "tags": [
+        "notion",
+        "pages"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works."
+          }
+        },
+        "required": [
+          "page_id"
+        ]
+      },
+      "outputs": {
+        "type": "object",
+        "description": "Notion page object (id, url, parent, properties, in_trash, ...)."
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "GET",
+        "url": "https://api.notion.com/v1/pages/{page_id}",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 3000
+    },
+    {
+      "name": "get_page_markdown",
+      "description": "Read a page's full content as enhanced Markdown. Preferred over get_block_children for reading: one call, compact output. Check the response: if `truncated` is true or `unknown_block_ids` is non-empty, part of the page is missing; read those blocks with get_block_children.",
+      "tags": [
+        "notion",
+        "pages",
+        "markdown"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works."
+          },
+          "include_transcript": {
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "description": "\"true\" to include meeting-note transcripts (default \"false\": a link placeholder is shown)."
+          }
+        },
+        "required": [
+          "page_id"
+        ]
+      },
+      "outputs": {
+        "type": "object",
+        "description": "Page content as Markdown.",
+        "properties": {
+          "markdown": {
+            "type": "string"
+          },
+          "truncated": {
+            "type": "boolean",
+            "description": "true if the content was cut off."
+          },
+          "unknown_block_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Blocks that could not be rendered; fetch them with get_block_children."
+          }
+        }
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "GET",
+        "url": "https://api.notion.com/v1/pages/{page_id}/markdown",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 8000
+    },
+    {
+      "name": "create_page",
+      "description": "Create a page under a page, or a new row in a database (data source parent). Give the body as Markdown in `markdown` (recommended, with markdown_version \"v2\") or as block objects in `children`, not both.",
+      "tags": [
+        "notion",
+        "pages",
+        "write"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "object",
+            "description": "Create-page request.",
+            "properties": {
+              "parent": {
+                "type": "object",
+                "description": "Where to create the page. One of: {\"type\": \"page_id\", \"page_id\": \"...\"} or {\"type\": \"data_source_id\", \"data_source_id\": \"...\"} (a row in a database; get the data source ID from get_database). {\"type\": \"database_id\", \"database_id\": \"...\"} is still accepted for databases with a single data source, but data_source_id is preferred. Internal integrations must give a parent.",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "page_id",
+                      "data_source_id",
+                      "database_id"
+                    ]
+                  },
+                  "page_id": {
+                    "type": "string"
+                  },
+                  "data_source_id": {
+                    "type": "string"
+                  },
+                  "database_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "oneOf": [
+                  {
+                    "properties": {
+                      "type": {
+                        "const": "page_id"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "page_id"
+                    ]
+                  },
+                  {
+                    "properties": {
+                      "type": {
+                        "const": "data_source_id"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "data_source_id"
+                    ]
+                  },
+                  {
+                    "properties": {
+                      "type": {
+                        "const": "database_id"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "database_id"
+                    ]
+                  }
+                ]
+              },
+              "properties": {
+                "type": "object",
+                "description": "Map of property name (or ID) to property value. Under a page parent only `title` is allowed, e.g. {\"title\": {\"title\": [{\"text\": {\"content\": \"My page\"}}]}}. Under a data source parent, keys must match the data source schema (see get_data_source). Formula, rollup and created/edited fields are read-only."
+              },
+              "markdown": {
+                "type": "string",
+                "description": "Page content as Markdown. Mutually exclusive with `children`."
+              },
+              "markdown_version": {
+                "type": "string",
+                "enum": [
+                  "v2"
+                ],
+                "description": "Use \"v2\" whenever `markdown` is set."
+              },
+              "children": {
+                "type": "array",
+                "maxItems": 100,
+                "items": {
+                  "type": "object"
+                },
+                "description": "Page content as block objects (max 100). Mutually exclusive with `markdown`."
+              },
+              "icon": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "description": "Page icon, e.g. {\"type\": \"emoji\", \"emoji\": \"📝\"}. null removes it."
+              },
+              "cover": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "description": "Cover image, e.g. {\"type\": \"external\", \"external\": {\"url\": \"https://...\"}}. null removes it."
+              },
+              "template": {
+                "type": "object",
+                "description": "Data source template: {\"type\": \"default\"} or {\"type\": \"template_id\", \"template_id\": \"...\"}. Cannot be combined with children."
+              }
+            },
+            "required": [
+              "parent"
+            ],
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "markdown",
+                    "children"
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "required": [
+                    "template",
+                    "children"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "body"
+        ]
+      },
+      "outputs": {
+        "type": "object",
+        "description": "Notion page object (id, url, parent, properties, in_trash, ...)."
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": "body",
+        "header_fields": null
+      },
+      "average_response_size": 3000
+    },
+    {
+      "name": "update_page",
+      "description": "Update a page's properties, icon or cover, or move it to / restore it from the trash (`in_trash`). To change the page body use update_page_markdown or the block tools.",
+      "tags": [
+        "notion",
+        "pages",
+        "write"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works."
+          },
+          "body": {
+            "type": "object",
+            "description": "Fields to change; give at least one. Omitted fields are left as they are.",
+            "properties": {
+              "properties": {
+                "type": "object",
+                "description": "Map of property name (or ID) to property value. Under a page parent only `title` is allowed, e.g. {\"title\": {\"title\": [{\"text\": {\"content\": \"My page\"}}]}}. Under a data source parent, keys must match the data source schema (see get_data_source). Formula, rollup and created/edited fields are read-only."
+              },
+              "icon": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "description": "Page icon, e.g. {\"type\": \"emoji\", \"emoji\": \"📝\"}. null removes it."
+              },
+              "cover": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "description": "Cover image, e.g. {\"type\": \"external\", \"external\": {\"url\": \"https://...\"}}. null removes it."
+              },
+              "in_trash": {
+                "type": "boolean",
+                "description": "true moves the page to the trash; false restores it."
+              }
+            },
+            "minProperties": 1
+          }
+        },
+        "required": [
+          "page_id",
+          "body"
+        ]
+      },
+      "outputs": {
+        "type": "object",
+        "description": "Notion page object (id, url, parent, properties, in_trash, ...)."
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "PATCH",
+        "url": "https://api.notion.com/v1/pages/{page_id}",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": "body",
+        "header_fields": null
+      },
+      "average_response_size": 3000
+    },
+    {
+      "name": "update_page_markdown",
+      "description": "Edit a page's content using Markdown. Use type \"update_content\" for targeted find-and-replace edits (safest), or \"replace_content\" to overwrite the whole page.",
+      "tags": [
+        "notion",
+        "pages",
+        "markdown",
+        "write"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works."
+          },
+          "body": {
+            "type": "object",
+            "description": "Exactly one edit operation: set `type` and the object of the same name. Example: {\"type\": \"update_content\", \"update_content\": {\"content_updates\": [{\"old_str\": \"Draft\", \"new_str\": \"Final\"}]}}.",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "update_content",
+                  "replace_content"
+                ]
+              },
+              "update_content": {
+                "type": "object",
+                "properties": {
+                  "content_updates": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "old_str": {
+                          "type": "string",
+                          "description": "Exact existing Markdown to find."
+                        },
+                        "new_str": {
+                          "type": "string",
+                          "description": "Replacement Markdown."
+                        },
+                        "replace_all_matches": {
+                          "type": "boolean",
+                          "description": "Replace every match, not just the first."
+                        }
+                      },
+                      "required": [
+                        "old_str",
+                        "new_str"
+                      ]
+                    }
+                  },
+                  "allow_deleting_content": {
+                    "type": "boolean",
+                    "description": "Allow edits that remove child pages/databases."
+                  }
+                },
+                "required": [
+                  "content_updates"
+                ]
+              },
+              "replace_content": {
+                "type": "object",
+                "properties": {
+                  "new_str": {
+                    "type": "string",
+                    "description": "The complete new page content as Markdown."
+                  },
+                  "allow_deleting_content": {
+                    "type": "boolean",
+                    "description": "Allow removing child pages/databases not in new_str."
+                  }
+                },
+                "required": [
+                  "new_str"
+                ]
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "oneOf": [
+              {
+                "properties": {
+                  "type": {
+                    "const": "update_content"
+                  }
+                },
+                "required": [
+                  "type",
+                  "update_content"
+                ],
+                "not": {
+                  "required": [
+                    "replace_content"
+                  ]
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "const": "replace_content"
+                  }
+                },
+                "required": [
+                  "type",
+                  "replace_content"
+                ],
+                "not": {
+                  "required": [
+                    "update_content"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "page_id",
+          "body"
+        ]
+      },
+      "outputs": {
+        "type": "object"
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "PATCH",
+        "url": "https://api.notion.com/v1/pages/{page_id}/markdown",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": "body",
+        "header_fields": null
+      },
+      "average_response_size": 8000
+    },
+    {
+      "name": "move_page",
+      "description": "Move a page under another page or into a database (data source).",
+      "tags": [
+        "notion",
+        "pages",
+        "write"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works. Must be a regular page, not a database."
+          },
+          "body": {
+            "type": "object",
+            "description": "Move request.",
+            "properties": {
+              "parent": {
+                "type": "object",
+                "description": "{\"type\": \"page_id\", \"page_id\": \"...\"} or {\"type\": \"data_source_id\", \"data_source_id\": \"...\"}.",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "page_id",
+                      "data_source_id"
+                    ]
+                  },
+                  "page_id": {
+                    "type": "string"
+                  },
+                  "data_source_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "oneOf": [
+                  {
+                    "properties": {
+                      "type": {
+                        "const": "page_id"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "page_id"
+                    ]
+                  },
+                  {
+                    "properties": {
+                      "type": {
+                        "const": "data_source_id"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "data_source_id"
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "parent"
+            ]
+          }
+        },
+        "required": [
+          "page_id",
+          "body"
+        ]
+      },
+      "outputs": {
+        "type": "object",
+        "description": "Notion page object (id, url, parent, properties, in_trash, ...)."
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "POST",
+        "url": "https://api.notion.com/v1/pages/{page_id}/move",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": "body",
+        "header_fields": null
+      },
+      "average_response_size": 3000
+    },
+    {
+      "name": "get_page_property",
+      "description": "Retrieve one property value of a page. Use when get_page truncates a long property (relations, rollups, people or rich text with more than 25 items). Paginated: if the response has `has_more: true`, call again with `start_cursor` set to the returned `next_cursor`.",
+      "tags": [
+        "notion",
+        "pages"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works."
+          },
+          "property_id": {
+            "type": "string",
+            "description": "Property ID, from the `id` field of the property in get_page."
+          },
+          "start_cursor": {
+            "type": "string",
+            "description": "`next_cursor` from a previous response, to fetch the next page of results."
+          },
+          "page_size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Results per page (max 100, default 100)."
+          }
+        },
+        "required": [
+          "page_id",
+          "property_id"
+        ]
+      },
+      "outputs": {
+        "type": "object"
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "GET",
+        "url": "https://api.notion.com/v1/pages/{page_id}/properties/{property_id}",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 3000
+    },
+    {
+      "name": "get_block_children",
+      "description": "List the child blocks of a page or block, one level deep, as block JSON. For reading a whole page, get_page_markdown is usually simpler. Blocks with `has_children: true` need their own call. Paginated: if the response has `has_more: true`, call again with `start_cursor` set to the returned `next_cursor`.",
+      "tags": [
+        "notion",
+        "blocks"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works. A page ID also works."
+          },
+          "start_cursor": {
+            "type": "string",
+            "description": "`next_cursor` from a previous response, to fetch the next page of results."
+          },
+          "page_size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Results per page (max 100, default 100)."
+          }
+        },
+        "required": [
+          "block_id"
+        ]
+      },
+      "outputs": {
+        "type": "object",
+        "description": "List response.",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "next_cursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "GET",
+        "url": "https://api.notion.com/v1/blocks/{block_id}/children",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 15000
+    },
+    {
+      "name": "append_block_children",
+      "description": "Add blocks (paragraphs, headings, to-dos, lists, code...) to a page or block. Appends at the end unless `position` is given.",
+      "tags": [
+        "notion",
+        "blocks",
+        "write"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works. A page ID also works."
+          },
+          "body": {
+            "type": "object",
+            "description": "Blocks to add.",
+            "properties": {
+              "children": {
+                "type": "array",
+                "maxItems": 100,
+                "items": {
+                  "type": "object"
+                },
+                "description": "Block objects, e.g. [{\"type\": \"paragraph\", \"paragraph\": {\"rich_text\": [{\"text\": {\"content\": \"Hi\"}}]}}]."
+              },
+              "position": {
+                "type": "object",
+                "description": "{\"type\": \"end\"} (default), {\"type\": \"start\"}, or {\"type\": \"after_block\", \"after_block\": {\"id\": \"...\"}}.",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "end",
+                      "start",
+                      "after_block"
+                    ]
+                  },
+                  "after_block": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              }
+            },
+            "required": [
+              "children"
+            ]
+          }
+        },
+        "required": [
+          "block_id",
+          "body"
+        ]
+      },
+      "outputs": {
+        "type": "object",
+        "description": "List response.",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "next_cursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "PATCH",
+        "url": "https://api.notion.com/v1/blocks/{block_id}/children",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": "body",
+        "header_fields": null
+      },
+      "average_response_size": 5000
+    },
+    {
+      "name": "get_block",
+      "description": "Retrieve a single block.",
+      "tags": [
+        "notion",
+        "blocks"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works."
+          }
+        },
+        "required": [
+          "block_id"
+        ]
+      },
+      "outputs": {
+        "type": "object"
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "GET",
+        "url": "https://api.notion.com/v1/blocks/{block_id}",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 1500
+    },
+    {
+      "name": "update_block",
+      "description": "Update a block's content, or trash it. The body holds the block type key with the new values, e.g. {\"paragraph\": {\"rich_text\": [{\"text\": {\"content\": \"New text\"}}]}} or {\"to_do\": {\"checked\": true}}. The block type itself cannot be changed.",
+      "tags": [
+        "notion",
+        "blocks",
+        "write"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works."
+          },
+          "body": {
+            "type": "object",
+            "description": "Object keyed by the block's type, plus optional `in_trash`. Give at least one key.",
+            "properties": {
+              "in_trash": {
+                "type": "boolean",
+                "description": "true moves the block to the trash."
+              }
+            },
+            "minProperties": 1
+          }
+        },
+        "required": [
+          "block_id",
+          "body"
+        ]
+      },
+      "outputs": {
+        "type": "object"
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "PATCH",
+        "url": "https://api.notion.com/v1/blocks/{block_id}",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": "body",
+        "header_fields": null
+      },
+      "average_response_size": 1500
+    },
+    {
+      "name": "delete_block",
+      "description": "Move a block (or a page, by its ID) to the trash. It can be restored from Notion's trash.",
+      "tags": [
+        "notion",
+        "blocks",
+        "write"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works."
+          }
+        },
+        "required": [
+          "block_id"
+        ]
+      },
+      "outputs": {
+        "type": "object"
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "DELETE",
+        "url": "https://api.notion.com/v1/blocks/{block_id}",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 1500
+    },
+    {
+      "name": "get_database",
+      "description": "Retrieve a database. Its `data_sources` list gives the data source IDs needed by get_data_source, query_data_source and create_page.",
+      "tags": [
+        "notion",
+        "databases"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "database_id": {
+            "type": "string",
+            "description": "Notion ID (UUID, with or without dashes). The 32-character hex string at the end of a Notion URL works."
+          }
+        },
+        "required": [
+          "database_id"
+        ]
+      },
+      "outputs": {
+        "type": "object"
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "GET",
+        "url": "https://api.notion.com/v1/databases/{database_id}",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 3000
+    },
+    {
+      "name": "get_data_source",
+      "description": "Retrieve a data source's schema: property names, types and options. Check this before filtering, sorting or creating rows.",
+      "tags": [
+        "notion",
+        "databases"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "data_source_id": {
+            "type": "string",
+            "description": "Data source ID (from get_database or search)."
+          }
+        },
+        "required": [
+          "data_source_id"
+        ]
+      },
+      "outputs": {
+        "type": "object"
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "GET",
+        "url": "https://api.notion.com/v1/data_sources/{data_source_id}",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 5000
+    },
+    {
+      "name": "query_data_source",
+      "description": "Query the rows (pages) of a database's data source with optional filter and sorts. Paginated: if the response has `has_more: true`, call again with `start_cursor` set to the returned `next_cursor`.",
+      "tags": [
+        "notion",
+        "databases"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "data_source_id": {
+            "type": "string",
+            "description": "Data source ID (from get_database or search)."
+          },
+          "body": {
+            "type": "object",
+            "description": "Query request. All fields optional.",
+            "properties": {
+              "filter": {
+                "type": "object",
+                "description": "Notion filter, e.g. {\"property\": \"Status\", \"status\": {\"equals\": \"Done\"}}; combine with {\"and\": [...]} or {\"or\": [...]}."
+              },
+              "sorts": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                },
+                "description": "e.g. [{\"property\": \"Due\", \"direction\": \"ascending\"}] or [{\"timestamp\": \"last_edited_time\", \"direction\": \"descending\"}]."
+              },
+              "start_cursor": {
+                "type": "string",
+                "description": "`next_cursor` from a previous response, to fetch the next page of results."
+              },
+              "page_size": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "description": "Results per page (max 100, default 100)."
+              }
+            }
+          }
+        },
+        "required": [
+          "data_source_id"
+        ]
+      },
+      "outputs": {
+        "type": "object",
+        "description": "List response.",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "next_cursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "POST",
+        "url": "https://api.notion.com/v1/data_sources/{data_source_id}/query",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": "body",
+        "header_fields": null
+      },
+      "average_response_size": 25000
+    },
+    {
+      "name": "list_comments",
+      "description": "List unresolved comments on a page or block. Paginated: if the response has `has_more: true`, call again with `start_cursor` set to the returned `next_cursor`.",
+      "tags": [
+        "notion",
+        "comments"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "description": "Page or block ID whose comments to list."
+          },
+          "start_cursor": {
+            "type": "string",
+            "description": "`next_cursor` from a previous response, to fetch the next page of results."
+          },
+          "page_size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Results per page (max 100, default 100)."
+          }
+        },
+        "required": [
+          "block_id"
+        ]
+      },
+      "outputs": {
+        "type": "object",
+        "description": "List response.",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "next_cursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "GET",
+        "url": "https://api.notion.com/v1/comments",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 4000
+    },
+    {
+      "name": "create_comment",
+      "description": "Add a comment to a page or block, or reply in an existing discussion thread. Give exactly one of `parent` or `discussion_id`.",
+      "tags": [
+        "notion",
+        "comments",
+        "write"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "object",
+            "description": "Comment request.",
+            "properties": {
+              "parent": {
+                "type": "object",
+                "description": "{\"page_id\": \"...\"} or {\"block_id\": \"...\"} for a new top-level comment.",
+                "properties": {
+                  "page_id": {
+                    "type": "string"
+                  },
+                  "block_id": {
+                    "type": "string"
+                  }
+                },
+                "oneOf": [
+                  {
+                    "required": [
+                      "page_id"
+                    ],
+                    "not": {
+                      "required": [
+                        "block_id"
+                      ]
+                    }
+                  },
+                  {
+                    "required": [
+                      "block_id"
+                    ],
+                    "not": {
+                      "required": [
+                        "page_id"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "discussion_id": {
+                "type": "string",
+                "description": "Reply in this discussion thread (from list_comments)."
+              },
+              "rich_text": {
+                "type": "array",
+                "description": "Rich text array, e.g. [{\"text\": {\"content\": \"Hello\"}}].",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "rich_text"
+            ],
+            "oneOf": [
+              {
+                "required": [
+                  "parent"
+                ],
+                "not": {
+                  "required": [
+                    "discussion_id"
+                  ]
+                }
+              },
+              {
+                "required": [
+                  "discussion_id"
+                ],
+                "not": {
+                  "required": [
+                    "parent"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "body"
+        ]
+      },
+      "outputs": {
+        "type": "object"
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "POST",
+        "url": "https://api.notion.com/v1/comments",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": "body",
+        "header_fields": null
+      },
+      "average_response_size": 1500
+    },
+    {
+      "name": "list_users",
+      "description": "List the people and bots in the workspace (for mentions, people properties and assignments). Guests are not included. Needs an integration with the user-information capability; personal access tokens get 403. Paginated: if the response has `has_more: true`, call again with `start_cursor` set to the returned `next_cursor`.",
+      "tags": [
+        "notion",
+        "users"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "start_cursor": {
+            "type": "string",
+            "description": "`next_cursor` from a previous response, to fetch the next page of results."
+          },
+          "page_size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Results per page (max 100, default 100)."
+          }
+        },
+        "required": []
+      },
+      "outputs": {
+        "type": "object",
+        "description": "List response.",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "next_cursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "GET",
+        "url": "https://api.notion.com/v1/users",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 5000
+    },
+    {
+      "name": "get_self",
+      "description": "Return the bot user for this integration token, including the workspace name. Useful as a connection check.",
+      "tags": [
+        "notion",
+        "users"
+      ],
+      "inputs": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "outputs": {
+        "type": "object"
+      },
+      "tool_call_template": {
+        "name": "notion",
+        "call_template_type": "http",
+        "http_method": "GET",
+        "url": "https://api.notion.com/v1/users/me",
+        "content_type": "application/json",
+        "auth": {
+          "auth_type": "api_key",
+          "api_key": "Bearer ${NOTION_TOKEN}",
+          "var_name": "Authorization",
+          "location": "header"
+        },
+        "headers": {
+          "Notion-Version": "2026-03-11"
+        },
+        "body_field": null,
+        "header_fields": null
+      },
+      "average_response_size": 800
+    }
+  ]
+}
